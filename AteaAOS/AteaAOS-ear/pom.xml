@@ -7,7 +7,7 @@
     <version>1.0-SNAPSHOT</version>
   </parent>
 
-    <groupId>com.mycompany</groupId>
+    <groupId>com.Gruppe25</groupId>
     <artifactId>AteaAOS-ear</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>ear</packaging>
