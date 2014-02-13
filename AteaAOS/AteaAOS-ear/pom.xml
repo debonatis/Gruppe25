@@ -42,13 +42,13 @@
     </build>
     <dependencies>
         <dependency>
-            <groupId>com.mycompany</groupId>
+            <groupId>com.Gruppe25</groupId>
             <artifactId>AteaAOS-ejb</artifactId>
             <version>1.0-SNAPSHOT</version>
             <type>ejb</type>
         </dependency>
         <dependency>
-            <groupId>com.mycompany</groupId>
+            <groupId>com.Gruppe25</groupId>
             <artifactId>AteaAOS-web</artifactId>
             <version>1.0-SNAPSHOT</version>
             <type>war</type>
