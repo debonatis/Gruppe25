@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewLevel1Title}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewLevel1Label_mappeNavn}"/>
+                    <h:outputText value="#{level1Controller.selected.mappeNavn}" title="#{bundle.ViewLevel1Title_mappeNavn}"/>
+                    <h:outputText value="#{bundle.ViewLevel1Label_guID}"/>
+                    <h:outputText value="#{level1Controller.selected.guID}" title="#{bundle.ViewLevel1Title_guID}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{level1Controller.destroyAndView}" value="#{bundle.ViewLevel1DestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewLevel1EditLink}"/>
+                <br />
+                <h:commandLink action="#{level1Controller.prepareCreate}" value="#{bundle.ViewLevel1CreateLink}" />
+                <br />
+                <h:commandLink action="#{level1Controller.prepareList}" value="#{bundle.ViewLevel1ShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewLevel1IndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

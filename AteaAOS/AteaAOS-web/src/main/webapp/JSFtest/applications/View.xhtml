@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewApplicationsTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewApplicationsLabel_applicationName}"/>
+                    <h:outputText value="#{applicationsController.selected.applicationName}" title="#{bundle.ViewApplicationsTitle_applicationName}"/>
+                    <h:outputText value="#{bundle.ViewApplicationsLabel_version}"/>
+                    <h:outputText value="#{applicationsController.selected.version}" title="#{bundle.ViewApplicationsTitle_version}"/>
+                    <h:outputText value="#{bundle.ViewApplicationsLabel_appLanguage}"/>
+                    <h:outputText value="#{applicationsController.selected.appLanguage}" title="#{bundle.ViewApplicationsTitle_appLanguage}"/>
+                    <h:outputText value="#{bundle.ViewApplicationsLabel_license}"/>
+                    <h:outputText value="#{applicationsController.selected.license}" title="#{bundle.ViewApplicationsTitle_license}"/>
+                    <h:outputText value="#{bundle.ViewApplicationsLabel_subContractor}"/>
+                    <h:outputText value="#{applicationsController.selected.subContractor}" title="#{bundle.ViewApplicationsTitle_subContractor}"/>
+                    <h:outputText value="#{bundle.ViewApplicationsLabel_contactInformation}"/>
+                    <h:outputText value="#{applicationsController.selected.contactInformation}" title="#{bundle.ViewApplicationsTitle_contactInformation}"/>
+                    <h:outputText value="#{bundle.ViewApplicationsLabel_applicationOwnerCustomer}"/>
+                    <h:outputText value="#{applicationsController.selected.applicationOwnerCustomer}" title="#{bundle.ViewApplicationsTitle_applicationOwnerCustomer}"/>
+                    <h:outputText value="#{bundle.ViewApplicationsLabel_sizeFile}"/>
+                    <h:outputText value="#{applicationsController.selected.sizeFile}" title="#{bundle.ViewApplicationsTitle_sizeFile}"/>
+                    <h:outputText value="#{bundle.ViewApplicationsLabel_sizeDatabase}"/>
+                    <h:outputText value="#{applicationsController.selected.sizeDatabase}" title="#{bundle.ViewApplicationsTitle_sizeDatabase}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{applicationsController.destroyAndView}" value="#{bundle.ViewApplicationsDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewApplicationsEditLink}"/>
+                <br />
+                <h:commandLink action="#{applicationsController.prepareCreate}" value="#{bundle.ViewApplicationsCreateLink}" />
+                <br />
+                <h:commandLink action="#{applicationsController.prepareList}" value="#{bundle.ViewApplicationsShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewApplicationsIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

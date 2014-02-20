@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListGruppeLevel4Title}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListGruppeLevel4Empty}" rendered="#{gruppeLevel4Controller.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{gruppeLevel4Controller.items.rowCount > 0}">
+                    <h:outputText value="#{gruppeLevel4Controller.pagination.pageFirstItem + 1}..#{gruppeLevel4Controller.pagination.pageLastItem + 1}/#{gruppeLevel4Controller.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{gruppeLevel4Controller.previous}" value="#{bundle.Previous} #{gruppeLevel4Controller.pagination.pageSize}" rendered="#{gruppeLevel4Controller.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{gruppeLevel4Controller.next}" value="#{bundle.Next} #{gruppeLevel4Controller.pagination.pageSize}" rendered="#{gruppeLevel4Controller.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{gruppeLevel4Controller.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListGruppeLevel4Title_gruppeLevel4PK_guID}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.gruppeLevel4PK.guID}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListGruppeLevel4Title_gruppeLevel4PK_groupName}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.gruppeLevel4PK.groupName}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListGruppeLevel4Title_r}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.r}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListGruppeLevel4Title_w}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.w}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{gruppeLevel4Controller.prepareView}" value="#{bundle.ListGruppeLevel4ViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{gruppeLevel4Controller.prepareEdit}" value="#{bundle.ListGruppeLevel4EditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{gruppeLevel4Controller.destroy}" value="#{bundle.ListGruppeLevel4DestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{gruppeLevel4Controller.prepareCreate}" value="#{bundle.ListGruppeLevel4CreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListGruppeLevel4IndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

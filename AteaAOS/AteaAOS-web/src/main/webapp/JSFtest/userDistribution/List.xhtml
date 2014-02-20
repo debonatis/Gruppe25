@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListUserDistributionTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListUserDistributionEmpty}" rendered="#{userDistributionController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{userDistributionController.items.rowCount > 0}">
+                    <h:outputText value="#{userDistributionController.pagination.pageFirstItem + 1}..#{userDistributionController.pagination.pageLastItem + 1}/#{userDistributionController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{userDistributionController.previous}" value="#{bundle.Previous} #{userDistributionController.pagination.pageSize}" rendered="#{userDistributionController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{userDistributionController.next}" value="#{bundle.Next} #{userDistributionController.pagination.pageSize}" rendered="#{userDistributionController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{userDistributionController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUserDistributionTitle_userDistributionPK_distUsername}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.userDistributionPK.distUsername}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUserDistributionTitle_userDistributionPK_distDisplayName}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.userDistributionPK.distDisplayName}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{userDistributionController.prepareView}" value="#{bundle.ListUserDistributionViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{userDistributionController.prepareEdit}" value="#{bundle.ListUserDistributionEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{userDistributionController.destroy}" value="#{bundle.ListUserDistributionDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{userDistributionController.prepareCreate}" value="#{bundle.ListUserDistributionCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListUserDistributionIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

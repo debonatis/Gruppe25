@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditGruppeTilhorighetTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditGruppeTilhorighetLabel_gruppeTilhorighetPK_gruppeMedlem}" for="gruppeTilhorighetPK_gruppeMedlem" />
+                    <h:inputText id="gruppeTilhorighetPK_gruppeMedlem" value="#{gruppeTilhorighetController.selected.gruppeTilhorighetPK.gruppeMedlem}" title="#{bundle.EditGruppeTilhorighetTitle_gruppeTilhorighetPK_gruppeMedlem}" required="true" requiredMessage="#{bundle.EditGruppeTilhorighetRequiredMessage_gruppeTilhorighetPK_gruppeMedlem}"/>
+                    <h:outputLabel value="#{bundle.EditGruppeTilhorighetLabel_gruppeTilhorighetPK_groupName}" for="gruppeTilhorighetPK_groupName" />
+                    <h:inputText id="gruppeTilhorighetPK_groupName" value="#{gruppeTilhorighetController.selected.gruppeTilhorighetPK.groupName}" title="#{bundle.EditGruppeTilhorighetTitle_gruppeTilhorighetPK_groupName}" required="true" requiredMessage="#{bundle.EditGruppeTilhorighetRequiredMessage_gruppeTilhorighetPK_groupName}"/>
+                </h:panelGrid>
+                <h:commandLink action="#{gruppeTilhorighetController.update}" value="#{bundle.EditGruppeTilhorighetSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditGruppeTilhorighetViewLink}"/>
+                <br />
+                <h:commandLink action="#{gruppeTilhorighetController.prepareList}" value="#{bundle.EditGruppeTilhorighetShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditGruppeTilhorighetIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

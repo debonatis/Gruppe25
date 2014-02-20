@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListDomainsTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListDomainsEmpty}" rendered="#{domainsController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{domainsController.items.rowCount > 0}">
+                    <h:outputText value="#{domainsController.pagination.pageFirstItem + 1}..#{domainsController.pagination.pageLastItem + 1}/#{domainsController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{domainsController.previous}" value="#{bundle.Previous} #{domainsController.pagination.pageSize}" rendered="#{domainsController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{domainsController.next}" value="#{bundle.Next} #{domainsController.pagination.pageSize}" rendered="#{domainsController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{domainsController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDomainsTitle_domainName}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.domainName}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDomainsTitle_registrar}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.registrar}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDomainsTitle_registrarContact}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.registrarContact}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDomainsTitle_domainFunction}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.domainFunction}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDomainsTitle_IPpointer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.IPpointer}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{domainsController.prepareView}" value="#{bundle.ListDomainsViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{domainsController.prepareEdit}" value="#{bundle.ListDomainsEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{domainsController.destroy}" value="#{bundle.ListDomainsDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{domainsController.prepareCreate}" value="#{bundle.ListDomainsCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListDomainsIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

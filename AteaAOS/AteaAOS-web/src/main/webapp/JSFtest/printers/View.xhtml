@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewPrintersTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewPrintersLabel_printerName}"/>
+                    <h:outputText value="#{printersController.selected.printerName}" title="#{bundle.ViewPrintersTitle_printerName}"/>
+                    <h:outputText value="#{bundle.ViewPrintersLabel_IPaddr}"/>
+                    <h:outputText value="#{printersController.selected.IPaddr}" title="#{bundle.ViewPrintersTitle_IPaddr}"/>
+                    <h:outputText value="#{bundle.ViewPrintersLabel_location}"/>
+                    <h:outputText value="#{printersController.selected.location}" title="#{bundle.ViewPrintersTitle_location}"/>
+                    <h:outputText value="#{bundle.ViewPrintersLabel_model}"/>
+                    <h:outputText value="#{printersController.selected.model}" title="#{bundle.ViewPrintersTitle_model}"/>
+                    <h:outputText value="#{bundle.ViewPrintersLabel_driver}"/>
+                    <h:outputText value="#{printersController.selected.driver}" title="#{bundle.ViewPrintersTitle_driver}"/>
+                    <h:outputText value="#{bundle.ViewPrintersLabel_scanToMail}"/>
+                    <h:outputText value="#{printersController.selected.scanToMail}" title="#{bundle.ViewPrintersTitle_scanToMail}"/>
+                    <h:outputText value="#{bundle.ViewPrintersLabel_accessories}"/>
+                    <h:outputText value="#{printersController.selected.accessories}" title="#{bundle.ViewPrintersTitle_accessories}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{printersController.destroyAndView}" value="#{bundle.ViewPrintersDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewPrintersEditLink}"/>
+                <br />
+                <h:commandLink action="#{printersController.prepareCreate}" value="#{bundle.ViewPrintersCreateLink}" />
+                <br />
+                <h:commandLink action="#{printersController.prepareList}" value="#{bundle.ViewPrintersShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewPrintersIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

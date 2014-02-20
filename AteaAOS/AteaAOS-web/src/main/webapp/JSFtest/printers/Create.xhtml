@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreatePrintersTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreatePrintersLabel_printerName}" for="printerName" />
+                    <h:inputText id="printerName" value="#{printersController.selected.printerName}" title="#{bundle.CreatePrintersTitle_printerName}" required="true" requiredMessage="#{bundle.CreatePrintersRequiredMessage_printerName}"/>
+                    <h:outputLabel value="#{bundle.CreatePrintersLabel_IPaddr}" for="IPaddr" />
+                    <h:inputText id="IPaddr" value="#{printersController.selected.IPaddr}" title="#{bundle.CreatePrintersTitle_IPaddr}" required="true" requiredMessage="#{bundle.CreatePrintersRequiredMessage_IPaddr}"/>
+                    <h:outputLabel value="#{bundle.CreatePrintersLabel_location}" for="location" />
+                    <h:inputText id="location" value="#{printersController.selected.location}" title="#{bundle.CreatePrintersTitle_location}" required="true" requiredMessage="#{bundle.CreatePrintersRequiredMessage_location}"/>
+                    <h:outputLabel value="#{bundle.CreatePrintersLabel_model}" for="model" />
+                    <h:inputText id="model" value="#{printersController.selected.model}" title="#{bundle.CreatePrintersTitle_model}" required="true" requiredMessage="#{bundle.CreatePrintersRequiredMessage_model}"/>
+                    <h:outputLabel value="#{bundle.CreatePrintersLabel_driver}" for="driver" />
+                    <h:inputText id="driver" value="#{printersController.selected.driver}" title="#{bundle.CreatePrintersTitle_driver}" required="true" requiredMessage="#{bundle.CreatePrintersRequiredMessage_driver}"/>
+                    <h:outputLabel value="#{bundle.CreatePrintersLabel_scanToMail}" for="scanToMail" />
+                    <h:inputText id="scanToMail" value="#{printersController.selected.scanToMail}" title="#{bundle.CreatePrintersTitle_scanToMail}" required="true" requiredMessage="#{bundle.CreatePrintersRequiredMessage_scanToMail}"/>
+                    <h:outputLabel value="#{bundle.CreatePrintersLabel_accessories}" for="accessories" />
+                    <h:inputText id="accessories" value="#{printersController.selected.accessories}" title="#{bundle.CreatePrintersTitle_accessories}" required="true" requiredMessage="#{bundle.CreatePrintersRequiredMessage_accessories}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{printersController.create}" value="#{bundle.CreatePrintersSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{printersController.prepareList}" value="#{bundle.CreatePrintersShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreatePrintersIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

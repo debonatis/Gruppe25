@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateDomainsTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateDomainsLabel_domainName}" for="domainName" />
+                    <h:inputText id="domainName" value="#{domainsController.selected.domainName}" title="#{bundle.CreateDomainsTitle_domainName}" required="true" requiredMessage="#{bundle.CreateDomainsRequiredMessage_domainName}"/>
+                    <h:outputLabel value="#{bundle.CreateDomainsLabel_registrar}" for="registrar" />
+                    <h:inputText id="registrar" value="#{domainsController.selected.registrar}" title="#{bundle.CreateDomainsTitle_registrar}" required="true" requiredMessage="#{bundle.CreateDomainsRequiredMessage_registrar}"/>
+                    <h:outputLabel value="#{bundle.CreateDomainsLabel_registrarContact}" for="registrarContact" />
+                    <h:inputText id="registrarContact" value="#{domainsController.selected.registrarContact}" title="#{bundle.CreateDomainsTitle_registrarContact}" required="true" requiredMessage="#{bundle.CreateDomainsRequiredMessage_registrarContact}"/>
+                    <h:outputLabel value="#{bundle.CreateDomainsLabel_domainFunction}" for="domainFunction" />
+                    <h:inputText id="domainFunction" value="#{domainsController.selected.domainFunction}" title="#{bundle.CreateDomainsTitle_domainFunction}" required="true" requiredMessage="#{bundle.CreateDomainsRequiredMessage_domainFunction}"/>
+                    <h:outputLabel value="#{bundle.CreateDomainsLabel_IPpointer}" for="IPpointer" />
+                    <h:inputText id="IPpointer" value="#{domainsController.selected.IPpointer}" title="#{bundle.CreateDomainsTitle_IPpointer}" required="true" requiredMessage="#{bundle.CreateDomainsRequiredMessage_IPpointer}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{domainsController.create}" value="#{bundle.CreateDomainsSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{domainsController.prepareList}" value="#{bundle.CreateDomainsShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateDomainsIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

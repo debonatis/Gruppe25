@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditGruppeLevel8Title}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditGruppeLevel8Label_gruppeLevel8PK_guID}" for="gruppeLevel8PK_guID" />
+                    <h:inputText id="gruppeLevel8PK_guID" value="#{gruppeLevel8Controller.selected.gruppeLevel8PK.guID}" title="#{bundle.EditGruppeLevel8Title_gruppeLevel8PK_guID}" required="true" requiredMessage="#{bundle.EditGruppeLevel8RequiredMessage_gruppeLevel8PK_guID}"/>
+                    <h:outputLabel value="#{bundle.EditGruppeLevel8Label_gruppeLevel8PK_groupName}" for="gruppeLevel8PK_groupName" />
+                    <h:inputText id="gruppeLevel8PK_groupName" value="#{gruppeLevel8Controller.selected.gruppeLevel8PK.groupName}" title="#{bundle.EditGruppeLevel8Title_gruppeLevel8PK_groupName}" required="true" requiredMessage="#{bundle.EditGruppeLevel8RequiredMessage_gruppeLevel8PK_groupName}"/>
+                    <h:outputLabel value="#{bundle.EditGruppeLevel8Label_r}" for="r" />
+                    <h:inputText id="r" value="#{gruppeLevel8Controller.selected.r}" title="#{bundle.EditGruppeLevel8Title_r}" required="true" requiredMessage="#{bundle.EditGruppeLevel8RequiredMessage_r}"/>
+                    <h:outputLabel value="#{bundle.EditGruppeLevel8Label_w}" for="w" />
+                    <h:inputText id="w" value="#{gruppeLevel8Controller.selected.w}" title="#{bundle.EditGruppeLevel8Title_w}" required="true" requiredMessage="#{bundle.EditGruppeLevel8RequiredMessage_w}"/>
+                </h:panelGrid>
+                <h:commandLink action="#{gruppeLevel8Controller.update}" value="#{bundle.EditGruppeLevel8SaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditGruppeLevel8ViewLink}"/>
+                <br />
+                <h:commandLink action="#{gruppeLevel8Controller.prepareList}" value="#{bundle.EditGruppeLevel8ShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditGruppeLevel8IndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

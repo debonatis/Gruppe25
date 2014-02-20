@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListLevel3Title}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListLevel3Empty}" rendered="#{level3Controller.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{level3Controller.items.rowCount > 0}">
+                    <h:outputText value="#{level3Controller.pagination.pageFirstItem + 1}..#{level3Controller.pagination.pageLastItem + 1}/#{level3Controller.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{level3Controller.previous}" value="#{bundle.Previous} #{level3Controller.pagination.pageSize}" rendered="#{level3Controller.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{level3Controller.next}" value="#{bundle.Next} #{level3Controller.pagination.pageSize}" rendered="#{level3Controller.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{level3Controller.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLevel3Title_mappeNavn}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.mappeNavn}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLevel3Title_guID}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.guID}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLevel3Title_guIDFK}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.guIDFK}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{level3Controller.prepareView}" value="#{bundle.ListLevel3ViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{level3Controller.prepareEdit}" value="#{bundle.ListLevel3EditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{level3Controller.destroy}" value="#{bundle.ListLevel3DestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{level3Controller.prepareCreate}" value="#{bundle.ListLevel3CreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListLevel3IndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
