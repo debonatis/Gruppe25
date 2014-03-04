@@ -30,6 +30,17 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Level1.findByMappenavn", query = "SELECT l FROM Level1 l WHERE l.mappenavn = :mappenavn"),
     @NamedQuery(name = "Level1.findByGuid", query = "SELECT l FROM Level1 l WHERE l.guid = :guid")})
 public class Level1 implements Serializable {
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "MAPPENAVN")
+    private String mappenavn;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "GUID")
+    private String guid;
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @NotNull
@@ -44,6 +55,56 @@ public class Level1 implements Serializable {
     private String guid;
 
     public Level1() {
+    }
+
+    public Level1(String guid) {
+        this.guid = guid;
+    }
+
+    public Level1(String guid, String mappenavn) {
+        this.guid = guid;
+        this.mappenavn = mappenavn;
+    }
+
+    public String getMappenavn() {
+        return mappenavn;
+    }
+
+    public void setMappenavn(String mappenavn) {
+        this.mappenavn = mappenavn;
+    }
+
+    public String getGuid() {
+        return guid;
+    }
+
+    public void setGuid(String guid) {
+        this.guid = guid;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (guid != null ? guid.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Level1)) {
+            return false;
+        }
+        Level1 other = (Level1) object;
+        if ((this.guid == null && other.guid != null) || (this.guid != null && !this.guid.equals(other.guid))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Entitys.Level1[ guid=" + guid + " ]";
     }
 
     public Level1(String guid) {

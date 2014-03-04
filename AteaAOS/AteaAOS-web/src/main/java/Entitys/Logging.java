@@ -36,6 +36,27 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Logging.findBySeverity", query = "SELECT l FROM Logging l WHERE l.severity = :severity"),
     @NamedQuery(name = "Logging.findByMessage", query = "SELECT l FROM Logging l WHERE l.message = :message")})
 public class Logging implements Serializable {
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "DATED")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dated;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "LOGGER")
+    private String logger;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "SEVERITY")
+    private String severity;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "MESSAGE")
+    private String message;
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @NotNull
@@ -85,6 +106,74 @@ public class Logging implements Serializable {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public Date getDated() {
+        return dated;
+    }
+
+    public void setDated(Date dated) {
+        this.dated = dated;
+    }
+
+    public String getLogger() {
+        return logger;
+    }
+
+    public void setLogger(String logger) {
+        this.logger = logger;
+    }
+
+    public String getSeverity() {
+        return severity;
+    }
+
+    public void setSeverity(String severity) {
+        this.severity = severity;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (dated != null ? dated.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Logging)) {
+            return false;
+        }
+        Logging other = (Logging) object;
+        if ((this.dated == null && other.dated != null) || (this.dated != null && !this.dated.equals(other.dated))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Entitys.Logging[ dated=" + dated + " ]";
+    }
+
+    public Logging(Date dated) {
+        this.dated = dated;
+    }
+
+    public Logging(Date dated, String logger, String severity, String message) {
+        this.dated = dated;
+        this.logger = logger;
+        this.severity = severity;
+        this.message = message;
     }
 
     public Date getDated() {

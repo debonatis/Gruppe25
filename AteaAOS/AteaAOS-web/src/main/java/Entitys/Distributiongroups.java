@@ -31,6 +31,22 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Distributiongroups.findByEmailalias", query = "SELECT d FROM Distributiongroups d WHERE d.emailalias = :emailalias"),
     @NamedQuery(name = "Distributiongroups.findByExternalemail", query = "SELECT d FROM Distributiongroups d WHERE d.externalemail = :externalemail")})
 public class Distributiongroups implements Serializable {
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "DISPLAYNAME")
+    private String displayname;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "EMAILALIAS")
+    private String emailalias;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "EXTERNALEMAIL")
+    private String externalemail;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -50,6 +66,65 @@ public class Distributiongroups implements Serializable {
     private String externalemail;
 
     public Distributiongroups() {
+    }
+
+    public Distributiongroups(String displayname) {
+        this.displayname = displayname;
+    }
+
+    public Distributiongroups(String displayname, String emailalias, String externalemail) {
+        this.displayname = displayname;
+        this.emailalias = emailalias;
+        this.externalemail = externalemail;
+    }
+
+    public String getDisplayname() {
+        return displayname;
+    }
+
+    public void setDisplayname(String displayname) {
+        this.displayname = displayname;
+    }
+
+    public String getEmailalias() {
+        return emailalias;
+    }
+
+    public void setEmailalias(String emailalias) {
+        this.emailalias = emailalias;
+    }
+
+    public String getExternalemail() {
+        return externalemail;
+    }
+
+    public void setExternalemail(String externalemail) {
+        this.externalemail = externalemail;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (displayname != null ? displayname.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Distributiongroups)) {
+            return false;
+        }
+        Distributiongroups other = (Distributiongroups) object;
+        if ((this.displayname == null && other.displayname != null) || (this.displayname != null && !this.displayname.equals(other.displayname))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Entitys.Distributiongroups[ displayname=" + displayname + " ]";
     }
 
     public Distributiongroups(String displayname) {
