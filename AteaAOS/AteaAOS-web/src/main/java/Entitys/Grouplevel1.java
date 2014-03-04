@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author simond
  */
 @Entity
-@Table(catalog = "AteaAOS", schema = "")
+@Table(name = "GROUPLEVEL1", catalog = "AteaAOS", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Grouplevel1.findAll", query = "SELECT g FROM Grouplevel1 g"),
@@ -32,6 +32,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Grouplevel1.findByR", query = "SELECT g FROM Grouplevel1 g WHERE g.r = :r"),
     @NamedQuery(name = "Grouplevel1.findByW", query = "SELECT g FROM Grouplevel1 g WHERE g.w = :w")})
 public class Grouplevel1 implements Serializable {
+    private static final long serialVersionUID = 1L;
+    @EmbeddedId
+    protected Grouplevel1PK grouplevel1PK;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -41,19 +44,6 @@ public class Grouplevel1 implements Serializable {
     @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "W")
-    private String w;
-    private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected Grouplevel1PK grouplevel1PK;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(nullable = false, length = 100)
-    private String r;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(nullable = false, length = 100)
     private String w;
 
     public Grouplevel1() {
@@ -120,22 +110,6 @@ public class Grouplevel1 implements Serializable {
     @Override
     public String toString() {
         return "Entitys.Grouplevel1[ grouplevel1PK=" + grouplevel1PK + " ]";
-    }
-
-    public String getR() {
-        return r;
-    }
-
-    public void setR(String r) {
-        this.r = r;
-    }
-
-    public String getW() {
-        return w;
-    }
-
-    public void setW(String w) {
-        this.w = w;
     }
     
 }

@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author simond
  */
 @Entity
-@Table(catalog = "AteaAOS", schema = "")
+@Table(name = "DOMAINS", catalog = "AteaAOS", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Domains.findAll", query = "SELECT d FROM Domains d"),
@@ -33,6 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Domains.findByDomainfunction", query = "SELECT d FROM Domains d WHERE d.domainfunction = :domainfunction"),
     @NamedQuery(name = "Domains.findByIppointer", query = "SELECT d FROM Domains d WHERE d.ippointer = :ippointer")})
 public class Domains implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
@@ -59,112 +60,8 @@ public class Domains implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "IPPOINTER")
     private String ippointer;
-    private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(nullable = false, length = 100)
-    private String domainname;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(nullable = false, length = 100)
-    private String registrar;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(nullable = false, length = 100)
-    private String registrarcontact;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(nullable = false, length = 100)
-    private String domainfunction;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(nullable = false, length = 100)
-    private String ippointer;
 
     public Domains() {
-    }
-
-    public Domains(String domainname) {
-        this.domainname = domainname;
-    }
-
-    public Domains(String domainname, String registrar, String registrarcontact, String domainfunction, String ippointer) {
-        this.domainname = domainname;
-        this.registrar = registrar;
-        this.registrarcontact = registrarcontact;
-        this.domainfunction = domainfunction;
-        this.ippointer = ippointer;
-    }
-
-    public String getDomainname() {
-        return domainname;
-    }
-
-    public void setDomainname(String domainname) {
-        this.domainname = domainname;
-    }
-
-    public String getRegistrar() {
-        return registrar;
-    }
-
-    public void setRegistrar(String registrar) {
-        this.registrar = registrar;
-    }
-
-    public String getRegistrarcontact() {
-        return registrarcontact;
-    }
-
-    public void setRegistrarcontact(String registrarcontact) {
-        this.registrarcontact = registrarcontact;
-    }
-
-    public String getDomainfunction() {
-        return domainfunction;
-    }
-
-    public void setDomainfunction(String domainfunction) {
-        this.domainfunction = domainfunction;
-    }
-
-    public String getIppointer() {
-        return ippointer;
-    }
-
-    public void setIppointer(String ippointer) {
-        this.ippointer = ippointer;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (domainname != null ? domainname.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Domains)) {
-            return false;
-        }
-        Domains other = (Domains) object;
-        if ((this.domainname == null && other.domainname != null) || (this.domainname != null && !this.domainname.equals(other.domainname))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "Entitys.Domains[ domainname=" + domainname + " ]";
     }
 
     public Domains(String domainname) {

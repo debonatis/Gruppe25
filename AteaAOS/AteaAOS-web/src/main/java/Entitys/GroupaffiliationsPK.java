@@ -22,12 +22,12 @@ public class GroupaffiliationsPK implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(nullable = false, length = 100)
+    @Column(name = "GROUPNAMEMANY")
     private String groupnamemany;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(nullable = false, length = 100)
+    @Column(name = "GROUPMAMBERSHIP")
     private String groupmambership;
 
     public GroupaffiliationsPK() {

@@ -22,12 +22,12 @@ public class Grouplevel2PK implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(nullable = false, length = 100)
+    @Column(name = "GROUPNAME")
     private String groupname;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(nullable = false, length = 100)
+    @Column(name = "GUID")
     private String guid;
 
     public Grouplevel2PK() {

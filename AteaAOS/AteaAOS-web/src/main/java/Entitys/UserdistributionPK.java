@@ -22,12 +22,12 @@ public class UserdistributionPK implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(nullable = false, length = 100)
+    @Column(name = "USERNAME")
     private String username;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(nullable = false, length = 100)
+    @Column(name = "DISPLAYNAME")
     private String displayname;
 
     public UserdistributionPK() {

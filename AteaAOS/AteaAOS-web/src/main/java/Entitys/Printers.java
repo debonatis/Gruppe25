@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author simond
  */
 @Entity
-@Table(catalog = "AteaAOS", schema = "")
+@Table(name = "PRINTERS", catalog = "AteaAOS", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Printers.findAll", query = "SELECT p FROM Printers p"),
@@ -35,6 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Printers.findByScantomail", query = "SELECT p FROM Printers p WHERE p.scantomail = :scantomail"),
     @NamedQuery(name = "Printers.findByAccessories", query = "SELECT p FROM Printers p WHERE p.accessories = :accessories")})
 public class Printers implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
@@ -71,140 +72,8 @@ public class Printers implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "ACCESSORIES")
     private String accessories;
-    private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(nullable = false, length = 100)
-    private String printername;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(nullable = false, length = 100)
-    private String ipaddr;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(nullable = false, length = 100)
-    private String location;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(nullable = false, length = 100)
-    private String model;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(nullable = false, length = 100)
-    private String driver;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(nullable = false, length = 100)
-    private String scantomail;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(nullable = false, length = 100)
-    private String accessories;
 
     public Printers() {
-    }
-
-    public Printers(String printername) {
-        this.printername = printername;
-    }
-
-    public Printers(String printername, String ipaddr, String location, String model, String driver, String scantomail, String accessories) {
-        this.printername = printername;
-        this.ipaddr = ipaddr;
-        this.location = location;
-        this.model = model;
-        this.driver = driver;
-        this.scantomail = scantomail;
-        this.accessories = accessories;
-    }
-
-    public String getPrintername() {
-        return printername;
-    }
-
-    public void setPrintername(String printername) {
-        this.printername = printername;
-    }
-
-    public String getIpaddr() {
-        return ipaddr;
-    }
-
-    public void setIpaddr(String ipaddr) {
-        this.ipaddr = ipaddr;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    public String getDriver() {
-        return driver;
-    }
-
-    public void setDriver(String driver) {
-        this.driver = driver;
-    }
-
-    public String getScantomail() {
-        return scantomail;
-    }
-
-    public void setScantomail(String scantomail) {
-        this.scantomail = scantomail;
-    }
-
-    public String getAccessories() {
-        return accessories;
-    }
-
-    public void setAccessories(String accessories) {
-        this.accessories = accessories;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (printername != null ? printername.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Printers)) {
-            return false;
-        }
-        Printers other = (Printers) object;
-        if ((this.printername == null && other.printername != null) || (this.printername != null && !this.printername.equals(other.printername))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "Entitys.Printers[ printername=" + printername + " ]";
     }
 
     public Printers(String printername) {
