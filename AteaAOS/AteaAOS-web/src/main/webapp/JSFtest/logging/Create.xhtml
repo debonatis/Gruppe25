@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateLoggingTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateLoggingLabel_userId}" for="userId" />
+                    <h:inputText id="userId" value="#{loggingController.selected.userId}" title="#{bundle.CreateLoggingTitle_userId}" required="true" requiredMessage="#{bundle.CreateLoggingRequiredMessage_userId}"/>
+                    <h:outputLabel value="#{bundle.CreateLoggingLabel_dated}" for="dated" />
+                    <h:inputText id="dated" value="#{loggingController.selected.dated}" title="#{bundle.CreateLoggingTitle_dated}" required="true" requiredMessage="#{bundle.CreateLoggingRequiredMessage_dated}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateLoggingLabel_logger}" for="logger" />
+                    <h:inputText id="logger" value="#{loggingController.selected.logger}" title="#{bundle.CreateLoggingTitle_logger}" required="true" requiredMessage="#{bundle.CreateLoggingRequiredMessage_logger}"/>
+                    <h:outputLabel value="#{bundle.CreateLoggingLabel_severity}" for="severity" />
+                    <h:inputText id="severity" value="#{loggingController.selected.severity}" title="#{bundle.CreateLoggingTitle_severity}" required="true" requiredMessage="#{bundle.CreateLoggingRequiredMessage_severity}"/>
+                    <h:outputLabel value="#{bundle.CreateLoggingLabel_message}" for="message" />
+                    <h:inputText id="message" value="#{loggingController.selected.message}" title="#{bundle.CreateLoggingTitle_message}" required="true" requiredMessage="#{bundle.CreateLoggingRequiredMessage_message}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{loggingController.create}" value="#{bundle.CreateLoggingSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{loggingController.prepareList}" value="#{bundle.CreateLoggingShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateLoggingIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateGrouplevel2Title}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateGrouplevel2Label_grouplevel2PK_guid}" for="grouplevel2PK_guid" />
+                    <h:inputText id="grouplevel2PK_guid" value="#{grouplevel2Controller.selected.grouplevel2PK.guid}" title="#{bundle.CreateGrouplevel2Title_grouplevel2PK_guid}" required="true" requiredMessage="#{bundle.CreateGrouplevel2RequiredMessage_grouplevel2PK_guid}"/>
+                    <h:outputLabel value="#{bundle.CreateGrouplevel2Label_grouplevel2PK_groupname}" for="grouplevel2PK_groupname" />
+                    <h:inputText id="grouplevel2PK_groupname" value="#{grouplevel2Controller.selected.grouplevel2PK.groupname}" title="#{bundle.CreateGrouplevel2Title_grouplevel2PK_groupname}" required="true" requiredMessage="#{bundle.CreateGrouplevel2RequiredMessage_grouplevel2PK_groupname}"/>
+                    <h:outputLabel value="#{bundle.CreateGrouplevel2Label_r}" for="r" />
+                    <h:inputText id="r" value="#{grouplevel2Controller.selected.r}" title="#{bundle.CreateGrouplevel2Title_r}" required="true" requiredMessage="#{bundle.CreateGrouplevel2RequiredMessage_r}"/>
+                    <h:outputLabel value="#{bundle.CreateGrouplevel2Label_w}" for="w" />
+                    <h:inputText id="w" value="#{grouplevel2Controller.selected.w}" title="#{bundle.CreateGrouplevel2Title_w}" required="true" requiredMessage="#{bundle.CreateGrouplevel2RequiredMessage_w}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{grouplevel2Controller.create}" value="#{bundle.CreateGrouplevel2SaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{grouplevel2Controller.prepareList}" value="#{bundle.CreateGrouplevel2ShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateGrouplevel2IndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

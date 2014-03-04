@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewDistributiongroupsTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewDistributiongroupsLabel_displayname}"/>
+                    <h:outputText value="#{distributiongroupsController.selected.displayname}" title="#{bundle.ViewDistributiongroupsTitle_displayname}"/>
+                    <h:outputText value="#{bundle.ViewDistributiongroupsLabel_emailalias}"/>
+                    <h:outputText value="#{distributiongroupsController.selected.emailalias}" title="#{bundle.ViewDistributiongroupsTitle_emailalias}"/>
+                    <h:outputText value="#{bundle.ViewDistributiongroupsLabel_externalemail}"/>
+                    <h:outputText value="#{distributiongroupsController.selected.externalemail}" title="#{bundle.ViewDistributiongroupsTitle_externalemail}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{distributiongroupsController.destroyAndView}" value="#{bundle.ViewDistributiongroupsDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewDistributiongroupsEditLink}"/>
+                <br />
+                <h:commandLink action="#{distributiongroupsController.prepareCreate}" value="#{bundle.ViewDistributiongroupsCreateLink}" />
+                <br />
+                <h:commandLink action="#{distributiongroupsController.prepareList}" value="#{bundle.ViewDistributiongroupsShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewDistributiongroupsIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

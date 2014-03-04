@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateSiteuserTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateSiteuserLabel_username}" for="username" />
+                    <h:inputText id="username" value="#{siteuserController.selected.username}" title="#{bundle.CreateSiteuserTitle_username}" required="true" requiredMessage="#{bundle.CreateSiteuserRequiredMessage_username}"/>
+                    <h:outputLabel value="#{bundle.CreateSiteuserLabel_password}" for="password" />
+                    <h:inputText id="password" value="#{siteuserController.selected.password}" title="#{bundle.CreateSiteuserTitle_password}" required="true" requiredMessage="#{bundle.CreateSiteuserRequiredMessage_password}"/>
+                    <h:outputLabel value="#{bundle.CreateSiteuserLabel_firstname}" for="firstname" />
+                    <h:inputText id="firstname" value="#{siteuserController.selected.firstname}" title="#{bundle.CreateSiteuserTitle_firstname}" required="true" requiredMessage="#{bundle.CreateSiteuserRequiredMessage_firstname}"/>
+                    <h:outputLabel value="#{bundle.CreateSiteuserLabel_lastname}" for="lastname" />
+                    <h:inputText id="lastname" value="#{siteuserController.selected.lastname}" title="#{bundle.CreateSiteuserTitle_lastname}" required="true" requiredMessage="#{bundle.CreateSiteuserRequiredMessage_lastname}"/>
+                    <h:outputLabel value="#{bundle.CreateSiteuserLabel_email}" for="email" />
+                    <h:inputText id="email" value="#{siteuserController.selected.email}" title="#{bundle.CreateSiteuserTitle_email}" required="true" requiredMessage="#{bundle.CreateSiteuserRequiredMessage_email}"/>
+                    <h:outputLabel value="#{bundle.CreateSiteuserLabel_mobile}" for="mobile" />
+                    <h:inputText id="mobile" value="#{siteuserController.selected.mobile}" title="#{bundle.CreateSiteuserTitle_mobile}" required="true" requiredMessage="#{bundle.CreateSiteuserRequiredMessage_mobile}"/>
+                    <h:outputLabel value="#{bundle.CreateSiteuserLabel_adress}" for="adress" />
+                    <h:inputText id="adress" value="#{siteuserController.selected.adress}" title="#{bundle.CreateSiteuserTitle_adress}" required="true" requiredMessage="#{bundle.CreateSiteuserRequiredMessage_adress}"/>
+                    <h:outputLabel value="#{bundle.CreateSiteuserLabel_postalcode}" for="postalcode" />
+                    <h:inputText id="postalcode" value="#{siteuserController.selected.postalcode}" title="#{bundle.CreateSiteuserTitle_postalcode}" required="true" requiredMessage="#{bundle.CreateSiteuserRequiredMessage_postalcode}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{siteuserController.create}" value="#{bundle.CreateSiteuserSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{siteuserController.prepareList}" value="#{bundle.CreateSiteuserShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateSiteuserIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

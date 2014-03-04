@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateApplicationsTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateApplicationsLabel_applicationname}" for="applicationname" />
+                    <h:inputText id="applicationname" value="#{applicationsController.selected.applicationname}" title="#{bundle.CreateApplicationsTitle_applicationname}" required="true" requiredMessage="#{bundle.CreateApplicationsRequiredMessage_applicationname}"/>
+                    <h:outputLabel value="#{bundle.CreateApplicationsLabel_version}" for="version" />
+                    <h:inputText id="version" value="#{applicationsController.selected.version}" title="#{bundle.CreateApplicationsTitle_version}" required="true" requiredMessage="#{bundle.CreateApplicationsRequiredMessage_version}"/>
+                    <h:outputLabel value="#{bundle.CreateApplicationsLabel_applanguage}" for="applanguage" />
+                    <h:inputText id="applanguage" value="#{applicationsController.selected.applanguage}" title="#{bundle.CreateApplicationsTitle_applanguage}" required="true" requiredMessage="#{bundle.CreateApplicationsRequiredMessage_applanguage}"/>
+                    <h:outputLabel value="#{bundle.CreateApplicationsLabel_license}" for="license" />
+                    <h:inputText id="license" value="#{applicationsController.selected.license}" title="#{bundle.CreateApplicationsTitle_license}" required="true" requiredMessage="#{bundle.CreateApplicationsRequiredMessage_license}"/>
+                    <h:outputLabel value="#{bundle.CreateApplicationsLabel_subcontractor}" for="subcontractor" />
+                    <h:inputText id="subcontractor" value="#{applicationsController.selected.subcontractor}" title="#{bundle.CreateApplicationsTitle_subcontractor}" />
+                    <h:outputLabel value="#{bundle.CreateApplicationsLabel_contractinformation}" for="contractinformation" />
+                    <h:inputText id="contractinformation" value="#{applicationsController.selected.contractinformation}" title="#{bundle.CreateApplicationsTitle_contractinformation}" required="true" requiredMessage="#{bundle.CreateApplicationsRequiredMessage_contractinformation}"/>
+                    <h:outputLabel value="#{bundle.CreateApplicationsLabel_applicationownercustomer}" for="applicationownercustomer" />
+                    <h:inputText id="applicationownercustomer" value="#{applicationsController.selected.applicationownercustomer}" title="#{bundle.CreateApplicationsTitle_applicationownercustomer}" required="true" requiredMessage="#{bundle.CreateApplicationsRequiredMessage_applicationownercustomer}"/>
+                    <h:outputLabel value="#{bundle.CreateApplicationsLabel_sizefile}" for="sizefile" />
+                    <h:inputText id="sizefile" value="#{applicationsController.selected.sizefile}" title="#{bundle.CreateApplicationsTitle_sizefile}" required="true" requiredMessage="#{bundle.CreateApplicationsRequiredMessage_sizefile}"/>
+                    <h:outputLabel value="#{bundle.CreateApplicationsLabel_sizedatabase}" for="sizedatabase" />
+                    <h:inputText id="sizedatabase" value="#{applicationsController.selected.sizedatabase}" title="#{bundle.CreateApplicationsTitle_sizedatabase}" required="true" requiredMessage="#{bundle.CreateApplicationsRequiredMessage_sizedatabase}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{applicationsController.create}" value="#{bundle.CreateApplicationsSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{applicationsController.prepareList}" value="#{bundle.CreateApplicationsShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateApplicationsIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

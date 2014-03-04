@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateLevel2Title}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateLevel2Label_mappenavn}" for="mappenavn" />
+                    <h:inputText id="mappenavn" value="#{level2Controller.selected.mappenavn}" title="#{bundle.CreateLevel2Title_mappenavn}" required="true" requiredMessage="#{bundle.CreateLevel2RequiredMessage_mappenavn}"/>
+                    <h:outputLabel value="#{bundle.CreateLevel2Label_guid}" for="guid" />
+                    <h:inputText id="guid" value="#{level2Controller.selected.guid}" title="#{bundle.CreateLevel2Title_guid}" required="true" requiredMessage="#{bundle.CreateLevel2RequiredMessage_guid}"/>
+                    <h:outputLabel value="#{bundle.CreateLevel2Label_guidfk}" for="guidfk" />
+                    <h:inputText id="guidfk" value="#{level2Controller.selected.guidfk}" title="#{bundle.CreateLevel2Title_guidfk}" required="true" requiredMessage="#{bundle.CreateLevel2RequiredMessage_guidfk}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{level2Controller.create}" value="#{bundle.CreateLevel2SaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{level2Controller.prepareList}" value="#{bundle.CreateLevel2ShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateLevel2IndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

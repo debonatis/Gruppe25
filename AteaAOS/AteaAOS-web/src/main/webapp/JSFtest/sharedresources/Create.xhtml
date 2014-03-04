@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateSharedresourcesTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateSharedresourcesLabel_displaynameshared}" for="displaynameshared" />
+                    <h:inputText id="displaynameshared" value="#{sharedresourcesController.selected.displaynameshared}" title="#{bundle.CreateSharedresourcesTitle_displaynameshared}" required="true" requiredMessage="#{bundle.CreateSharedresourcesRequiredMessage_displaynameshared}"/>
+                    <h:outputLabel value="#{bundle.CreateSharedresourcesLabel_emailalias}" for="emailalias" />
+                    <h:inputText id="emailalias" value="#{sharedresourcesController.selected.emailalias}" title="#{bundle.CreateSharedresourcesTitle_emailalias}" required="true" requiredMessage="#{bundle.CreateSharedresourcesRequiredMessage_emailalias}"/>
+                    <h:outputLabel value="#{bundle.CreateSharedresourcesLabel_accessresources}" for="accessresources" />
+                    <h:inputText id="accessresources" value="#{sharedresourcesController.selected.accessresources}" title="#{bundle.CreateSharedresourcesTitle_accessresources}" required="true" requiredMessage="#{bundle.CreateSharedresourcesRequiredMessage_accessresources}"/>
+                    <h:outputLabel value="#{bundle.CreateSharedresourcesLabel_externalemail}" for="externalemail" />
+                    <h:inputText id="externalemail" value="#{sharedresourcesController.selected.externalemail}" title="#{bundle.CreateSharedresourcesTitle_externalemail}" required="true" requiredMessage="#{bundle.CreateSharedresourcesRequiredMessage_externalemail}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{sharedresourcesController.create}" value="#{bundle.CreateSharedresourcesSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{sharedresourcesController.prepareList}" value="#{bundle.CreateSharedresourcesShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateSharedresourcesIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

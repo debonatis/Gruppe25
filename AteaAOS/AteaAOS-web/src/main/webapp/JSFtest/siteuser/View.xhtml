@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewSiteuserTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewSiteuserLabel_username}"/>
+                    <h:outputText value="#{siteuserController.selected.username}" title="#{bundle.ViewSiteuserTitle_username}"/>
+                    <h:outputText value="#{bundle.ViewSiteuserLabel_password}"/>
+                    <h:outputText value="#{siteuserController.selected.password}" title="#{bundle.ViewSiteuserTitle_password}"/>
+                    <h:outputText value="#{bundle.ViewSiteuserLabel_firstname}"/>
+                    <h:outputText value="#{siteuserController.selected.firstname}" title="#{bundle.ViewSiteuserTitle_firstname}"/>
+                    <h:outputText value="#{bundle.ViewSiteuserLabel_lastname}"/>
+                    <h:outputText value="#{siteuserController.selected.lastname}" title="#{bundle.ViewSiteuserTitle_lastname}"/>
+                    <h:outputText value="#{bundle.ViewSiteuserLabel_email}"/>
+                    <h:outputText value="#{siteuserController.selected.email}" title="#{bundle.ViewSiteuserTitle_email}"/>
+                    <h:outputText value="#{bundle.ViewSiteuserLabel_mobile}"/>
+                    <h:outputText value="#{siteuserController.selected.mobile}" title="#{bundle.ViewSiteuserTitle_mobile}"/>
+                    <h:outputText value="#{bundle.ViewSiteuserLabel_adress}"/>
+                    <h:outputText value="#{siteuserController.selected.adress}" title="#{bundle.ViewSiteuserTitle_adress}"/>
+                    <h:outputText value="#{bundle.ViewSiteuserLabel_postalcode}"/>
+                    <h:outputText value="#{siteuserController.selected.postalcode}" title="#{bundle.ViewSiteuserTitle_postalcode}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{siteuserController.destroyAndView}" value="#{bundle.ViewSiteuserDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewSiteuserEditLink}"/>
+                <br />
+                <h:commandLink action="#{siteuserController.prepareCreate}" value="#{bundle.ViewSiteuserCreateLink}" />
+                <br />
+                <h:commandLink action="#{siteuserController.prepareList}" value="#{bundle.ViewSiteuserShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewSiteuserIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

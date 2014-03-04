@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateGroupaffiliationsTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateGroupaffiliationsLabel_groupaffiliationsPK_groupnamemany}" for="groupaffiliationsPK_groupnamemany" />
+                    <h:inputText id="groupaffiliationsPK_groupnamemany" value="#{groupaffiliationsController.selected.groupaffiliationsPK.groupnamemany}" title="#{bundle.CreateGroupaffiliationsTitle_groupaffiliationsPK_groupnamemany}" required="true" requiredMessage="#{bundle.CreateGroupaffiliationsRequiredMessage_groupaffiliationsPK_groupnamemany}"/>
+                    <h:outputLabel value="#{bundle.CreateGroupaffiliationsLabel_groupaffiliationsPK_groupmambership}" for="groupaffiliationsPK_groupmambership" />
+                    <h:inputText id="groupaffiliationsPK_groupmambership" value="#{groupaffiliationsController.selected.groupaffiliationsPK.groupmambership}" title="#{bundle.CreateGroupaffiliationsTitle_groupaffiliationsPK_groupmambership}" required="true" requiredMessage="#{bundle.CreateGroupaffiliationsRequiredMessage_groupaffiliationsPK_groupmambership}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{groupaffiliationsController.create}" value="#{bundle.CreateGroupaffiliationsSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{groupaffiliationsController.prepareList}" value="#{bundle.CreateGroupaffiliationsShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateGroupaffiliationsIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

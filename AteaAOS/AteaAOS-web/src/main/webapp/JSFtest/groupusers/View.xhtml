@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewGroupusersTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewGroupusersLabel_groupusersPK_usergroupname}"/>
+                    <h:outputText value="#{groupusersController.selected.groupusersPK.usergroupname}" title="#{bundle.ViewGroupusersTitle_groupusersPK_usergroupname}"/>
+                    <h:outputText value="#{bundle.ViewGroupusersLabel_groupusersPK_username}"/>
+                    <h:outputText value="#{groupusersController.selected.groupusersPK.username}" title="#{bundle.ViewGroupusersTitle_groupusersPK_username}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{groupusersController.destroyAndView}" value="#{bundle.ViewGroupusersDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewGroupusersEditLink}"/>
+                <br />
+                <h:commandLink action="#{groupusersController.prepareCreate}" value="#{bundle.ViewGroupusersCreateLink}" />
+                <br />
+                <h:commandLink action="#{groupusersController.prepareList}" value="#{bundle.ViewGroupusersShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewGroupusersIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

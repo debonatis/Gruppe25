@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListApplicationsTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListApplicationsEmpty}" rendered="#{applicationsController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{applicationsController.items.rowCount > 0}">
+                    <h:outputText value="#{applicationsController.pagination.pageFirstItem + 1}..#{applicationsController.pagination.pageLastItem + 1}/#{applicationsController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{applicationsController.previous}" value="#{bundle.Previous} #{applicationsController.pagination.pageSize}" rendered="#{applicationsController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{applicationsController.next}" value="#{bundle.Next} #{applicationsController.pagination.pageSize}" rendered="#{applicationsController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{applicationsController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListApplicationsTitle_applicationname}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.applicationname}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListApplicationsTitle_version}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.version}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListApplicationsTitle_applanguage}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.applanguage}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListApplicationsTitle_license}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.license}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListApplicationsTitle_subcontractor}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.subcontractor}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListApplicationsTitle_contractinformation}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contractinformation}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListApplicationsTitle_applicationownercustomer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.applicationownercustomer}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListApplicationsTitle_sizefile}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.sizefile}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListApplicationsTitle_sizedatabase}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.sizedatabase}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{applicationsController.prepareView}" value="#{bundle.ListApplicationsViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{applicationsController.prepareEdit}" value="#{bundle.ListApplicationsEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{applicationsController.destroy}" value="#{bundle.ListApplicationsDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{applicationsController.prepareCreate}" value="#{bundle.ListApplicationsCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListApplicationsIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
