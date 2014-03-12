@@ -12,7 +12,6 @@
                 <title>PrimeFaces</title>
             </f:facet>
         </h:head>
-        <h:form>
         <h:body>
 
             <p:layout fullPage="true">
@@ -80,7 +79,7 @@
                                     <p:inputText id="domainname" value="#{domainsController.selected.domainname}" title="#{bundle.CreateDomainsTitle_domainname}" required="true" requiredMessage="#{bundle.CreateDomainsRequiredMessage_domainname}"/> </h:panelGrid>
                             </p:panel>  
                         </p:tab>  
-                                                <p:tab id="picture" title="Picture">  
+                        <p:tab id="picture" title="Picture">  
                             <p:panel header="Upload CVS-file you want to use in your migration process. (This is optional)">  
                                 <h:form enctype="multipart/form-data">  
                                     <p:fileUpload fileUploadListener="#{domainsController.handleFileUpload}"  
@@ -113,7 +112,6 @@
             </p:layout>
 
         </h:body>
-            </h:form>
     </f:view>
 </html>
 
