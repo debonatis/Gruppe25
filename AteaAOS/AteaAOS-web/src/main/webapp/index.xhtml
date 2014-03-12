@@ -1,61 +1,119 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-        <h:outputStylesheet name="css/jsfcrud.css"/>
-    </h:head>
-    <h:body>
-        
-    </h:body>
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
 
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>PrimeFaces</title>
+            </f:facet>
+        </h:head>
 
+        <h:body>
 
+            <p:layout fullPage="true">
 
+                <p:layoutUnit position="north" size="105" resizable="false" closable="true" collapsible="true">
+                    <h:form>
+                        <p:graphicImage value="/resources/images/Atealogo.gif"/>     
+                    </h:form>
+                </p:layoutUnit>
 
+                <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
+                    Footer
+                </p:layoutUnit>
 
+                <p:layoutUnit position="west" size="225" header="Left" collapsible="true">
+                    <p:menu>
+                        <p:submenu label="Resources">
 
+                            <p:menuitem outcome="/JSFtest/applicationaccess/List" value="Show All Applicationaccess Items"/>
 
+                            <p:menuitem outcome="/JSFtest/applications/List" value="Show All Applications Items"/>
+                            <p:menuitem outcome="/JSFtest/city/List" value="Show All City Items"/>
 
+                            <p:menuitem outcome="/JSFtest/distributiongroups/List" value="Show All Distributiongroups Items"/>
 
+                            <p:menuitem outcome="/JSFtest/domains/List" value="Show All Domains Items"/>
 
+                            <p:menuitem outcome="/JSFtest/emailcontacts/List" value="Show All Emailcontacts Items"/>
 
+                            <p:menuitem outcome="/JSFtest/groupaffiliations/List" value="Show All Groupaffiliations Items"/>
 
+                            <p:menuitem outcome="/JSFtest/grouplevel1/List" value="Show All Grouplevel1 Items"/>
 
+                            <p:menuitem outcome="/JSFtest/grouplevel2/List" value="Show All Grouplevel2 Items"/>
+                            <p:menuitem outcome="/JSFtest/groups/List" value="Show All Groups Items"/>
+                            <p:menuitem outcome="/JSFtest/groupusers/List" value="Show All Groupusers Items"/>
+                            <p:menuitem outcome="/JSFtest/level1/List" value="Show All Level1 Items"/>
+                            <p:menuitem outcome="/JSFtest/level2/List" value="Show All Level2 Items"/>
+                            <p:menuitem outcome="/JSFtest/logging/List" value="Show All Logging Items"/>
+                            <p:menuitem outcome="/JSFtest/printers/List" value="Show All Printers Items"/>
+                            <p:menuitem outcome="/JSFtest/roles/List" value="Show All Roles Items"/>
+                            <p:menuitem outcome="/JSFtest/sharedresources/List" value="Show All Sharedresources Items"/>
 
+                            <p:menuitem outcome="/JSFtest/siteuser/List" value="Show All Siteuser Items"/>
 
+                            <p:menuitem outcome="/JSFtest/userdistribution/List" value="Show All Userdistribution Items"/>
 
+                            <p:menuitem outcome="/JSFtest/users/List" value="Show All Users Items"/>
 
+                        </p:submenu>
 
+                    </p:menu>
+                </p:layoutUnit>
 
+                <p:layoutUnit position="center">
+                    <h:form>
+                    <p:growl id="growl" sticky="true" showDetail="true"/>  
+                    <p:wizard widgetVar="wiz"  
+                              flowListener="#{DomainsController.onFlowProcess}">  
+                        <p:tab id="domain" title="New domain">  
+                            <p:panel header="Domain information">  
+                                <h:messages errorClass="error"/>  
+                                <h:panelGrid columns="2">
+                                    <h:outputLabel value="Create new domain: " for="domain" />
+                                    <p:inputText id="domainname" value="#{domainsController.selected.domainname}" title="#{bundle.CreateDomainsTitle_domainname}" required="true" requiredMessage="#{bundle.CreateDomainsRequiredMessage_domainname}"/> </h:panelGrid>
+                            </p:panel>  
+                        </p:tab>  
+                                                <p:tab id="picture" title="Picture">  
+                            <p:panel header="Upload CVS-file you want to use in your migration process. (This is optional)">  
+                                <h:form enctype="multipart/form-data">  
+                                    <p:fileUpload fileUploadListener="#{domainsController.handleFileUpload}"  
+                                                  mode="advanced"  
+                                                  update="messages"  
+                                                  auto="true"  
+                                                  sizeLimit="1000000000"   
+                                                  allowTypes="/(\.|\/)(csv)$/"/>  
+                                    <p:growl id="messages" showDetail="true"/>  
+                                </h:form> 
+                            </p:panel> 
+                            <br/>
+                            <p:panel>
+                                <br />
+                                <h:outputLabel value="#{bundle.CreateRetterLabel_beskrivelse}" for="beskrivelse" />
+                                <p:inputText id="beskrivelse" value="#{retterController.selected.beskrivelse}" title="#{bundle.CreateRetterTitle_beskrivelse}" />
+                                <br/><br/>
+                                <p:commandButton action="#{retterController.create}" value="#{bundle.CreateRetterSaveLink}" update="growl"/>
+                                <br/><br/>
+                                <p:menubar>
+                                    <p:menuitem action="#{retterController.prepareList}" value="#{bundle.CreateRetterShowAllLink}" immediate="true"/>
+                                    <p:menuitem outcome="/index" value="#{bundle.CreateRetterIndexLink}" style="margin-left:600px"/> 
+                                </p:menubar>
+                            </p:panel>  
+                        </p:tab>
+                    </p:wizard> 
+                </h:form>
+                </p:layoutUnit>
 
+            </p:layout>
 
+        </h:body>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    </f:view>
 </html>
 
