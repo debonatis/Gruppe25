@@ -320,42 +320,42 @@ public class CreateDomain {
      *
      * @param event
      */
-//    public void handleFileUpload(FileUploadEvent event) {
-//        
-//       
-//
-//
-//        try {
-//            
-//           String mick = FacesContext.getCurrentInstance().getExternalContext().getRealPath("//resources//images");
-//             File file = new File(mick, event.getFile().getFileName());
-//              
-//
-//            InputStream inputStream = event.getFile().getInputstream();
-//            current.setFil(event.getFile().getFileName());
-//            OutputStream out = new FileOutputStream(file);
-//
-//
-//            int read = 0;
-//
-//            byte[] bytes = new byte[1024];
-//
-//
-//
-//            while ((read = inputStream.read(bytes)) != -1) {
-//                out.write(bytes, 0, read);
-//
-//            }
-//
-//            inputStream.close();
-//
-//            out.flush();
-//
-//            out.close();
-//
-//        } catch (IOException e) {
-//        }
-//    }
+    public void handleFileUpload(FileUploadEvent event) {
+        
+       
+
+
+        try {
+            
+           String mick = FacesContext.getCurrentInstance().getExternalContext().getRealPath("//resources//CSV");
+             File file = new File(mick, event.getFile().getFileName());
+              
+
+            InputStream inputStream = event.getFile().getInputstream();
+            current.setSetFIL(event.getFile().getFileName());
+            OutputStream out = new FileOutputStream(file);
+
+
+            int read = 0;
+
+            byte[] bytes = new byte[1024];
+
+
+
+            while ((read = inputStream.read(bytes)) != -1) {
+                out.write(bytes, 0, read);
+
+            }
+
+            inputStream.close();
+
+            out.flush();
+
+            out.close();
+
+        } catch (IOException e) {
+        }
+    }
 
     /**
      *
