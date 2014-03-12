@@ -15,10 +15,10 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewGroupusersLabel_groupusersPK_usergroupname}"/>
-                    <h:outputText value="#{groupusersController.selected.groupusersPK.usergroupname}" title="#{bundle.ViewGroupusersTitle_groupusersPK_usergroupname}"/>
                     <h:outputText value="#{bundle.ViewGroupusersLabel_groupusersPK_username}"/>
                     <h:outputText value="#{groupusersController.selected.groupusersPK.username}" title="#{bundle.ViewGroupusersTitle_groupusersPK_username}"/>
+                    <h:outputText value="#{bundle.ViewGroupusersLabel_groupusersPK_usergroupname}"/>
+                    <h:outputText value="#{groupusersController.selected.groupusersPK.usergroupname}" title="#{bundle.ViewGroupusersTitle_groupusersPK_usergroupname}"/>
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{groupusersController.destroyAndView}" value="#{bundle.ViewGroupusersDestroyLink}"/>

@@ -22,15 +22,15 @@
                     <h:dataTable value="#{grouplevel1Controller.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListGrouplevel1Title_grouplevel1PK_groupname}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.grouplevel1PK.groupname}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListGrouplevel1Title_grouplevel1PK_guid}"/>
                             </f:facet>
                             <h:outputText value="#{item.grouplevel1PK.guid}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListGrouplevel1Title_grouplevel1PK_groupname}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.grouplevel1PK.groupname}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">

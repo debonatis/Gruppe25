@@ -22,15 +22,15 @@
                     <h:dataTable value="#{userdistributionController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUserdistributionTitle_userdistributionPK_displayname}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.userdistributionPK.displayname}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListUserdistributionTitle_userdistributionPK_username}"/>
                             </f:facet>
                             <h:outputText value="#{item.userdistributionPK.username}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUserdistributionTitle_userdistributionPK_displayname}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.userdistributionPK.displayname}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">

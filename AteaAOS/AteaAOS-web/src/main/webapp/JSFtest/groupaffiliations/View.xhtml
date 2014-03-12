@@ -15,10 +15,10 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewGroupaffiliationsLabel_groupaffiliationsPK_groupnamemany}"/>
-                    <h:outputText value="#{groupaffiliationsController.selected.groupaffiliationsPK.groupnamemany}" title="#{bundle.ViewGroupaffiliationsTitle_groupaffiliationsPK_groupnamemany}"/>
                     <h:outputText value="#{bundle.ViewGroupaffiliationsLabel_groupaffiliationsPK_groupmambership}"/>
                     <h:outputText value="#{groupaffiliationsController.selected.groupaffiliationsPK.groupmambership}" title="#{bundle.ViewGroupaffiliationsTitle_groupaffiliationsPK_groupmambership}"/>
+                    <h:outputText value="#{bundle.ViewGroupaffiliationsLabel_groupaffiliationsPK_groupnamemany}"/>
+                    <h:outputText value="#{groupaffiliationsController.selected.groupaffiliationsPK.groupnamemany}" title="#{bundle.ViewGroupaffiliationsTitle_groupaffiliationsPK_groupnamemany}"/>
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{groupaffiliationsController.destroyAndView}" value="#{bundle.ViewGroupaffiliationsDestroyLink}"/>

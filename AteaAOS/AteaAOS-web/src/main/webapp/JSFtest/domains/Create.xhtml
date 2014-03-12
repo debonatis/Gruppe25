@@ -25,6 +25,8 @@
                     <h:inputText id="domainfunction" value="#{domainsController.selected.domainfunction}" title="#{bundle.CreateDomainsTitle_domainfunction}" required="true" requiredMessage="#{bundle.CreateDomainsRequiredMessage_domainfunction}"/>
                     <h:outputLabel value="#{bundle.CreateDomainsLabel_ippointer}" for="ippointer" />
                     <h:inputText id="ippointer" value="#{domainsController.selected.ippointer}" title="#{bundle.CreateDomainsTitle_ippointer}" required="true" requiredMessage="#{bundle.CreateDomainsRequiredMessage_ippointer}"/>
+                    <h:outputLabel value="#{bundle.CreateDomainsLabel_setFIL}" for="setFIL" />
+                    <h:inputText id="setFIL" value="#{domainsController.selected.setFIL}" title="#{bundle.CreateDomainsTitle_setFIL}" required="true" requiredMessage="#{bundle.CreateDomainsRequiredMessage_setFIL}"/>
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{domainsController.create}" value="#{bundle.CreateDomainsSaveLink}" />
