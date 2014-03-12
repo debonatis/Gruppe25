@@ -22,8 +22,8 @@
         <welcome-file>faces/index.xhtml</welcome-file>
     </welcome-file-list>
     <filter>
-        
-<filter-name>PrimeFaces FileUpload Filter</filter-name> 
+     
+        <filter-name>PrimeFaces FileUpload Filter</filter-name> 
         <filter-class>
             org.primefaces.webapp.filter.FileUploadFilter
 
