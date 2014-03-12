@@ -17,7 +17,7 @@
 
             <p:layout fullPage="true">
 
-                <p:layoutUnit position="north" size="105" resizable="true" closable="true" collapsible="true">
+                <p:layoutUnit position="north" size="105" resizable="false" closable="true" collapsible="true">
                     <h:form>
                         <p:graphicImage value="/resources/pics/Atealogo.gif"/>     
                     </h:form>
@@ -68,7 +68,46 @@
                 </p:layoutUnit>
 
                 <p:layoutUnit position="center">
-                    LOOOL
+                    <h:form >
+                    <p:growl id="growl" sticky="true" showDetail="true"/>  
+                    <p:wizard widgetVar="wiz"  
+                              flowListener="#{retterController.onFlowProcess}">  
+                        <p:tab id="rett" title="Dish Information">  
+                            <p:panel header="Dish Information">  
+                                <h:messages errorClass="error"/>  
+                                <h:panelGrid columns="2">
+                                    <h:outputLabel value="#{bundle.CreateRetterLabel_rettnummer}" for="rettnummer" />
+                                    <p:inputText id="rettnummer" value="#{retterController.selected.rettnummer}" title="#{bundle.CreateRetterTitle_rettnummer}" required="true" requiredMessage="#{bundle.CreateRetterRequiredMessage_rettnummer}"/> </h:panelGrid>
+                            </p:panel>  
+                        </p:tab>  
+                        <p:tab id="picture" title="Picture">  
+                            <p:panel header="Upload picture">  
+                                <h:form enctype="multipart/form-data">  
+                                    <p:fileUpload fileUploadListener="#{retterController.handleFileUpload}"  
+                                                  mode="advanced"  
+                                                  update="messages"  
+                                                  auto="true"  
+                                                  sizeLimit="1000000000"   
+                                                  allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>  
+                                    <p:growl id="messages" showDetail="true"/>  
+                                </h:form> 
+                            </p:panel> 
+                            <br/>
+                            <p:panel>
+                                <br />
+                                <h:outputLabel value="#{bundle.CreateRetterLabel_beskrivelse}" for="beskrivelse" />
+                                <p:inputText id="beskrivelse" value="#{retterController.selected.beskrivelse}" title="#{bundle.CreateRetterTitle_beskrivelse}" />
+                                <br/><br/>
+                                <p:commandButton action="#{retterController.create}" value="#{bundle.CreateRetterSaveLink}" update="growl"/>
+                                <br/><br/>
+                                <p:menubar>
+                                    <p:menuitem action="#{retterController.prepareList}" value="#{bundle.CreateRetterShowAllLink}" immediate="true"/>
+                                    <p:menuitem outcome="/index" value="#{bundle.CreateRetterIndexLink}" style="margin-left:600px"/> 
+                                </p:menubar>
+                            </p:panel>  
+                        </p:tab>
+                    </p:wizard> 
+                </h:form>
                 </p:layoutUnit>
 
             </p:layout>
