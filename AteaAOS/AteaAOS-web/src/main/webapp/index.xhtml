@@ -18,9 +18,9 @@
             <p:layout fullPage="true">
 
                 <p:layoutUnit position="north" size="105" resizable="false" closable="true" collapsible="true">
-                   
-                        <p:graphicImage value="/resources/images/Atealogo.gif"/>     
-                    
+
+                    <p:graphicImage value="/resources/images/Atealogo.gif"/>     
+
                 </p:layoutUnit>
 
                 <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
@@ -71,15 +71,16 @@
 
                         <p:growl id="growl" sticky="true" showDetail="true"/>  
                         <p:wizard widgetVar="wiz"  
-                                  flowListener="#{domainsController.onFlowProcess}" id="wizard" >  
+                                  flowListener="#{domainsController.onFlowProcess}" id="wizard"
+                                  >  
                             <p:tab id="domain" title="New domain">  
-                                <p:panel header="Domain information">  
-                                    <h:messages errorClass="error"/>  
-                                    <h:panelGrid columns="2">
-                                        <h:outputLabel value="Create new domain: " for="domaininput" />
-                                        <p:inputText id="domaininput" value="#{domainsController.selected.domainname}" title="#{bundle.CreateDomainsTitle_domainname}" required="true" requiredMessage="#{bundle.CreateDomainsRequiredMessage_domainname}"/>
-                                    </h:panelGrid>
-                                </p:panel>  
+
+                                <h:messages errorClass="error"/>  
+                                <h:panelGrid columns="2">
+                                    <h:outputLabel value="Create new domain: " for="domaininput" />
+                                    <p:inputText id="domaininput" value="#{domainsController.selected.domainname}" title="#{bundle.CreateDomainsTitle_domainname}" required="true" requiredMessage="#{bundle.CreateDomainsRequiredMessage_domainname}"/>
+                                </h:panelGrid>
+
                             </p:tab>  
                             <p:tab id="CSV" title="CVS">  
                                 <p:panel header="Upload CVS-file you want to use in your migration process. (This is optional)">  
