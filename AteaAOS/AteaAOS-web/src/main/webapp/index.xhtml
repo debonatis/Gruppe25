@@ -66,12 +66,12 @@
 
                     </p:menu>
                 </p:layoutUnit>
-                <h:form>
+                <h:form id="domainform">
                     <p:layoutUnit position="center">
 
                         <p:growl id="growl" sticky="true" showDetail="true"/>  
                         <p:wizard widgetVar="wiz"  
-                                  flowListener="#{domainsController.onFlowProcess}">  
+                                  flowListener="#{domainsController.onFlowProcess}" id="wizard" >  
                             <p:tab id="domain" title="New domain">  
                                 <p:panel header="Domain information">  
                                     <h:messages errorClass="error"/>  
