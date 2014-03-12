@@ -1,101 +1,80 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-        <h:outputStylesheet name="css/jsfcrud.css"/>
-    </h:head>
-    <h:body>
-        Hello from Facelets
-        <br />
-        <h:link outcome="/JSFtest/applicationaccess/List" value="Show All Applicationaccess Items"/>
-        <br />
-        <h:link outcome="/JSFtest/applications/List" value="Show All Applications Items"/>
-        <br />
-        <h:link outcome="/JSFtest/city/List" value="Show All City Items"/>
-        <br />
-        <h:link outcome="/JSFtest/distributiongroups/List" value="Show All Distributiongroups Items"/>
-        <br />
-        <h:link outcome="/JSFtest/domains/List" value="Show All Domains Items"/>
-        <br />
-        <h:link outcome="/JSFtest/emailcontacts/List" value="Show All Emailcontacts Items"/>
-        <br />
-        <h:link outcome="/JSFtest/groupaffiliations/List" value="Show All Groupaffiliations Items"/>
-        <br />
-        <h:link outcome="/JSFtest/grouplevel1/List" value="Show All Grouplevel1 Items"/>
-        <br />
-        <h:link outcome="/JSFtest/grouplevel2/List" value="Show All Grouplevel2 Items"/>
-        <br />
-        <h:link outcome="/JSFtest/groups/List" value="Show All Groups Items"/>
-        <br />
-        <h:link outcome="/JSFtest/groupusers/List" value="Show All Groupusers Items"/>
-        <br />
-        <h:link outcome="/JSFtest/level1/List" value="Show All Level1 Items"/>
-        <br />
-        <h:link outcome="/JSFtest/level2/List" value="Show All Level2 Items"/>
-        <br />
-        <h:link outcome="/JSFtest/logging/List" value="Show All Logging Items"/>
-        <br />
-        <h:link outcome="/JSFtest/printers/List" value="Show All Printers Items"/>
-        <br />
-        <h:link outcome="/JSFtest/roles/List" value="Show All Roles Items"/>
-        <br />
-        <h:link outcome="/JSFtest/sharedresources/List" value="Show All Sharedresources Items"/>
-        <br />
-        <h:link outcome="/JSFtest/siteuser/List" value="Show All Siteuser Items"/>
-        <br />
-        <h:link outcome="/JSFtest/userdistribution/List" value="Show All Userdistribution Items"/>
-        <br />
-        <h:link outcome="/JSFtest/users/List" value="Show All Users Items"/>
-    </h:body>
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
 
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>PrimeFaces</title>
+            </f:facet>
+        </h:head>
 
+        <h:body>
 
+            <p:layout fullPage="true">
 
+                <p:layoutUnit position="north" size="105" resizable="true" closable="true" collapsible="true">
+                    <h:form>
+                        <p:graphicImage value="/resources/pics/Atealogo.gif"/>     
+                    </h:form>
+                </p:layoutUnit>
 
+                <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
+                    Footer
+                </p:layoutUnit>
 
+                <p:layoutUnit position="west" size="175" header="Left" collapsible="true">
+                    <p:menu>
+                        <p:submenu label="Resources">
 
+                            <p:menuitem outcome="/JSFtest/applicationaccess/List" value="Show All Applicationaccess Items"/>
 
+                            <p:menuitem outcome="/JSFtest/applications/List" value="Show All Applications Items"/>
+                            <p:menuitem outcome="/JSFtest/city/List" value="Show All City Items"/>
 
+                            <p:menuitem outcome="/JSFtest/distributiongroups/List" value="Show All Distributiongroups Items"/>
 
+                            <p:menuitem outcome="/JSFtest/domains/List" value="Show All Domains Items"/>
 
+                            <p:menuitem outcome="/JSFtest/emailcontacts/List" value="Show All Emailcontacts Items"/>
 
+                            <p:menuitem outcome="/JSFtest/groupaffiliations/List" value="Show All Groupaffiliations Items"/>
 
+                            <p:menuitem outcome="/JSFtest/grouplevel1/List" value="Show All Grouplevel1 Items"/>
 
+                            <p:menuitem outcome="/JSFtest/grouplevel2/List" value="Show All Grouplevel2 Items"/>
+                            <p:menuitem outcome="/JSFtest/groups/List" value="Show All Groups Items"/>
+                            <p:menuitem outcome="/JSFtest/groupusers/List" value="Show All Groupusers Items"/>
+                            <p:menuitem outcome="/JSFtest/level1/List" value="Show All Level1 Items"/>
+                            <p:menuitem outcome="/JSFtest/level2/List" value="Show All Level2 Items"/>
+                            <p:menuitem outcome="/JSFtest/logging/List" value="Show All Logging Items"/>
+                            <p:menuitem outcome="/JSFtest/printers/List" value="Show All Printers Items"/>
+                            <p:menuitem outcome="/JSFtest/roles/List" value="Show All Roles Items"/>
+                            <p:menuitem outcome="/JSFtest/sharedresources/List" value="Show All Sharedresources Items"/>
 
+                            <p:menuitem outcome="/JSFtest/siteuser/List" value="Show All Siteuser Items"/>
 
+                            <p:menuitem outcome="/JSFtest/userdistribution/List" value="Show All Userdistribution Items"/>
 
+                            <p:menuitem outcome="/JSFtest/users/List" value="Show All Users Items"/>
 
+                        </p:submenu>
 
+                    </p:menu>
+                </p:layoutUnit>
 
+                <p:layoutUnit position="center">
+                    LOOOL
+                </p:layoutUnit>
 
+            </p:layout>
 
+        </h:body>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    </f:view>
 </html>
 
