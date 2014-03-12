@@ -4,9 +4,15 @@ import Entitys.Domains;
 import JSFclasses.util.JsfUtil;
 import JSFclasses.util.PaginationHelper;
 import SessionBeans.DomainsFacade;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -17,6 +23,8 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.event.FlowEvent;
 
 @Named("domainsController")
 @SessionScoped
@@ -28,6 +36,8 @@ public class DomainsController implements Serializable {
     private SessionBeans.DomainsFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    private static final Logger logger = Logger.getLogger(DomainsController.class.getName());
+    private boolean skip;
 
     public DomainsController() {
     }
@@ -190,6 +200,58 @@ public class DomainsController implements Serializable {
 
     public Domains getDomains(java.lang.String id) {
         return ejbFacade.find(id);
+    }
+    public String onFlowProcess(FlowEvent event) {
+        logger.info("Current wizard step:" + event.getOldStep());
+        logger.info("Next step:" + event.getNewStep());
+
+        if (skip) {
+            skip = false;
+            return "confirm";
+        } else {
+            return event.getNewStep();
+        }
+    }
+
+    /**
+     *
+     * @param event
+     */
+    public void handleFileUpload(FileUploadEvent event) {
+        
+       
+
+
+        try {
+            
+           String mick = FacesContext.getCurrentInstance().getExternalContext().getRealPath("//resources//CSV");
+             File file = new File(mick, event.getFile().getFileName());
+              
+
+            InputStream inputStream = event.getFile().getInputstream();
+            current.setSetFIL(event.getFile().getFileName());
+            OutputStream out = new FileOutputStream(file);
+
+
+            int read = 0;
+
+            byte[] bytes = new byte[1024];
+
+
+
+            while ((read = inputStream.read(bytes)) != -1) {
+                out.write(bytes, 0, read);
+
+            }
+
+            inputStream.close();
+
+            out.flush();
+
+            out.close();
+
+        } catch (IOException e) {
+        }
     }
 
     @FacesConverter(forClass = Domains.class)
