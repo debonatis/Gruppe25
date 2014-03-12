@@ -32,7 +32,7 @@ import org.primefaces.event.FlowEvent;
 public class DomainsController implements Serializable {
 
     private Domains current;
-    private DataModel items = null;
+    private transient DataModel items = null;
     @EJB
     private SessionBeans.DomainsFacade ejbFacade;
     private PaginationHelper pagination;
