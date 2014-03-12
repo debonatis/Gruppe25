@@ -19,7 +19,7 @@
 
                 <p:layoutUnit position="north" size="105" resizable="false" closable="true" collapsible="true">
                     <h:form>
-                        <p:graphicImage value="/resources/pics/Atealogo.gif"/>     
+                        <p:graphicImage value="/resources/images/Atealogo.gif"/>     
                     </h:form>
                 </p:layoutUnit>
 
@@ -76,30 +76,14 @@
                             <p:panel header="Dish Information">  
                                 <h:messages errorClass="error"/>  
                                 <h:panelGrid columns="2">
-                                    <h:outputLabel value="#{bundle.CreateRetterLabel_rettnummer}" for="rettnummer" />
+                                    <h:outputLabel value="Create new domain" for="domain" />
                                     <p:inputText id="rettnummer" value="#{retterController.selected.rettnummer}" title="#{bundle.CreateRetterTitle_rettnummer}" required="true" requiredMessage="#{bundle.CreateRetterRequiredMessage_rettnummer}"/> </h:panelGrid>
                             </p:panel>  
                         </p:tab>  
                         <p:tab id="picture" title="Picture">  
-                            <p:panel header="Upload picture">  
-                                <h:form enctype="multipart/form-data">  
-                                    <p:fileUpload fileUploadListener="#{retterController.handleFileUpload}"  
-                                                  mode="advanced"  
-                                                  update="messages"  
-                                                  auto="true"  
-                                                  sizeLimit="1000000000"   
-                                                  allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>  
-                                    <p:growl id="messages" showDetail="true"/>  
-                                </h:form> 
-                            </p:panel> 
                             <br/>
                             <p:panel>
                                 <br />
-                                <h:outputLabel value="#{bundle.CreateRetterLabel_beskrivelse}" for="beskrivelse" />
-                                <p:inputText id="beskrivelse" value="#{retterController.selected.beskrivelse}" title="#{bundle.CreateRetterTitle_beskrivelse}" />
-                                <br/><br/>
-                                <p:commandButton action="#{retterController.create}" value="#{bundle.CreateRetterSaveLink}" update="growl"/>
-                                <br/><br/>
                                 <p:menubar>
                                     <p:menuitem action="#{retterController.prepareList}" value="#{bundle.CreateRetterShowAllLink}" immediate="true"/>
                                     <p:menuitem outcome="/index" value="#{bundle.CreateRetterIndexLink}" style="margin-left:600px"/> 
