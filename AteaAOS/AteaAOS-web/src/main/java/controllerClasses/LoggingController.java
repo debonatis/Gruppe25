@@ -1,6 +1,6 @@
 package controllerClasses;
 
-import Entitys.Logging;
+import entityModels.Logging;
 import controllerClasses.util.JsfUtil;
 import controllerClasses.util.PaginationHelper;
 import persistClasses.LoggingFacade;

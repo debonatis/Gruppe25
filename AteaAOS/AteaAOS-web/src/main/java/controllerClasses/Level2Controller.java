@@ -1,6 +1,6 @@
 package controllerClasses;
 
-import Entitys.Level2;
+import entityModels.Level2;
 import controllerClasses.util.JsfUtil;
 import controllerClasses.util.PaginationHelper;
 import persistClasses.Level2Facade;

@@ -1,6 +1,6 @@
 package controllerClasses;
 
-import Entitys.Userdistribution;
+import entityModels.Userdistribution;
 import controllerClasses.util.JsfUtil;
 import controllerClasses.util.PaginationHelper;
 import persistClasses.UserdistributionFacade;
@@ -35,7 +35,7 @@ public class UserdistributionController implements Serializable {
     public Userdistribution getSelected() {
         if (current == null) {
             current = new Userdistribution();
-            current.setUserdistributionPK(new Entitys.UserdistributionPK());
+            current.setUserdistributionPK(new entityModels.UserdistributionPK());
             selectedItemIndex = -1;
         }
         return current;
@@ -76,7 +76,7 @@ public class UserdistributionController implements Serializable {
 
     public String prepareCreate() {
         current = new Userdistribution();
-        current.setUserdistributionPK(new Entitys.UserdistributionPK());
+        current.setUserdistributionPK(new entityModels.UserdistributionPK());
         selectedItemIndex = -1;
         return "Create";
     }
@@ -190,7 +190,7 @@ public class UserdistributionController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    public Userdistribution getUserdistribution(Entitys.UserdistributionPK id) {
+    public Userdistribution getUserdistribution(entityModels.UserdistributionPK id) {
         return ejbFacade.find(id);
     }
 
@@ -210,16 +210,16 @@ public class UserdistributionController implements Serializable {
             return controller.getUserdistribution(getKey(value));
         }
 
-        Entitys.UserdistributionPK getKey(String value) {
-            Entitys.UserdistributionPK key;
+        entityModels.UserdistributionPK getKey(String value) {
+            entityModels.UserdistributionPK key;
             String values[] = value.split(SEPARATOR_ESCAPED);
-            key = new Entitys.UserdistributionPK();
+            key = new entityModels.UserdistributionPK();
             key.setUsername(values[0]);
             key.setDisplayname(values[1]);
             return key;
         }
 
-        String getStringKey(Entitys.UserdistributionPK value) {
+        String getStringKey(entityModels.UserdistributionPK value) {
             StringBuilder sb = new StringBuilder();
             sb.append(value.getUsername());
             sb.append(SEPARATOR);

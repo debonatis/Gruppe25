@@ -1,6 +1,6 @@
 package controllerClasses;
 
-import Entitys.Sharedresources;
+import entityModels.Sharedresources;
 import controllerClasses.util.JsfUtil;
 import controllerClasses.util.PaginationHelper;
 import persistClasses.SharedresourcesFacade;

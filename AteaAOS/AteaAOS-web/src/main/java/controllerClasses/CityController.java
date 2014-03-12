@@ -1,6 +1,6 @@
 package controllerClasses;
 
-import Entitys.City;
+import entityModels.City;
 import controllerClasses.util.JsfUtil;
 import controllerClasses.util.PaginationHelper;
 import persistClasses.CityFacade;

@@ -6,7 +6,7 @@
 
 package persistClasses;
 
-import Entitys.Grouplevel2;
+import entityModels.Grouplevel2;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

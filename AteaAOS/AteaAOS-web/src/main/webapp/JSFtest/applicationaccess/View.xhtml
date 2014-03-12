@@ -15,10 +15,10 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewApplicationaccessLabel_applicationaccessPK_username}"/>
-                    <h:outputText value="#{applicationaccessController.selected.applicationaccessPK.username}" title="#{bundle.ViewApplicationaccessTitle_applicationaccessPK_username}"/>
                     <h:outputText value="#{bundle.ViewApplicationaccessLabel_applicationaccessPK_applicationname}"/>
                     <h:outputText value="#{applicationaccessController.selected.applicationaccessPK.applicationname}" title="#{bundle.ViewApplicationaccessTitle_applicationaccessPK_applicationname}"/>
+                    <h:outputText value="#{bundle.ViewApplicationaccessLabel_applicationaccessPK_username}"/>
+                    <h:outputText value="#{applicationaccessController.selected.applicationaccessPK.username}" title="#{bundle.ViewApplicationaccessTitle_applicationaccessPK_username}"/>
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{applicationaccessController.destroyAndView}" value="#{bundle.ViewApplicationaccessDestroyLink}"/>

@@ -1,6 +1,6 @@
 package controllerClasses;
 
-import Entitys.Grouplevel2;
+import entityModels.Grouplevel2;
 import controllerClasses.util.JsfUtil;
 import controllerClasses.util.PaginationHelper;
 import persistClasses.Grouplevel2Facade;
@@ -35,7 +35,7 @@ public class Grouplevel2Controller implements Serializable {
     public Grouplevel2 getSelected() {
         if (current == null) {
             current = new Grouplevel2();
-            current.setGrouplevel2PK(new Entitys.Grouplevel2PK());
+            current.setGrouplevel2PK(new entityModels.Grouplevel2PK());
             selectedItemIndex = -1;
         }
         return current;
@@ -76,7 +76,7 @@ public class Grouplevel2Controller implements Serializable {
 
     public String prepareCreate() {
         current = new Grouplevel2();
-        current.setGrouplevel2PK(new Entitys.Grouplevel2PK());
+        current.setGrouplevel2PK(new entityModels.Grouplevel2PK());
         selectedItemIndex = -1;
         return "Create";
     }
@@ -190,7 +190,7 @@ public class Grouplevel2Controller implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    public Grouplevel2 getGrouplevel2(Entitys.Grouplevel2PK id) {
+    public Grouplevel2 getGrouplevel2(entityModels.Grouplevel2PK id) {
         return ejbFacade.find(id);
     }
 
@@ -210,16 +210,16 @@ public class Grouplevel2Controller implements Serializable {
             return controller.getGrouplevel2(getKey(value));
         }
 
-        Entitys.Grouplevel2PK getKey(String value) {
-            Entitys.Grouplevel2PK key;
+        entityModels.Grouplevel2PK getKey(String value) {
+            entityModels.Grouplevel2PK key;
             String values[] = value.split(SEPARATOR_ESCAPED);
-            key = new Entitys.Grouplevel2PK();
+            key = new entityModels.Grouplevel2PK();
             key.setGroupname(values[0]);
             key.setGuid(values[1]);
             return key;
         }
 
-        String getStringKey(Entitys.Grouplevel2PK value) {
+        String getStringKey(entityModels.Grouplevel2PK value) {
             StringBuilder sb = new StringBuilder();
             sb.append(value.getGroupname());
             sb.append(SEPARATOR);

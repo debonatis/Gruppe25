@@ -1,6 +1,6 @@
 package controllerClasses;
 
-import Entitys.Applicationaccess;
+import entityModels.Applicationaccess;
 import controllerClasses.util.JsfUtil;
 import controllerClasses.util.PaginationHelper;
 import persistClasses.ApplicationaccessFacade;
@@ -35,7 +35,7 @@ public class ApplicationaccessController implements Serializable {
     public Applicationaccess getSelected() {
         if (current == null) {
             current = new Applicationaccess();
-            current.setApplicationaccessPK(new Entitys.ApplicationaccessPK());
+            current.setApplicationaccessPK(new entityModels.ApplicationaccessPK());
             selectedItemIndex = -1;
         }
         return current;
@@ -76,7 +76,7 @@ public class ApplicationaccessController implements Serializable {
 
     public String prepareCreate() {
         current = new Applicationaccess();
-        current.setApplicationaccessPK(new Entitys.ApplicationaccessPK());
+        current.setApplicationaccessPK(new entityModels.ApplicationaccessPK());
         selectedItemIndex = -1;
         return "Create";
     }
@@ -190,7 +190,7 @@ public class ApplicationaccessController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    public Applicationaccess getApplicationaccess(Entitys.ApplicationaccessPK id) {
+    public Applicationaccess getApplicationaccess(entityModels.ApplicationaccessPK id) {
         return ejbFacade.find(id);
     }
 
@@ -210,16 +210,16 @@ public class ApplicationaccessController implements Serializable {
             return controller.getApplicationaccess(getKey(value));
         }
 
-        Entitys.ApplicationaccessPK getKey(String value) {
-            Entitys.ApplicationaccessPK key;
+        entityModels.ApplicationaccessPK getKey(String value) {
+            entityModels.ApplicationaccessPK key;
             String values[] = value.split(SEPARATOR_ESCAPED);
-            key = new Entitys.ApplicationaccessPK();
+            key = new entityModels.ApplicationaccessPK();
             key.setUsername(values[0]);
             key.setApplicationname(values[1]);
             return key;
         }
 
-        String getStringKey(Entitys.ApplicationaccessPK value) {
+        String getStringKey(entityModels.ApplicationaccessPK value) {
             StringBuilder sb = new StringBuilder();
             sb.append(value.getUsername());
             sb.append(SEPARATOR);

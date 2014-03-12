@@ -6,7 +6,7 @@
 
 package persistClasses;
 
-import Entitys.Sharedresources;
+import entityModels.Sharedresources;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

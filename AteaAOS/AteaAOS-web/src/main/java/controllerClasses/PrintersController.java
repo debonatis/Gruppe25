@@ -1,6 +1,6 @@
 package controllerClasses;
 
-import Entitys.Printers;
+import entityModels.Printers;
 import controllerClasses.util.JsfUtil;
 import controllerClasses.util.PaginationHelper;
 import persistClasses.PrintersFacade;

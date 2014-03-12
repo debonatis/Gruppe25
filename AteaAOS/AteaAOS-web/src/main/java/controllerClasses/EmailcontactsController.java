@@ -1,6 +1,6 @@
 package controllerClasses;
 
-import Entitys.Emailcontacts;
+import entityModels.Emailcontacts;
 import controllerClasses.util.JsfUtil;
 import controllerClasses.util.PaginationHelper;
 import persistClasses.EmailcontactsFacade;

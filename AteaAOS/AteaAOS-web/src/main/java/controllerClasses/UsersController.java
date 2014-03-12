@@ -1,6 +1,6 @@
 package controllerClasses;
 
-import Entitys.Users;
+import entityModels.Users;
 import controllerClasses.util.JsfUtil;
 import controllerClasses.util.PaginationHelper;
 import persistClasses.UsersFacade;

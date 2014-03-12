@@ -1,6 +1,6 @@
 package controllerClasses;
 
-import Entitys.Groupusers;
+import entityModels.Groupusers;
 import controllerClasses.util.JsfUtil;
 import controllerClasses.util.PaginationHelper;
 import persistClasses.GroupusersFacade;
@@ -35,7 +35,7 @@ public class GroupusersController implements Serializable {
     public Groupusers getSelected() {
         if (current == null) {
             current = new Groupusers();
-            current.setGroupusersPK(new Entitys.GroupusersPK());
+            current.setGroupusersPK(new entityModels.GroupusersPK());
             selectedItemIndex = -1;
         }
         return current;
@@ -76,7 +76,7 @@ public class GroupusersController implements Serializable {
 
     public String prepareCreate() {
         current = new Groupusers();
-        current.setGroupusersPK(new Entitys.GroupusersPK());
+        current.setGroupusersPK(new entityModels.GroupusersPK());
         selectedItemIndex = -1;
         return "Create";
     }
@@ -190,7 +190,7 @@ public class GroupusersController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    public Groupusers getGroupusers(Entitys.GroupusersPK id) {
+    public Groupusers getGroupusers(entityModels.GroupusersPK id) {
         return ejbFacade.find(id);
     }
 
@@ -210,16 +210,16 @@ public class GroupusersController implements Serializable {
             return controller.getGroupusers(getKey(value));
         }
 
-        Entitys.GroupusersPK getKey(String value) {
-            Entitys.GroupusersPK key;
+        entityModels.GroupusersPK getKey(String value) {
+            entityModels.GroupusersPK key;
             String values[] = value.split(SEPARATOR_ESCAPED);
-            key = new Entitys.GroupusersPK();
+            key = new entityModels.GroupusersPK();
             key.setUsername(values[0]);
             key.setUsergroupname(values[1]);
             return key;
         }
 
-        String getStringKey(Entitys.GroupusersPK value) {
+        String getStringKey(entityModels.GroupusersPK value) {
             StringBuilder sb = new StringBuilder();
             sb.append(value.getUsername());
             sb.append(SEPARATOR);

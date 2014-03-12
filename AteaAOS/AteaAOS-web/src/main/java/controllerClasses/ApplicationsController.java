@@ -1,6 +1,6 @@
 package controllerClasses;
 
-import Entitys.Applications;
+import entityModels.Applications;
 import controllerClasses.util.JsfUtil;
 import controllerClasses.util.PaginationHelper;
 import persistClasses.ApplicationsFacade;

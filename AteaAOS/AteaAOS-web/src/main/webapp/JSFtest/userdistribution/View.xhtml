@@ -15,10 +15,10 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewUserdistributionLabel_userdistributionPK_displayname}"/>
-                    <h:outputText value="#{userdistributionController.selected.userdistributionPK.displayname}" title="#{bundle.ViewUserdistributionTitle_userdistributionPK_displayname}"/>
                     <h:outputText value="#{bundle.ViewUserdistributionLabel_userdistributionPK_username}"/>
                     <h:outputText value="#{userdistributionController.selected.userdistributionPK.username}" title="#{bundle.ViewUserdistributionTitle_userdistributionPK_username}"/>
+                    <h:outputText value="#{bundle.ViewUserdistributionLabel_userdistributionPK_displayname}"/>
+                    <h:outputText value="#{userdistributionController.selected.userdistributionPK.displayname}" title="#{bundle.ViewUserdistributionTitle_userdistributionPK_displayname}"/>
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{userdistributionController.destroyAndView}" value="#{bundle.ViewUserdistributionDestroyLink}"/>

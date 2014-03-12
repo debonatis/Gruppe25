@@ -6,7 +6,7 @@
 
 package persistClasses;
 
-import Entitys.Distributiongroups;
+import entityModels.Distributiongroups;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

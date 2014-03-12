@@ -6,7 +6,7 @@
 
 package persistClasses;
 
-import Entitys.Emailcontacts;
+import entityModels.Emailcontacts;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

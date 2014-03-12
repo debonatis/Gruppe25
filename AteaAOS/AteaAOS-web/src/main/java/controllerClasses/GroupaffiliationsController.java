@@ -1,6 +1,6 @@
 package controllerClasses;
 
-import Entitys.Groupaffiliations;
+import entityModels.Groupaffiliations;
 import controllerClasses.util.JsfUtil;
 import controllerClasses.util.PaginationHelper;
 import persistClasses.GroupaffiliationsFacade;
@@ -35,7 +35,7 @@ public class GroupaffiliationsController implements Serializable {
     public Groupaffiliations getSelected() {
         if (current == null) {
             current = new Groupaffiliations();
-            current.setGroupaffiliationsPK(new Entitys.GroupaffiliationsPK());
+            current.setGroupaffiliationsPK(new entityModels.GroupaffiliationsPK());
             selectedItemIndex = -1;
         }
         return current;
@@ -76,7 +76,7 @@ public class GroupaffiliationsController implements Serializable {
 
     public String prepareCreate() {
         current = new Groupaffiliations();
-        current.setGroupaffiliationsPK(new Entitys.GroupaffiliationsPK());
+        current.setGroupaffiliationsPK(new entityModels.GroupaffiliationsPK());
         selectedItemIndex = -1;
         return "Create";
     }
@@ -190,7 +190,7 @@ public class GroupaffiliationsController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    public Groupaffiliations getGroupaffiliations(Entitys.GroupaffiliationsPK id) {
+    public Groupaffiliations getGroupaffiliations(entityModels.GroupaffiliationsPK id) {
         return ejbFacade.find(id);
     }
 
@@ -210,16 +210,16 @@ public class GroupaffiliationsController implements Serializable {
             return controller.getGroupaffiliations(getKey(value));
         }
 
-        Entitys.GroupaffiliationsPK getKey(String value) {
-            Entitys.GroupaffiliationsPK key;
+        entityModels.GroupaffiliationsPK getKey(String value) {
+            entityModels.GroupaffiliationsPK key;
             String values[] = value.split(SEPARATOR_ESCAPED);
-            key = new Entitys.GroupaffiliationsPK();
+            key = new entityModels.GroupaffiliationsPK();
             key.setGroupnamemany(values[0]);
             key.setGroupmambership(values[1]);
             return key;
         }
 
-        String getStringKey(Entitys.GroupaffiliationsPK value) {
+        String getStringKey(entityModels.GroupaffiliationsPK value) {
             StringBuilder sb = new StringBuilder();
             sb.append(value.getGroupnamemany());
             sb.append(SEPARATOR);

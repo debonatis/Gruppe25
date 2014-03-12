@@ -6,7 +6,7 @@
 
 package persistClasses;
 
-import Entitys.Applicationaccess;
+import entityModels.Applicationaccess;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

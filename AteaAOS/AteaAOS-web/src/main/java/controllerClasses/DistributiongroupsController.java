@@ -1,6 +1,6 @@
 package controllerClasses;
 
-import Entitys.Distributiongroups;
+import entityModels.Distributiongroups;
 import controllerClasses.util.JsfUtil;
 import controllerClasses.util.PaginationHelper;
 import persistClasses.DistributiongroupsFacade;

@@ -15,10 +15,10 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditGroupaffiliationsLabel_groupaffiliationsPK_groupmambership}" for="groupaffiliationsPK_groupmambership" />
-                    <h:inputText id="groupaffiliationsPK_groupmambership" value="#{groupaffiliationsController.selected.groupaffiliationsPK.groupmambership}" title="#{bundle.EditGroupaffiliationsTitle_groupaffiliationsPK_groupmambership}" required="true" requiredMessage="#{bundle.EditGroupaffiliationsRequiredMessage_groupaffiliationsPK_groupmambership}"/>
                     <h:outputLabel value="#{bundle.EditGroupaffiliationsLabel_groupaffiliationsPK_groupnamemany}" for="groupaffiliationsPK_groupnamemany" />
                     <h:inputText id="groupaffiliationsPK_groupnamemany" value="#{groupaffiliationsController.selected.groupaffiliationsPK.groupnamemany}" title="#{bundle.EditGroupaffiliationsTitle_groupaffiliationsPK_groupnamemany}" required="true" requiredMessage="#{bundle.EditGroupaffiliationsRequiredMessage_groupaffiliationsPK_groupnamemany}"/>
+                    <h:outputLabel value="#{bundle.EditGroupaffiliationsLabel_groupaffiliationsPK_groupmambership}" for="groupaffiliationsPK_groupmambership" />
+                    <h:inputText id="groupaffiliationsPK_groupmambership" value="#{groupaffiliationsController.selected.groupaffiliationsPK.groupmambership}" title="#{bundle.EditGroupaffiliationsTitle_groupaffiliationsPK_groupmambership}" required="true" requiredMessage="#{bundle.EditGroupaffiliationsRequiredMessage_groupaffiliationsPK_groupmambership}"/>
                 </h:panelGrid>
                 <h:commandLink action="#{groupaffiliationsController.update}" value="#{bundle.EditGroupaffiliationsSaveLink}"/>
                 <br />

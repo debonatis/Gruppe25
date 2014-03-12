@@ -1,6 +1,6 @@
 package controllerClasses;
 
-import Entitys.Siteuser;
+import entityModels.Siteuser;
 import controllerClasses.util.JsfUtil;
 import controllerClasses.util.PaginationHelper;
 import persistClasses.SiteuserFacade;

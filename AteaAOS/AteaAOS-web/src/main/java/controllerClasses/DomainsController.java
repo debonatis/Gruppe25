@@ -1,6 +1,6 @@
 package controllerClasses;
 
-import Entitys.Domains;
+import entityModels.Domains;
 import controllerClasses.util.JsfUtil;
 import controllerClasses.util.PaginationHelper;
 import persistClasses.DomainsFacade;

@@ -15,10 +15,10 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateUserdistributionLabel_userdistributionPK_displayname}" for="userdistributionPK_displayname" />
-                    <h:inputText id="userdistributionPK_displayname" value="#{userdistributionController.selected.userdistributionPK.displayname}" title="#{bundle.CreateUserdistributionTitle_userdistributionPK_displayname}" required="true" requiredMessage="#{bundle.CreateUserdistributionRequiredMessage_userdistributionPK_displayname}"/>
                     <h:outputLabel value="#{bundle.CreateUserdistributionLabel_userdistributionPK_username}" for="userdistributionPK_username" />
                     <h:inputText id="userdistributionPK_username" value="#{userdistributionController.selected.userdistributionPK.username}" title="#{bundle.CreateUserdistributionTitle_userdistributionPK_username}" required="true" requiredMessage="#{bundle.CreateUserdistributionRequiredMessage_userdistributionPK_username}"/>
+                    <h:outputLabel value="#{bundle.CreateUserdistributionLabel_userdistributionPK_displayname}" for="userdistributionPK_displayname" />
+                    <h:inputText id="userdistributionPK_displayname" value="#{userdistributionController.selected.userdistributionPK.displayname}" title="#{bundle.CreateUserdistributionTitle_userdistributionPK_displayname}" required="true" requiredMessage="#{bundle.CreateUserdistributionRequiredMessage_userdistributionPK_displayname}"/>
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{userdistributionController.create}" value="#{bundle.CreateUserdistributionSaveLink}" />

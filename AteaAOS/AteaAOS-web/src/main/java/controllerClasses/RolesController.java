@@ -1,6 +1,6 @@
 package controllerClasses;
 
-import Entitys.Roles;
+import entityModels.Roles;
 import controllerClasses.util.JsfUtil;
 import controllerClasses.util.PaginationHelper;
 import persistClasses.RolesFacade;
