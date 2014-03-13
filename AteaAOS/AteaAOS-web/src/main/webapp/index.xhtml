@@ -70,19 +70,19 @@
 
                         <p:growl id="growl" sticky="true" showDetail="true"/>  
                         <p:wizard widgetVar="wiz"  
-                                  flowListener="#{DomainsController.onFlowProcess}">  
+                                  flowListener="#{domainsController.onFlowProcess}">  
                             <p:tab id="domain" title="New domain">  
                                 <p:panel header="Domain information">
 
                                     <h:messages errorClass="error"/>  
                                     <h:panelGrid columns="2">
-                                            <h:outputLabel value="Create new domain: " for="domain" />
-                                            <p:inputText id="domainname" value="#{domainsController.selected.domainname}" title="#{bundle.CreateDomainsTitle_domainname}" required="true" requiredMessage="#{bundle.CreateDomainsRequiredMessage_domainname}"/>  
+                                            <h:outputLabel value="Create new domain: " for="domaininput" />
+                                            <p:inputText id="domaininput" value="#{domainsController.selected.domainname}" title="#{bundle.CreateDomainsTitle_domainname}" required="true" requiredMessage="#{bundle.CreateDomainsRequiredMessage_domainname}"/>  
                                     </h:panelGrid>
 
                                 </p:panel>  
                             </p:tab>  
-                            <p:tab id="picture" title="Picture">  
+                            <p:tab id="CVS" title="CVS">  
                                 <p:panel header="Upload CVS-file you want to use in your migration process. (This is optional)">  
                                     <h:form enctype="multipart/form-data">  
                                         <p:fileUpload fileUploadListener="#{domainsController.handleFileUpload}"  
