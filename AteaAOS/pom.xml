@@ -7,8 +7,6 @@
   <packaging>pom</packaging>
   <name>AteaAOS</name>
   <modules>
-    <module>AteaAOS-ear</module>
     <module>AteaAOS-web</module>
-    <module>AteaAOS-ejb</module>
   </modules>
 </project>
