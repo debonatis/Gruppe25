@@ -4,14 +4,18 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        
-    </h:head>
-    <h:body>
+   <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>AOS</title>
+                <h:outputStylesheet name="css/jsfcrud.css"/>
+            </f:facet>
+        </h:head>
 
-    <p:layoutUnit position="north" size="105" resizable="false" closable="true" collapsible="true">
-        <p:graphicImage value="/resources/images/Atealogo.gif"/>     
-    </p:layoutUnit>
+        <h:body>
+
+            <p:layout fullPage="true">
     <p:layoutUnit position="west" size="225" header="Left" collapsible="true">
         <p:menu>
             <p:submenu label="Resources">
@@ -99,5 +103,6 @@
     <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
         Atea A/S
     </p:layoutUnit>
+                </p:layout>
         </h:body>
 </html> 
