@@ -4,7 +4,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-   <f:view contentType="text/html">
+    <f:view contentType="text/html">
         <h:head>
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
@@ -16,93 +16,94 @@
         <h:body>
 
             <p:layout fullPage="true">
-    <p:layoutUnit position="west" size="225" header="Left" collapsible="true">
-        <p:menu>
-            <p:submenu label="Resources">
+                <p:layoutUnit position="west" size="225" header="Left" collapsible="true">
+                    <p:menu>
+                        <p:submenu label="Resources">
 
-                <p:menuitem outcome="/JSFtest/applicationaccess/List" value="Show All Applicationaccess Items"/>
+                            <p:menuitem outcome="/JSFtest/applicationaccess/List" value="Show All Applicationaccess Items"/>
 
-                <p:menuitem outcome="/JSFtest/applications/List" value="Show All Applications Items"/>
-                <p:menuitem outcome="/JSFtest/city/List" value="Show All City Items"/>
+                            <p:menuitem outcome="/JSFtest/applications/List" value="Show All Applications Items"/>
+                            <p:menuitem outcome="/JSFtest/city/List" value="Show All City Items"/>
 
-                <p:menuitem outcome="/JSFtest/distributiongroups/List" value="Show All Distributiongroups Items"/>
+                            <p:menuitem outcome="/JSFtest/distributiongroups/List" value="Show All Distributiongroups Items"/>
 
-                <p:menuitem outcome="/JSFtest/domains/List" value="Show All Domains Items"/>
+                            <p:menuitem outcome="/JSFtest/domains/List" value="Show All Domains Items"/>
 
-                <p:menuitem outcome="/JSFtest/emailcontacts/List" value="Show All Emailcontacts Items"/>
+                            <p:menuitem outcome="/JSFtest/emailcontacts/List" value="Show All Emailcontacts Items"/>
 
-                <p:menuitem outcome="/JSFtest/groupaffiliations/List" value="Show All Groupaffiliations Items"/>
+                            <p:menuitem outcome="/JSFtest/groupaffiliations/List" value="Show All Groupaffiliations Items"/>
 
-                <p:menuitem outcome="/JSFtest/grouplevel1/List" value="Show All Grouplevel1 Items"/>
+                            <p:menuitem outcome="/JSFtest/grouplevel1/List" value="Show All Grouplevel1 Items"/>
 
-                <p:menuitem outcome="/JSFtest/grouplevel2/List" value="Show All Grouplevel2 Items"/>
-                <p:menuitem outcome="/JSFtest/groups/List" value="Show All Groups Items"/>
-                <p:menuitem outcome="/JSFtest/groupusers/List" value="Show All Groupusers Items"/>
-                <p:menuitem outcome="/JSFtest/level1/List" value="Show All Level1 Items"/>
-                <p:menuitem outcome="/JSFtest/level2/List" value="Show All Level2 Items"/>
-                <p:menuitem outcome="/JSFtest/logging/List" value="Show All Logging Items"/>
-                <p:menuitem outcome="/JSFtest/printers/List" value="Show All Printers Items"/>
-                <p:menuitem outcome="/JSFtest/roles/List" value="Show All Roles Items"/>
-                <p:menuitem outcome="/JSFtest/sharedresources/List" value="Show All Sharedresources Items"/>
+                            <p:menuitem outcome="/JSFtest/grouplevel2/List" value="Show All Grouplevel2 Items"/>
+                            <p:menuitem outcome="/JSFtest/groups/List" value="Show All Groups Items"/>
+                            <p:menuitem outcome="/JSFtest/groupusers/List" value="Show All Groupusers Items"/>
+                            <p:menuitem outcome="/JSFtest/level1/List" value="Show All Level1 Items"/>
+                            <p:menuitem outcome="/JSFtest/level2/List" value="Show All Level2 Items"/>
+                            <p:menuitem outcome="/JSFtest/logging/List" value="Show All Logging Items"/>
+                            <p:menuitem outcome="/JSFtest/printers/List" value="Show All Printers Items"/>
+                            <p:menuitem outcome="/JSFtest/roles/List" value="Show All Roles Items"/>
+                            <p:menuitem outcome="/JSFtest/sharedresources/List" value="Show All Sharedresources Items"/>
 
-                <p:menuitem outcome="/JSFtest/siteuser/List" value="Show All Siteuser Items"/>
+                            <p:menuitem outcome="/JSFtest/siteuser/List" value="Show All Siteuser Items"/>
 
-                <p:menuitem outcome="/JSFtest/userdistribution/List" value="Show All Userdistribution Items"/>
+                            <p:menuitem outcome="/JSFtest/userdistribution/List" value="Show All Userdistribution Items"/>
 
-                <p:menuitem outcome="/JSFtest/users/List" value="Show All Users Items"/>
+                            <p:menuitem outcome="/JSFtest/users/List" value="Show All Users Items"/>
 
-            </p:submenu>
+                        </p:submenu>
 
-        </p:menu>
-    </p:layoutUnit>
+                    </p:menu>
+                </p:layoutUnit>
 
-    <p:layoutUnit position="center">
-        <h:form >
-            <p:growl id="growl" sticky="true" showDetail="true"/>  
-            <p:wizard widgetVar="wiz"  
-                      flowListener="#{domainsController.onFlowProcess}">  
-                <p:tab id="rett" title="Domain Information">  
-                    <p:panel header="Domain Information">  
-                        <h:messages errorClass="error"/>  
-                        <h:panelGrid columns="2">
-                            <h:outputLabel value="#{bundle.CreateDomainsLabel_domainname}" for="rettnummer" />
-                            <p:inputText id="rettnummer" value="#{domainsController.selected.domainname}" title="domainname" required="true" requiredMessage="#{bundle.CreateDomainsRequiredMessage_domainname}"/>
+                <p:layoutUnit position="center">
+                    <h:form >
+                        <p:growl id="growl" sticky="true" showDetail="true"/>  
+                        <p:wizard widgetVar="wiz"  
+                                  flowListener="#{domainsController.onFlowProcess}">  
+                            <p:tab id="rett" title="Domain Information">  
+                                <p:panel header="Domain Information">  
+                                    <h:messages errorClass="error"/>  
+                                    <h:panelGrid columns="2">
+                                        <h:outputLabel value="#{bundle.CreateDomainsLabel_domainname}" for="rettnummer" />
+                                        <p:inputText id="rettnummer" value="#{domainsController.selected.domainname}" title="domainname" required="true" requiredMessage="#{bundle.CreateDomainsRequiredMessage_domainname}"/>
 
-                        </h:panelGrid>
-                    </p:panel>  
-                </p:tab>  
-                <p:tab id="picture" title="CSV file">  
-                    <p:panel header="Upload CSV, optional">  
-                        <h:form enctype="multipart/form-data">  
-                            <p:fileUpload fileUploadListener="#{domainsController.handleFileUpload}"  
-                                          mode="advanced"  
-                                          update="messages"  
-                                          auto="true"  
-                                          sizeLimit="1000000000"   
-                                          allowTypes="/(\.|\/)(csv)$/"/>  
-                            <p:growl id="messages" showDetail="true"/>  
-                        </h:form> 
-                    </p:panel> 
-                    <br/>
-                    <p:panel>
-                        <br />
-                        <h:outputLabel value="#{bundle.CreateDomainsLabel_domainfunction}" for="beskrivelse" />
-                        <p:inputText id="beskrivelse" value="#{domainsController.selected.domainfunction}" title="#{bundle.CreateDomainsLabel_domainfunction}" />
-                        <br/><br/>
-                        <p:commandButton action="#{domainsController.create}" value="#{bundle.CreateDomainsSaveLink}" update="growl"/>
-                        <br/><br/>
-                        <p:menubar>
-                            <p:menuitem action="#{domainsController.prepareList}" value="#{bundle.CreateDomainsShowAllLink}" immediate="true"/>
-                            <p:menuitem outcome="/index" value="#{bundle.CreateDomainsIndexLink}" style="margin-left:600px"/> 
-                        </p:menubar>
-                    </p:panel>  
-                </p:tab>
-            </p:wizard> 
-        </h:form>
-    </p:layoutUnit>
-    <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
-        Atea A/S
-    </p:layoutUnit>
-                </p:layout>
+                                    </h:panelGrid>
+                                </p:panel>  
+                            </p:tab>  
+                            <p:tab id="picture" title="CSV file">  
+                                <p:panel header="Upload CSV, optional">  
+                                    <h:form enctype="multipart/form-data">  
+                                        <p:fileUpload fileUploadListener="#{domainsController.handleFileUpload}"  
+                                                      mode="advanced"  
+                                                      update="messages"  
+                                                      auto="true"  
+                                                      sizeLimit="1000000000"   
+                                                      allowTypes="/(\.|\/)(csv)$/"/>  
+                                        <p:growl id="messages" showDetail="true"/>  
+                                    </h:form> 
+                                </p:panel> 
+                                <br/>
+                                <p:panel>
+                                    <br />
+                                    <h:outputLabel value="#{bundle.CreateDomainsLabel_domainfunction}" for="beskrivelse" />
+                                    <p:inputText id="beskrivelse" value="#{domainsController.selected.domainfunction}" title="#{bundle.CreateDomainsLabel_domainfunction}" />
+                                    <br/><br/>
+                                    <p:commandButton action="#{domainsController.create}" value="#{bundle.CreateDomainsSaveLink}" update="growl"/>
+                                    <br/><br/>
+                                    <p:menubar>
+                                        <p:menuitem action="#{domainsController.prepareList}" value="#{bundle.CreateDomainsShowAllLink}" immediate="true"/>
+                                        <p:menuitem outcome="/index" value="#{bundle.CreateDomainsIndexLink}" style="margin-left:600px"/> 
+                                    </p:menubar>
+                                </p:panel>  
+                            </p:tab>
+                        </p:wizard> 
+                    </h:form>
+                </p:layoutUnit>
+                <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
+                    Atea A/S
+                </p:layoutUnit>
+            </p:layout>
         </h:body>
+    </f:view>
 </html> 
