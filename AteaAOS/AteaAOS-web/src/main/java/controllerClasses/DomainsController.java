@@ -216,7 +216,7 @@ public class DomainsController implements Serializable {
 
        try {
            
-          String mick = FacesContext.getCurrentInstance().getExternalContext().getRealPath("//resources//images");
+          String mick = FacesContext.getCurrentInstance().getExternalContext().getRealPath("//resources//CSV");
             File file = new File(mick, event.getFile().getFileName());
              
 
