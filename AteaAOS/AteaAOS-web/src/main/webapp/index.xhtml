@@ -14,7 +14,7 @@
         </h:head>
 
         <h:body>
-ß
+            ß
             <p:layout fullPage="true">
                 <p:layoutUnit position="north" size="105" resizable="false" closable="true" collapsible="true">
                     <p:graphicImage value="/resources/images/Atealogo.gif"/>     
@@ -70,8 +70,18 @@
                                 <p:panel header="Domain Information">  
                                     <h:messages errorClass="error"/>  
                                     <h:panelGrid columns="2">
-                                        <h:outputLabel value="#{bundle.CreateDomainsLabel_domainname}" for="rettnummer" />
-                                        <p:inputText id="rettnummer" value="#{domainsController.selected.domainname}" title="domainname" required="true" requiredMessage="#{bundle.CreateDomainsRequiredMessage_domainname}"/>
+                                        <h:outputLabel value="#{bundle.CreateDomainsLabel_domainname}" for="domainname" />
+                                        <p:inputText id="domainname" value="#{domainsController.selected.domainname}" title="#{bundle.CreateDomainsTitle_domainname}" required="true" requiredMessage="#{bundle.CreateDomainsRequiredMessage_domainname}"/>
+                                        <h:outputLabel value="#{bundle.CreateDomainsLabel_registrar}" for="registrar" />
+                                        <p:inputText id="registrar" value="#{domainsController.selected.registrar}" title="#{bundle.CreateDomainsTitle_registrar}" required="true" requiredMessage="#{bundle.CreateDomainsRequiredMessage_registrar}"/>
+                                        <h:outputLabel value="#{bundle.CreateDomainsLabel_registrarcontact}" for="registrarcontact" />
+                                        <p:inputText id="registrarcontact" value="#{domainsController.selected.registrarcontact}" title="#{bundle.CreateDomainsTitle_registrarcontact}" required="true" requiredMessage="#{bundle.CreateDomainsRequiredMessage_registrarcontact}"/>
+                                        <h:outputLabel value="#{bundle.CreateDomainsLabel_domainfunction}" for="domainfunction" />
+                                        <p:inputText id="domainfunction" value="#{domainsController.selected.domainfunction}" title="#{bundle.CreateDomainsTitle_domainfunction}" required="true" requiredMessage="#{bundle.CreateDomainsRequiredMessage_domainfunction}"/>
+                                        <h:outputLabel value="#{bundle.CreateDomainsLabel_ippointer}" for="ippointer" />
+                                        <p:inputText id="ippointer" value="#{domainsController.selected.ippointer}" title="#{bundle.CreateDomainsTitle_ippointer}" required="true" requiredMessage="#{bundle.CreateDomainsRequiredMessage_ippointer}"/>
+                                        <h:outputLabel value="#{bundle.CreateDomainsLabel_setFIL}" for="setFIL" />
+                                        <p:inputText id="setFIL" value="#{domainsController.selected.setFIL}" title="#{bundle.CreateDomainsTitle_setFIL}" required="true" requiredMessage="#{bundle.CreateDomainsRequiredMessage_setFIL}"/>
 
                                     </h:panelGrid>
                                 </p:panel>  
@@ -91,8 +101,7 @@
                                 <br/>
                                 <p:panel>
                                     <br />
-                                    <h:outputLabel value="#{bundle.CreateDomainsLabel_domainfunction}" for="beskrivelse" />
-                                    <p:inputText id="beskrivelse" value="#{domainsController.selected.domainfunction}" title="#{bundle.CreateDomainsLabel_domainfunction}" />
+                                    
                                     <br/><br/>
                                     <p:commandButton action="#{domainsController.create}" value="#{bundle.CreateDomainsSaveLink}" update="growl"/>
                                     <br/><br/>
