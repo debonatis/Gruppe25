@@ -5,11 +5,10 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
+    <ui:composition template="/faces/template.xhtml">
         <ui:define name="body">
-            <h:form>
-                <p:layoutUnit position="center">
-
+            <p:panel id="panel" header="Create new">
+                <h:form>
                     <p:growl id="growl" sticky="true" showDetail="true"/>  
                     <p:wizard widgetVar="wiz"  
                               flowListener="#{domainsController.onFlowProcess}">  
@@ -39,8 +38,8 @@
                             <br/>
                         </p:tab>
                     </p:wizard> 
-                </p:layoutUnit>
-            </h:form>
+                </h:form>
+            </p:panel>
         </ui:define>
     </ui:composition>
 </html>
