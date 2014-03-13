@@ -18,15 +18,18 @@
     </h:head>
 
     <h:body>     
-            <div id="body">
-                <ui:insert name="body"/>
-            </div>  
-            <div id="sideBar">
-                <p:layoutUnit position="west" size="225" header="Left" collapsible="true">
-                    <p:menu>
-                        <p:submenu label="Resources">
-
-                            <p:menuitem outcome="/JSFtest/applicationaccess/List" value="Show All Applicationaccess Items"/>
+        <p:layoutUnit position="north" size="105" resizable="false" closable="true" collapsible="true">
+            <p:graphicImage value="/resources/images/Atealogo.gif"/>     
+        </p:layoutUnit>
+       
+        <div id="body">
+            <ui:insert name="body"/>
+        </div>  
+            </p:layoutUnit>
+        
+        <p:layoutUnit position="west" size="225" header="Left" collapsible="true">
+            <p:menu>
+                <p:submenu label="Resources">
 
                             <p:menuitem outcome="/JSFtest/applications/List" value="Show All Applications Items"/>
                             <p:menuitem outcome="/JSFtest/city/List" value="Show All City Items"/>
@@ -62,10 +65,12 @@
                     </p:menu>
                 </p:layoutUnit>
 
-                <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
-                    Atea A/S
-                </p:layoutUnit>
-            </div>
-            <ui:debug/>
+            </p:menu>
+        </p:layoutUnit>
+        
+        <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
+            Atea A/S
+        </p:layoutUnit>
+        
     </h:body>
 </html>

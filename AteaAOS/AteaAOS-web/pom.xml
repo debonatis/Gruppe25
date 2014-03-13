@@ -44,11 +44,6 @@
             <version>3.5</version>
         </dependency>
         <dependency>
-            <groupId>org.icefaces</groupId>
-            <artifactId>icefaces</artifactId>
-            <version>3.3.0</version>
-        </dependency>
-        <dependency>
             <groupId>org.richfaces</groupId>
             <artifactId>richfaces</artifactId>
             <version>5.0.0.Alpha3</version>
