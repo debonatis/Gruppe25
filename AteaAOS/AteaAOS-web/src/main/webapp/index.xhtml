@@ -9,7 +9,8 @@
         <h:head>
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-                <title>PrimeFaces</title>
+                <title>AOS</title>
+                <h:outputStylesheet name="css/jsfcrud.css"/>
             </f:facet>
         </h:head>
         <h:body>
@@ -17,13 +18,13 @@
             <p:layout fullPage="true">
 
                 <p:layoutUnit position="north" size="105" resizable="false" closable="true" collapsible="true">
-                    <h:form>
-                        <p:graphicImage value="/resources/images/Atealogo.gif"/>     
-                    </h:form>
+
+                    <p:graphicImage value="/resources/images/Atealogo.gif"/>     
+
                 </p:layoutUnit>
 
                 <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
-                    Footer
+                    Atea A/S
                 </p:layoutUnit>
 
                 <p:layoutUnit position="west" size="225" header="Left" collapsible="true">
@@ -65,7 +66,7 @@
 
                     </p:menu>
                 </p:layoutUnit>
-                <h:form>
+                <h:form id="domainform">
                     <p:layoutUnit position="center">
 
                         <p:growl id="growl" sticky="true" showDetail="true"/>  
@@ -113,7 +114,6 @@
                     </p:layoutUnit>
                 </h:form>
             </p:layout>
-
         </h:body>
     </f:view>
 </html>
