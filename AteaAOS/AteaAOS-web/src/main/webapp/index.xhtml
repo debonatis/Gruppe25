@@ -5,14 +5,11 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 
-    <h:head>
-
-    </h:head>
-    <h:body>
-        
+    <ui:composition template="/template.xhtml">
+        <ui:define name="body">
             <p:layoutUnit position="center">
 
-               <h:form >
+                <h:form >
                     <p:growl id="growl" sticky="true" showDetail="true"/>  
                     <p:wizard widgetVar="wiz"  
                               flowListener="#{domainsController.onFlowProcess}">  
@@ -22,7 +19,7 @@
                                 <h:panelGrid columns="2">
                                     <h:outputLabel value="#{bundle.CreateDomainsLabel_domainname}" for="rettnummer" />
                                     <p:inputText id="rettnummer" value="#{domainsController.selected.domainname}" title="domainname" required="true" requiredMessage="#{bundle.CreateDomainsRequiredMessage_domainname}"/>
-                                    
+
                                 </h:panelGrid>
                             </p:panel>  
                         </p:tab>  
@@ -55,6 +52,6 @@
                     </p:wizard> 
                 </h:form>
             </p:layoutUnit>
-        </h:body> 
-
+        </ui:define>
+    </ui:composition>
 </html> 
