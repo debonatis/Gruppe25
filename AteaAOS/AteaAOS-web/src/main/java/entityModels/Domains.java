@@ -62,7 +62,6 @@ public class Domains implements Serializable {
     @Column(name = "IPPOINTER")
     private String ippointer;
     @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "setFIL")
     private String setFIL;
