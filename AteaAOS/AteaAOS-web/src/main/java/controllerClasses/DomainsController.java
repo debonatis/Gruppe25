@@ -3,6 +3,11 @@ package controllerClasses;
 import entityModels.Domains;
 import controllerClasses.util.JsfUtil;
 import controllerClasses.util.PaginationHelper;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import persistClasses.DomainsFacade;
 
 import java.io.Serializable;
@@ -20,6 +25,7 @@ import javax.faces.event.ActionEvent;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.FlowEvent;
 
 @ManagedBean(name ="domainsController")
@@ -203,6 +209,42 @@ public class DomainsController implements Serializable {
     private void recreatePagination() {
         pagination = null;
     }
+ public void handleFileUpload(FileUploadEvent event) {
+       
+      
+
+
+       try {
+           
+          String mick = FacesContext.getCurrentInstance().getExternalContext().getRealPath("//resources//images");
+            File file = new File(mick, event.getFile().getFileName());
+             
+
+           InputStream inputStream = event.getFile().getInputstream();
+           current.setSetFIL(event.getFile().getFileName());
+           OutputStream out = new FileOutputStream(file);
+
+
+           int read = 0;
+
+           byte[] bytes = new byte[1024];
+
+
+
+           while ((read = inputStream.read(bytes)) != -1) {
+               out.write(bytes, 0, read);
+
+           }
+
+           inputStream.close();
+
+           out.flush();
+
+           out.close();
+
+       } catch (IOException e) {
+       }
+   }
 
     public String next() {
         getPagination().nextPage();
