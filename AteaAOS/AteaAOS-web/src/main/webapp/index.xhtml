@@ -82,7 +82,7 @@
                                         <p:inputText id="ippointer" value="#{domainsController.selected.ippointer}" title="#{bundle.CreateDomainsTitle_ippointer}" required="true" requiredMessage="#{bundle.CreateDomainsRequiredMessage_ippointer}"/>
                                         <h:outputLabel value="#{bundle.CreateDomainsLabel_setFIL}" for="setFIL" />
                                         <p:inputText id="setFIL" value="#{domainsController.selected.setFIL}" title="#{bundle.CreateDomainsTitle_setFIL}" required="true" requiredMessage="#{bundle.CreateDomainsRequiredMessage_setFIL}"/>
-
+                                        <p:commandButton action="#{domainsController.create}" value="#{bundle.CreateDomainsSaveLink}" update="growl"/>
                                     </h:panelGrid>
                                 </p:panel>  
                             </p:tab>  
@@ -101,7 +101,7 @@
                                 <br/>
                                 <p:panel>
                                     <br />
-                                    
+
                                     <br/><br/>
                                     <p:commandButton action="#{domainsController.create}" value="#{bundle.CreateDomainsSaveLink}" update="growl"/>
                                     <br/><br/>
