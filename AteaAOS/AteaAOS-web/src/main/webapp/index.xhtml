@@ -44,7 +44,7 @@
                                 <h:outputLabel value="#{bundle.CreateDomainsLabel_domainfunction}" for="beskrivelse" />
                                 <p:inputText id="beskrivelse" value="#{domainsController.selected.domainfunction}" title="#{bundle.CreateDomainsLabel_domainfunction}" />
                                 <br/><br/>
-                                <p:commandButton action="#{domainsController.create}" value="#{bundle.CreateRetterSaveLink}" update="growl"/>
+                                <p:commandButton action="#{domainsController.create}" value="#{bundle.CreateDomainsSaveLink}" update="growl"/>
                                 <br/><br/>
                                 <p:menubar>
                                     <p:menuitem action="#{domainsController.prepareList}" value="#{bundle.CreateDomainsShowAllLink}" immediate="true"/>
