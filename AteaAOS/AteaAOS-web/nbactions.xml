@@ -3,9 +3,7 @@
         <action>
             <actionName>run</actionName>
             <packagings>
-                <packaging>war</packaging>
-                <packaging>ear</packaging>
-                <packaging>ejb</packaging>
+                <packaging>war</packaging>               
             </packagings>
             <goals>
                 <goal>package</goal>
@@ -19,8 +17,7 @@
             <actionName>debug</actionName>
             <packagings>
                 <packaging>war</packaging>
-                <packaging>ear</packaging>
-                <packaging>ejb</packaging>
+               
             </packagings>
             <goals>
                 <goal>package</goal>
@@ -34,8 +31,7 @@
         <action>
             <actionName>profile</actionName>
             <packagings>
-                <packaging>ejb</packaging>
-                <packaging>ear</packaging>
+                
                 <packaging>war</packaging>
             </packagings>
             <goals>
