@@ -19,8 +19,16 @@ table {
 .ui-layout-unit-content .ui-widget-content{
     background: #fefeff;
 }
-
- 
+#velkommenHTekst {
+    font-size: xx-large;
+    font-family: "Segoe UI Light","Segoe WPC","Segoe UI",
+        Helvetica, Arial, "Arial Unicode MS", Sans-Serif;
+}
+#velkommenUTekst {
+    font-size: x-large;
+    font-family: "Segoe UI Light","Segoe WPC","Segoe UI",
+        Helvetica, Arial, "Arial Unicode MS", Sans-Serif;
+}
 
 form.jsfcrud_list_form th, td th {
     font-size: x-small;
