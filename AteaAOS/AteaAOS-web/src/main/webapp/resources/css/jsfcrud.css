@@ -20,6 +20,7 @@ table {
     background: #fefeff;
 }
 #velkommenHTekst {
+    padding-top: 448px;
     font-size: xx-large;
     font-family: "Segoe UI Light","Segoe WPC","Segoe UI",
         Helvetica, Arial, "Arial Unicode MS", Sans-Serif;
