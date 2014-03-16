@@ -9,12 +9,16 @@
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
                 <title>AOS</title>
-               
+
             </f:facet>
+            <link rel="stylesheet" href="resource/css/metro-bootstrap.css">
+            <script src="resource/js/jquery-2.0.2.js"></script>
+            <script src="resource/js/jquery.widget.min.js"></script>
+            <script src="resource/js/min/metro.min.js"></script>
         </h:head>
 
         <h:body>
-            ß
+
             <p:layout fullPage="true">
                 <p:layoutUnit position="north" size="105" resizable="false" closable="true" collapsible="true">
                     <p:graphicImage value="/resources/images/Atealogo.gif"/>     
@@ -80,7 +84,7 @@
                                         <p:inputText id="domainfunction" value="#{domainsController.selected.domainfunction}" title="#{bundle.CreateDomainsTitle_domainfunction}" required="true" requiredMessage="#{bundle.CreateDomainsRequiredMessage_domainfunction}"/>
                                         <h:outputLabel value="#{bundle.CreateDomainsLabel_ippointer}" for="ippointer" />
                                         <p:inputText id="ippointer" value="#{domainsController.selected.ippointer}" title="#{bundle.CreateDomainsTitle_ippointer}" required="true" requiredMessage="#{bundle.CreateDomainsRequiredMessage_ippointer}"/>
-                                        
+
                                         <p:commandButton action="#{domainsController.create}" value="#{bundle.CreateDomainsSaveLink}" update="growl"/>
                                     </h:panelGrid>
                                 </p:panel>  
@@ -112,6 +116,14 @@
                             </p:tab>
                         </p:wizard> 
                     </h:form>
+                    <div class="tile bg-darkPink">
+                        <div class="tile-content icon">
+                            <i class="icon-cart-2"></i>
+                        </div>
+                        <div class="tile-status">
+                            <span class="name">Store</span>
+                        </div>
+                    </div>
                 </p:layoutUnit>
                 <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
                     Atea A/S
