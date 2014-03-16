@@ -19,14 +19,14 @@
         <h:body>
 
             <p:layout fullPage="true">
-                <p:layoutUnit id="layout-upper" position="north" size="105" resizable="false" closable="true" collapsible="true" styleClass="ui-layout-unit-content ui-widget-content">
+                <p:layoutUnit  position="north" size="105" resizable="false" closable="true" collapsible="true" styleClass="ui-layout-unit-content ui-widget-content">
                     <p:graphicImage value="/resources/images/Atealogo.gif" />     
                 </p:layoutUnit>
 
 
 
 
-                <p:layoutUnit position="center" style="color: #ffffff">
+                <p:layoutUnit position="center">
                     <h:form id="userForm">
                         <p:dataTable id="userTable" value="#{usersController.items}" rendered="#{usersController.items.rowAvailable}" var="user"  rowKey="#{user.username}"  
                                      selection="#{usersController.selected}" selectionMode="multiple">
@@ -65,7 +65,7 @@
                                         var="selectedUser" type="definition">  
 
                                 Model: #{selectedUser.email}, Year: #{selectedUser.title}  
-                               
+
                             </p:dataList>  
 
                         </p:dialog>  
