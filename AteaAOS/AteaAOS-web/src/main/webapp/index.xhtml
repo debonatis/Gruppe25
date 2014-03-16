@@ -20,13 +20,13 @@
 
             <p:layout fullPage="true">
                 <p:layoutUnit id="layout-upper" position="north" size="500" resizable="false" closable="true" collapsible="true">
-                    
+
                     <div id="velkommenHTekst">
                         Welcome to AOS User Creation
-                  
-                      
+
+
                     </div>
-                      <p:graphicImage id="pictureWelcome" value="/resources/images/Atealogo.gif" /> 
+                    <p:graphicImage id="pictureWelcome" value="/resources/images/Atealogo.gif" /> 
                 </p:layoutUnit>
 
 
@@ -35,7 +35,9 @@
                     <div id="velkommenUTekst">
                         Here at Atea, we use this tool to create new customer environments!
                     </div>
-
+                    <p:button id="toLogin"  outcome="page2" value="Next" icon="ui-icon-circle-triangle-e">  
+                        <f:param name="productId" value="10" />  
+                    </p:button>  
                 </p:layoutUnit>
 
 
