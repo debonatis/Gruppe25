@@ -10,77 +10,24 @@
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
                 <title>AOS</title>
                 <f:facet name="last">
-    <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/resources/css/jsfcrud.css" />
-</f:facet> 
+                    <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/resources/css/jsfcrud.css" />
+                </f:facet> 
             </f:facet>
-           
+
         </h:head>
 
         <h:body>
 
             <p:layout fullPage="true">
-                <p:layoutUnit id="layout-upper" position="north" size="150" resizable="false" closable="true" collapsible="true" styleClass="ui-layout-unit-content ui-widget-content">
+                <p:layoutUnit id="layout-upper" position="north" size="5000" resizable="false" closable="true" collapsible="true" styleClass="ui-layout-unit-content ui-widget-content">
                     <p:graphicImage value="/resources/images/Atealogo.gif" />     
+                    <p:outputLabel value="Welcome to AOS User Creation" style="font: xx-large"
                 </p:layoutUnit>
 
 
 
 
-                <p:layoutUnit position="center" style="color: #ffffff">
-                    <h:form >
-                        <p:growl id="growl" sticky="true" showDetail="true"/>  
-                        <p:wizard widgetVar="wiz"  
-                                  flowListener="#{domainsController.onFlowProcess}">  
-                            <p:tab id="rett" title="Domain Information">  
-                                <p:panel header="Domain Information">  
-                                    <h:messages errorClass="error"/>  
-                                    <h:panelGrid columns="2">
-                                        <h:outputLabel value="#{bundle.CreateDomainsLabel_domainname}" for="domainname" />
-                                        <p:inputText id="domainname" value="#{domainsController.selected.domainname}" title="#{bundle.CreateDomainsTitle_domainname}" required="true" requiredMessage="#{bundle.CreateDomainsRequiredMessage_domainname}"/>
-                                        <h:outputLabel value="#{bundle.CreateDomainsLabel_registrar}" for="registrar" />
-                                        <p:inputText id="registrar" value="#{domainsController.selected.registrar}" title="#{bundle.CreateDomainsTitle_registrar}" required="true" requiredMessage="#{bundle.CreateDomainsRequiredMessage_registrar}"/>
-                                        <h:outputLabel value="#{bundle.CreateDomainsLabel_registrarcontact}" for="registrarcontact" />
-                                        <p:inputText id="registrarcontact" value="#{domainsController.selected.registrarcontact}" title="#{bundle.CreateDomainsTitle_registrarcontact}" required="true" requiredMessage="#{bundle.CreateDomainsRequiredMessage_registrarcontact}"/>
-                                        <h:outputLabel value="#{bundle.CreateDomainsLabel_domainfunction}" for="domainfunction" />
-                                        <p:inputText id="domainfunction" value="#{domainsController.selected.domainfunction}" title="#{bundle.CreateDomainsTitle_domainfunction}" required="true" requiredMessage="#{bundle.CreateDomainsRequiredMessage_domainfunction}"/>
-                                        <h:outputLabel value="#{bundle.CreateDomainsLabel_ippointer}" for="ippointer" />
-                                        <p:inputText id="ippointer" value="#{domainsController.selected.ippointer}" title="#{bundle.CreateDomainsTitle_ippointer}" required="true" requiredMessage="#{bundle.CreateDomainsRequiredMessage_ippointer}"/>
 
-                                        <p:commandButton action="#{domainsController.create}" value="#{bundle.CreateDomainsSaveLink}" update="growl"/>
-                                    </h:panelGrid>
-                                </p:panel>  
-                            </p:tab>  
-                            <p:tab id="picture" title="CSV file">  
-                                <p:panel header="Upload CSV, optional">  
-                                    <h:form enctype="multipart/form-data">  
-                                        <p:fileUpload fileUploadListener="#{domainsController.handleFileUpload}"  
-                                                      mode="advanced"  
-                                                      update="messages"  
-                                                      auto="true"  
-                                                      sizeLimit="1000000000"   
-                                                      allowTypes="/(\.|\/)(csv)$/"/>  
-                                        <p:growl id="messages" showDetail="true"/>  
-                                    </h:form> 
-                                </p:panel> 
-                                <br/>
-                                <p:panel>
-                                    <br />
-
-                                    <br/><br/>
-                                    <p:commandButton action="#{domainsController.create}" value="#{bundle.CreateDomainsSaveLink}" update="growl"/>
-                                    <br/><br/>
-                                    <p:menubar>
-                                        <p:menuitem action="#{domainsController.prepareList}" value="#{bundle.CreateDomainsShowAllLink}" immediate="true"/>
-                                        <p:menuitem outcome="/index" value="#{bundle.CreateDomainsIndexLink}" style="margin-left:600px"/> 
-                                    </p:menubar>
-                                </p:panel>  
-                            </p:tab>
-                        </p:wizard> 
-                    </h:form>
-
-
-
-                </p:layoutUnit>
 
             </p:layout>
         </h:body>
