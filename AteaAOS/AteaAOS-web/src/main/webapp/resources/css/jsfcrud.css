@@ -16,9 +16,11 @@ a {
 table {
     empty-cells: show;
 }
-.ui-layout-unit-content ui-widget-content{
-    background: red;
+.ui-layout-unit-content .ui-widget-content{
+    background: #fefeff;
 }
+
+ 
 
 form.jsfcrud_list_form th, td th {
     font-size: x-small;

@@ -9,14 +9,17 @@
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
                 <title>AOS</title>
+                <f:facet name="last">
+    <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/resources/css/jsfcrud.css" />
+</f:facet> 
             </f:facet>
-            <link rel="stylesheet" type="text/css" href="/resources/css/jsfcrud.css"/>
+           
         </h:head>
 
         <h:body>
 
             <p:layout fullPage="true">
-                <p:layoutUnit position="north" size="150" resizable="false" closable="true" collapsible="true" styleClass=".ui-layout-unit-header">
+                <p:layoutUnit id="layout-upper" position="north" size="150" resizable="false" closable="true" collapsible="true" styleClass="ui-layout-unit-content ui-widget-content">
                     <p:graphicImage value="/resources/images/Atealogo.gif" />     
                 </p:layoutUnit>
 
