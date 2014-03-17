@@ -92,11 +92,6 @@
             <artifactId>jcommon</artifactId>
             <version>1.0.16</version>
         </dependency>
-        <dependency>
-            <groupId>jfree</groupId>
-            <artifactId>jfreechart</artifactId>
-            <version>1.0.13</version>
-        </dependency>
     </dependencies>
 
     <build>
@@ -154,15 +149,6 @@
             <id>PrimeFaces-maven-lib</id>
             <layout>default</layout>
             <name>Repository for library PrimeFaces-maven-lib</name>
-        </repository>
-        
-        <repository>
-            <id>org.openfaces</id>
-            <url>http://repository.openfaces.org/repository</url>
-        </repository>
-        <repository>
-            <id>jfree</id>
-            <url>http://www.ibiblio.org/maven/jfree/</url>
         </repository>
     </repositories>
     
