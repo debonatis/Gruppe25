@@ -28,7 +28,7 @@ import javax.faces.model.SelectItem;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.FlowEvent;
 
-@ManagedBean(name ="domainsController")
+@ManagedBean(name = "domainsController")
 @SessionScoped
 public class DomainsController implements Serializable {
 
@@ -38,41 +38,40 @@ public class DomainsController implements Serializable {
     private persistClasses.DomainsFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
-   
-      
-    private boolean skip;  
-      
-    private static Logger logger = Logger.getLogger(DomainsController.class.getName());  
+
+    private boolean skip;
+
+    private static Logger logger = Logger.getLogger(DomainsController.class.getName());
 
     public DomainsController() {
     }
-    public void save(ActionEvent actionEvent) {  
+
+    public void save(ActionEvent actionEvent) {
         create();
-          
-        FacesMessage msg = new FacesMessage("Domene er laget", "Domenet var :" + current);  
-        FacesContext.getCurrentInstance().addMessage(null, msg);  
-    }  
-      
-    public boolean isSkip() {  
-        return skip;  
-    }  
-  
-    public void setSkip(boolean skip) {  
-        this.skip = skip;  
-    }  
-      
-    public String onFlowProcess(FlowEvent event) {  
-        logger.info("Current wizard step:" + event.getOldStep());  
-        logger.info("Next step:" + event.getNewStep());  
-          
-        if(skip) {  
-            skip = false;   
-            return "confirm";  
-        }  
-        else {  
-            return event.getNewStep();  
-        }  
-    } 
+
+        FacesMessage msg = new FacesMessage("Domene er laget", "Domenet var :" + current);
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public boolean isSkip() {
+        return skip;
+    }
+
+    public void setSkip(boolean skip) {
+        this.skip = skip;
+    }
+
+    public String onFlowProcess(FlowEvent event) {
+        logger.info("Current wizard step:" + event.getOldStep());
+        logger.info("Next step:" + event.getNewStep());
+
+        if (skip) {
+            skip = false;
+            return "confirm";
+        } else {
+            return event.getNewStep();
+        }
+    }
 
     public Domains getSelected() {
         if (current == null) {
@@ -209,42 +208,36 @@ public class DomainsController implements Serializable {
     private void recreatePagination() {
         pagination = null;
     }
- public void handleFileUpload(FileUploadEvent event) {
-       
-      
 
+    public void handleFileUpload(FileUploadEvent event) {
 
-       try {
-           
-          String mick = FacesContext.getCurrentInstance().getExternalContext().getRealPath("//resources//images");
+        try {
+
+            String mick = FacesContext.getCurrentInstance().getExternalContext().getRealPath("//resources//CSV");
             File file = new File(mick, event.getFile().getFileName());
-             
 
-           InputStream inputStream = event.getFile().getInputstream();
-           current.setSetFIL(event.getFile().getFileName());
-           OutputStream out = new FileOutputStream(file);
+            InputStream inputStream = event.getFile().getInputstream();
+            current.setSetFIL(event.getFile().getFileName());
+            OutputStream out = new FileOutputStream(file);
 
+            int read = 0;
 
-           int read = 0;
+            byte[] bytes = new byte[1024];
 
-           byte[] bytes = new byte[1024];
+            while ((read = inputStream.read(bytes)) != -1) {
+                out.write(bytes, 0, read);
 
+            }
 
+            inputStream.close();
 
-           while ((read = inputStream.read(bytes)) != -1) {
-               out.write(bytes, 0, read);
+            out.flush();
 
-           }
+            out.close();
 
-           inputStream.close();
-
-           out.flush();
-
-           out.close();
-
-       } catch (IOException e) {
-       }
-   }
+        } catch (IOException e) {
+        }
+    }
 
     public String next() {
         getPagination().nextPage();

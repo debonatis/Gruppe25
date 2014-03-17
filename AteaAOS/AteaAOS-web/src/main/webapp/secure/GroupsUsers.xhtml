@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>AOS</title>
+                <f:facet name="last">
+                    <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/resources/css/jsfcrud.css" />
+                </f:facet> 
+            </f:facet>
+
+        </h:head>
+
+        <h:body>
+
+            <p:layout fullPage="true">
+                <p:layoutUnit  position="north" size="105" resizable="false" closable="true" collapsible="true" styleClass="ui-layout-unit-content ui-widget-content">
+                    <p:graphicImage value="/resources/images/Atealogo.gif" />     
+                </p:layoutUnit>
+
+
+
+
+                <p:layoutUnit position="center">
+                    <h:form id="userForm">
+                        <p:dataTable id="userTable" value="#{usersController.items}" rendered="#{usersController.items.rowAvailable}" var="user"  rowKey="#{user.username}"  
+                                     selection="#{usersController.selected}" selectionMode="multiple">
+
+                            <f:facet name="header">  
+                                Users created 
+                            </f:facet>  
+
+                            <p:column headerText="#{bundle.ListUsersTitle_username}">  
+                                #{user.username}  
+                            </p:column>  
+
+                            <p:column headerText="#{bundle.ListUsersTitle_firstname}">  
+                                #{user.firstname} 
+                            </p:column>  
+
+                            <p:column headerText="#{bundle.ListUsersTitle_lastname}" >  
+                                #{user.lastname} 
+                            </p:column>  
+
+                            <p:column headerText="#{bundle.ListUsersTitle_mobile}">  
+                                #{user.mobile} 
+                            </p:column>  
+
+                            <f:facet name="footer">  
+                                <p:commandButton value="View" icon="ui-icon-search"  
+                                                 update=":userForm:display" oncomplete="PF('userDialog').show()"/>  
+                            </f:facet>  
+                        </p:dataTable>  
+
+                        <p:dialog header="User Detail" widgetVar="userDialog"  
+                                  width="250" showEffect="explode" hideEffect="explode">  
+
+                            <p:dataList id="display"  
+                                        value="#{usersController.selected}"  
+                                        var="selectedUser" type="definition">  
+
+                                Model: #{selectedUser.email}, Year: #{selectedUser.title}  
+
+                            </p:dataList>  
+
+                        </p:dialog>  
+                    </h:form>
+                </p:layoutUnit>
+
+            </p:layout>
+        </h:body>
+    </f:view>
+
+</html> 
+

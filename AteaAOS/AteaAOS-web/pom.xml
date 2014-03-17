@@ -71,17 +71,15 @@
             <classifier>tests</classifier>
         </dependency>
         <dependency>
+            <groupId>org.primefaces.extensions</groupId>
+            <artifactId>all-themes</artifactId>
+            <version>1.0.8</version>
+        </dependency>
+        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>7.0</version>
             <scope>provided</scope>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.openfaces</groupId>
-            <artifactId>openfaces</artifactId>
-            <version>3.0</version>
-            <scope>compile</scope>
         </dependency>
         
         <dependency>

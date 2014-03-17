@@ -16,6 +16,34 @@ a {
 table {
     empty-cells: show;
 }
+#pictureWelcome{
+padding-top: 405px;
+/*    -ms-transform:rotate(90deg);  IE 9 
+    -webkit-transform:rotate(90deg);  Opera, Chrome, and Safari */
+    
+    float: right;
+
+}
+.ui-layout-unit-content .ui-widget-content{
+    background: #fefeff;
+}
+
+#toLogin {
+     float: right;
+}
+#velkommenHTekst {
+    padding-top: 445px;
+    font-size: xx-large;
+    font-family: "Segoe UI Light","Segoe WPC","Segoe UI",
+        Helvetica, Arial, "Arial Unicode MS", Sans-Serif;
+    display: flex;
+    float: left;
+}
+#velkommenUTekst {
+    font-size: x-large;
+    font-family: "Segoe UI Light","Segoe WPC","Segoe UI",
+        Helvetica, Arial, "Arial Unicode MS", Sans-Serif;
+}
 
 form.jsfcrud_list_form th, td th {
     font-size: x-small;
