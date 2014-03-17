@@ -1,10 +1,17 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <faces-config
-     xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
     version="2.2">
-<application>
+    <application>
+        <navigation-rule>  
+            <from-view-id>/index.xhtml</from-view-id>  
+            <navigation-case>  
+                <from-outcome>ok</from-outcome>  
+                <to-view-id>/secure/GroupsUsers.xhtml</to-view-id>  
+            </navigation-case>   
+        </navigation-rule>  
         <resource-bundle>
             <base-name>/Bundle</base-name>
             <var>bundle</var>
@@ -13,13 +20,13 @@
             <base-name>/Bundle</base-name>
             <var>bundle</var>
         </resource-bundle>
-    <resource-bundle>
-        <base-name>/Bundle</base-name>
-        <var>bundle</var>
-    </resource-bundle>
-    <resource-bundle>
-        <base-name>/Bundle</base-name>
-        <var>bundle</var>
-    </resource-bundle>
-</application>
+        <resource-bundle>
+            <base-name>/Bundle</base-name>
+            <var>bundle</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/Bundle</base-name>
+            <var>bundle</var>
+        </resource-bundle>
+    </application>
 </faces-config>
