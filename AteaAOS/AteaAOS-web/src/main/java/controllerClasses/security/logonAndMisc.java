@@ -16,7 +16,7 @@ import javax.faces.context.FacesContext;
  *
  * @author simond
  */
-@ManagedBean()
+@ManagedBean
 @SessionScoped
 public class logonAndMisc implements Serializable {
 
