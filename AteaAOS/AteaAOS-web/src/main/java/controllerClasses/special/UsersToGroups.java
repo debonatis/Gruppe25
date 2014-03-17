@@ -97,14 +97,15 @@ public class UsersToGroups implements Serializable {
 
     }
 
-    public void saveG() {
-
-    }
+    
 
     public void onTransferU(TransferEvent event) {
         StringBuilder builder = new StringBuilder();
         for (Object item : event.getItems()) {
-            builder.append(((Users) item).getUsername()).append("<br />");
+            
+                builder.append(item).append("<br />");
+            
+            
         }
 
         FacesMessage msg = new FacesMessage();
@@ -118,7 +119,10 @@ public class UsersToGroups implements Serializable {
     public void onTransferG(TransferEvent event) {
         StringBuilder builder = new StringBuilder();
         for (Object item : event.getItems()) {
-            builder.append(((Groups) item).getGroupname()).append("<br />");
+           
+                 builder.append(item).append("<br />");
+            
+           
         }
 
         FacesMessage msg = new FacesMessage();
