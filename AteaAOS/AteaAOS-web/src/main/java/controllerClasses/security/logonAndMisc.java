@@ -9,21 +9,22 @@ import java.io.IOException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
 /**
  *
  * @author simond
  */
-@Named(value = "logonAndMisc")
+@ManagedBean()
 @SessionScoped
 public class logonAndMisc implements Serializable {
 
     /**
      * Creates a new instance of logonAndMisc
      */
-    
     private String logon;
+
     public logonAndMisc() {
     }
 
@@ -36,5 +37,4 @@ public class logonAndMisc implements Serializable {
         this.logon = logon;
     }
 
-    
 }
