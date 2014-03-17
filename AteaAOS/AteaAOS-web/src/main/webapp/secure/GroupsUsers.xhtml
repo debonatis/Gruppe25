@@ -28,47 +28,42 @@
 
                 <p:layoutUnit position="center">
                     <h:form id="userForm">
-                        <p:dataTable id="userTable" value="#{usersController.items}" rendered="#{usersController.items.rowAvailable}" var="user"  rowKey="#{user.username}"  
-                                     selection="#{usersController.selected}" selectionMode="multiple">
+                        <p:growl id="msg" showDetail="true" escape="false" />  
+                        <p:pickList id="pojoPickList" value="#{usersToGroups.groups}" var="groupe" effect="bounce"  
+                                    itemValue="#{groupe}" itemLabel="#{groupe.groupname}" converter="#{groupsConverter}"  
+                                    showSourceControls="true" showTargetControls="true" showCheckbox="true"  
+                                    showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" >  
 
-                            <f:facet name="header">  
-                                Users created 
-                            </f:facet>  
+                            <f:facet name="sourceCaption">Available</f:facet>  
+                            <f:facet name="targetCaption">Selected</f:facet>  
 
-                            <p:column headerText="#{bundle.ListUsersTitle_username}">  
-                                #{user.username}  
+                            <p:ajax event="transfer" listener="#{usersToGroups.onTransferG}" update="msg" />  
+
+
+
+                            <p:column style="width:75%;">  
+                                #{groupe.groupename}  
                             </p:column>  
 
-                            <p:column headerText="#{bundle.ListUsersTitle_firstname}">  
-                                #{user.firstname} 
-                            </p:column>  
+                        </p:pickList>  
 
-                            <p:column headerText="#{bundle.ListUsersTitle_lastname}" >  
-                                #{user.lastname} 
-                            </p:column>  
+                        <p:commandButton id="pojoSubmit" value="Submit" update="displayUsers" oncomplete="PF('userDialog').show()" style="margin-top:5px"/>  
 
-                            <p:column headerText="#{bundle.ListUsersTitle_mobile}">  
-                                #{user.mobile} 
-                            </p:column>  
+                        <p:dialog modal="true" showEffect="fade" hideEffect="fade" widgetVar="userDialog">  
+                            <h:panelGrid id="displayPlayers" columns="2">  
+                                <h:outputText value="Source: " style="font-weight:bold"/>  
+                                <ui:repeat value="#{usersToGroups.groups.source}" var="user">  
+                                    <h:outputText value="#{user.username}" style="margin-right:5px" />  
+                                </ui:repeat>  
 
-                            <f:facet name="footer">  
-                                <p:commandButton value="View" icon="ui-icon-search"  
-                                                 update=":userForm:display" oncomplete="PF('userDialog').show()"/>  
-                            </f:facet>  
-                        </p:dataTable>  
-
-                        <p:dialog header="User Detail" widgetVar="userDialog"  
-                                  width="250" showEffect="explode" hideEffect="explode">  
-
-                            <p:dataList id="display"  
-                                        value="#{usersController.selected}"  
-                                        var="selectedUser" type="definition">  
-
-                                Model: #{selectedUser.email}, Year: #{selectedUser.title}  
-
-                            </p:dataList>  
-
+                                <h:outputText value="Target: " style="font-weight:bold"/>  
+                                <ui:repeat value="#{usersToGroups.groups.target}" var="user">  
+                                    <h:outputText value="#{user.username}" style="margin-right:5px" />  
+                                </ui:repeat>  
+                            </h:panelGrid>  
                         </p:dialog>  
+
+
                     </h:form>
                 </p:layoutUnit>
 
