@@ -27,6 +27,10 @@ padding-top: 405px;
 .ui-layout-unit-content .ui-widget-content{
     background: #fefeff;
 }
+
+#toLogin {
+     float: right;
+}
 #velkommenHTekst {
     padding-top: 445px;
     font-size: xx-large;
