@@ -76,6 +76,29 @@
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
+        
+        <dependency>
+            <groupId>org.openfaces</groupId>
+            <artifactId>openfaces</artifactId>
+            <version>3.0</version>
+            <scope>compile</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>jfree</groupId>
+            <artifactId>jcommon</artifactId>
+            <version>1.0.16</version>
+        </dependency>
+        <dependency>
+            <groupId>jfree</groupId>
+            <artifactId>jfreechart</artifactId>
+            <version>1.0.13</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -134,5 +157,15 @@
             <layout>default</layout>
             <name>Repository for library PrimeFaces-maven-lib</name>
         </repository>
+        
+        <repository>
+            <id>org.openfaces</id>
+            <url>http://repository.openfaces.org/repository</url>
+        </repository>
+        <repository>
+            <id>jfree</id>
+            <url>http://www.ibiblio.org/maven/jfree/</url>
+        </repository>
     </repositories>
+    
 </project>
