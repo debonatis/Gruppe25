@@ -12,6 +12,15 @@ body {
 a {
     color: #e33b06;
 }
+#pojoPickList{
+    float: left;
+}
+#pojoPickListU {
+    float: right;
+}
+#pojoSubmit {
+    float: right;
+}
 
 table {
     empty-cells: show;
