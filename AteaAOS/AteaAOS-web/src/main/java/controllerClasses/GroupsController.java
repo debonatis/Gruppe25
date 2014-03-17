@@ -192,7 +192,7 @@ public class GroupsController implements Serializable {
         return ejbFacade.find(id);
     }
 
-    @FacesConverter(forClass = Groups.class, value = "groupsConverter")
+    @FacesConverter(value = "groupConverter", forClass = Groups.class)
     public static class GroupsControllerConverter implements Converter {
 
         @Override
