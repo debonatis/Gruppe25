@@ -192,7 +192,7 @@ public class UsersController implements Serializable {
         return ejbFacade.find(id);
     }
 
-    @FacesConverter(forClass = Users.class)
+    @FacesConverter(forClass = Users.class, value = "userConverter")
     public static class UsersControllerConverter implements Converter {
 
         @Override

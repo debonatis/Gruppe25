@@ -6,15 +6,21 @@
 package controllerClasses.special;
 
 import entityModels.Groups;
+import entityModels.Groupusers;
+import entityModels.Logging;
 import entityModels.Users;
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import org.primefaces.event.TransferEvent;
 
 import org.primefaces.model.DualListModel;
@@ -23,11 +29,6 @@ import persistClasses.GroupusersFacade;
 import persistClasses.LoggingFacade;
 import persistClasses.UsersFacade;
 
-/**
- *
- * @author simond
- *
- */
 @ManagedBean(name = "usersToGroups")
 @SessionScoped
 public class UsersToGroups implements Serializable {
@@ -42,6 +43,12 @@ public class UsersToGroups implements Serializable {
     private LoggingFacade LoggingEJB;
     private DualListModel<Users> users;
     private DualListModel<Groups> groups;
+    private String username;
+
+    @PostConstruct
+    public void init() {
+        username = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
+    }
 
     public DualListModel<Groups> getGroups() {
         return groups;
@@ -51,8 +58,8 @@ public class UsersToGroups implements Serializable {
         this.groups = groups;
     }
 
-    public UsersToGroups() {
-        //Players  
+    @PostConstruct
+    public void preCompute() {
         List<Users> sourceU = new ArrayList<Users>();
         List<Users> targetU = new ArrayList<Users>();
 
@@ -66,6 +73,9 @@ public class UsersToGroups implements Serializable {
         sourceG = groupsEJB.findAll();
 
         groups = new DualListModel<Groups>(sourceG, targetG);
+    }
+
+    public UsersToGroups() {
 
     }
 
@@ -79,8 +89,18 @@ public class UsersToGroups implements Serializable {
 
     public void saveU() {
 
-    }
+        List<Groups> gr = groups.getTarget();
+        List<Users> ur = users.getTarget();
 
+        for (Groups g : gr) {
+            for (Users u : ur) {
+                groupsusersEJB.create(new Groupusers(u.getUsername(), g.getGroupname()));
+            }
+        }
+        
+        LoggingEJB.create(new Logging(new Date(System.currentTimeMillis()), username, "test", "INFO", "test"));
+
+    }
     public void saveG() {
 
     }
@@ -98,7 +118,8 @@ public class UsersToGroups implements Serializable {
 
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-     public void onTransferG(TransferEvent event) {
+
+    public void onTransferG(TransferEvent event) {
         StringBuilder builder = new StringBuilder();
         for (Object item : event.getItems()) {
             builder.append(((Groups) item).getGroupname()).append("<br />");
