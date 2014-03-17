@@ -45,14 +45,14 @@
                                 #{group.groupname}  
                             </p:column>  
 
-                        </p:pickList> 
+                        </p:pickList > 
                         <p:pickList id="pojoPickListU" value="#{usersToGroups.users}" var="user" effect="bounce"  
                                     itemValue="#{user}" itemLabel="#{user.username}" converter="#{userConverter}"  
                                     showSourceControls="true" showTargetControls="true" showCheckbox="true"  
                                     showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" >  
 
                             <f:facet name="sourceCaption">Available Users</f:facet>  
-                            <f:facet name="targetCaption">Selected users in predefined group/s</f:facet>  
+                            <f:facet name="targetCaption">Selected users in predefined group/es</f:facet>  
 
                             <p:ajax event="transfer" listener="#{usersToGroups.onTransferU}" update="msg" />  
 
@@ -68,14 +68,14 @@
 
                         <p:dialog modal="true" showEffect="fade" hideEffect="fade" widgetVar="userDialog">  
                             <h:panelGrid id="displayUsers" columns="2">  
-                                <h:outputText value="Source: " style="font-weight:bold"/>  
-                                <ui:repeat value="#{usersToGroups.groups.source}" var="user">  
+                                <h:outputText value="Picked users: " style="font-weight:bold"/>  
+                                <ui:repeat value="#{usersToGroups.users.source}" var="user">  
                                     <h:outputText value="#{user.username}" style="margin-right:5px" />  
                                 </ui:repeat>  
 
-                                <h:outputText value="Target: " style="font-weight:bold"/>  
-                                <ui:repeat value="#{usersToGroups.groups.target}" var="user">  
-                                    <h:outputText value="#{user.username}" style="margin-right:5px" />  
+                                <h:outputText value="Member in these group/es: " style="font-weight:bold"/>  
+                                <ui:repeat value="#{usersToGroups.groups.target}" var="group">  
+                                    <h:outputText value="#{group.groupname}" style="margin-right:5px" />  
                                 </ui:repeat>  
                             </h:panelGrid>  
                         </p:dialog>  
