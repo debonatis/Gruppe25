@@ -97,15 +97,12 @@ public class UsersToGroups implements Serializable {
 
     }
 
-    
-
     public void onTransferU(TransferEvent event) {
         StringBuilder builder = new StringBuilder();
         for (Object item : event.getItems()) {
-            
-                builder.append(item).append("<br />");
-            
-            
+            Users bruker = getasUserObject(item);
+            builder.append(bruker.getUsername()).append("<br />");
+
         }
 
         FacesMessage msg = new FacesMessage();
@@ -119,10 +116,9 @@ public class UsersToGroups implements Serializable {
     public void onTransferG(TransferEvent event) {
         StringBuilder builder = new StringBuilder();
         for (Object item : event.getItems()) {
-           
-                 builder.append(item).append("<br />");
-            
-           
+            Groups gruppe = getasGroupObject(item);
+            builder.append(gruppe.getGroupname()).append("<br />");
+
         }
 
         FacesMessage msg = new FacesMessage();
@@ -132,4 +128,31 @@ public class UsersToGroups implements Serializable {
 
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
+
+    private Groups getasGroupObject(Object item) {
+
+        String value = (String) item;
+        if (value == null || value.length() == 0) {
+            return null;
+        }
+
+        return groupsEJB.find(getKey(value));
+    }
+
+    private java.lang.String getKey(String value) {
+        java.lang.String key;
+        key = value;
+        return key;
+    }
+
+    private Users getasUserObject(Object item) {
+
+        String value = (String) item;
+        if (value == null || value.length() == 0) {
+            return null;
+        }
+
+        return usersEJB.find(getKey(value));
+    }
+
 }
