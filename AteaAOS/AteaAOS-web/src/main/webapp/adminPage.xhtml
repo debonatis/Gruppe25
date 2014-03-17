@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>AOS</title>
+                <f:facet name="last">
+                    <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/resources/css/jsfcrud.css" />
+                </f:facet> 
+            </f:facet>
+
+        </h:head>
+
+        <h:body>
+
+            <p:layout fullPage="true">
+                <p:layoutUnit id="layout-upper" position="north" size="500" resizable="false" closable="true" collapsible="true">
+
+                    <div id="velkommenHTekst">
+                        Welcome to AOS User Creation
+
+
+                    </div>
+                    <p:graphicImage id="pictureWelcome" value="/resources/images/Atealogo.gif" /> 
+                </p:layoutUnit>
+
+
+                <p:layoutUnit position="center">
+                    
+                    <h:panelGrid columns="2">
+
+                    <div id="velkommenUTekst">
+                        Here at Atea, we use this tool to create new customer environments!
+                    </div>
+                    <p:button id="toLogin"  value="Login" icon="ui-icon-circle-triangle-e"/>  
+                    </h:panelGrid>
+                    
+                </p:layoutUnit>
+
+
+
+            </p:layout>
+        </h:body>
+    </f:view>
+
+</html>
