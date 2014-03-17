@@ -45,11 +45,6 @@ public class UsersToGroups implements Serializable {
     private DualListModel<Groups> groups;
     private String username;
 
-    @PostConstruct
-    public void init() {
-        username = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
-    }
-
     public DualListModel<Groups> getGroups() {
         return groups;
     }
@@ -69,7 +64,7 @@ public class UsersToGroups implements Serializable {
 
         List<Groups> sourceG = new ArrayList<Groups>();
         List<Groups> targetG = new ArrayList<Groups>();
-
+        username = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
         sourceG = groupsEJB.findAll();
 
         groups = new DualListModel<Groups>(sourceG, targetG);
@@ -97,10 +92,11 @@ public class UsersToGroups implements Serializable {
                 groupsusersEJB.create(new Groupusers(u.getUsername(), g.getGroupname()));
             }
         }
-        
+
         LoggingEJB.create(new Logging(new Date(System.currentTimeMillis()), username, "test", "INFO", "test"));
 
     }
+
     public void saveG() {
 
     }
