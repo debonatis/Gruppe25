@@ -18,8 +18,8 @@ import javax.faces.convert.FacesConverter;
  *
  * @author simond
  */
-@FacesConverter("indexConverter")
-public class IndexConverter implements Converter {
+@FacesConverter("indexConverterG")
+public class IndexConverterG implements Converter {
 
     private List<?> list;
 
