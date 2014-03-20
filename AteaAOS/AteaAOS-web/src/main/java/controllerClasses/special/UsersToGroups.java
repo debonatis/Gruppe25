@@ -9,6 +9,7 @@ import entityModels.Groups;
 import entityModels.Groupusers;
 import entityModels.Logging;
 import entityModels.Users;
+import java.awt.Event;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -115,6 +116,9 @@ public class UsersToGroups implements Serializable {
 
     public void onTransferG(TransferEvent event) {
         StringBuilder builder = new StringBuilder();
+        if (event.isAdd()) {
+
+        
         for (Object item : event.getItems()) {
             Groups gruppe = getasGroupObject(item);
             builder.append(gruppe.getGroupname()).append("<br />");
@@ -127,6 +131,26 @@ public class UsersToGroups implements Serializable {
         msg.setDetail(builder.toString());
 
         FacesContext.getCurrentInstance().addMessage(null, msg);
+
+    }
+    else if(!event.isAdd()) 
+        
+          for (Object item : event.getItems()) {
+            Groups gruppe = getasGroupObject(item);
+            builder.append(gruppe.getGroupname()).append("<br />");
+
+        }
+
+        FacesMessage msg = new FacesMessage();
+        msg.setSeverity(FacesMessage.SEVERITY_INFO);
+        msg.setSummary("Items Removed");
+        msg.setDetail(builder.toString());
+
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    {
+
+    
+    }
     }
 
     private Groups getasGroupObject(Object item) {
