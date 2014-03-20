@@ -6,13 +6,16 @@
 package controllerClasses.converters;
 
 import controllerClasses.util.JsfUtil;
+import entityModels.Users;
 import java.util.List;
 import java.util.ResourceBundle;
+import javax.ejb.EJB;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
+import persistClasses.UsersFacade;
 
 /**
  *
@@ -21,32 +24,27 @@ import javax.faces.convert.FacesConverter;
 @FacesConverter("indexConverterU")
 public class IndexConverterU implements Converter {
 
-    private List<?> list;
+    private Users bruker;
+    @EJB
+    private UsersFacade usersEJB;
 
+    @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        int index = Integer.valueOf(value);
-        if (index < 0 || index >= list.size()) {
+        bruker = new Users(value);
 
-            JsfUtil.addErrorMessage("The List do not match");
-
-        }
-
-        return list.get(index);
+        return usersEJB.find(bruker);
     }
 
+    @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).equals(value)) {
-                return i + "";
-            }
-            JsfUtil.addErrorMessage("The List do not contain value");
-        }
+        bruker = (Users) value;
+        
+            
+        
 
-        return null;
+        return bruker.getUsername();
 
     }
 
-    public void setList(List<?> list) {
-        this.list = list;
-    }
+   
 }

@@ -30,7 +30,7 @@
                     <h:form id="userForm">
                         <p:growl id="msg" showDetail="true" escape="false" />  
                         <p:pickList id="pojoPickList" value="#{usersToGroups.groups}" var="group" effect="bounce"  
-                                    itemValue="#{group}" itemLabel="#{group.groupname}" converter="#{groupConverter}"  
+                                    itemValue="#{group}" itemLabel="#{group.groupname}" converter="#{indexConverterG}"  
                                     showSourceControls="true" showTargetControls="true" showCheckbox="true"  
                                     showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" >  
 
@@ -47,7 +47,7 @@
 
                         </p:pickList > 
                         <p:pickList id="pojoPickListU" value="#{usersToGroups.users}" var="user" effect="bounce"  
-                                    itemValue="#{user}" itemLabel="#{user.username}" converter="#{userConverter}"  
+                                    itemValue="#{user}" itemLabel="#{user.username}" converter="#{indexConverterU}"  
                                     showSourceControls="true" showTargetControls="true" showCheckbox="true"  
                                     showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" >  
 

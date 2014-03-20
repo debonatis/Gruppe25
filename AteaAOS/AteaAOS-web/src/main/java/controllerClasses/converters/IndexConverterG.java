@@ -5,14 +5,13 @@
  */
 package controllerClasses.converters;
 
-import controllerClasses.util.JsfUtil;
-import java.util.List;
-import java.util.ResourceBundle;
+import entityModels.Groups;
+import javax.ejb.EJB;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
+import persistClasses.GroupsFacade;
 
 /**
  *
@@ -21,32 +20,22 @@ import javax.faces.convert.FacesConverter;
 @FacesConverter("indexConverterG")
 public class IndexConverterG implements Converter {
 
-    private List<?> list;
+    private Groups gruppe;
+    @EJB
+    private GroupsFacade groupsEJB;
 
+    @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        int index = Integer.valueOf(value);
-        if (index < 0 || index >= list.size()) {
-
-            JsfUtil.addErrorMessage("The List do not match");
-
-        }
-
-        return list.get(index);
+        gruppe = new Groups(value);
+        return groupsEJB.find(gruppe);
     }
 
+    @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).equals(value)) {
-                return i + "";
-            }
-            JsfUtil.addErrorMessage("The List do not contain value");
-        }
+        gruppe = (Groups) value;
 
-        return null;
+        return gruppe.getGroupname();
 
     }
 
-    public void setList(List<?> list) {
-        this.list = list;
-    }
 }
