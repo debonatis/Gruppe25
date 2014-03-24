@@ -8,7 +8,7 @@
         <h:head>
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-                <title>AOS</title>
+                <title>AOS-admin</title>
                 <f:facet name="last">
                     <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/resources/css/jsfcrud.css" />
                 </f:facet> 
@@ -28,47 +28,60 @@
 
                 <p:layoutUnit position="center">
                     <h:form id="userForm">
-                        <p:dataTable id="userTable" value="#{usersController.items}" rendered="#{usersController.items.rowAvailable}" var="user"  rowKey="#{user.username}"  
-                                     selection="#{usersController.selected}" selectionMode="multiple">
+                        <p:growl id="msg" showDetail="true" escape="false" />  
+                        <p:pickList id="pojoPickList" value="#{usersToGroups.groups}" var="group" effect="bounce"  
+                                    itemValue="#{group}" itemLabel="#{group.groupname}" converter="#{indexConverterG}"  
+                                    showSourceControls="true" showTargetControls="true" showCheckbox="true"  
+                                    showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" >  
 
-                            <f:facet name="header">  
-                                Users created 
-                            </f:facet>  
+                            <f:facet name="sourceCaption">Available Groups</f:facet>  
+                            <f:facet name="targetCaption">Selected Groups</f:facet>  
 
-                            <p:column headerText="#{bundle.ListUsersTitle_username}">  
+                            <p:ajax event="transfer" listener="#{usersToGroups.onTransferG}" update="msg" />  
+
+
+
+                            <p:column style="width:75%;">  
+                                #{group.groupname}  
+                            </p:column>  
+
+                        </p:pickList > 
+                        <p:pickList id="pojoPickListU" value="#{usersToGroups.users}" var="user" effect="bounce"  
+                                    itemValue="#{user}" itemLabel="#{user.username}" converter="#{indexConverterU}"  
+                                    showSourceControls="true" showTargetControls="true" showCheckbox="true"  
+                                    showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" >  
+
+                            <f:facet name="sourceCaption">Available Users</f:facet>  
+                            <f:facet name="targetCaption">Selected users in predefined group/es</f:facet>  
+
+                            <p:ajax event="transfer" listener="#{usersToGroups.onTransferU}" update="msg" />  
+
+
+
+                            <p:column style="width:75%;">  
                                 #{user.username}  
                             </p:column>  
 
-                            <p:column headerText="#{bundle.ListUsersTitle_firstname}">  
-                                #{user.firstname} 
-                            </p:column>  
+                        </p:pickList>  
 
-                            <p:column headerText="#{bundle.ListUsersTitle_lastname}" >  
-                                #{user.lastname} 
-                            </p:column>  
+                        <p:commandButton id="pojoSubmit" value="Submit" update="displayUsers" oncomplete="PF('userDialog').show()" style="margin-top:5px" action="#{usersToGroups.saveU()}"/> 
+                        <p:button id="toLogin" outcome="#{logonAndMisc.csv}" value="Login" icon="ui-icon-circle-triangle-e"/> 
 
-                            <p:column headerText="#{bundle.ListUsersTitle_mobile}">  
-                                #{user.mobile} 
-                            </p:column>  
+                        <p:dialog modal="true" showEffect="fade" hideEffect="fade" widgetVar="userDialog">  
+                            <h:panelGrid id="displayUsers" columns="2">  
+                                <h:outputText value="Picked users: " style="font-weight:bold"/>  
+                                <ui:repeat value="#{usersToGroups.users.source}" var="user">  
+                                    <h:outputText value="#{user.username}" style="margin-right:5px" />  
+                                </ui:repeat>  
 
-                            <f:facet name="footer">  
-                                <p:commandButton value="View" icon="ui-icon-search"  
-                                                 update=":userForm:display" oncomplete="PF('userDialog').show()"/>  
-                            </f:facet>  
-                        </p:dataTable>  
-
-                        <p:dialog header="User Detail" widgetVar="userDialog"  
-                                  width="250" showEffect="explode" hideEffect="explode">  
-
-                            <p:dataList id="display"  
-                                        value="#{usersController.selected}"  
-                                        var="selectedUser" type="definition">  
-
-                                Model: #{selectedUser.email}, Year: #{selectedUser.title}  
-
-                            </p:dataList>  
-
+                                <h:outputText value="User/s now a member in these group/es: " style="font-weight:bold"/>  
+                                <ui:repeat value="#{usersToGroups.groups.target}" var="group">  
+                                    <h:outputText value="#{group.groupname}" style="margin-right:5px" />  
+                                </ui:repeat>  
+                            </h:panelGrid>  
                         </p:dialog>  
+
+
                     </h:form>
                 </p:layoutUnit>
 
