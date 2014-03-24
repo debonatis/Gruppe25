@@ -62,12 +62,12 @@ public class FileUpload implements Serializable {
 
     }
 
-    public List<CSVRow> getcSVList() {
+    public List<CSVRow> getCSVList() {
         cSVList = reader.readAndGetData();
         return cSVList;
     }
 
-    public void setcSVList(List<CSVRow> cSVList) {
+    public void setCSVList(List<CSVRow> cSVList) {
         this.cSVList = cSVList;
     }
 
