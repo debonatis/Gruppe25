@@ -34,13 +34,11 @@
 
                         <p:growl id="messages" showDetail="true"/>  
 
-                    </h:form>  
-                </p:layoutUnit>
-                <p:layoutUnit position="west">
+                     
                     <p:dialog modal="true" showEffect="fade" hideEffect="fade" widgetVar="userDialog"> 
-                        <h:form>  
+                        
 
-                            <p:dataTable id="dataTable" var="row" value="#{fileUpload.CSVList}" >  
+                        <p:dataTable id="dataTable" var="row" value="#{fileUpload.CSVList}" emptyMessage="No items found." >  
                                 <f:facet name="header">  
                                     Ajax Sorting  
                                 </f:facet>  
@@ -65,8 +63,12 @@
                                 </p:column>  
                             </p:dataTable>  
 
-                        </h:form>  
-                    </p:dialog>
+                        
+                    </p:dialog> 
+                    </h:form> 
+                </p:layoutUnit>
+                <p:layoutUnit position="west">
+
 
                 </p:layoutUnit>
 

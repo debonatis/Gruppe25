@@ -10,6 +10,7 @@ import controllerClasses.special.cSVparser.readerCSV;
 import java.io.IOException;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,7 +28,7 @@ import org.primefaces.model.UploadedFile;
 @SessionScoped
 public class FileUpload implements Serializable {
 
-    private List<CSVRow> cSVList;
+    private List<CSVRow> cSVList  = new ArrayList<CSVRow>();
 
     private UploadedFile file;
     private readerCSV reader;
