@@ -24,6 +24,16 @@ public class logonAndMisc implements Serializable {
      * Creates a new instance of logonAndMisc
      */
     private String logon;
+    private String csv;
+
+    public String getCsv() {
+        csv = "ok";
+        return csv;
+    }
+
+    public void setCsv(String csv) {
+        this.csv = csv;
+    }
 
     public logonAndMisc() {
     }
