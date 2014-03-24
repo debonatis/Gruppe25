@@ -101,7 +101,7 @@ public class UsersToGroups implements Serializable {
     public void onTransferU(TransferEvent event) {
         StringBuilder builder = new StringBuilder();
         for (Object item : event.getItems()) {
-            Users bruker = getasUserObject(item);
+            Users bruker = (Users)item;
             builder.append(bruker.getUsername()).append("<br />");
 
         }
@@ -120,7 +120,7 @@ public class UsersToGroups implements Serializable {
 
         
         for (Object item : event.getItems()) {
-            Groups gruppe = getasGroupObject(item);
+            Groups gruppe = (Groups) item;
             builder.append(gruppe.getGroupname()).append("<br />");
 
         }
@@ -136,7 +136,7 @@ public class UsersToGroups implements Serializable {
     else if(!event.isAdd()) 
         
           for (Object item : event.getItems()) {
-            Groups gruppe = getasGroupObject(item);
+            Groups gruppe = (Groups) item;
             builder.append(gruppe.getGroupname()).append("<br />");
 
         }

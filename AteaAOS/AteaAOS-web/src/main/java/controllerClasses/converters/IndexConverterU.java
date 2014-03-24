@@ -28,9 +28,9 @@ public class IndexConverterU implements Converter {
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        bruker = new Users(value);
+       
 
-        return usersEJB.find(bruker);
+        return usersEJB.find(value);
     }
 
     @Override
