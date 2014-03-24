@@ -34,6 +34,15 @@ public class readerCSV {
     private CSVRow row;
     private ArrayList<CSVRow> CsvList = new ArrayList<CSVRow>();
 
+    public ArrayList<CSVRow> getCsvList() {
+        return CsvList;
+    }
+
+    public void setCsvList(ArrayList<CSVRow> CsvList) {
+        this.CsvList = CsvList;
+    }
+    
+
     public readerCSV(UploadedFile file) throws IOException {
         CSVfile = file.getInputstream();
         filename = file.getFileName();
@@ -49,7 +58,7 @@ public class readerCSV {
         }
 
     }
-    public synchronized ArrayList readAndGetData(){
+    public synchronized void readAndPopulateList(){
         
         CsvConfiguration csvConfiguration = new CsvConfiguration();
         csvConfiguration.setFieldDelimiter(',');
@@ -63,7 +72,7 @@ public class readerCSV {
             CsvList.add(row);
         }
         deserializer.close(true);
-        return CsvList;
+        
   }
     
 }
