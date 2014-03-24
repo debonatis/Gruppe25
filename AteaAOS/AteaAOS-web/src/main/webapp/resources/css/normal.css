@@ -9,6 +9,11 @@ body {
     font-size: small;
 }
 
+#storrelse {
+    font-size: large;
+    font-family: "Segoe UI Light","Segoe WPC","Segoe UI",
+        Helvetica, Arial, "Arial Unicode MS", Sans-Serif;
+}
 a {
     color: #e33b06;
 }
@@ -17,10 +22,10 @@ table {
     empty-cells: show;
 }
 #pictureWelcome{
-padding-top: 10px;
-/*    -ms-transform:rotate(90deg);  IE 9 
-    -webkit-transform:rotate(90deg);  Opera, Chrome, and Safari */
-    
+    padding-top: 10px;
+    /*    -ms-transform:rotate(90deg);  IE 9 
+        -webkit-transform:rotate(90deg);  Opera, Chrome, and Safari */
+
     float: right;
 
 }
@@ -29,11 +34,11 @@ padding-top: 10px;
 }
 
 #toLogin {
-     float: right;
+    float: right;
 }
 #bredden {
     width: 20px;
-    
+
 }
 #adminHTekst {
     padding-top: 15px;

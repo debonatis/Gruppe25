@@ -28,39 +28,52 @@
                 </p:layoutUnit>
 
 
-                <p:layoutUnit position="center" >
+                <p:layoutUnit position="center">
+                    <div id="adminCTekst">
+                        Open existing Project 
+                    </div>
+                    <br/>
+                    <h:form id="storrelse">
+                        <br/><br/>
+                        <h:panelGroup rendered="#{groupsController.items.rowCount > 0}">
 
-                    <h:panelGrid columns="1">
-                        <div id="adminCTekst">
-                            Open existing Project 
-                        </div>
-                    </h:panelGrid>
-
+                            <p:dataTable value="#{groupsController.items}" var="item" cellSeparator="2">
+                                <p:column >                                 
+                                    <h:outputText value="#{item.groupname}" style="font-size: large"/>
+                                </p:column>
+                                <p:column width="100">
+                                    <f:facet name="header">
+                                        <h:outputText value="&nbsp;"/>
+                                    </f:facet>
+                                    <h:commandLink action="#{groupsController.prepareView}" value="#{bundle.ListGroupsViewLink}"/>
+                                    <h:outputText value=" "/>
+                                </p:column>
+                            </p:dataTable>
+                        </h:panelGroup>
+                    </h:form>
                 </p:layoutUnit>
 
                 <p:layoutUnit position="west" size="800" resizable="false" closable="true" collapsible="true">
 
-                    <h:panelGrid columns="1">
+                    <div id="adminUTekst">
+                        Create new project
+                    </div>
+                    <br/>
+                    <h:form>
+                        <p:panel>
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputText value="Customer name:"/>
+                                <p:inputText value=""/>
+                                <h:outputText value="Contact person:"/>
+                                <p:inputText value=""/>
+                                <h:outputText value="Contact mail:"/>
+                                <p:inputText value=""/>
 
-                        <div id="adminUTekst">
-                            Create new project
-                        </div>
-                        <h:form id="adminUTekst">
-                            <p:panelGrid>
-                                <h:outputLabel for="id" value="Customer name : "  />
-                                <p:inputText id="id" value="#{userMB.id}"/>   
-                                <h:outputLabel for="name" value="Contact person : " />
-                                <p:inputText id="name" value="#{userMB.name}"/>
-                                <h:outputLabel for="surname" value="Contact email : " />
-                                <p:inputText id="surname" value="#{userMB.surname}"/>
-
-                                <p:commandButton id="addUser" value="Add" action="#{userMB.addUser}" ajax="false"/>
-                            </p:panelGrid>
-                        </h:form>
-                    </h:panelGrid>
+                                <p:commandButton value="Create new" oncomplete=""/>
+                            </h:panelGrid>
+                        </p:panel>
+                    </h:form>
                 </p:layoutUnit>
-
-
             </p:layout>
         </h:body>
     </f:view>
