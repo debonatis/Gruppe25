@@ -94,7 +94,7 @@ public class UsersToGroups implements Serializable {
             }
         }
 
-        LoggingEJB.create(new Logging(new Date(System.currentTimeMillis()), username, "test", "INFO", "test"));
+        LoggingEJB.create(new Logging(new Date(System.currentTimeMillis()), "simond", "test", "INFO", "test"));
 
     }
 
