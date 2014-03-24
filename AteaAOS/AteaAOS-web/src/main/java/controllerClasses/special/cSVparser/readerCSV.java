@@ -32,7 +32,7 @@ public class readerCSV {
     private String filename = "";
     FileOutputStream csvOutputStream;
     private CSVRow row;
-    private ArrayList<CSVRow> CsvList;
+    private ArrayList<CSVRow> CsvList = new ArrayList<CSVRow>();
 
     public readerCSV(UploadedFile file) throws IOException {
         CSVfile = file.getInputstream();
