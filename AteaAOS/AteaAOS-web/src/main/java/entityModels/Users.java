@@ -90,6 +90,11 @@ public class Users implements Serializable {
     @NotNull
     @Column(name = "MOBILE")
     private int mobile;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "PROJECTID")
+    private String projectid;
+    
 
     public Users() {
     }
@@ -98,7 +103,7 @@ public class Users implements Serializable {
         this.username = username;
     }
 
-    public Users(String username, String firstname, String lastname, String title, String itcontact, String emailalias, String department, String employmentnr, String email, int mobile) {
+    public Users(String username, String firstname, String lastname, String title, String itcontact, String emailalias, String department, String employmentnr, String email, int mobile, String projectid) {
         this.username = username;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -109,6 +114,7 @@ public class Users implements Serializable {
         this.employmentnr = employmentnr;
         this.email = email;
         this.mobile = mobile;
+        this.projectid = projectid;
     }
 
     public String getUsername() {
@@ -190,6 +196,15 @@ public class Users implements Serializable {
     public void setMobile(int mobile) {
         this.mobile = mobile;
     }
+
+    public String getProjectid() {
+        return projectid;
+    }
+
+    public void setProjectid(String projectid) {
+        this.projectid = projectid;
+    }
+    
 
     @Override
     public int hashCode() {

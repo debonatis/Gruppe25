@@ -6,9 +6,12 @@
 
 package controllerClasses.special;
 
-import java.io.File;
+import controllerClasses.special.cSVparser.readerCSV;
+import java.io.IOException;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
@@ -29,6 +32,7 @@ public class FileUpload implements Serializable {
     public FileUpload() {
     }
     private UploadedFile file;
+    readerCSV reader;
 
     public UploadedFile getFile() {
         return file;
@@ -48,7 +52,11 @@ public class FileUpload implements Serializable {
     public void handleFileUpload(FileUploadEvent event) {
                 FacesMessage msg = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
-                
+        try {
+            reader = new readerCSV(file);
+        } catch (IOException ex) {
+            Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
+        }
                 
         }
 }
