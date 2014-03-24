@@ -39,9 +39,7 @@ public class readerCSV {
     
 
     public ArrayList<CSVRow> getCsvList() {
-        if(CsvList.isEmpty()){
-            CsvList.add(new CSVRow());
-        }
+        
         return CsvList;
     }
 

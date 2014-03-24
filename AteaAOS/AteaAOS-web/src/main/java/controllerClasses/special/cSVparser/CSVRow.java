@@ -30,4 +30,44 @@ public class CSVRow {
     @CsvField(pos = 5)
     String userAccountControl;
 
+    public String getObjectclass() {
+        return objectclass;
+    }
+
+    public void setObjectclass(String objectclass) {
+        this.objectclass = objectclass;
+    }
+
+    public String getDn() {
+        return dn;
+    }
+
+    public void setDn(String dn) {
+        this.dn = dn;
+    }
+
+    public String getsAMAccountName() {
+        return sAMAccountName;
+    }
+
+    public void setsAMAccountName(String sAMAccountName) {
+        this.sAMAccountName = sAMAccountName;
+    }
+
+    public String getUserPrincipalName() {
+        return userPrincipalName;
+    }
+
+    public void setUserPrincipalName(String userPrincipalName) {
+        this.userPrincipalName = userPrincipalName;
+    }
+
+    public String getUserAccountControl() {
+        return userAccountControl;
+    }
+
+    public void setUserAccountControl(String userAccountControl) {
+        this.userAccountControl = userAccountControl;
+    }
+
 }
