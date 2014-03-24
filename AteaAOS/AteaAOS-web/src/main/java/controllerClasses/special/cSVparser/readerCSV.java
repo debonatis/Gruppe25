@@ -5,8 +5,6 @@
  */
 package controllerClasses.special.cSVparser;
 
-import com.lowagie.text.Row;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -30,9 +28,7 @@ import org.primefaces.model.UploadedFile;
 public class readerCSV {
 
     private InputStream CSVfile;
-    private BufferedReader br = null;
-    private String line = "";
-    private String cvsSplitBy = ",";
+  
     private String filename = "";
     FileOutputStream csvOutputStream;
     private CSVRow row;
