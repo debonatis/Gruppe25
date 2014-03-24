@@ -32,9 +32,12 @@ public class readerCSV {
     private String filename = "";
     FileOutputStream csvOutputStream;
     private CSVRow row;
-    private ArrayList<CSVRow> CsvList = new ArrayList<CSVRow>();
+    private ArrayList<CSVRow> CsvList = new ArrayList<>();
 
     public ArrayList<CSVRow> getCsvList() {
+        if(CsvList.isEmpty()){
+            CsvList.add(new CSVRow());
+        }
         return CsvList;
     }
 
