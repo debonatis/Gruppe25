@@ -11,6 +11,7 @@ import java.io.IOException;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
@@ -27,7 +28,7 @@ import org.primefaces.model.UploadedFile;
 @SessionScoped
 public class FileUpload implements Serializable {
 
-    private ArrayList<CSVRow> cSVList;
+    private List<CSVRow> cSVList;
 
     private UploadedFile file;
     private readerCSV reader;
@@ -62,12 +63,12 @@ public class FileUpload implements Serializable {
 
     }
 
-    public ArrayList<CSVRow> getcSVList() {
+    public List<CSVRow> getcSVList() {
         cSVList = reader.readAndGetData();
         return cSVList;
     }
 
-    public void setcSVList(ArrayList<CSVRow> cSVList) {
+    public void setcSVList(List<CSVRow> cSVList) {
         this.cSVList = cSVList;
     }
 

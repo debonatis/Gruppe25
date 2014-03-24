@@ -65,7 +65,7 @@
                         </p:pickList>  
 
                         <p:commandButton id="pojoSubmit" value="Submit" update="displayUsers" oncomplete="PF('userDialog').show()" style="margin-top:5px" action="#{usersToGroups.saveU()}"/> 
-                        <p:button id="toLogin" outcome="#{logonAndMisc.logon}" value="Login" icon="ui-icon-circle-triangle-e"/> 
+                        <p:button id="toLogin" outcome="#{logonAndMisc.csv}" value="Login" icon="ui-icon-circle-triangle-e"/> 
 
                         <p:dialog modal="true" showEffect="fade" hideEffect="fade" widgetVar="userDialog">  
                             <h:panelGrid id="displayUsers" columns="2">  
