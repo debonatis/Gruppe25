@@ -13,6 +13,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.io.IOUtils;
@@ -35,13 +36,14 @@ public class readerCSV {
     private String filename = "";
     FileOutputStream csvOutputStream;
     private CSVRow row;
+    private ArrayList<CSVRow> CsvList;
 
     public readerCSV(UploadedFile file) throws IOException {
         CSVfile = file.getInputstream();
         filename = file.getFileName();
     }
 
-    private void persistFile() throws FileNotFoundException {
+    private synchronized void persistFile() throws FileNotFoundException {
 
        csvOutputStream = new FileOutputStream(System.getProperty("controllerClasses.files") + File.separator + filename);
         try {
@@ -51,20 +53,21 @@ public class readerCSV {
         }
 
     }
-    private void readData(){
+    private synchronized ArrayList readAndGetData(){
         
         CsvConfiguration csvConfiguration = new CsvConfiguration();
-        csvConfiguration.setFieldDelimiter('.');
+        csvConfiguration.setFieldDelimiter(',');
         csvConfiguration.setLineFilter(new HeaderAndFooterFilter(1, false, false));
 
-        Deserializer deserializer = CsvIOFactory.createFactory(csvConfiguration, Row.class).createDeserializer();
+        Deserializer deserializer = CsvIOFactory.createFactory(csvConfiguration, CSVRow.class).createDeserializer();
 
         deserializer.open(new InputStreamReader(CSVfile));
         while (deserializer.hasNext()) {
             row = deserializer.next();
-            
+            CsvList.add(row);
         }
         deserializer.close(true);
+        return CsvList;
   }
     
 }
