@@ -15,20 +15,23 @@ import org.jsefa.csv.annotation.CsvField;
 @CsvDataType
 public class CSVRow {
 
-    @CsvField(pos = 1)
+    @CsvField(pos = 2)
     String objectclass;
 
-    @CsvField(pos = 2)
+    @CsvField(pos = 1)
     String dn;
-
-    @CsvField(pos = 3)
-    String sAMAccountName;
-
-    @CsvField(pos = 4)
-    String userPrincipalName;
     
+    @CsvField(pos = 3)
+    String DisplayName;
+
+    @CsvField(pos=4)
+    String samAccountName;
+
     @CsvField(pos = 5)
-    String userAccountControl;
+    String sn;
+    
+    @CsvField(pos = 6)
+    String givenName;
 
     public String getObjectclass() {
         return objectclass;
@@ -46,28 +49,37 @@ public class CSVRow {
         this.dn = dn;
     }
 
-    public String getsAMAccountName() {
-        return sAMAccountName;
+    public String getDisplayName() {
+        return DisplayName;
     }
 
-    public void setsAMAccountName(String sAMAccountName) {
-        this.sAMAccountName = sAMAccountName;
+    public void setDisplayName(String DisplayName) {
+        this.DisplayName = DisplayName;
     }
 
-    public String getUserPrincipalName() {
-        return userPrincipalName;
+    public String getSamAccountName() {
+        return samAccountName;
     }
 
-    public void setUserPrincipalName(String userPrincipalName) {
-        this.userPrincipalName = userPrincipalName;
+    public void setSamAccountName(String samAccountName) {
+        this.samAccountName = samAccountName;
     }
 
-    public String getUserAccountControl() {
-        return userAccountControl;
+    public String getSn() {
+        return sn;
     }
 
-    public void setUserAccountControl(String userAccountControl) {
-        this.userAccountControl = userAccountControl;
+    public void setSn(String sn) {
+        this.sn = sn;
     }
 
+    public String getGivenName() {
+        return givenName;
+    }
+
+    public void setGivenName(String givenName) {
+        this.givenName = givenName;
+    }
+
+    
 }
