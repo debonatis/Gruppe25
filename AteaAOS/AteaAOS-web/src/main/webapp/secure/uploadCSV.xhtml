@@ -30,7 +30,7 @@
                     <h:form>  
 
                         <p:fileUpload fileUploadListener="#{fileUpload.handleFileUpload}" mode="advanced"  
-                                      update="messages" auto="true" sizeLimit="100000000" allowTypes="/(\.|\/)(csv)$/" update="dataTable" oncomplete="PF('userDialog').show()"/>  
+                                      update="messages, dataTable" auto="true" sizeLimit="100000000" allowTypes="/(\.|\/)(csv)$/" oncomplete="PF('userDialog').show()"/>  
 
                         <p:growl id="messages" showDetail="true"/>  
 
