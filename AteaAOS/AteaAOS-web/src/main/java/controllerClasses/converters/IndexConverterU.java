@@ -5,23 +5,21 @@
  */
 package controllerClasses.converters;
 
-import controllerClasses.util.JsfUtil;
 import entityModels.Users;
-import java.util.List;
-import java.util.ResourceBundle;
 import javax.ejb.EJB;
+import javax.enterprise.context.ApplicationScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.faces.convert.ConverterException;
-import javax.faces.convert.FacesConverter;
+import javax.inject.Named;
 import persistClasses.UsersFacade;
 
 /**
  *
  * @author simond
  */
-@FacesConverter("indexConverterU")
+@Named
+@ApplicationScoped
 public class IndexConverterU implements Converter {
 
     private Users bruker;

@@ -7,17 +7,19 @@ package controllerClasses.converters;
 
 import entityModels.Groups;
 import javax.ejb.EJB;
+import javax.enterprise.context.ApplicationScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.faces.convert.FacesConverter;
+import javax.inject.Named;
 import persistClasses.GroupsFacade;
 
 /**
  *
  * @author simond
  */
-@FacesConverter("indexConverterG")
+@Named
+@ApplicationScoped
 public class IndexConverterG implements Converter {
 
     private Groups gruppe;
