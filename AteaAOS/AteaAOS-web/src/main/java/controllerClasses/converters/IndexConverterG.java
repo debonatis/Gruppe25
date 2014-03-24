@@ -28,8 +28,8 @@ public class IndexConverterG implements Converter {
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        gruppe = new Groups(value);
-        return groupsEJB.find(gruppe);
+        
+        return groupsEJB.find(value);
     }
 
     @Override
