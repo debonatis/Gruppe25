@@ -36,8 +36,36 @@
 
                     </h:form>  
                 </p:layoutUnit>
-                <p:layoutUnit>
-                    
+                <p:layoutUnit position="west">
+                    <h:form>  
+
+                        <p:dataTable id="dataTable" var="row" value="#{fileUpload.getcSVList}">  
+                            <f:facet name="header">  
+                                Ajax Sorting  
+                            </f:facet>  
+
+                            <p:column sortBy="type" headerText="Type">  
+                                <h:outputText value="#{row.objectclass}" />  
+                            </p:column>  
+
+                            <p:column sortBy="Domain" headerText="Domain">  
+                                <h:outputText value="#{row.dn}" />  
+                            </p:column>  
+
+                            <p:column sortBy="Logon" headerText="Logon">  
+                                <h:outputText value="#{row.sAMAccountName}" />  
+                            </p:column>  
+
+                            <p:column sortBy="Name" headerText="Name">  
+                                <h:outputText value="#{row.userPrincipalName}" />  
+                            </p:column>  
+                            <p:column sortBy="PasswordReset" headerText="Password Reset">  
+                                <h:outputText value="#{row.userAccountControl}" />  
+                            </p:column>  
+                        </p:dataTable>  
+
+                    </h:form>  
+
                 </p:layoutUnit>
 
             </p:layout>

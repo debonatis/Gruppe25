@@ -43,7 +43,7 @@ public class readerCSV {
         filename = file.getFileName();
     }
 
-    private synchronized void persistFile() throws FileNotFoundException {
+    public synchronized void persistFile() throws FileNotFoundException {
 
        csvOutputStream = new FileOutputStream(System.getProperty("controllerClasses.files") + File.separator + filename);
         try {
@@ -53,7 +53,7 @@ public class readerCSV {
         }
 
     }
-    private synchronized ArrayList readAndGetData(){
+    public synchronized ArrayList readAndGetData(){
         
         CsvConfiguration csvConfiguration = new CsvConfiguration();
         csvConfiguration.setFieldDelimiter(',');
