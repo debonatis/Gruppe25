@@ -30,7 +30,7 @@ import org.primefaces.model.UploadedFile;
 @SessionScoped
 public class FileUpload implements Serializable {
 
-    private List<CSVRow> cSVList;
+    private List<CSVRow> listCSV;
 
     private UploadedFile file;
     private readerCSV reader;
@@ -39,7 +39,8 @@ public class FileUpload implements Serializable {
     }
     @PostConstruct
     public void init(){
-        cSVList = new ArrayList<>();
+        listCSV = new ArrayList<>();
+        reader = new readerCSV();
     }
 
     public UploadedFile getFile() {
@@ -61,7 +62,7 @@ public class FileUpload implements Serializable {
         FacesMessage msg = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
         FacesContext.getCurrentInstance().addMessage(null, msg);
         try {
-            reader = new readerCSV(file);
+            reader.setFile(file);
             reader.persistFile();
         } catch (IOException ex) {
             Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
@@ -69,13 +70,15 @@ public class FileUpload implements Serializable {
 
     }
 
-    public List<CSVRow> getCSVList() {
-        cSVList = reader.getCsvList();
-        return cSVList;
+    public List<CSVRow> getListCSV() {
+        listCSV = reader.getCsvList();
+        return listCSV;
     }
 
-    public void setCSVList(List<CSVRow> cSVList) {
-        this.cSVList = cSVList;
+    public void setListCSV(List<CSVRow> listCSV) {
+        this.listCSV = listCSV;
     }
+
+   
 
 }

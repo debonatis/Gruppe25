@@ -34,6 +34,10 @@ public class readerCSV {
     private CSVRow row;
     private ArrayList<CSVRow> CsvList = new ArrayList<>();
 
+    public readerCSV() {
+    }
+    
+
     public ArrayList<CSVRow> getCsvList() {
         if(CsvList.isEmpty()){
             CsvList.add(new CSVRow());
@@ -46,7 +50,8 @@ public class readerCSV {
     }
     
 
-    public readerCSV(UploadedFile file) throws IOException {
+   
+    public void setFile(UploadedFile file) throws IOException{
         CSVfile = file.getInputstream();
         filename = file.getFileName();
     }
