@@ -10,7 +10,6 @@ import controllerClasses.special.cSVparser.readerCSV;
 import java.io.IOException;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
