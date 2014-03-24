@@ -27,6 +27,7 @@ import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.FlowEvent;
+import org.primefaces.model.SelectableDataModel;
 
 @ManagedBean(name = "domainsController")
 @SessionScoped
@@ -42,7 +43,7 @@ public class DomainsController implements Serializable {
     private boolean skip;
 
     private static Logger logger = Logger.getLogger(DomainsController.class.getName());
-
+    
     public DomainsController() {
     }
 

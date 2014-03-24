@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html" id="storrelse">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>AOS</title>
+                <f:facet name="last">
+                    <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/resources/css/normal.css" />
+                </f:facet> 
+            </f:facet>
+
+        </h:head>
+
+        <h:body>
+
+            <p:layout fullPage="true">
+                <p:layoutUnit id="layout-upper" position="north" size="100" resizable="false" closable="true" collapsible="true">
+
+                    <div id="adminHTekst">
+                        <b>Project details</b> - Create Users - Create Groups - Create Resources  
+                    </div>
+                </p:layoutUnit>
+
+
+                <p:layoutUnit position="center">
+                    <div id="adminCTekst">
+                        Delegate control to department managers                 
+                    </div>
+                    <br/>
+                    <h:form>
+                        <br/><br/>
+                        <p:panel header="Create department manager">  
+                            <h:panelGrid columns="2" cellpadding="5">  
+                                <h:outputText value="Contact person: " />  
+                                <p:inputText value=""/>  
+
+                                <h:outputText value="Contact mail: " />  
+                                <p:inputText value=""/>   
+                            </h:panelGrid>  
+                        </p:panel> 
+                        <br/>
+                        <p:panel header="Assign management access">
+                            <p:dataTable value="#{domainsController.items}" var="item">  
+                                <p:column selectionMode="multiple" style="width:2%" />  
+                                
+                                <p:column style="width:25%">  
+                                    <h:outputText value="#{item.domainname}" style="font-size: large"/>
+                                </p:column>  
+                            </p:dataTable>                                                        
+                        </p:panel>
+                    </h:form>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="west" size="800" resizable="false" closable="true" collapsible="true">
+
+                    <div id="adminCTekst">
+                        Register type of implementation project
+                    </div>
+                    <br/>
+                    <h:form >
+                        <br/><br/>
+                        <p:panel header="Assign management access">
+                            <p:dataTable >  
+                                <p:column selectionMode="multiple" style="width:2%" />  
+                                
+                                <p:column style="width:25%">  
+                                    <h:outputText value="#{domainsController.items.domainname}" style="font-size: large"/>
+                                </p:column>  
+                            </p:dataTable>                                                        
+                        </p:panel>
+                    </h:form>
+                </p:layoutUnit>
+            </p:layout>
+        </h:body>
+    </f:view>
+
+</html>
