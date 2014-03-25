@@ -322,10 +322,10 @@ public class DomainsController implements Serializable {
 
     
     
-    public Domains[] getSelectedDomainses() {  
+    public Domains[] getCurrents() {  
         return currents;  
     }  
-    public void setSelectedDomains(Domains[] selectedDomains) {  
+    public void setCurrents(Domains[] selectedDomains) {  
         this.currents = selectedDomains;
     }  
     
