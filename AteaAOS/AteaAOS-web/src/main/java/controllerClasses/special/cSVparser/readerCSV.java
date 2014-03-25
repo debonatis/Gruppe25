@@ -8,13 +8,11 @@ package controllerClasses.special.cSVparser;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.apache.commons.io.IOUtils;
 import org.jsefa.Deserializer;
 import org.jsefa.common.lowlevel.filter.HeaderAndFooterFilter;
 import org.jsefa.csv.CsvIOFactory;
@@ -28,7 +26,8 @@ import org.primefaces.model.UploadedFile;
 public class readerCSV {
 
     private InputStream CSVfile;
-  
+    File fil;
+
     private String filename = "";
     FileOutputStream csvOutputStream;
     private CSVRow row;
@@ -36,50 +35,74 @@ public class readerCSV {
 
     public readerCSV() {
     }
-    
 
     public ArrayList<CSVRow> getCsvList() {
-        
+
         return CsvList;
     }
 
     public void setCsvList(ArrayList<CSVRow> CsvList) {
         this.CsvList = CsvList;
     }
-    
 
-   
-    public void setFile(UploadedFile file) throws IOException{
+    public void setFile(UploadedFile file) throws IOException {
         CSVfile = file.getInputstream();
         filename = file.getFileName();
+        copyFile(filename, CSVfile);
     }
 
     public synchronized void persistFile() throws FileNotFoundException {
 
-       csvOutputStream = new FileOutputStream(System.getProperty("controllerClasses.files") + File.separator + filename);
+       
+    }
+  private void copyFile(String fileName, InputStream in) {
+
         try {
-            IOUtils.copy(CSVfile, csvOutputStream);
-        } catch (IOException ex) {
-            Logger.getLogger(readerCSV.class.getName()).log(Level.SEVERE, null, ex);
+            fil = new File(System.getProperty("user.dir")+ "/CVSFiles/"+ fileName);
+
+            OutputStream out = new FileOutputStream(fil);
+
+            int read = 0;
+
+            byte[] bytes = new byte[1024];
+
+            while ((read = in.read(bytes)) != -1) {
+
+                out.write(bytes, 0, read);
+
+            }
+
+            in.close();
+
+            out.flush();
+
+            out.close();
+
+            System.out.println("New file created!");
+
+        } catch (IOException e) {
+
+            System.out.println(e.getMessage());
+
         }
 
     }
-    public synchronized void readAndPopulateList(){
-        
+
+    public synchronized void readAndPopulateList() throws FileNotFoundException {
+
         CsvConfiguration csvConfiguration = new CsvConfiguration();
         csvConfiguration.setFieldDelimiter(',');
         csvConfiguration.setLineFilter(new HeaderAndFooterFilter(1, false, false));
 
         Deserializer deserializer = CsvIOFactory.createFactory(csvConfiguration, CSVRow.class).createDeserializer();
 
-        deserializer.open(new InputStreamReader(CSVfile));
+        deserializer.open(new FileReader(fil));
         while (deserializer.hasNext()) {
             row = deserializer.next();
             CsvList.add(row);
         }
         deserializer.close(true);
-        
-  }
-    
-}
 
+    }
+
+}
