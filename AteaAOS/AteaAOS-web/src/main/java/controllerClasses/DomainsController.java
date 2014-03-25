@@ -1,6 +1,8 @@
 package controllerClasses;
 
 import entityModels.Domains;
+import controllerClasses.special.MultipleChoicePrimefaces;
+
 import controllerClasses.util.JsfUtil;
 import controllerClasses.util.PaginationHelper;
 import java.io.File;
@@ -28,21 +30,28 @@ import javax.faces.model.SelectItem;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.FlowEvent;
 
+import controllerClasses.special.MultipleChoicePrimefaces;
+import java.util.ArrayList;
+import java.util.List;
+
 @ManagedBean(name = "domainsController")
 @SessionScoped
 public class DomainsController implements Serializable {
 
     private Domains current;
+    private Domains[] currents;
     private DataModel items = null;
     @EJB
     private persistClasses.DomainsFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
+    private MultipleChoicePrimefaces multipleChoicePrimefaces;
     private boolean skip;
 
-    private static Logger logger = Logger.getLogger(DomainsController.class.getName());
     
+    private static Logger logger = Logger.getLogger(DomainsController.class.getName());
+
     public DomainsController() {
     }
 
@@ -301,6 +310,27 @@ public class DomainsController implements Serializable {
             }
         }
 
+    }
+
+    public Domains getCurrent() {
+        return current;
+    }
+
+    public void setCurrent(Domains current) {
+        this.current = current;
+    }
+
+    
+    
+    public Domains[] getSelectedDomainses() {  
+        return currents;  
+    }  
+    public void setSelectedDomains(Domains[] selectedDomains) {  
+        this.currents = selectedDomains;
+    }  
+    
+    public MultipleChoicePrimefaces getMultipleChoicePrimefaces(){
+        return multipleChoicePrimefaces;
     }
 
 }
