@@ -57,22 +57,18 @@ public class readerCSV {
     private synchronized void copyFile(UploadedFile input) {
 
         try {
-            InputStream inputStream = input.getInputstream();
-            fil = new File(input.getFileName());
-
-            OutputStream out = new FileOutputStream(fil);
-
-            int read = 0;
-
-            byte[] bytes = new byte[1024];
-
-            while ((read = inputStream.read(bytes)) != -1) {
-
-                out.write(bytes, 0, read);
-
+            OutputStream out;
+            try (InputStream inputStream = input.getInputstream()) {
+                fil = new File(input.getFileName());
+                out = new FileOutputStream(fil);
+                int read = 0;
+                byte[] bytes = new byte[1024];
+                while ((read = inputStream.read(bytes)) != -1) {
+                    
+                    out.write(bytes, 0, read);
+                    
+                }
             }
-
-            inputStream.close();
 
             out.flush();
 
