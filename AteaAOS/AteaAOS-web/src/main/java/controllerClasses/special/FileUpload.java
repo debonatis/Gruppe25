@@ -49,12 +49,12 @@ public class FileUpload implements Serializable {
    
     private CSVRow row;
    
-    File fil;
+    private File fil;
 
     public FileUpload() {
     }
 
-    @PostConstruct
+    
     public void init() {
         listCSV = new ArrayList<>();
         
@@ -147,7 +147,7 @@ public class FileUpload implements Serializable {
     }
 
     public synchronized void readAndPersist() {
-        for (CSVRow e : listCSV) {
+        for (CSVRow e : getListCSV()) {
             brukerEJB.create(new Users(e.getSamAccountName(), e.getSn(), e.getDisplayName(), e.getDn(), e.getGivenName(), "no", "no", "no", "no", 1337, "no"));
         }
     }
