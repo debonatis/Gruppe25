@@ -52,6 +52,7 @@ public class FileUpload implements Serializable {
     private File fil;
 
     public FileUpload() {
+        listCSV = new ArrayList<>();
     }
 
     
