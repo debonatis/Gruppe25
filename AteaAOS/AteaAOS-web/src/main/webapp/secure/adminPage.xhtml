@@ -42,11 +42,14 @@
                                     <h:outputText value="#{item.groupname}" style="font-size: large"/>
                                 </p:column>
                                 <p:column width="100">
-                                    <f:facet name="header">
-                                        <h:outputText value="&nbsp;"/>
-                                    </f:facet>
-                                    <h:commandLink action="#{groupsController.prepareView}" value="#{bundle.ListGroupsViewLink}"/>
-                                    <h:outputText value=" "/>
+                                        <f:facet name="header">
+                                            <h:outputText value="&nbsp;"/>
+                                        </f:facet>
+                                        <h:commandLink action="#{groupsController.prepareView}" value="#{bundle.ListGroupsViewLink}"/>
+                                        <h:outputText value=" "/>
+                                        <h:commandLink action="#{groupsController.prepareEdit}" value="#{bundle.ListGroupsEditLink}"/>
+                                        <h:outputText value=" "/>
+                                        <h:commandLink action="#{groupsController.destroy}" value="#{bundle.ListGroupsDestroyLink}"/>
                                 </p:column>
                             </p:dataTable>
                         </h:panelGroup>
@@ -68,7 +71,7 @@
                                 <p:inputText value=""/>
                                 <h:outputText value="Contact mail:"/>
                                 <p:inputText value=""/>
-                                
+
                                 <p:commandButton value="Create new" oncomplete="/faces/secure/newProjectDetails.xhtml"/>
                             </h:panelGrid>
                         </p:panel>

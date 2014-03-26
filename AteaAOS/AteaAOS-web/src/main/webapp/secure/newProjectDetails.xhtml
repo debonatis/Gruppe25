@@ -45,16 +45,6 @@
                             </h:panelGrid>  
                         </p:panel> 
                         <br/>
-                        <p:panel header="Assign management access">
-                            <p:dataTable id="multiPrime" var="item" value="" 
-                                         selection="">  
-                                <p:column selectionMode="multiple" style="width:2%" />  
-                                
-                                <p:column style="width:25%">  
-                                    Domains
-                                </p:column>  
-                            </p:dataTable>                                                        
-                        </p:panel>
                     </h:form>
                 </p:layoutUnit>
 
@@ -66,9 +56,9 @@
                     <br/>
                     <h:form >
                         <br/><br/>
-                        <p:panel header="Assign management access">
-                            <p:dataTable >  
-                                <p:column selectionMode="multiple" style="width:2%" />  
+                        <p:panel header="Register type of implementation project">
+                            <p:dataTable value="#{domainsController.items}" var="item">  
+                                <p:column selectionMode="single" style="width:2%" />  
                                 
                                 <p:column style="width:25%">  
                                     <h:outputText value="#{domainsController.items.domainname}" style="font-size: large"/>
