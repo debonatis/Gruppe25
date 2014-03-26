@@ -23,6 +23,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
@@ -120,6 +121,23 @@ public class FileUpload implements Serializable {
     
     public void persistList(){
         reader.readAndPersist();
+    }
+    
+    public void onCellEdit(CellEditEvent event) {  
+        Object oldValue = event.getOldValue();  
+        Object newValue = event.getNewValue();  
+          
+        if(newValue != null && !newValue.equals(oldValue)) {  
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);  
+            FacesContext.getCurrentInstance().addMessage(null, msg);  
+        }  
+    }  
+    
+    public String deleteItem(CSVRow e){
+        ArrayList<CSVRow> edit = reader.getCsvList();
+        edit.remove(e);
+        reader.setCsvList(edit);
+        return null;
     }
 
 }

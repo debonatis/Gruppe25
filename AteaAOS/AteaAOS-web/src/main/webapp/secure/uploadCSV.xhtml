@@ -38,28 +38,50 @@
 
 
 
-                        <p:dataTable id="dataTable" var="row" value="#{fileUpload.listCSV}" emptyMessage="No items found." >  
+                        <p:dataTable id="dataTable" var="row" value="#{fileUpload.listCSV}" emptyMessage="No items found." editable="true" >  
                             <f:facet name="header">  
                                 CSV Output
                             </f:facet>  
+                            <p:column headerText="Delete">
 
-                            <p:column sortBy="type" headerText="Type">  
-                                <h:outputText value="#{row.objectclass}" />  
+
+
+                                <p:commandButton value="Delete" action="#{fileUpload.deleteItem(row)}" update="dataTable" />
+
+                            </p:column>
+
+                            <p:column sortBy="objectclass" headerText="Type">  
+                                <p:cellEditor>  
+                                    <f:facet name="output"><h:outputText value="#{row.objectclass}" /></f:facet>  
+                                    <f:facet name="input"><p:inputText id="modelInput" value="#{row.objectclass} style="width:96%"/></f:facet>  
+                                </p:cellEditor>  
                             </p:column>  
 
-                            <p:column sortBy="Domain" headerText="Domain">  
-                                <h:outputText value="#{row.dn}" />  
+                            <p:column sortBy="dn" headerText="Domain">  
+                                <p:cellEditor>  
+                                    <f:facet name="output"><h:outputText value="#{row.dn}" /></f:facet>  
+                                    <f:facet name="input"><p:inputText id="modelInput" value="#{row.dn} style="width:96%"/></f:facet>  
+                                </p:cellEditor>  
                             </p:column>  
 
-                            <p:column sortBy="Logon" headerText="Logon">  
-                                <h:outputText value="#{row.samAccountName}" />  
+                            <p:column sortBy="samAccountName" headerText="Logon">  
+                                <p:cellEditor>  
+                                    <f:facet name="output"><h:outputText value="#{row.samAccountName}" /></f:facet>  
+                                    <f:facet name="input"><p:inputText id="modelInput" value="#{row.samAccountName} style="width:96%"/></f:facet>  
+                                </p:cellEditor>  
                             </p:column>  
 
-                            <p:column sortBy="Name" headerText="Name">  
-                                <h:outputText value="#{row.displayName}" />  
+                            <p:column sortBy="displayName" headerText="Name">  
+                                <p:cellEditor>  
+                                    <f:facet name="output"><h:outputText value="#{row.displayName}" /></f:facet>  
+                                    <f:facet name="input"><p:inputText id="modelInput" value="#{row.displayName} style="width:96%"/></f:facet>  
+                                </p:cellEditor>   
                             </p:column>  
-                            <p:column sortBy="PasswordReset" headerText="Password Reset">  
-                                <h:outputText value="#{row.sn}" />  
+                            <p:column sortBy="sn" headerText="Password Reset">  
+                                <p:cellEditor>  
+                                    <f:facet name="output"><h:outputText value="#{row.sn}" /></f:facet>  
+                                    <f:facet name="input"><p:inputText id="modelInput" value="#{row.sn} style="width:96%"/></f:facet>  
+                                </p:cellEditor>  
                             </p:column>  
                         </p:dataTable>  
 
