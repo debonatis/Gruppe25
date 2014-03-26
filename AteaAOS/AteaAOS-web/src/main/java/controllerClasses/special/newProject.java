@@ -7,6 +7,7 @@ package controllerClasses.special;
 
 import entityModels.Projects;
 import java.io.Serializable;
+import java.util.UUID;
 import java.util.logging.Level;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -27,47 +28,53 @@ import persistClasses.ProjectsFacade;
 @SessionScoped
 
 public class newProject implements Serializable {
-
+    
     @EJB
     private ProjectsFacade projectsEJB;
-
+    
     private boolean skip;
-
+    
     private Projects projects = new Projects();
     private static final Logger logger = Logger.getLogger(Projects.class.getName());
-
+    
     private void prepareCreate() {
-
+        
         projects = new Projects();
     }
-
+    
     public Projects getProjects() {
         return projects;
     }
-
+    
     public void setProjects(Object projects) {
         this.projects = (Projects) projects;
+        this.projects.setProjectid(getUUID().toString());
     }
-
+    
+    public UUID getUUID() {
+        UUID idOne = UUID.randomUUID();
+        return idOne;
+    }
+    
     public void save() {
         try {
             projectsEJB.create(projects);
-
+            
             FacesMessage msg = new FacesMessage();
             msg.setSeverity(FacesMessage.SEVERITY_INFO);
             msg.setSummary("Project is created");
-
+            
             FacesContext.getCurrentInstance().addMessage(null, msg);
             prepareCreate();
-
+            
         } catch (Exception e) {
             FacesMessage msg = new FacesMessage();
             msg.setSeverity(FacesMessage.SEVERITY_INFO);
             msg.setSummary("Project not created!");
             msg.setDetail("Maybe faulty inputs?");
-
+            
             FacesContext.getCurrentInstance().addMessage(null, msg);
-
+            
         }
     }
 
@@ -95,7 +102,7 @@ public class newProject implements Serializable {
     public String onFlowProcess(FlowEvent event) {
         logger.log(Level.INFO, "Current wizard step:{0}", event.getOldStep());
         logger.log(Level.INFO, "Next step:{0}", event.getNewStep());
-
+        
         if (skip) {
             skip = false;
             return "confirm";

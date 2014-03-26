@@ -26,54 +26,27 @@
                         <b>Project details</b> - Create Users - Create Groups - Create Resources  
                     </div>
                 </p:layoutUnit>
-
-
-                <p:layoutUnit position="center">
-                    <div id="adminCTekst">
-                        Delegate control to department managers                 
-                    </div>
-                    <br/>
-                    <h:form>
-                        <br/><br/>
-                        <p:panel header="Create department manager">  
-                            <h:panelGrid columns="2" cellpadding="5">  
-                                <h:outputText value="Contact person: " />  
-                                <p:inputText value=""/>  
-
-                                <h:outputText value="Contact mail: " />  
-                                <p:inputText value=""/>   
-                            </h:panelGrid>  
-                        </p:panel> 
-                        <br/>
-                    </h:form>
-                </p:layoutUnit>
-
-                <p:layoutUnit position="west" size="800" resizable="false" closable="true" collapsible="true">
+                <h:form>
+                    <p:growl id="growl" sticky="true" showDetail="true"/>
 
                     <div id="adminCTekst">
                         Register type of implementation project
                     </div>
                     <br/>
-                    <h:form >
-                        <br/><br/>
-                        <p:growl id="growl" sticky="true" showDetail="true"/>
-                        <p:panel>
-                            <h:panelGrid columns="2" cellpadding="5">
-                                <h:outputText value="Project name: *"/>
-                                <p:inputText required="true" label="Project name" value="#{newProject.projects.name}"/>
-                                <h:outputText value="Description:"/>
-                                <p:inputText required="false" label="Description" value="#{newProject.projects.description}"/>
-                            </h:panelGrid>
-                            
-                            <p:commandButton value="Submit" update="growl"   
-                                             actionListener="#{newProject.save()}"/>
-                        </p:panel>
+                    <br/><br/>
+                    <p:panel>
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputText value="Project name: *"/>
+                            <p:inputText required="true" label="Project name" value="#{newProject.projects.name}"/>
+                            <h:outputText value="Description:"/>
+                            <p:inputText required="false" label="Description" value="#{newProject.projects.description}"/>
 
-                        <p:panel header="Type of project">
+                        </h:panelGrid>
+                    </p:panel>
+                    <p:commandButton value="Submit" update="growl"   
+                                     actionListener="#{newProject.save()}"/>
+                </h:form>  
 
-                        </p:panel>
-                    </h:form>
-                </p:layoutUnit>
             </p:layout>
         </h:body>
     </f:view>

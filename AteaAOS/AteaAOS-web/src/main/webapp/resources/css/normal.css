@@ -21,6 +21,12 @@ a {
 table {
     empty-cells: show;
 }
+
+#saveBottomRight {
+    float: bottom;
+    
+}
+
 #pictureWelcome{
     padding-top: 10px;
     /*    -ms-transform:rotate(90deg);  IE 9 
