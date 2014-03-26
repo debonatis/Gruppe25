@@ -7,6 +7,7 @@ package controllerClasses.special;
 
 import controllerClasses.special.cSVparser.CSVRow;
 import controllerClasses.special.cSVparser.readerCSV;
+import entityModels.Users;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -20,12 +21,14 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
+import persistClasses.UsersFacade;
 
 /**
  *
@@ -36,9 +39,11 @@ import org.primefaces.model.UploadedFile;
 public class FileUpload implements Serializable {
 
     private List<CSVRow> listCSV;
-
+    @EJB
+    private UsersFacade brukerEJB;
     private UploadedFile file;
     private readerCSV reader;
+    private CSVRow row = new CSVRow();
 
     public FileUpload() {
     }
@@ -118,22 +123,24 @@ public class FileUpload implements Serializable {
     public void setListCSV(List<CSVRow> listCSV) {
         this.listCSV = listCSV;
     }
-    
-    public void persistList(){
-        reader.readAndPersist(this.listCSV);
+
+    public synchronized void readAndPersist() {
+        for (CSVRow e : listCSV) {
+            brukerEJB.create(new Users(e.getSamAccountName(), e.getSn(), e.getDisplayName(), e.getDn(), e.getGivenName(), "no", "no", "no", "no", 1337, "no"));
+        }
     }
-    
-    public void onCellEdit(CellEditEvent event) {  
-        Object oldValue = event.getOldValue();  
-        Object newValue = event.getNewValue();  
-          
-        if(newValue != null && !newValue.equals(oldValue)) {  
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);  
-            FacesContext.getCurrentInstance().addMessage(null, msg);  
-        }  
-    }  
-    
-    public String deleteItem(CSVRow e){
+
+    public void onCellEdit(CellEditEvent event) {
+        Object oldValue = event.getOldValue();
+        Object newValue = event.getNewValue();
+
+        if (newValue != null && !newValue.equals(oldValue)) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+    }
+
+    public String deleteItem(CSVRow e) {
         ArrayList<CSVRow> edit = reader.getCsvList();
         edit.remove(e);
         reader.setCsvList(edit);
