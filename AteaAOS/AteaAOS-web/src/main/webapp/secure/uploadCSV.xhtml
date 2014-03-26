@@ -88,7 +88,9 @@
                             </p:column>  
                             <f:facet name="footer">  
                                 <p:commandButton value="Save" icon="ui-icon-disk"  
-                                                 actionListener="#{fileUpload.readAndPersist()}"/>  
+                                                 actionListener="#{fileUpload.readAndPersist()}"/> 
+                                 <p:commandButton value="Delete List" icon="ui-icon-disk"  
+                                                  actionListener="#{fileUpload.emptyList()}"/>
                             </f:facet> 
                         </p:dataTable>  
 

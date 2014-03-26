@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -42,7 +41,7 @@ import persistClasses.UsersFacade;
 @SessionScoped
 public class FileUpload implements Serializable {
 
-    private static List<CSVRow> listCSV =new ArrayList<>();
+    private static List<CSVRow> listCSV = new ArrayList<>();
     @EJB
     private UsersFacade brukerEJB;
     private UploadedFile file;
@@ -52,7 +51,7 @@ public class FileUpload implements Serializable {
     private File fil;
 
     public FileUpload() {
-        
+
     }
 
     public UploadedFile getFile() {
@@ -138,7 +137,7 @@ public class FileUpload implements Serializable {
     }
 
     public void setListCSV(List<CSVRow> listCSV) {
-        FileUpload.listCSV =  listCSV;
+        FileUpload.listCSV = listCSV;
     }
 
     public synchronized void readAndPersist() {
@@ -150,6 +149,7 @@ public class FileUpload implements Serializable {
     public void onCellEdit(CellEditEvent event) {
         Object oldValue = event.getOldValue();
         Object newValue = event.getNewValue();
+        
 
         if (newValue != null && !newValue.equals(oldValue)) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
@@ -160,6 +160,10 @@ public class FileUpload implements Serializable {
     public void deleteItem(CSVRow e) {
         listCSV.remove(e);
 
+    }
+    public void emptyList(){
+        listCSV.clear();
+        fil.delete();
     }
 
 }
