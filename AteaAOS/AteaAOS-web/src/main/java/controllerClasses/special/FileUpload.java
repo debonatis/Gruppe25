@@ -42,22 +42,16 @@ import persistClasses.UsersFacade;
 @SessionScoped
 public class FileUpload implements Serializable {
 
-    private List<CSVRow> listCSV;
+    private List<CSVRow> listCSV =new ArrayList<>();
     @EJB
     private UsersFacade brukerEJB;
     private UploadedFile file;
-   
+
     private CSVRow row;
-   
+
     private File fil;
 
     public FileUpload() {
-        listCSV = new ArrayList<>();
-    }
-
-    
-    public void init() {
-        listCSV = new ArrayList<>();
         
     }
 
@@ -112,7 +106,7 @@ public class FileUpload implements Serializable {
             System.out.println(e.getMessage());
 
         } finally {
-           
+
             try {
                 readAndPopulateList();
             } catch (FileNotFoundException ex) {
@@ -164,8 +158,8 @@ public class FileUpload implements Serializable {
     }
 
     public void deleteItem(CSVRow e) {
-       listCSV.remove(e);
-        
+        listCSV.remove(e);
+
     }
 
 }
