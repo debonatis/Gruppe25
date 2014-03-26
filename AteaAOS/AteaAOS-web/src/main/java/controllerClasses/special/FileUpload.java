@@ -117,5 +117,9 @@ public class FileUpload implements Serializable {
     public void setListCSV(List<CSVRow> listCSV) {
         this.listCSV = listCSV;
     }
+    
+    public void persistList(){
+        reader.readAndPersist();
+    }
 
 }

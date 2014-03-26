@@ -5,16 +5,17 @@
  */
 package controllerClasses.special.cSVparser;
 
+import entityModels.Users;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.InputStream;
 import java.util.ArrayList;
+import javax.ejb.EJB;
 import org.jsefa.Deserializer;
 import org.jsefa.common.lowlevel.filter.HeaderAndFooterFilter;
 import org.jsefa.csv.CsvIOFactory;
 import org.jsefa.csv.config.CsvConfiguration;
+import persistClasses.UsersFacade;
 
 /**
  *
@@ -24,7 +25,8 @@ public class readerCSV {
 
     private File fil;
 
-    
+    @EJB
+    private UsersFacade brukerEJB;
     private CSVRow row = new CSVRow();
     private ArrayList<CSVRow> CsvList = new ArrayList<>();
 
@@ -63,6 +65,13 @@ public class readerCSV {
         }
         deserializer.close(true);
 
+    }
+
+    public synchronized void readAndPersist() {
+
+        for (CSVRow e : CsvList) {
+            brukerEJB.create(new Users(e.samAccountName, e.sn, e.getGivenName(), e.dn, "no", "no", "no", "no", "no", 1337, "no"));
+        }
     }
 
 }
