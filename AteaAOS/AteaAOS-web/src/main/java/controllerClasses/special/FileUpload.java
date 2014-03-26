@@ -7,7 +7,12 @@ package controllerClasses.special;
 
 import controllerClasses.special.cSVparser.CSVRow;
 import controllerClasses.special.cSVparser.readerCSV;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -36,8 +41,9 @@ public class FileUpload implements Serializable {
 
     public FileUpload() {
     }
+
     @PostConstruct
-    public void init(){
+    public void init() {
         listCSV = new ArrayList<>();
         reader = new readerCSV();
     }
@@ -61,10 +67,43 @@ public class FileUpload implements Serializable {
         FacesMessage msg = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
         FacesContext.getCurrentInstance().addMessage(null, msg);
         try {
-            reader.setFile(file);
-            reader.persistFile();
+            copyFile(event.getFile().getInputstream(), event.getFile().getFileName());
         } catch (IOException ex) {
             Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private synchronized void copyFile(InputStream inputStream, String filename) {
+        File fil = new File(filename);
+        try {
+            OutputStream out;
+
+            out = new FileOutputStream(fil);
+            int read = 0;
+            byte[] bytes = new byte[1024];
+            while ((read = inputStream.read(bytes)) != -1) {
+
+                out.write(bytes, 0, read);
+
+            }
+
+            out.flush();
+
+            out.close();
+
+            System.out.println("New file created!");
+
+        } catch (IOException e) {
+
+            System.out.println(e.getMessage());
+
+        } finally {
+            reader.setFil(fil);
+            try {
+                reader.readAndPopulateList();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
     }
@@ -77,7 +116,5 @@ public class FileUpload implements Serializable {
     public void setListCSV(List<CSVRow> listCSV) {
         this.listCSV = listCSV;
     }
-
-   
 
 }

@@ -9,15 +9,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import org.jsefa.Deserializer;
 import org.jsefa.common.lowlevel.filter.HeaderAndFooterFilter;
 import org.jsefa.csv.CsvIOFactory;
 import org.jsefa.csv.config.CsvConfiguration;
-import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -25,15 +22,21 @@ import org.primefaces.model.UploadedFile;
  */
 public class readerCSV {
 
-    private InputStream CSVfile;
-    File fil;
+    private File fil;
 
-    private String filename = "";
-    FileOutputStream csvOutputStream;
-    private CSVRow row;
+    
+    private CSVRow row = new CSVRow();
     private ArrayList<CSVRow> CsvList = new ArrayList<>();
 
     public readerCSV() {
+    }
+
+    public File getFil() {
+        return fil;
+    }
+
+    public void setFil(File fil) {
+        this.fil = fil;
     }
 
     public ArrayList<CSVRow> getCsvList() {
@@ -43,45 +46,6 @@ public class readerCSV {
 
     public void setCsvList(ArrayList<CSVRow> CsvList) {
         this.CsvList = CsvList;
-    }
-
-    public void setFile(UploadedFile file) throws IOException {
-
-        copyFile(file);
-    }
-
-    public synchronized void persistFile() throws FileNotFoundException {
-
-    }
-
-    private synchronized void copyFile(UploadedFile input) {
-
-        try {
-            OutputStream out;
-            try (InputStream inputStream = input.getInputstream()) {
-                fil = new File(input.getFileName());
-                out = new FileOutputStream(fil);
-                int read = 0;
-                byte[] bytes = new byte[1024];
-                while ((read = inputStream.read(bytes)) != -1) {
-                    
-                    out.write(bytes, 0, read);
-                    
-                }
-            }
-
-            out.flush();
-
-            out.close();
-
-            System.out.println("New file created!");
-
-        } catch (IOException e) {
-
-            System.out.println(e.getMessage());
-
-        }
-
     }
 
     public synchronized void readAndPopulateList() throws FileNotFoundException {
