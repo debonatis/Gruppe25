@@ -1,7 +1,7 @@
 package controllerClasses;
 
 import entityModels.Domains;
-import controllerClasses.special.MultipleChoicePrimefaces;
+//import controllerClasses.special.MultipleChoicePrimefaces;
 
 import controllerClasses.util.JsfUtil;
 import controllerClasses.util.PaginationHelper;
@@ -30,23 +30,19 @@ import javax.faces.model.SelectItem;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.FlowEvent;
 
-import controllerClasses.special.MultipleChoicePrimefaces;
-import java.util.ArrayList;
-import java.util.List;
-
 @ManagedBean(name = "domainsController")
 @SessionScoped
 public class DomainsController implements Serializable {
 
     private Domains current;
-    private Domains[] currents;
+//    private Domains[] currents;
     private DataModel items = null;
     @EJB
     private persistClasses.DomainsFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
-    private MultipleChoicePrimefaces multipleChoicePrimefaces;
+    //private MultipleChoicePrimefaces multipleChoicePrimefaces;
     private boolean skip;
 
     
@@ -312,25 +308,25 @@ public class DomainsController implements Serializable {
 
     }
 
-    public Domains getCurrent() {
-        return current;
-    }
-
-    public void setCurrent(Domains current) {
-        this.current = current;
-    }
-
-    
-    
-    public Domains[] getCurrents() {  
-        return currents;  
-    }  
-    public void setCurrents(Domains[] selectedDomains) {  
-        this.currents = selectedDomains;
-    }  
-    
-    public MultipleChoicePrimefaces getMultipleChoicePrimefaces(){
-        return multipleChoicePrimefaces;
-    }
+//    public Domains getCurrent() {
+//        return current;
+//    }
+//
+//    public void setCurrent(Domains current) {
+//        this.current = current;
+//    }
+//
+//    
+//    
+//    public Domains[] getCurrents() {  
+//        return currents;  
+//    }  
+//    public void setCurrents(Domains[] selectedDomains) {  
+//        this.currents = selectedDomains;
+//    }  
+//    
+//    public MultipleChoicePrimefaces getMultipleChoicePrimefaces(){
+//        return multipleChoicePrimefaces;
+//    }
 
 }

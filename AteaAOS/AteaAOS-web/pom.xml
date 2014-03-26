@@ -39,11 +39,6 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.primefaces</groupId>
-            <artifactId>primefaces</artifactId>
-            <version>3.5</version>
-        </dependency>
-        <dependency>
             <groupId>org.richfaces</groupId>
             <artifactId>richfaces</artifactId>
             <version>5.0.0.Alpha3</version>
@@ -79,6 +74,11 @@
             <groupId>org.jsefa</groupId>
             <artifactId>jsefa</artifactId>
             <version>0.9.3.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>4.0</version>
         </dependency>
         <dependency>
             <groupId>javax</groupId>
