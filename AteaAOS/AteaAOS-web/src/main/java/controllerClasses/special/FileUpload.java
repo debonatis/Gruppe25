@@ -92,6 +92,7 @@ public class FileUpload implements Serializable {
             out.close();
 
             System.out.println("New file created!");
+            System.out.println(fil.getAbsolutePath());
 
         } catch (IOException e) {
 
