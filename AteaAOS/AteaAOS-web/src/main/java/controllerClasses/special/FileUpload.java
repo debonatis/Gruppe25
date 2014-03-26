@@ -121,7 +121,7 @@ public class FileUpload implements Serializable {
 
     }
 
-    public synchronized void readAndPopulateList() throws FileNotFoundException {
+    private synchronized void readAndPopulateList() throws FileNotFoundException {
 
         CsvConfiguration csvConfiguration = new CsvConfiguration();
         csvConfiguration.setFieldDelimiter(',');
