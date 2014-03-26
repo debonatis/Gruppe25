@@ -56,14 +56,21 @@
                     <br/>
                     <h:form >
                         <br/><br/>
-                        <p:panel header="Register type of implementation project">
-                            <p:dataTable value="#{domainsController.items}" var="item">  
-                                <p:column selectionMode="single" style="width:2%" />  
-                                
-                                <p:column style="width:25%">  
-                                    <h:outputText value="#{domainsController.items.domainname}" style="font-size: large"/>
-                                </p:column>  
-                            </p:dataTable>                                                        
+                        <p:growl id="growl" sticky="true" showDetail="true"/>
+                        <p:panel>
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputText value="Project name: *"/>
+                                <p:inputText required="true" label="Project name" value="#{newProject.projects.name}"/>
+                                <h:outputText value="Description:"/>
+                                <p:inputText required="false" label="Description" value="#{newProject.projects.description}"/>
+                            </h:panelGrid>
+                            
+                            <p:commandButton value="Submit" update="growl"   
+                                             actionListener="#{newProject.save()}"/>
+                        </p:panel>
+
+                        <p:panel header="Type of project">
+
                         </p:panel>
                     </h:form>
                 </p:layoutUnit>

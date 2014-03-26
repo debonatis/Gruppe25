@@ -4,9 +4,7 @@ import entityModels.Groups;
 import controllerClasses.util.JsfUtil;
 import controllerClasses.util.PaginationHelper;
 import persistClasses.GroupsFacade;
-
 import java.io.Serializable;
-import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -19,15 +17,11 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
-import persistClasses.GroupsFacade;
-
 @Named("groupsController")
 @SessionScoped
 public class GroupsController implements Serializable {
 
     private Groups current;
-    private List<Groups> currentL;
-    private GroupsFacade currentF;
     private DataModel items = null;
     @EJB
     private persistClasses.GroupsFacade ejbFacade;
@@ -236,20 +230,4 @@ public class GroupsController implements Serializable {
         }
 
     }
-    
-    
-    private void oppdaterRetterList() {
-        currentL = currentF.findAll();
-    }
-    
-    public List<Groups> getSelectedL() {
-        oppdaterRetterList();
-       
-        return currentL;
-    }
-    
-    public void setCurrentL(List<Groups> currentL) {
-        this.currentL = currentL;
-    }
-
 }

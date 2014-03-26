@@ -37,7 +37,7 @@
                         <br/><br/>
                         <h:panelGroup rendered="#{groupsController.items.rowCount > 0}">
 
-                            <p:dataTable value="#{groupsController.items}" var="item" cellSeparator="2">
+                            <p:dataTable value="#{projectsController.items}" var="item" cellSeparator="2">
                                 <p:column >                                 
                                     <h:outputText value="#{item.groupname}" style="font-size: large"/>
                                 </p:column>
@@ -60,14 +60,7 @@
                     <br/>
                     <h:form>
                         <p:panel>
-                            <h:panelGrid columns="2" cellpadding="5">
-                                <h:outputText value="Customer name:"/>
-                                <p:inputText value=""/>
-                                <h:outputText value="Contact person:"/>
-                                <p:inputText value=""/>
-                                <h:outputText value="Contact mail:"/>
-                                <p:inputText value=""/>
-
+                            <h:panelGrid>
                                 <p:commandButton value="Create new"/>
                             </h:panelGrid>
                         </p:panel>
