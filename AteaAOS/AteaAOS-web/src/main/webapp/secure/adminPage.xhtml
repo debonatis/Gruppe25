@@ -46,10 +46,6 @@
                                             <h:outputText value="&nbsp;"/>
                                         </f:facet>
                                         <h:commandLink action="#{groupsController.prepareView}" value="#{bundle.ListGroupsViewLink}"/>
-                                        <h:outputText value=" "/>
-                                        <h:commandLink action="#{groupsController.prepareEdit}" value="#{bundle.ListGroupsEditLink}"/>
-                                        <h:outputText value=" "/>
-                                        <h:commandLink action="#{groupsController.destroy}" value="#{bundle.ListGroupsDestroyLink}"/>
                                 </p:column>
                             </p:dataTable>
                         </h:panelGroup>
@@ -72,7 +68,7 @@
                                 <h:outputText value="Contact mail:"/>
                                 <p:inputText value=""/>
 
-                                <p:commandButton value="Create new" oncomplete="/faces/secure/newProjectDetails.xhtml"/>
+                                <p:commandButton value="Create new"/>
                             </h:panelGrid>
                         </p:panel>
                     </h:form>
