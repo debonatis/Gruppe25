@@ -42,7 +42,7 @@ import persistClasses.UsersFacade;
 @SessionScoped
 public class FileUpload implements Serializable {
 
-    private List<CSVRow> listCSV =new ArrayList<>();
+    private final List<CSVRow> listCSV =new ArrayList<>();
     @EJB
     private UsersFacade brukerEJB;
     private UploadedFile file;
@@ -138,7 +138,7 @@ public class FileUpload implements Serializable {
     }
 
     public void setListCSV(List<CSVRow> listCSV) {
-        this.listCSV = listCSV;
+        
     }
 
     public synchronized void readAndPersist() {
