@@ -30,24 +30,26 @@
                     <h:form id="filform" enctype="multipart/form-data">  
 
                         <p:fileUpload fileUploadListener="#{fileUpload.handleFileUpload}" mode="advanced"  
-                                      update="messages, dataTable" auto="true" sizeLimit="100000000" allowTypes="/(\.|\/)(csv)$/" />  
+                                      update="messages, :tableform" auto="true" sizeLimit="100000000" allowTypes="/(\.|\/)(csv)$/" />  
 
                         <p:growl id="messages" showDetail="true"/>  
 
 
 
+                    </h:form>
+                    <h:form id="tableform">
 
-
-                        <p:dataTable id="dataTable" var="row" value="#{fileUpload.listCSV}" emptyMessage="No items found." editable="true" >  
+                        <p:dataTable  id="dataTable" var="row" value="#{fileUpload.listCSV}" emptyMessage="No items found." editable="true"
+                                     paginator="true" rows="100">  
                             <f:facet name="header">  
                                 CSV Output
                             </f:facet>  
                             <p:column headerText="Delete">
-
-
-
-                                <p:commandButton value="Delete" action="#{fileUpload.deleteItem(row)}" update="dataTable" />
-
+                                <f:facet name="header">
+                                    <h:outputText value="" />
+                                </f:facet>
+                                <p:commandButton icon="ui-icon-close" title="remove from cart"
+                                                 actionListener="#{fileUpload.deleteItem(row)}" update="dataTable" />
                             </p:column>
 
                             <p:column sortBy="objectclass" headerText="Type">  
@@ -84,15 +86,16 @@
                                     <f:facet name="input"><p:inputText id="sn" value="#{row.sn}" style="width:96%"/></f:facet>  
                                 </p:cellEditor>  
                             </p:column>  
+                            <f:facet name="footer">  
+                                <p:commandButton value="Save" icon="ui-icon-disk"  
+                                                 actionListener="#{fileUpload.readAndPersist()}"/>  
+                            </f:facet> 
                         </p:dataTable>  
 
 
 
                     </h:form> 
-                    <h:form>
-                        <p:commandButton value="Save" actionListener="#{fileUpload.readAndPersist()}" id="withIcon"   
-                                         icon="ui-icon-disk" />  
-                    </h:form>
+                    
                 </p:layoutUnit>
 
 

@@ -6,11 +6,11 @@
 package controllerClasses.special;
 
 import controllerClasses.special.cSVparser.CSVRow;
-import controllerClasses.special.cSVparser.readerCSV;
 import entityModels.Users;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -25,6 +25,10 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import org.jsefa.Deserializer;
+import org.jsefa.common.lowlevel.filter.HeaderAndFooterFilter;
+import org.jsefa.csv.CsvIOFactory;
+import org.jsefa.csv.config.CsvConfiguration;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
@@ -42,8 +46,10 @@ public class FileUpload implements Serializable {
     @EJB
     private UsersFacade brukerEJB;
     private UploadedFile file;
-    private readerCSV reader;
-    private CSVRow row = new CSVRow();
+   
+    private CSVRow row;
+   
+    File fil;
 
     public FileUpload() {
     }
@@ -51,7 +57,7 @@ public class FileUpload implements Serializable {
     @PostConstruct
     public void init() {
         listCSV = new ArrayList<>();
-        reader = new readerCSV();
+        
     }
 
     public UploadedFile getFile() {
@@ -80,7 +86,7 @@ public class FileUpload implements Serializable {
     }
 
     private synchronized void copyFile(InputStream inputStream, String filename) {
-        File fil = new File(filename);
+        fil = new File(filename);
         try {
             OutputStream out;
 
@@ -105,9 +111,9 @@ public class FileUpload implements Serializable {
             System.out.println(e.getMessage());
 
         } finally {
-            reader.setFil(fil);
+           
             try {
-                reader.readAndPopulateList();
+                readAndPopulateList();
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -115,8 +121,24 @@ public class FileUpload implements Serializable {
 
     }
 
+    public synchronized void readAndPopulateList() throws FileNotFoundException {
+
+        CsvConfiguration csvConfiguration = new CsvConfiguration();
+        csvConfiguration.setFieldDelimiter(',');
+        csvConfiguration.setLineFilter(new HeaderAndFooterFilter(1, false, false));
+
+        Deserializer deserializer = CsvIOFactory.createFactory(csvConfiguration, CSVRow.class).createDeserializer();
+
+        deserializer.open(new FileReader(fil));
+        while (deserializer.hasNext()) {
+            row = deserializer.next();
+            listCSV.add(row);
+        }
+        deserializer.close(true);
+    }
+
     public List<CSVRow> getListCSV() {
-        this.listCSV = reader.getCsvList();
+
         return listCSV;
     }
 
@@ -140,11 +162,9 @@ public class FileUpload implements Serializable {
         }
     }
 
-    public String deleteItem(CSVRow e) {
-        ArrayList<CSVRow> edit = reader.getCsvList();
-        edit.remove(e);
-        reader.setCsvList(edit);
-        return null;
+    public void deleteItem(CSVRow e) {
+       listCSV.remove(e);
+        
     }
 
 }
