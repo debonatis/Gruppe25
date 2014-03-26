@@ -48,16 +48,16 @@ public class newProject implements Serializable {
     
     public void setProjects(Object projects) {
         this.projects = (Projects) projects;
-        this.projects.setProjectid(getUUID().toString());
     }
     
-    public UUID getUUID() {
+    private UUID getUUID() {
         UUID idOne = UUID.randomUUID();
         return idOne;
     }
     
     public void save() {
         try {
+            projects.setProjectid(getUUID().toString());
             projectsEJB.create(projects);
             
             FacesMessage msg = new FacesMessage();
