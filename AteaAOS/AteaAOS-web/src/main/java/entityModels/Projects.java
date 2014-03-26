@@ -29,7 +29,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Projects.findAll", query = "SELECT p FROM Projects p"),
     @NamedQuery(name = "Projects.findByProjectid", query = "SELECT p FROM Projects p WHERE p.projectid = :projectid"),
     @NamedQuery(name = "Projects.findByDescription", query = "SELECT p FROM Projects p WHERE p.description = :description"),
-    @NamedQuery(name = "Projects.findByName", query = "SELECT p FROM Projects p WHERE p.name = :name")})
+    @NamedQuery(name = "Projects.findByName", query = "SELECT p FROM Projects p WHERE p.name = :name"),
+    @NamedQuery(name = "Projects.findByProjecttype", query = "SELECT p FROM Projects p WHERE p.projecttype = :projecttype")})
 public class Projects implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -44,6 +45,9 @@ public class Projects implements Serializable {
     @Size(max = 100)
     @Column(name = "NAME")
     private String name;
+    @Size(max = 100)
+    @Column(name = "PROJECTTYPE")
+    private String projecttype;
 
     public Projects() {
     }
@@ -75,6 +79,15 @@ public class Projects implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+
+    public String getProjecttype() {
+        return projecttype;
+    }
+
+    public void setProjecttype(String projecttype) {
+        this.projecttype = projecttype;
+    }
+    
 
     @Override
     public int hashCode() {
