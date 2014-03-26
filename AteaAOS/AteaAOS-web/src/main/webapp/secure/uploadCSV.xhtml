@@ -26,8 +26,8 @@
 
 
 
-                <p:layoutUnit position="center">
-                    <h:form>  
+                <p:layoutUnit position="center" id="centerLayout">
+                    <h:form id="filform" enctype="multipart/form-data">  
 
                         <p:fileUpload fileUploadListener="#{fileUpload.handleFileUpload}" mode="advanced"  
                                       update="messages, dataTable" auto="true" sizeLimit="100000000" allowTypes="/(\.|\/)(csv)$/" />  
@@ -53,42 +53,46 @@
                             <p:column sortBy="objectclass" headerText="Type">  
                                 <p:cellEditor>  
                                     <f:facet name="output"><h:outputText value="#{row.objectclass}" /></f:facet>  
-                                    <f:facet name="input"><p:inputText id="modelInput" value="#{row.objectclass} style="width:96%"/></f:facet>  
+                                    <f:facet name="input"><p:inputText id="object" value="#{row.objectclass}" style="width: 96%"/></f:facet>  
                                 </p:cellEditor>  
                             </p:column>  
 
                             <p:column sortBy="dn" headerText="Domain">  
                                 <p:cellEditor>  
                                     <f:facet name="output"><h:outputText value="#{row.dn}" /></f:facet>  
-                                    <f:facet name="input"><p:inputText id="modelInput" value="#{row.dn} style="width:96%"/></f:facet>  
+                                    <f:facet name="input"><p:inputText id="dn" value="#{row.dn}" style="width: 96%"/>
+                                    </f:facet>  
                                 </p:cellEditor>  
                             </p:column>  
 
                             <p:column sortBy="samAccountName" headerText="Logon">  
                                 <p:cellEditor>  
                                     <f:facet name="output"><h:outputText value="#{row.samAccountName}" /></f:facet>  
-                                    <f:facet name="input"><p:inputText id="modelInput" value="#{row.samAccountName} style="width:96%"/></f:facet>  
+                                    <f:facet name="input"><p:inputText id="sam" value="#{row.samAccountName}" style="width:96%"/></f:facet>  
                                 </p:cellEditor>  
                             </p:column>  
 
                             <p:column sortBy="displayName" headerText="Name">  
                                 <p:cellEditor>  
                                     <f:facet name="output"><h:outputText value="#{row.displayName}" /></f:facet>  
-                                    <f:facet name="input"><p:inputText id="modelInput" value="#{row.displayName} style="width:96%"/></f:facet>  
+                                    <f:facet name="input"><p:inputText id="displa" value="#{row.displayName}" style="width:96%"/></f:facet>  
                                 </p:cellEditor>   
                             </p:column>  
                             <p:column sortBy="sn" headerText="Password Reset">  
                                 <p:cellEditor>  
                                     <f:facet name="output"><h:outputText value="#{row.sn}" /></f:facet>  
-                                    <f:facet name="input"><p:inputText id="modelInput" value="#{row.sn} style="width:96%"/></f:facet>  
+                                    <f:facet name="input"><p:inputText id="sn" value="#{row.sn}" style="width:96%"/></f:facet>  
                                 </p:cellEditor>  
                             </p:column>  
                         </p:dataTable>  
 
-                        <p:commandButton value="Save" actionListener="#{fileUpload.persistList()}" id="withIcon"   
-                                         update="dataTable" icon="ui-icon-disk" />  
+
 
                     </h:form> 
+                    <h:form>
+                        <p:commandButton value="Save" actionListener="#{fileUpload.persistList()}" id="withIcon"   
+                                         icon="ui-icon-disk" />  
+                    </h:form>
                 </p:layoutUnit>
 
 

@@ -120,7 +120,7 @@ public class FileUpload implements Serializable {
     }
     
     public void persistList(){
-        reader.readAndPersist();
+        reader.readAndPersist(getListCSV());
     }
     
     public void onCellEdit(CellEditEvent event) {  
