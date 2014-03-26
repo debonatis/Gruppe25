@@ -46,19 +46,19 @@ public class readerCSV {
     }
 
     public void setFile(UploadedFile file) throws IOException {
-        CSVfile = file.getInputstream();
-        filename = file.getFileName();
-        copyFile(filename, CSVfile);
+
+        copyFile(file);
     }
 
     public synchronized void persistFile() throws FileNotFoundException {
 
-       
     }
-  private void copyFile(String fileName, InputStream in) {
+
+    private synchronized void copyFile(UploadedFile input) {
 
         try {
-            fil = new File(System.getProperty("user.dir")+ "/CVSFiles/"+ fileName);
+            InputStream inputStream = input.getInputstream();
+            fil = new File(input.getFileName());
 
             OutputStream out = new FileOutputStream(fil);
 
@@ -66,13 +66,13 @@ public class readerCSV {
 
             byte[] bytes = new byte[1024];
 
-            while ((read = in.read(bytes)) != -1) {
+            while ((read = inputStream.read(bytes)) != -1) {
 
                 out.write(bytes, 0, read);
 
             }
 
-            in.close();
+            inputStream.close();
 
             out.flush();
 
