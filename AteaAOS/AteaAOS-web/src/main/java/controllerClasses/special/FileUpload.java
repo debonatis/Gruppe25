@@ -111,7 +111,7 @@ public class FileUpload implements Serializable {
     }
 
     public List<CSVRow> getListCSV() {
-        listCSV = reader.getCsvList();
+        this.listCSV = reader.getCsvList();
         return listCSV;
     }
 
@@ -120,7 +120,7 @@ public class FileUpload implements Serializable {
     }
     
     public void persistList(){
-        reader.readAndPersist(getListCSV());
+        reader.readAndPersist(this.listCSV);
     }
     
     public void onCellEdit(CellEditEvent event) {  
