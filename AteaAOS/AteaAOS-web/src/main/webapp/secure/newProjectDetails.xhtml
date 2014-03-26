@@ -46,12 +46,12 @@
                         </p:panel> 
                         <br/>
                         <p:panel header="Assign management access">
-                            <p:dataTable id="multiPrime" var="item" value="#{domainsController.currents}" 
-                                         selection="#{domainsController.currents}">  
+                            <p:dataTable id="multiPrime" var="item" value="" 
+                                         selection="">  
                                 <p:column selectionMode="multiple" style="width:2%" />  
                                 
                                 <p:column style="width:25%">  
-                                    #{item.domainname}
+                                    Domains
                                 </p:column>  
                             </p:dataTable>                                                        
                         </p:panel>
