@@ -3,42 +3,43 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package controllerClasses.special;
 
-import java.util.List;  
-import javax.faces.model.ListDataModel;   
-import entityModels.Projects;
-import org.primefaces.model.SelectableDataModel; 
+import java.util.List;
+import javax.faces.model.ListDataModel;
+import entityModels.Projecttypes;
+import org.primefaces.model.SelectableDataModel;
 
 /**
  *
  * @author Martin
  */
-public class MultipleSingle extends ListDataModel<Projects> implements SelectableDataModel<Projects>{
+public class MultipleSingle extends ListDataModel<Projecttypes> implements SelectableDataModel<Projecttypes> {
 
-    public MultipleSingle() {  
-    }  
-  
-    public MultipleSingle(List<Projects> data) {  
-        super(data);  
-    }  
-    
-    @Override
-    public Object getRowKey(Projects t) {
-    return t.getProjecttype();
+    public MultipleSingle() {
+    }
+
+    public MultipleSingle(List<Projecttypes> data) {
+        super(data);
     }
 
     @Override
-    public Projects getRowData(String rowKey) {
-    List<Projects> domains = (List<Projects>) getWrappedData();  
-          
-        for(Projects project : domains) {  
-            if(project.getProjecttype().equals(rowKey))  
-                return project;  
-        }  
-          
-        return null; 
+    public Projecttypes getRowData(String rowKey) {
+        
+        List<Projecttypes> projects = (List<Projecttypes>) getWrappedData();
+
+        for (Projecttypes project : projects) {
+            if (project.getProjecttype().equals(rowKey)) {
+                return project;
+            }
+        }
+
+        return null;
     }
-    
+
+    @Override
+    public Object getRowKey(Projecttypes t) {
+        return t.getProjecttype();
+    }
+
 }

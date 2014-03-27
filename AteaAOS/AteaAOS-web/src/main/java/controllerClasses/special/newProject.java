@@ -6,7 +6,10 @@
 package controllerClasses.special;
 
 import entityModels.Projects;
+import entityModels.Projecttypes;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
 import javax.ejb.EJB;
@@ -19,6 +22,7 @@ import org.primefaces.event.FlowEvent;
 import java.util.logging.Logger;
 
 import persistClasses.ProjectsFacade;
+import persistClasses.ProjecttypesFacade;
 
 /**
  *
@@ -30,24 +34,47 @@ import persistClasses.ProjectsFacade;
 public class newProject implements Serializable {
     
     @EJB
-    private ProjectsFacade projectsEJB;
-    
-    private boolean skip;
-    
+    private ProjectsFacade projectsEJB; 
+    @EJB
+    private ProjecttypesFacade projecttypesEJB;
+    private boolean skip;  
     private Projects projects = new Projects();
+    private Projecttypes projecttypes = new Projecttypes();
     private static final Logger logger = Logger.getLogger(Projects.class.getName());
+    
+    private List<Projecttypes> projecttype;
+    private Projecttypes selectedType;  
+    private Projecttypes[] selectedTypes; 
+    private MultipleSingle multipleSingle;
     
     private void prepareCreate() {
         
         projects = new Projects();
+        projecttypes = new Projecttypes();
+    }
+    
+    public newProject(){
+        projecttype = new ArrayList<Projecttypes>();
+        
+        populateTypes(projecttype, projecttype.size());
+        
+        multipleSingle = new MultipleSingle(projecttype);
     }
     
     public Projects getProjects() {
         return projects;
     }
     
+     public Projecttypes getProjecttypes() {
+        return projecttypes;
+    }
+    
     public void setProjects(Object projects) {
         this.projects = (Projects) projects;
+    }
+    
+    public void setProjecttypes(Object projecttypes) {
+        this.projecttypes = (Projecttypes) projecttypes;
     }
     
     private UUID getUUID() {
@@ -59,6 +86,7 @@ public class newProject implements Serializable {
         try {
             projects.setProjectid(getUUID().toString());
             projectsEJB.create(projects);
+            projecttypesEJB.create(projecttypes);
             
             FacesMessage msg = new FacesMessage();
             msg.setSeverity(FacesMessage.SEVERITY_INFO);
@@ -108,6 +136,33 @@ public class newProject implements Serializable {
             return "confirm";
         } else {
             return event.getNewStep();
+        }
+    }
+    
+    public Projecttypes[] getSelectedTypes(){
+        return selectedTypes;
+    }
+    public void setSelectedTypes(Projecttypes[] selectedTypes){
+        this.selectedTypes = selectedTypes;
+    }
+    public Projecttypes getSelectedType(){
+        return selectedType;
+    }
+    public void setSelectedType(Projecttypes selectedType){
+        this.selectedType = selectedType;
+    }
+    
+    public String getProjecttypeString(){
+        return projecttypes.getProjecttype();
+    }
+    
+    public MultipleSingle getMultipleSingle(){
+        return multipleSingle;
+    }
+    
+    private void populateTypes(List<Projecttypes> list, int size){
+        for(int i = 0; i < size ;i++){
+            list.add(new Projecttypes(getProjecttypeString()));
         }
     }
 }

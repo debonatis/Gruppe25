@@ -51,16 +51,27 @@
                                     </h:panelGrid>  
                                 </p:panel>  
                             </p:tab>  
-                            
+
                             <p:tab id="registerType" title="Register type">
                                 <p:panel header="Register type of implementation project">
                                     <h:messages errorClass="error"/>
-                                    <p:dataTable id="type" var="type" value="">
-                                        
+                                    <p:dataTable id="type" var="type" value="#{newProject.multipleSingle}" 
+                                                 selection="#{newProject.selectedType}">
+
+                                        <f:facet name="header">  
+                                            RadioButton Based Selection  
+                                        </f:facet>  
+
+                                        <p:column selectionMode="single" style="width:2%" /> 
+
+                                        <p:column headerText="Type" style="width:25%">  
+                                            #{type.getRowData(projecttype)}  
+                                        </p:column> 
+
                                     </p:dataTable>
                                 </p:panel>
                             </p:tab>
-                            
+
                             <p:commandButton value="Submit" update="growl"   
                                              actionListener="#{newProject.save()}"/>
 
