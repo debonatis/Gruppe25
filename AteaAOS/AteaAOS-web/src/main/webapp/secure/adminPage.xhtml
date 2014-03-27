@@ -35,17 +35,17 @@
                     <br/>
                     <h:form id="storrelse">
                         <br/><br/>
-                        <h:panelGroup rendered="#{groupsController.items.rowCount > 0}">
+                        <h:panelGroup rendered="#{projectsController.items.rowCount > 0}">
 
                             <p:dataTable value="#{projectsController.items}" var="item" cellSeparator="2">
                                 <p:column >                                 
-                                    <h:outputText value="#{item.groupname}" style="font-size: large"/>
+                                    <h:outputText value="#{item.name}" style="font-size: large"/>
                                 </p:column>
                                 <p:column width="100">
                                         <f:facet name="header">
                                             <h:outputText value="&nbsp;"/>
                                         </f:facet>
-                                        <h:commandLink action="#{groupsController.prepareView}" value="#{bundle.ListGroupsViewLink}"/>
+                                        <h:commandLink action="#{projectsController.prepareView}" value="#{bundle.ListGroupsViewLink}"/>
                                 </p:column>
                             </p:dataTable>
                         </h:panelGroup>

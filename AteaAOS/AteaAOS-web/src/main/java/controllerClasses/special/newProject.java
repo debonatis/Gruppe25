@@ -22,6 +22,7 @@ import javax.faces.context.FacesContext;
 import org.primefaces.event.FlowEvent;
 
 import java.util.logging.Logger;
+import javax.faces.model.DataModel;
 
 import persistClasses.ProjectsFacade;
 import persistClasses.ProjectsFacade;
@@ -49,6 +50,8 @@ public class newProject implements Serializable {
     private Projecttypes selectedType;  
     private Projecttypes[] selectedTypes; 
     private MultipleSingle multipleSingle;
+    
+    private DataModel items = null;
     
     
     private void prepareCreate() {
