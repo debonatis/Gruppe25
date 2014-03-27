@@ -5,6 +5,7 @@
  */
 package controllerClasses.special;
 
+import controllerClasses.util.PaginationHelper;
 import entityModels.Projects;
 import entityModels.Projecttypes;
 import java.io.Serializable;
@@ -21,6 +22,7 @@ import org.primefaces.event.FlowEvent;
 
 import java.util.logging.Logger;
 import javax.faces.model.DataModel;
+import javax.faces.model.ListDataModel;
 import persistClasses.ProjectsFacade;
 import persistClasses.ProjecttypesFacade;
 
@@ -37,6 +39,7 @@ public class newProject implements Serializable {
     private ProjectsFacade projectsEJB; 
     @EJB
     private ProjecttypesFacade projecttypesEJB;
+    
     private boolean skip;  
     private Projects projects = new Projects();
     private Projecttypes projecttypes = new Projecttypes();
@@ -48,6 +51,49 @@ public class newProject implements Serializable {
     private MultipleSingle multipleSingle;
     
     private DataModel items = null;
+    private int selectedItemIndex;
+    private PaginationHelper pagination;
+    
+    public Projecttypes getSelected() {
+        if (selectedType == null) {
+            selectedType = new Projecttypes();
+            selectedItemIndex = -1;
+        }
+        return selectedType;
+    }
+    
+    public DataModel getItems() {
+        if (items == null) {
+            items = getPagination().createPageDataModel();
+        }
+        return items;
+    }
+    
+    public PaginationHelper getPagination() {
+        if (pagination == null) {
+            pagination = new PaginationHelper(10) {
+
+                @Override
+                public int getItemsCount() {
+                    return getFacade().count();
+                }
+
+                @Override
+                public DataModel createPageDataModel() {
+                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+                }
+            };
+        }
+        return pagination;
+    }
+    
+    private ProjecttypesFacade getFacade() {
+        return projecttypesEJB;
+    }
+
+    private void recreateModel() {
+        items = null;
+    }
     
     
     private void prepareCreate() {
