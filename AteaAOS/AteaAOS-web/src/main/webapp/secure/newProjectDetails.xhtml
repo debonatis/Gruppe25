@@ -52,23 +52,6 @@
                                 </p:panel>  
                             </p:tab>  
 
-                            <p:tab id="registerType" title="Register type">
-                                <p:panel header="Register type of implementation project">
-                                    <h:messages errorClass="error"/>
-                                    <p:dataTable id="type" var="type" value="#{newProject.items}" 
-                                                 selection="#{newProject.selectedType}">
-
-
-                                        <p:column selectionMode="single" style="width:2%" /> 
-
-                                        <p:column headerText="Type" style="width:25%">  
-                                            #{type.projecttype}  
-                                        </p:column> 
-
-                                    </p:dataTable>
-                                </p:panel>
-                            </p:tab>
-
                             <p:commandButton value="Submit" update="growl"   
                                              actionListener="#{newProject.save()}"/>
 
