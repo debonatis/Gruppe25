@@ -146,22 +146,10 @@
                                         </p:column>  
 
                                     </p:pickList>  
-                                    <p:commandButton id="pojoSubmit" value="Submit" update="displayUsers" oncomplete="PF('userDialog').show()" style="margin-top:5px" action="#{usersToGroups.saveU()}"/> 
+                                    <p:commandButton id="pojoSubmit" value="Submit"   style="margin-top:5px" action="#{usersToGroups.saveU()}"/> 
 
 
-                                    <p:dialog modal="true" showEffect="fade" hideEffect="fade" widgetVar="userDialog">  
-                                        <h:panelGrid id="displayUsers" columns="2">  
-                                            <h:outputText value="Picked users: " style="font-weight:bold"/>  
-                                            <ui:repeat value="#{usersToGroups.users.source}" var="user">  
-                                                <h:outputText value="#{user.username}" style="margin-right:5px" />  
-                                            </ui:repeat>  
-
-                                            <h:outputText value="User/s now a member in these group/es: " style="font-weight:bold"/>  
-                                            <ui:repeat value="#{usersToGroups.groups.target}" var="group">  
-                                                <h:outputText value="#{group.groupname}" style="margin-right:5px" />  
-                                            </ui:repeat>  
-                                        </h:panelGrid>  
-                                    </p:dialog>  
+                                    
                                 </p:panel>
                             </p:tab>
 
