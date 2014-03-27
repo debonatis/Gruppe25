@@ -88,9 +88,9 @@
                             </p:column>  
                             <f:facet name="footer">  
                                 <p:commandButton value="Save" icon="ui-icon-disk"  
-                                                 actionListener="#{fileUpload.readAndPersist()}"/> 
+                                                 actionListener="#{fileUpload.readAndPersist()}" onclick="if( !confirm('Are you sure, no more editing of user?') ){return false;}"/> 
                                  <p:commandButton value="Delete List" icon="ui-icon-disk"  
-                                                  actionListener="#{fileUpload.emptyList()}"/>
+                                                  actionListener="#{fileUpload.emptyList()}" title="Delete the presented list, not users in the database"/>
                             </f:facet> 
                         </p:dataTable>  
 
