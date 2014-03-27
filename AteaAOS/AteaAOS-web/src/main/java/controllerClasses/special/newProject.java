@@ -6,7 +6,7 @@
 package controllerClasses.special;
 
 import entityModels.Projects;
-import entityModels.Projecttypes;
+import entityModels.Projects;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,7 @@ import org.primefaces.event.FlowEvent;
 import java.util.logging.Logger;
 
 import persistClasses.ProjectsFacade;
-import persistClasses.ProjecttypesFacade;
+import persistClasses.ProjectsFacade;
 
 /**
  *
@@ -36,25 +36,25 @@ public class newProject implements Serializable {
     @EJB
     private ProjectsFacade projectsEJB; 
     @EJB
-    private ProjecttypesFacade projecttypesEJB;
+    private ProjectsFacade projecttypesEJB;
     private boolean skip;  
     private Projects projects = new Projects();
-    private Projecttypes projecttypes = new Projecttypes();
+    private Projects projecttypes = new Projects();
     private static final Logger logger = Logger.getLogger(Projects.class.getName());
     
-    private List<Projecttypes> projecttype;
-    private Projecttypes selectedType;  
-    private Projecttypes[] selectedTypes; 
+    private List<Projects> projecttype;
+    private Projects selectedType;  
+    private Projects[] selectedTypes; 
     private MultipleSingle multipleSingle;
     
+    
     private void prepareCreate() {
-        
         projects = new Projects();
-        projecttypes = new Projecttypes();
+        projecttypes = new Projects();
     }
     
     public newProject(){
-        projecttype = new ArrayList<Projecttypes>();
+        projecttype = new ArrayList<Projects>();
         
         populateTypes(projecttype, projecttype.size());
         
@@ -64,17 +64,10 @@ public class newProject implements Serializable {
     public Projects getProjects() {
         return projects;
     }
-    
-     public Projecttypes getProjecttypes() {
-        return projecttypes;
-    }
+   
     
     public void setProjects(Object projects) {
         this.projects = (Projects) projects;
-    }
-    
-    public void setProjecttypes(Object projecttypes) {
-        this.projecttypes = (Projecttypes) projecttypes;
     }
     
     private UUID getUUID() {
@@ -139,16 +132,16 @@ public class newProject implements Serializable {
         }
     }
     
-    public Projecttypes[] getSelectedTypes(){
+    public Projects[] getSelectedTypes(){
         return selectedTypes;
     }
-    public void setSelectedTypes(Projecttypes[] selectedTypes){
+    public void setSelectedTypes(Projects[] selectedTypes){
         this.selectedTypes = selectedTypes;
     }
-    public Projecttypes getSelectedType(){
+    public Projects getSelectedType(){
         return selectedType;
     }
-    public void setSelectedType(Projecttypes selectedType){
+    public void setSelectedType(Projects selectedType){
         this.selectedType = selectedType;
     }
     
@@ -160,9 +153,9 @@ public class newProject implements Serializable {
         return multipleSingle;
     }
     
-    private void populateTypes(List<Projecttypes> list, int size){
+    private void populateTypes(List<Projects> list, int size){
         for(int i = 0; i < size ;i++){
-            list.add(new Projecttypes(getProjecttypeString()));
+            list.add(new Projects(getProjecttypeString()));
         }
     }
 }
