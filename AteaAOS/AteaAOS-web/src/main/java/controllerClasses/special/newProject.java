@@ -6,8 +6,6 @@
 package controllerClasses.special;
 
 import entityModels.Projects;
-import entityModels.Projects;
-import entityModels.Projects;
 import entityModels.Projecttypes;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -23,8 +21,6 @@ import org.primefaces.event.FlowEvent;
 
 import java.util.logging.Logger;
 import javax.faces.model.DataModel;
-
-import persistClasses.ProjectsFacade;
 import persistClasses.ProjectsFacade;
 import persistClasses.ProjecttypesFacade;
 
