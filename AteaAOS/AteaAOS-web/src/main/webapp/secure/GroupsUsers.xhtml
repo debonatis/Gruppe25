@@ -19,7 +19,7 @@
         <h:body>
 
             <p:layout fullPage="true">
-               
+
 
 
 
@@ -95,16 +95,19 @@
                                 </p:panel>  
                             </p:tab>  
                         </p:wizard>
+
                         <p:button id="toLogin" outcome="#{logonAndMisc.csv}" value="Upload CSV" icon="ui-icon-disk"/>
+                    </h:form>
+                    <h:form id="selectForm">
                         <p:growl id="growl2" sticky="true" showDetail="true"/>  
 
                         <p:wizard flowListener="#{usersToGroups.onFlowProcessPick}">
-                            <p:growl id="msg2" showDetail="true" escape="false" />  
+
                             <p:tab id="grouppick" title="Select Groups for editing">  
 
                                 <p:panel header="Group Selection"> 
 
-
+                                    <p:growl id="msg2" showDetail="true" escape="false" />  
                                     <p:pickList id="pojoPickList" value="#{usersToGroups.groups}" var="group" effect="bounce"  
                                                 itemValue="#{group}" itemLabel="#{group.groupname}" converter="#{indexConverterG}"  
                                                 showSourceControls="true" showTargetControls="true" showCheckbox="true"  
@@ -128,7 +131,7 @@
                             <p:tab id="userpick" title="Select Users for adding">  
 
                                 <p:panel header="User Selection"> 
-
+<p:growl id="msg3" showDetail="true" escape="false" />  
                                     <p:pickList id="pojoPickListU" value="#{usersToGroups.users}" var="user" effect="bounce"  
                                                 itemValue="#{user}" itemLabel="#{user.username}" converter="#{indexConverterU}"  
                                                 showSourceControls="true" showTargetControls="true" showCheckbox="true"  
@@ -137,7 +140,7 @@
                                         <f:facet name="sourceCaption">Available Users</f:facet>  
                                         <f:facet name="targetCaption">Selected users in predefined group/es</f:facet>  
 
-                                        <p:ajax event="transfer" listener="#{usersToGroups.onTransferU}" update="msg2" />  
+                                        <p:ajax event="transfer" listener="#{usersToGroups.onTransferU}" update="msg3" />  
 
 
 
@@ -146,10 +149,10 @@
                                         </p:column>  
 
                                     </p:pickList>  
-                                    <p:commandButton id="pojoSubmit" value="Submit"   style="margin-top:5px" action="#{usersToGroups.saveU()}"/> 
+                                    <p:button id="pojoSubmit" value="Submit"   style="margin-top:5px" onclick="#{usersToGroups.saveU()}"/> 
 
 
-                                    
+
                                 </p:panel>
                             </p:tab>
 
@@ -158,7 +161,7 @@
                         </p:wizard>
                     </h:form>
                 </p:layoutUnit>
-                 <p:layoutUnit  position="north" size="160" resizable="false" closable="true" collapsible="true" styleClass="ui-layout-unit-content ui-widget-content">
+                <p:layoutUnit  position="north" size="160" resizable="false" closable="true" collapsible="true" styleClass="ui-layout-unit-content ui-widget-content">
 
                     <h:form>  
                         <p:graphicImage value="/resources/images/Atealogo.gif" />

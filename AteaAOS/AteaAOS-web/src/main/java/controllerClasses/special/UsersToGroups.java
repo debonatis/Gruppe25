@@ -128,8 +128,8 @@ public class UsersToGroups implements Serializable {
     public void onTransferU(TransferEvent event) {
         StringBuilder builder = new StringBuilder();
         for (Object item : event.getItems()) {
-            Users bruker = (Users) item;
-            builder.append(bruker.getUsername()).append("<br />");
+            Users bruker3 = (Users) item;
+            builder.append(bruker3.getUsername()).append("<br />");
             
         }
         
