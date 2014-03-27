@@ -5,36 +5,36 @@
  */
 package controllerClasses.special;
 
-import entityModels.Projects;
+import entityModels.Projecttypes;
 import java.util.List;  
 import javax.faces.model.ListDataModel; 
 import org.primefaces.model.SelectableDataModel;  
   
-public class MultipleSingle extends ListDataModel<Projects> implements SelectableDataModel<Projects> {    
+public class MultipleSingle extends ListDataModel<Projecttypes> implements SelectableDataModel<Projecttypes> {    
   
     public MultipleSingle() {  
     }  
   
-    public MultipleSingle(List<Projects> data) {  
+    public MultipleSingle(List<Projecttypes> data) {  
         super(data);  
     }  
       
     @Override  
-    public Projects getRowData(String rowKey) {  
+    public Projecttypes getRowData(String rowKey) {  
         //In a real app, a more efficient way like a query by rowKey should be implemented to deal with huge data  
           
-        List<Projects> projects = (List<Projects>) getWrappedData();  
+        List<Projecttypes> projecttypes = (List<Projecttypes>) getWrappedData();  
           
-        for(Projects project : projects) {  
-            if(project.getProjecttype().equals(rowKey))  
-                return project;  
+        for(Projecttypes projecttype : projecttypes) {  
+            if(projecttype.getProjecttype().equals(rowKey))  
+                return projecttype;  
         }  
           
         return null;  
     }  
   
     @Override  
-    public Object getRowKey(Projects project) {  
-        return project.getProjecttype();  
+    public Object getRowKey(Projecttypes projecttype) {  
+        return projecttype.getProjecttype();  
     }  
 }  

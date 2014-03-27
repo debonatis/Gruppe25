@@ -7,6 +7,8 @@ package controllerClasses.special;
 
 import entityModels.Projects;
 import entityModels.Projects;
+import entityModels.Projects;
+import entityModels.Projecttypes;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +25,7 @@ import java.util.logging.Logger;
 
 import persistClasses.ProjectsFacade;
 import persistClasses.ProjectsFacade;
+import persistClasses.ProjecttypesFacade;
 
 /**
  *
@@ -36,27 +39,27 @@ public class newProject implements Serializable {
     @EJB
     private ProjectsFacade projectsEJB; 
     @EJB
-    private ProjectsFacade projecttypesEJB;
+    private ProjecttypesFacade projecttypesEJB;
     private boolean skip;  
     private Projects projects = new Projects();
-    private Projects projecttypes = new Projects();
+    private Projecttypes projecttypes = new Projecttypes();
     private static final Logger logger = Logger.getLogger(Projects.class.getName());
     
-    private List<Projects> projecttype;
-    private Projects selectedType;  
-    private Projects[] selectedTypes; 
+    private List<Projecttypes> projecttype;
+    private Projecttypes selectedType;  
+    private Projecttypes[] selectedTypes; 
     private MultipleSingle multipleSingle;
     
     
     private void prepareCreate() {
         projects = new Projects();
-        projecttypes = new Projects();
+        projecttypes = new Projecttypes();
     }
     
     public newProject(){
-        projecttype = new ArrayList<>();
+        projecttype = new ArrayList<Projecttypes>();
         
-        populateTypes(projecttype, projecttype.size());
+        populateTypes(projecttype);
         
         multipleSingle = new MultipleSingle(projecttype);
     }
@@ -132,30 +135,34 @@ public class newProject implements Serializable {
         }
     }
     
-    public Projects[] getSelectedTypes(){
+    public Projecttypes[] getSelectedTypes(){
         return selectedTypes;
     }
-    public void setSelectedTypes(Projects[] selectedTypes){
+    public void setSelectedTypes(Projecttypes[] selectedTypes){
         this.selectedTypes = selectedTypes;
     }
-    public Projects getSelectedType(){
+    public Projecttypes getSelectedType(){
         return selectedType;
     }
-    public void setSelectedType(Projects selectedType){
+    public void setSelectedType(Projecttypes selectedType){
         this.selectedType = selectedType;
     }
     
     public String getProjecttypeString(){
-        return projecttypes.getProjecttype();
+        return selectedType.getProjecttype();
+    }
+    
+    public String getDescriptionString(){
+        return selectedType.getDescription();
     }
     
     public MultipleSingle getMultipleSingle(){
         return multipleSingle;
     }
     
-    private void populateTypes(List<Projects> list, int size){
-        for(int i = 0; i < size ;i++){
-            list.add(new Projects(getProjecttypeString(), 5));
+    private void populateTypes(List<Projecttypes> list){
+        for(int i = 0; i < projecttype.size() ;i++){
+            list.add(new Projecttypes(getProjecttypeString(), getDescriptionString()));
         }
     }
 }

@@ -44,8 +44,9 @@ public class Projecttypes implements Serializable {
     public Projecttypes() {
     }
 
-    public Projecttypes(String projecttype) {
+    public Projecttypes(String projecttype, String description) {
         this.projecttype = projecttype;
+        this.description = description;
     }
 
     public String getProjecttype() {
