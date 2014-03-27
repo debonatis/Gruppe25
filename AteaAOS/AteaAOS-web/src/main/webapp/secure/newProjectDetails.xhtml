@@ -31,8 +31,6 @@
                 <p:layoutUnit position="center" >
                     <h:form>
                         <p:growl id="growl" sticky="true" showDetail="true"/>
-                        <p:wizard widgetVar="wiz"  
-                                  flowListener="#{newProject.onFlowProcess}">
 
 
                             <p:tab id="personal" title="New project">  
@@ -47,15 +45,12 @@
                                         <h:outputText value="Description:"/>
                                         <p:inputText required="false" label="Description" value="#{newProject.projects.description}"/>
 
-
                                     </h:panelGrid>  
-                                </p:panel>  
-                            </p:tab>  
-
-                            <p:commandButton value="Submit" update="growl"   
+                                    <p:commandButton value="Submit" update="growl"   
                                              actionListener="#{newProject.save()}"/>
-
-                        </p:wizard>
+                                </p:panel> 
+                                
+                            </p:tab>  
                     </h:form>  
                 </p:layoutUnit>
             </p:layout>
