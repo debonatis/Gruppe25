@@ -19,6 +19,8 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
+import org.primefaces.event.FlowEvent;
 import org.primefaces.event.TransferEvent;
 
 import org.primefaces.model.DualListModel;
@@ -42,6 +44,27 @@ public class UsersToGroups implements Serializable {
     private DualListModel<Users> users;
     private DualListModel<Groups> groups;
     private String username;
+    private String usernameProp;
+    private boolean skip;
+    private Users bruker = new Users();
+
+    public String getUsernameProp() {
+        usernameProp = (bruker.getFirstname().substring(0, 8) + bruker.getLastname().substring(3, 5));
+        return usernameProp;
+    }
+
+    public void setUsernameProp(String usernameProp) {        
+        this.usernameProp = usernameProp;
+    }
+    
+
+    public Users getBruker() {
+        return bruker;
+    }
+
+    public void setBruker(Users bruker) {
+        this.bruker = bruker;
+    }
 
     public DualListModel<Groups> getGroups() {
         return groups;
@@ -49,6 +72,14 @@ public class UsersToGroups implements Serializable {
 
     public void setGroups(DualListModel<Groups> groups) {
         this.groups = groups;
+    }
+
+    public boolean isSkip() {
+        return skip;
+    }
+
+    public void setSkip(boolean skip) {
+        this.skip = skip;
     }
 
     @PostConstruct
@@ -146,5 +177,26 @@ public class UsersToGroups implements Serializable {
 
         }
     }
+
+    public String onFlowProcess(FlowEvent event) {
+
+       
+            return event.getNewStep();
+        
+    }
+
+    public void saveW(ActionEvent actionEvent) {
+
+        usersEJB.create(bruker);
+        bruker = new Users();
+        FacesMessage msg = new FacesMessage("Successful", "Welcome :" + bruker.getFirstname());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+
+    }
+    public String onFlowProcessPick(FlowEvent event) {
+
+        
+            return event.getNewStep();
+        }
 
 }

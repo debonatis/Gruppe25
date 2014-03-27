@@ -27,61 +27,148 @@
 
 
                 <p:layoutUnit position="center">
+
                     <h:form id="userForm">
-                        <p:growl id="msg" showDetail="true" escape="false" />  
-                        <p:pickList id="pojoPickList" value="#{usersToGroups.groups}" var="group" effect="bounce"  
-                                    itemValue="#{group}" itemLabel="#{group.groupname}" converter="#{indexConverterG}"  
-                                    showSourceControls="true" showTargetControls="true" showCheckbox="true"  
-                                    showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" >  
+                        <p:growl id="growl" sticky="true" showDetail="true"/>  
 
-                            <f:facet name="sourceCaption">Available Groups</f:facet>  
-                            <f:facet name="targetCaption">Selected Groups</f:facet>  
+                        <p:wizard flowListener="#{usersToGroups.onFlowProcess}">
+                            <p:tab id="userinput" title="Create Users">  
 
-                            <p:ajax event="transfer" listener="#{usersToGroups.onTransferG}" update="msg" />  
+                                <p:panel header="Users Details">  
 
+                                    <h:messages errorClass="error"/>  
 
+                                    <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid">  
+                                        <h:outputText value="Firstname: *" />  
+                                        <p:inputText required="true" label="Firstname"  
+                                                     value="#{usersToGroups.bruker.firstname}" />  
 
-                            <p:column style="width:75%;">  
-                                #{group.groupname}  
-                            </p:column>  
+                                        <h:outputText value="Lastname: *" />  
+                                        <p:inputText required="true" label="Lastname"  
+                                                     value="#{usersToGroups.bruker.lastname}" />  
 
-                        </p:pickList > 
-                        <p:pickList id="pojoPickListU" value="#{usersToGroups.users}" var="user" effect="bounce"  
-                                    itemValue="#{user}" itemLabel="#{user.username}" converter="#{indexConverterU}"  
-                                    showSourceControls="true" showTargetControls="true" showCheckbox="true"  
-                                    showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" >  
-
-                            <f:facet name="sourceCaption">Available Users</f:facet>  
-                            <f:facet name="targetCaption">Selected users in predefined group/es</f:facet>  
-
-                            <p:ajax event="transfer" listener="#{usersToGroups.onTransferU}" update="msg" />  
+                                        <h:outputText value="Title: *" />  
+                                        <p:inputText value="#{usersToGroups.bruker.title}" />  
 
 
+                                    </h:panelGrid>  
+                                </p:panel>  
+                            </p:tab>  
+                            <p:tab id="workspec" title="Work spesific">  
+                                <p:panel header="Work Details">  
 
-                            <p:column style="width:75%;">  
-                                #{user.username}  
-                            </p:column>  
+                                    <h:messages errorClass="error"/>  
 
-                        </p:pickList>  
+                                    <h:panelGrid columns="2" columnClasses="label, value">  
+                                        <h:outputText value="Department *: " />  
+                                        <p:inputText value="#{usersToGroups.bruker.department}" />  
 
-                        <p:commandButton id="pojoSubmit" value="Submit" update="displayUsers" oncomplete="PF('userDialog').show()" style="margin-top:5px" action="#{usersToGroups.saveU()}"/> 
-                        <p:button id="toLogin" outcome="#{logonAndMisc.csv}" value="Upload CSV" icon="ui-icon-disk"/> 
+                                        <h:outputText value="Prefered, or root Email : " />  
+                                        <p:inputText value="#{usersToGroups.bruker.email}" />  
 
-                        <p:dialog modal="true" showEffect="fade" hideEffect="fade" widgetVar="userDialog">  
-                            <h:panelGrid id="displayUsers" columns="2">  
-                                <h:outputText value="Picked users: " style="font-weight:bold"/>  
-                                <ui:repeat value="#{usersToGroups.users.source}" var="user">  
-                                    <h:outputText value="#{user.username}" style="margin-right:5px" />  
-                                </ui:repeat>  
-
-                                <h:outputText value="User/s now a member in these group/es: " style="font-weight:bold"/>  
-                                <ui:repeat value="#{usersToGroups.groups.target}" var="group">  
-                                    <h:outputText value="#{group.groupname}" style="margin-right:5px" />  
-                                </ui:repeat>  
-                            </h:panelGrid>  
-                        </p:dialog>  
+                                        <h:outputText value="Additonal Emails(1@test.no, 2@test.no ): " />  
+                                        <p:inputText value="#{usersToGroups.bruker.emailalias}" /> 
+                                        <h:outputText value="Enployment nr(if any): " />  
+                                        <p:inputText value="#{usersToGroups.bruker.employmentnr}" /> 
+                                        <h:outputText value="Itcontact(yes, or no): " />  
+                                        <p:inputText value="#{usersToGroups.bruker.itcontact}" /> 
+                                        <h:outputText value="Mobile (worknumber): " />  
+                                        <p:inputText value="#{usersToGroups.bruker.mobile}" />  
 
 
+                                    </h:panelGrid>  
+                                </p:panel>  
+                            </p:tab> 
+                            <p:tab id="username" title="Username">  
+                                <p:panel header="Username Details">  
+
+                                    <h:messages errorClass="error"/>  
+
+                                    <h:panelGrid columns="2" columnClasses="label, value">  
+                                        <h:outputText value="Preferd Username *: " />  
+                                        <p:inputText value="#{usersToGroups.bruker.username}"  />  
+
+
+
+                                    </h:panelGrid>  
+                                    <p:commandButton value="Submit" update="growl"   
+                                                     actionListener="#{usersToGroups.saveW}"/>  
+
+                                </p:panel>  
+                            </p:tab>  
+                        </p:wizard>
+                        <p:growl id="growl2" sticky="true" showDetail="true"/>  
+
+                        <p:wizard flowListener="#{usersToGroups.onFlowProcessPick}">
+                            <p:growl id="msg2" showDetail="true" escape="false" />  
+                            <p:tab id="grouppick" title="Select Groups for editing">  
+
+                                <p:panel header="Group Selection"> 
+
+
+                                    <p:pickList id="pojoPickList" value="#{usersToGroups.groups}" var="group" effect="bounce"  
+                                                itemValue="#{group}" itemLabel="#{group.groupname}" converter="#{indexConverterG}"  
+                                                showSourceControls="true" showTargetControls="true" showCheckbox="true"  
+                                                showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" >  
+
+                                        <f:facet name="sourceCaption">Available Groups</f:facet>  
+                                        <f:facet name="targetCaption">Selected Groups</f:facet>  
+
+                                        <p:ajax event="transfer" listener="#{usersToGroups.onTransferG}" update="msg2" />  
+
+
+
+                                        <p:column style="width:75%;">  
+                                            #{group.groupname}  
+                                        </p:column>  
+
+                                    </p:pickList > 
+
+                                </p:panel>
+                            </p:tab>
+                            <p:tab id="userpick" title="Select Users for adding">  
+
+                                <p:panel header="User Selection"> 
+
+                                    <p:pickList id="pojoPickListU" value="#{usersToGroups.users}" var="user" effect="bounce"  
+                                                itemValue="#{user}" itemLabel="#{user.username}" converter="#{indexConverterU}"  
+                                                showSourceControls="true" showTargetControls="true" showCheckbox="true"  
+                                                showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" >  
+
+                                        <f:facet name="sourceCaption">Available Users</f:facet>  
+                                        <f:facet name="targetCaption">Selected users in predefined group/es</f:facet>  
+
+                                        <p:ajax event="transfer" listener="#{usersToGroups.onTransferU}" update="msg2" />  
+
+
+
+                                        <p:column style="width:75%;">  
+                                            #{user.username}  
+                                        </p:column>  
+
+                                    </p:pickList>  
+                                    <p:commandButton id="pojoSubmit" value="Submit" update="displayUsers" oncomplete="PF('userDialog').show()" style="margin-top:5px" action="#{usersToGroups.saveU()}"/> 
+                                    <p:button id="toLogin" outcome="#{logonAndMisc.csv}" value="Upload CSV" icon="ui-icon-disk"/> 
+
+                                    <p:dialog modal="true" showEffect="fade" hideEffect="fade" widgetVar="userDialog">  
+                                        <h:panelGrid id="displayUsers" columns="2">  
+                                            <h:outputText value="Picked users: " style="font-weight:bold"/>  
+                                            <ui:repeat value="#{usersToGroups.users.source}" var="user">  
+                                                <h:outputText value="#{user.username}" style="margin-right:5px" />  
+                                            </ui:repeat>  
+
+                                            <h:outputText value="User/s now a member in these group/es: " style="font-weight:bold"/>  
+                                            <ui:repeat value="#{usersToGroups.groups.target}" var="group">  
+                                                <h:outputText value="#{group.groupname}" style="margin-right:5px" />  
+                                            </ui:repeat>  
+                                        </h:panelGrid>  
+                                    </p:dialog>  
+                                </p:panel>
+                            </p:tab>
+
+
+
+                        </p:wizard>
                     </h:form>
                 </p:layoutUnit>
 
