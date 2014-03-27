@@ -131,7 +131,7 @@
                             <p:tab id="userpick" title="Select Users for adding">  
 
                                 <p:panel header="User Selection"> 
-<p:growl id="msg3" showDetail="true" escape="false" />  
+                                    <p:growl id="msg3" showDetail="true" escape="false" />  
                                     <p:pickList id="pojoPickListU" value="#{usersToGroups.users}" var="user" effect="bounce"  
                                                 itemValue="#{user}" itemLabel="#{user.username}" converter="#{indexConverterU}"  
                                                 showSourceControls="true" showTargetControls="true" showCheckbox="true"  
@@ -149,11 +149,12 @@
                                         </p:column>  
 
                                     </p:pickList>  
-                                    <p:button id="pojoSubmit" value="Submit"   style="margin-top:5px" onclick="#{usersToGroups.saveU()}"/> 
+                                   
 
 
 
                                 </p:panel>
+                                 <p:commandButton id="pojoSubmit" value="Submit"   style="margin-top:5px" action="#{usersToGroups.saveU()}"/> 
                             </p:tab>
 
 
