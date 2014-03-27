@@ -54,7 +54,7 @@ public class newProject implements Serializable {
     }
     
     public newProject(){
-        projecttype = new ArrayList<Projects>();
+        projecttype = new ArrayList<>();
         
         populateTypes(projecttype, projecttype.size());
         
@@ -155,7 +155,7 @@ public class newProject implements Serializable {
     
     private void populateTypes(List<Projects> list, int size){
         for(int i = 0; i < size ;i++){
-            list.add(new Projects(getProjecttypeString()));
+            list.add(new Projects(getProjecttypeString(), 5));
         }
     }
 }

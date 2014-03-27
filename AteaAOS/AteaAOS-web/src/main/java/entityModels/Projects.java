@@ -55,6 +55,9 @@ public class Projects implements Serializable {
     public Projects(String projectid) {
         this.projectid = projectid;
     }
+    public Projects(String projecttype, int lol){
+        this.projecttype = projecttype;
+    }
 
     public String getProjectid() {
         return projectid;
