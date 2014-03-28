@@ -20,7 +20,7 @@
             <p:layout fullPage="true">
                 <p:layoutUnit position="north" size="100">
                     <ui:insert name="opp" >
-                        <ui:include src="/secure/template/header.xhtml"/>
+                        <ui:include src="#{facesContext.externalContext.requestContextPath}/secure/template/header.xhtml"/>
                     </ui:insert> 
                 </p:layoutUnit>
                 <p:layoutUnit position="center">
@@ -30,7 +30,7 @@
                 </p:layoutUnit>
                 <p:layoutUnit position="south" size="100">
                     <ui:insert name="ned" >
-                       <ui:include src="footer.xhtml"/>
+                       <ui:include src="#{facesContext.externalContext.requestContextPath}/secure/template/footer.xhtml"/>
                         
                        
                         
