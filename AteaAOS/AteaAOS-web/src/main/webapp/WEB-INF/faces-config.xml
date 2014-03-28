@@ -17,6 +17,10 @@
             <navigation-case>  
                 <from-outcome>ok</from-outcome>  
                 <to-view-id>/secure/uploadCSV.xhtml</to-view-id>  
+            </navigation-case> 
+            <navigation-case>  
+                <from-outcome>users</from-outcome>  
+                <to-view-id>/secure/UsersAdd.xhtml</to-view-id>  
             </navigation-case>   
         </navigation-rule> 
         <navigation-rule>  
@@ -26,13 +30,7 @@
                 <to-view-id>/JSFtest/groups/View.xhtml</to-view-id>  
             </navigation-case>   
         </navigation-rule> 
-         <navigation-rule>  
-            <from-view-id>/secure/GroupsUsers.xhtml</from-view-id>  
-            <navigation-case>  
-                <from-outcome>users</from-outcome>  
-                <to-view-id>/secure/UsersAdd.xhtml</to-view-id>  
-            </navigation-case>   
-        </navigation-rule> 
+        
           
     </navigation-rule> 
     <resource-bundle>
