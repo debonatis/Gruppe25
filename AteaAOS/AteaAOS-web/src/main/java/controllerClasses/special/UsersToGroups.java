@@ -182,10 +182,10 @@ public class UsersToGroups implements Serializable {
 
     public void saveW(ActionEvent actionEvent) {
         bruker.setProjectid(String.valueOf(56));
-        usersEJB.create(bruker);
-        bruker = new Users();
+        usersEJB.create(bruker);        
         FacesMessage msg = new FacesMessage("Successful", "Welcome :" + bruker.getFirstname());
         FacesContext.getCurrentInstance().addMessage(null, msg);
+        bruker = new Users();
 
     }
 
