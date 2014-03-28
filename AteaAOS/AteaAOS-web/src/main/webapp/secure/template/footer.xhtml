@@ -13,8 +13,8 @@
             <h:form>
                 <p:dock id="dock">  
 
-                    <p:menuitem value="Users" icon="/resources/images/dock/accounts.gif" outcome="users"/> 
-                    <p:menuitem value="Upload CSV file" icon="/resources/images/dock/csv.png"  outcome="#{logonAndMisc.csv}"/>
+                    <p:menuitem value="Users" icon="#{facesContext.externalContext.requestContextPath}/resources/images/dock/accounts.gif" outcome="users"/> 
+                    <p:menuitem value="Upload CSV file" icon="#{facesContext.externalContext.requestContextPath}/resources/images/dock/csv.png"  outcome="#{logonAndMisc.csv}"/>
 
 
                 </p:dock>
