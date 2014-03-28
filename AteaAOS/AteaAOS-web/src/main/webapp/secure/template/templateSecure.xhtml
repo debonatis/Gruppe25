@@ -20,10 +20,7 @@
             <p:layout fullPage="true">
                 <p:layoutUnit position="north" size="100">
                     <ui:insert name="opp" >
-                        <h:form>  
-                            <p:graphicImage value="/resources/images/Atealogo.gif" />
-                            <p:growl id="messages"/> 
-                        </h:form>  
+                        <ui:include src="/secure/template/header.xhtml"/>
                     </ui:insert> 
                 </p:layoutUnit>
                 <p:layoutUnit position="center">
@@ -33,7 +30,7 @@
                 </p:layoutUnit>
                 <p:layoutUnit position="south" size="100">
                     <ui:insert name="ned" >
-                       
+                       <ui:include src="footer.xhtml"/>
                         
                        
                         
