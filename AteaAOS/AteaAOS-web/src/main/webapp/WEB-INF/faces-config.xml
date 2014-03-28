@@ -13,7 +13,7 @@
             </navigation-case>   
         </navigation-rule>  
         <navigation-rule>  
-            <from-view-id>/secure/template/footer.xhtml</from-view-id>  
+            <from-view-id>/secure/GroupsUsers.xhtml</from-view-id>  
             <navigation-case>  
                 <from-outcome>ok</from-outcome>  
                 <to-view-id>/secure/uploadCSV.xhtml</to-view-id>  
