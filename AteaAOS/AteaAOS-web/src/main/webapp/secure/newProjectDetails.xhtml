@@ -44,12 +44,27 @@
                                         <p:inputText required="true" label="Project name" value="#{newProject.projects.name}"/>
                                         <h:outputText value="Description:"/>
                                         <p:inputText required="false" label="Description" value="#{newProject.projects.description}"/>
-                                        <h:outputText value="Select type of project: *" />
+                                        <h:outputText value="Select type of project: *" /> 
                                     </h:panelGrid>  
                                     <p:commandButton value="Submit" update="growl"   
                                                      actionListener="#{newProject.save()}" action="#{newProject.prepareList()}"/>
                                 </p:panel>                 
                             </p:tab> 
+
+                            <p:tab>
+                                <p:panel header="Department manager">
+                                    <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid">
+                                        <div id="adminCTekst">
+                                            Delegate control to department manager
+                                        </div>
+                                        <h:outputText value="Contact name:"/>
+                                        <p:inputText required="false" label="Department manager" value=""/>
+                                        <h:outputText value="Contact mail:"/>
+                                        <p:inputText required="false" label="Contact mail" value=""/>
+
+                                    </h:panelGrid>
+                                </p:panel>
+                            </p:tab>
 
                             <p:tab id="projectDetails" title="Project details">
                                 <p:panel header="Project details">
@@ -71,7 +86,12 @@
 
                             <p:tab id="createResources" title="Create resources">
                                 <p:panel header="Create resources">
-
+                                    <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid">  
+                                        <h:outputText value="Add printer:"/>
+                                        <p:inputText required="false" label="Project name" value=""/>
+                                        <h:outputText value="addSomething:"/>
+                                        <p:inputText required="false" label="Description" value=""/>     
+                                    </h:panelGrid> 
                                 </p:panel>
                             </p:tab>
                         </p:wizard>
