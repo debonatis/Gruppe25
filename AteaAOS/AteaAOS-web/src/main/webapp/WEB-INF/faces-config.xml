@@ -74,10 +74,7 @@
                 <from-outcome>home</from-outcome> 
                 <to-view-id>/secure/adminPage.xhtml</to-view-id> 
             </navigation-case>
-            <navigation-case>  
-                <from-outcome>View</from-outcome>  
-                <to-view-id>/JSFtest/groups/View.xhtml</to-view-id>  
-            </navigation-case>   
+              
  
         </navigation-rule> 
         <navigation-rule>  
@@ -94,10 +91,7 @@
                 <from-outcome>home</from-outcome> 
                 <to-view-id>/secure/adminPage.xhtml</to-view-id> 
             </navigation-case>
-            <navigation-case>  
-                <from-outcome>View</from-outcome>  
-                <to-view-id>/JSFtest/groups/View.xhtml</to-view-id>  
-            </navigation-case>   
+            
  
         </navigation-rule> 
           
