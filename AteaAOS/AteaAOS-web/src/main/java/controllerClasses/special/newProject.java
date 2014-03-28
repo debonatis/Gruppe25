@@ -46,6 +46,7 @@ public class newProject implements Serializable {
     private static final Logger logger = Logger.getLogger(Projects.class.getName());
 
     private DataModel items = null;
+    private List<Projecttypes> projecttypesList;
     
     private void prepareCreate() {
         projects = new Projects();
@@ -67,6 +68,12 @@ public class newProject implements Serializable {
         this.projecttypes = (Projecttypes) projecttypes;
     }
 
+    public List<Projecttypes> getList(){
+        for(int i = 0; i< 6;i++ ){
+            projecttypesList.get(i).getProjecttype();
+        }
+        return projecttypesList;
+    }
 
     private UUID getUUID() {
         UUID idOne = UUID.randomUUID();
