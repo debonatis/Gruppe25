@@ -28,10 +28,7 @@
 
 
 
-                    <h:form id="userForm">            
-
-                        <p:button id="toLogin" outcome="#{logonAndMisc.csv}" value="Upload CSV" icon="ui-icon-disk"/>
-                    </h:form>
+                   
                     <h:form id="selectForm">
                         <p:growl id="growl2" sticky="true" showDetail="true"/>  
 
@@ -99,8 +96,8 @@
 
                 <p:layoutUnit position="south" size="100">
                     <p:dock id="dock">  
-                        <p:menuitem value="Users" icon="/resources/images/dock/accounts.gif" url="#"/> 
-                        <p:menuitem value="Upload CSV file" icon="/resources/images/dock/csv.png" url=""/>
+                        <p:menuitem value="Users" icon="/resources/images/dock/accounts.gif"outcome="users"/> 
+                        <p:menuitem value="Upload CSV file" icon="/resources/images/dock/csv.png"  outcome="#{logonAndMisc.csv}"/>
 
 
                     </p:dock> 

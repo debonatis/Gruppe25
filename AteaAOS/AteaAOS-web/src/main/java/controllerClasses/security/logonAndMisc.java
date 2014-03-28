@@ -5,12 +5,9 @@
  */
 package controllerClasses.security;
 
-import java.io.IOException;
-import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
 
 /**
  *

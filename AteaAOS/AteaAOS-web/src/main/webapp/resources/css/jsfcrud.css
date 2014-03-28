@@ -13,8 +13,8 @@ a {
     color: #e33b06;
 }
 .ui-picklist .ui-picklist-list {
-    width: 200px;
-    height: 300px;
+    width: auto;
+    height: auto;
 }
 #pojoPickList{
     float: left;
