@@ -22,6 +22,7 @@ public class logonAndMisc implements Serializable {
      */
     private String logon;
     private String csv;
+    private String home;
 
     public String getCsv() {
         csv = "ok";
@@ -30,6 +31,15 @@ public class logonAndMisc implements Serializable {
 
     public void setCsv(String csv) {
         this.csv = csv;
+    }
+
+    public String getHome() {
+        home = "home";
+        return home;
+    }
+
+    public void setHome(String home) {
+        this.home = home;
     }
 
     public logonAndMisc() {
