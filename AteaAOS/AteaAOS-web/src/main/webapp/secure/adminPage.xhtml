@@ -37,7 +37,7 @@
                         <h:panelGroup rendered="#{projectsController.items.rowCount > 0}">
 
                             <p:dataTable value="#{projectsController.items}" var="item" cellSeparator="2">
-                                <p:column sortBy="name" >                                 
+                                <p:column >                                 
                                     <h:outputText value="#{item.name}" style="font-size: large"/>
                                 </p:column>
                                 <p:column width="100">

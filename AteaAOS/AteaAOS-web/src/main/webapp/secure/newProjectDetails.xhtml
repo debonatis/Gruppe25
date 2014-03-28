@@ -51,17 +51,14 @@
                                 </p:panel>                 
                             </p:tab> 
 
-                            <p:tab>
-                                <p:panel header="Department manager">
+                            <p:tab id="DepartmentManager" title="Department manager">
+                                <p:panel header="Delegate control to department manager">
                                     <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid">
-                                        <div id="adminCTekst">
-                                            Delegate control to department manager
-                                        </div>
                                         <h:outputText value="Contact name:"/>
                                         <p:inputText required="false" label="Department manager" value=""/>
                                         <h:outputText value="Contact mail:"/>
                                         <p:inputText required="false" label="Contact mail" value=""/>
-
+                                        
                                     </h:panelGrid>
                                 </p:panel>
                             </p:tab>
