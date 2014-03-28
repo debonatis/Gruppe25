@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>AOS-admin</title>
+                <f:facet name="last">
+                    <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/resources/css/jsfcrud.css" />
+                </f:facet> 
+            </f:facet>
+
+        </h:head>
+
+        <h:body>
+
+            <p:layout fullPage="true">
+
+
+
+
+                <p:layoutUnit position="center">
+
+                    <h:form id="userForm">
+                        <p:growl id="growl" sticky="true" showDetail="true"/>  
+
+
+                        <p:wizard flowListener="#{usersToGroups.onFlowProcess}">
+                            <p:tab id="userinput" title="Create Users">  
+
+                                <p:panel header="Users Details">  
+
+                                    <h:messages errorClass="error"/>  
+
+                                    <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid">  
+                                        <h:outputText value="Firstname: *" />  
+                                        <p:inputText required="true" label="Firstname"  
+                                                     value="#{usersToGroups.bruker.firstname}" />  
+
+                                        <h:outputText value="Lastname: *" />  
+                                        <p:inputText required="true" label="Lastname"  
+                                                     value="#{usersToGroups.bruker.lastname}" />  
+
+                                        <h:outputText value="Title: *" />  
+                                        <p:inputText value="#{usersToGroups.bruker.title}" />  
+
+
+                                    </h:panelGrid>  
+                                </p:panel>  
+                            </p:tab>  
+                            <p:tab id="workspec" title="Work spesific">  
+                                <p:panel header="Work Details">  
+
+                                    <h:messages errorClass="error"/>  
+
+                                    <h:panelGrid columns="2" columnClasses="label, value">  
+                                        <h:outputText value="Department *: " />  
+                                        <p:inputText value="#{usersToGroups.bruker.department}" />  
+
+                                        <h:outputText value="Prefered, or root Email : " />  
+                                        <p:inputText value="#{usersToGroups.bruker.email}" />  
+
+                                        <h:outputText value="Additonal Emails(1@test.no, 2@test.no ): " />  
+                                        <p:inputText value="#{usersToGroups.bruker.emailalias}" /> 
+                                        <h:outputText value="Enployment nr(if any): " />  
+                                        <p:inputText value="#{usersToGroups.bruker.employmentnr}" /> 
+                                        <h:outputText value="Itcontact(yes, or no): " />  
+                                        <p:inputText value="#{usersToGroups.bruker.itcontact}" /> 
+                                        <h:outputText value="Mobile (worknumber): " />  
+                                        <p:inputText value="#{usersToGroups.bruker.mobile}" />  
+
+
+                                    </h:panelGrid>  
+                                </p:panel>  
+                            </p:tab> 
+                            <p:tab id="username" title="Username">  
+                                <p:panel header="Username Details">  
+
+                                    <h:messages errorClass="error"/>  
+
+                                    <h:panelGrid columns="2" columnClasses="label, value">  
+                                        <h:outputText value="Preferd Username *: " />  
+                                        <p:inputText value="#{usersToGroups.bruker.username}"  />  
+
+
+
+                                    </h:panelGrid>  
+                                    <p:commandButton value="Submit" update="growl"   
+                                                     actionListener="#{usersToGroups.saveW}" oncomplete="wiz.loadStep(wiz.cfg.steps[0], true)"/>  
+
+                                </p:panel>  
+                            </p:tab>  
+                        </p:wizard>
+
+
+                </p:layoutUnit>
+                <p:layoutUnit  position="north" size="160" resizable="false" closable="true" collapsible="true"  styleClass="ui-layout-unit-content ui-widget-content">
+
+                    <h:form>  
+                        <p:graphicImage value="/resources/images/Atealogo.gif" />
+                        <p:growl id="messages"/>  
+                        <p:menubar > 
+
+                            <p:submenu label="Projects" icon="ui-icon-document">  
+
+                                <p:menuitem value="New Project" url="#" />  
+
+
+                                <p:menuitem value="Open" url="#" />  
+
+
+                            </p:submenu>  
+
+                            <p:submenu label="Edit" icon="ui-icon-pencil">  
+                                <p:menuitem value="Undo" url="#" icon="ui-icon-arrowreturnthick-1-w" />  
+                                <p:menuitem value="Redo" url="#" icon="ui-icon-arrowreturnthick-1-e" />  
+                            </p:submenu>  
+
+                            <p:submenu label="Help" icon="ui-icon-help">  
+                                <p:menuitem value="Contents" url="#" />  
+                                <p:submenu label="Search" icon="ui-icon-search">  
+                                    <p:submenu label="Text">  
+                                        <p:menuitem value="Workspace" url="#" />  
+                                    </p:submenu>  
+                                    <p:menuitem value="File" url="#" />  
+                                </p:submenu>  
+                            </p:submenu>  
+
+                            <p:submenu label="Actions" icon="ui-icon-gear">  
+                                <p:submenu label="Ajax" icon="ui-icon-refresh">  
+                                    <p:menuitem value="Save" actionListener="#{menuBean.save}" icon="ui-icon-disk" update="messages"/>  
+                                    <p:menuitem value="Update" actionListener="#{menuBean.update}" icon="ui-icon-arrowrefresh-1-w" update="messages"/>  
+                                </p:submenu>  
+                                <p:submenu label="Non-Ajax" icon="ui-icon-newwin">  
+                                    <p:menuitem value="Delete" actionListener="#{menuBean.delete}" icon="ui-icon-close" update="messages" ajax="false"/>  
+                                </p:submenu>  
+                            </p:submenu>  
+
+                            <p:menuitem value="Quit" url="http://www.primefaces.org" icon="ui-icon-close" />  
+
+                            <f:facet name="options">  
+                                <p:inputText style="margin-right:10px"/>  
+                                <p:commandButton type="button" value="Logout" icon="ui-icon-extlink" />  
+                            </f:facet>  
+                        </p:menubar>  
+
+
+
+                    </h:form>  
+                </p:layoutUnit>
+
+            </p:layout>
+        </h:body>
+    </f:view>
+
+</html> 
+
+
+
