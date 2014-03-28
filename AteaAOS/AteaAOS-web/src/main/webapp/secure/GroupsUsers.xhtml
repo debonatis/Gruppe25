@@ -96,18 +96,23 @@
                         </p:wizard>
                     </h:form>
                 </p:layoutUnit>
-                <p:layoutUnit  position="north" size="150" resizable="false" closable="false" collapsible="false" styleClass="ui-layout-unit-content ui-widget-content">
 
-                    <h:form>  
-                        <p:dock id="dock"  >  
-                            <p:menuitem value="Users" icon="/resources/images/dock/accounts.gif" url="#"/>  
-                            
+                <p:layoutUnit position="south" size="100">
+                    <p:dock id="dock">  
+                        <p:menuitem value="Users" icon="/resources/images/dock/accounts.gif" url="#"/>  
 
-                        </p:dock> 
 
-                        <p:graphicImage value="/resources/images/Atealogo.gif" />
+                    </p:dock> 
+                </p:layoutUnit>
+                <p:layoutUnit  position="north" size="100">
 
-                        <p:growl id="messages"/>  
+                    <h:form>    
+
+
+
+                        <p:graphicImage value="/resources/images/Atealogo.gif" /><p:growl id="messages"/> 
+
+
 
 
 
