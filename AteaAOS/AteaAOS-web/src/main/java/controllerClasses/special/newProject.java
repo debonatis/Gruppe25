@@ -57,6 +57,7 @@ public class newProject implements Serializable {
             projects.setProjectid(getUUID().toString());
             projectsEJB.create(projects);
             
+            
             FacesMessage msg = new FacesMessage();
             msg.setSeverity(FacesMessage.SEVERITY_INFO);
             msg.setSummary("Project is created");

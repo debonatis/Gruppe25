@@ -47,7 +47,8 @@
 
                                     </h:panelGrid>  
                                     <p:commandButton value="Submit" update="growl"   
-                                             actionListener="#{newProject.save()}"/>
+                                                     actionListener="#{newProject.save()}" action="#{projectsController.prepareList()}"/>
+                                    <p:button id="next" value="AdminPage" href="/faces/secure/adminPage.xhtml" />
                                 </p:panel> 
                                 
                             </p:tab>  
