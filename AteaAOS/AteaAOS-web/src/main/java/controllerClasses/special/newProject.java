@@ -17,6 +17,7 @@ import javax.faces.context.FacesContext;
 import org.primefaces.event.FlowEvent;
 
 import java.util.logging.Logger;
+import javax.faces.model.DataModel;
 import persistClasses.ProjectsFacade;
 
 /**
@@ -33,6 +34,8 @@ public class newProject implements Serializable {
     private boolean skip;  
     private Projects projects = new Projects();
     private static final Logger logger = Logger.getLogger(Projects.class.getName());
+    
+    private DataModel items = null;
 
     private void prepareCreate() {
         projects = new Projects();
@@ -108,4 +111,14 @@ public class newProject implements Serializable {
             return event.getNewStep();
         }
     }
+    
+    private void recreateModel() {
+        items = null;
+    }
+    
+    public String prepareList() {
+        recreateModel();
+        return "List";
+    }
+    
 }
