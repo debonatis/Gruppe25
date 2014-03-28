@@ -34,8 +34,7 @@
                         <p:wizard widgetVar="wiz"  
                                   flowListener="#{newProject.onFlowProcess}">
 
-
-                            <p:tab id="personal" title="New project">  
+                            <p:tab id="newProject" title="New project">  
 
                                 <p:panel header="Project details">  
 
@@ -46,33 +45,38 @@
                                         <p:inputText required="true" label="Project name" value="#{newProject.projects.name}"/>
                                         <h:outputText value="Description:"/>
                                         <p:inputText required="false" label="Description" value="#{newProject.projects.description}"/>
-
-
+                                        <h:outputText value="Select type of project: *" />
                                     </h:panelGrid>  
-                                </p:panel>  
-                            </p:tab>  
-
-                            <p:tab id="registerType" title="Register type">
-                                <p:panel header="Register type of implementation project">
-                                    <h:messages errorClass="error"/>
-                                    <p:dataTable id="type" var="type" value="#{newProject.multipleSingle}" 
-                                                 selection="#{newProject.selectedType}">
-
-
-                                        <p:column selectionMode="single" style="width:2%" /> 
-
-                                        <p:column headerText="Type" style="width:25%">  
-                                            #{type.rowData.projecttype}  
-                                        </p:column> 
-
-                                    </p:dataTable>
+                                    <p:commandButton value="Submit" update="growl"   
+                                                     actionListener="#{newProject.save()}" action="#{newProject.prepareList()}"/>
+                                </p:panel>                 
+                            </p:tab> 
+                            
+                            <p:tab id="projectDetails" title="Project details">
+                                <p:panel header="Project details">
+                                    
                                 </p:panel>
                             </p:tab>
-
-                            <p:commandButton value="Submit" update="growl"   
-                                             actionListener="#{newProject.save()}"/>
-
+                            
+                            <p:tab id="createUsers" title="Create users">
+                                <p:panel header="Create users">
+                                    
+                                </p:panel>
+                            </p:tab>
+                            
+                            <p:tab id="createGropus" title="Create groups">
+                                <p:panel header="Create groups">
+                                    
+                                </p:panel>
+                            </p:tab>
+                            
+                            <p:tab id="createResources" title="Create resources">
+                                <p:panel header="Create resources">
+                                    
+                                </p:panel>
+                            </p:tab>
                         </p:wizard>
+                        <p:button id="next" value="AdminPage" href="/faces/secure/adminPage.xhtml" />
                     </h:form>  
                 </p:layoutUnit>
             </p:layout>
