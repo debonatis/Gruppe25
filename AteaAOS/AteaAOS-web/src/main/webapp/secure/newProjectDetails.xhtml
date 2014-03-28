@@ -45,8 +45,8 @@
                                     <h:outputText value="Description:"/>
                                     <p:inputText required="false" label="Description" value="#{newProject.projects.description}"/>
                                     <h:outputText value="Select type of project: *" />
-                                    <h:selectOneMenu value="#{newProject.list}">
-                                        <f:selectItems value="#{newProject.projecttypes}" />
+                                    <h:selectOneMenu value="">
+                                        <f:selectItems value="" />
                                     </h:selectOneMenu>
                                 </h:panelGrid>  
                                 <p:commandButton value="Submit" update="growl"   
