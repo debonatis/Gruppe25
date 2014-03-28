@@ -93,14 +93,14 @@
                         </p:wizard>
                     </h:form>
                 </p:layoutUnit>
-                <p:layoutUnit  position="north" size="160" resizable="false" closable="true" collapsible="true" styleClass="ui-layout-unit-content ui-widget-content">
+                <p:layoutUnit  position="north" size="150" resizable="false" closable="false" collapsible="false" styleClass="ui-layout-unit-content ui-widget-content">
 
                     <h:form>  
-                        <p:graphicImage value="/resources/images/Atealogo.gif" />
-                        <p:growl id="messages"/>  
-                        <p:dock position="top" >  
-                            <p:menuitem value="Home" icon="/images/dock/home.png" url="#"/>  
-                            <p:menuitem value="Music" icon="/images/dock/music.png" url="#"/>  
+                        
+                        <p:graphicImage value="/resources/images/Atealogo.gif" style="float: left" />
+                        <p:dock position="top" proximity="100" >  
+                            <p:menuitem value="Users" icon="/resources/images/MSicons/User.png" url="#"/>  
+                            <p:menuitem value="Groups" icon="/images/dock/music.png" url="#"/>  
                             <p:menuitem value="Video" icon="/images/dock/video.png" url="#"/>  
                             <p:menuitem value="Email" icon="/images/dock/email.png" url="#"/>  
                             <p:menuitem value="Portfolio" icon="/images/dock/portfolio.png" url="#"/>  
@@ -108,7 +108,8 @@
                             <p:menuitem value="RSS" icon="/images/dock/rss.png" url="#"/>  
                             <p:menuitem value="History" icon="/images/dock/history.png" url="#"/>  
                         </p:dock> 
-
+<p:growl id="messages"/>  
+                        
 
 
                     </h:form>  
