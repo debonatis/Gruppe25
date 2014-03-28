@@ -6,7 +6,12 @@
 package controllerClasses.special;
 
 import entityModels.Projects;
+import entityModels.Projecttypes;
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.UUID;
 import java.util.logging.Level;
 import javax.ejb.EJB;
@@ -17,8 +22,10 @@ import javax.faces.context.FacesContext;
 import org.primefaces.event.FlowEvent;
 
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.faces.model.DataModel;
 import persistClasses.ProjectsFacade;
+import persistClasses.ProjecttypesFacade;
 
 /**
  *
@@ -28,54 +35,71 @@ import persistClasses.ProjectsFacade;
 @SessionScoped
 
 public class newProject implements Serializable {
-    
-    @EJB
-    private ProjectsFacade projectsEJB; 
-    private boolean skip;  
-    private Projects projects = new Projects();
-    private static final Logger logger = Logger.getLogger(Projects.class.getName());
-    
-    private DataModel items = null;
 
+    @EJB
+    private ProjectsFacade projectsEJB;
+    @EJB
+    private ProjecttypesFacade projecttypesEJB;
+    private boolean skip;
+    private Projects projects = new Projects();
+    private Projecttypes projecttypes;
+    private static final Logger logger = Logger.getLogger(Projects.class.getName());
+
+    private DataModel items = null;
+    private List<Projecttypes> projecttypesList;
+    
     private void prepareCreate() {
         projects = new Projects();
     }
-    
+
     public Projects getProjects() {
         return projects;
     }
-   
-    
+
     public void setProjects(Object projects) {
         this.projects = (Projects) projects;
     }
-    
+
+    public Projecttypes getProjecttypes() {
+        return projecttypes;
+    }
+
+    public void setProjecttypes(Object projecttypes) {
+        this.projecttypes = (Projecttypes) projecttypes;
+    }
+
+    public List<Projecttypes> getList(){
+        for(int i = 0; i< 2;i++ ){
+            projecttypesList.get(i).getProjecttype();
+        }
+        return projecttypesList;
+    }
+
     private UUID getUUID() {
         UUID idOne = UUID.randomUUID();
         return idOne;
     }
-    
+
     public void save() {
         try {
             projects.setProjectid(getUUID().toString());
             projectsEJB.create(projects);
-            
-            
+
             FacesMessage msg = new FacesMessage();
             msg.setSeverity(FacesMessage.SEVERITY_INFO);
             msg.setSummary("Project is created");
-            
+
             FacesContext.getCurrentInstance().addMessage(null, msg);
             prepareCreate();
-            
+
         } catch (Exception e) {
             FacesMessage msg = new FacesMessage();
             msg.setSeverity(FacesMessage.SEVERITY_INFO);
             msg.setSummary("Project not created!");
             msg.setDetail("Maybe faulty inputs?");
-            
+
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            
+
         }
     }
 
@@ -103,7 +127,7 @@ public class newProject implements Serializable {
     public String onFlowProcess(FlowEvent event) {
         logger.log(Level.INFO, "Current wizard step:{0}", event.getOldStep());
         logger.log(Level.INFO, "Next step:{0}", event.getNewStep());
-        
+
         if (skip) {
             skip = false;
             return "confirm";
@@ -111,14 +135,14 @@ public class newProject implements Serializable {
             return event.getNewStep();
         }
     }
-    
+
     private void recreateModel() {
         items = null;
     }
-    
+
     public String prepareList() {
         recreateModel();
         return "List";
     }
-    
+
 }
