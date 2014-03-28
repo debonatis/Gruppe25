@@ -21,8 +21,10 @@
 
             <p:layout fullPage="true">
                 <p:layoutUnit id="layout-upper" position="north" size="100" resizable="false" closable="true" collapsible="true">
-
-                    <div id="adminHTekst">
+                    <h:form>    
+                        <p:graphicImage value="/resources/images/Atealogo.gif" /><p:growl id="messages"/> 
+                        </h:form>
+                    <div align="right">
                         Atea Adminpage
                     </div>
                 </p:layoutUnit>
@@ -42,10 +44,10 @@
                                     <h:outputText value="#{item.name}" style="font-size: large"/>
                                 </p:column>
                                 <p:column width="100">
-                                        <f:facet name="header">
-                                            <h:outputText value="&nbsp;"/>
-                                        </f:facet>
-                                        <h:commandLink action="#{projectsController.prepareView}" value="SomeShitHere"/>
+                                    <f:facet name="header">
+                                        <h:outputText value="&nbsp;"/>
+                                    </f:facet>
+                                    <h:commandLink action="#{projectsController.prepareView}" value="SomeShitHere"/>
                                 </p:column>
                             </p:dataTable>
                         </h:panelGroup>

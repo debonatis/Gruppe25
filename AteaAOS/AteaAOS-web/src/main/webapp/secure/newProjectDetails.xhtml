@@ -21,10 +21,9 @@
 
             <p:layout fullPage="true">
                 <p:layoutUnit id="layout-upper" position="north" size="100" resizable="false" closable="true" collapsible="true">
-
-                    <div id="adminHTekst">
-                        <b>Project details</b> - Create Users - Create Groups - Create Resources  
-                    </div>
+                    <h:form>    
+                        <p:graphicImage value="/resources/images/Atealogo.gif" /><p:growl id="messages"/> 
+                    </h:form>
                 </p:layoutUnit>
 
 
@@ -51,28 +50,28 @@
                                                      actionListener="#{newProject.save()}" action="#{newProject.prepareList()}"/>
                                 </p:panel>                 
                             </p:tab> 
-                            
+
                             <p:tab id="projectDetails" title="Project details">
                                 <p:panel header="Project details">
-                                    
+
                                 </p:panel>
                             </p:tab>
-                            
+
                             <p:tab id="createUsers" title="Create users">
                                 <p:panel header="Create users">
-                                    
+
                                 </p:panel>
                             </p:tab>
-                            
+
                             <p:tab id="createGropus" title="Create groups">
                                 <p:panel header="Create groups">
-                                    
+
                                 </p:panel>
                             </p:tab>
-                            
+
                             <p:tab id="createResources" title="Create resources">
                                 <p:panel header="Create resources">
-                                    
+
                                 </p:panel>
                             </p:tab>
                         </p:wizard>
