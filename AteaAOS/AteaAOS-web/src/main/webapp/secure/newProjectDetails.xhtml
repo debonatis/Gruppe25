@@ -4,30 +4,16 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
+    <h:head>
+    </h:head>
 
-    <f:view contentType="text/html" id="storrelse">
-        <h:head>
-            <f:facet name="first">
-                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-                <title>AOS</title>
-                <f:facet name="last">
-                    <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/resources/css/normal.css" />
-                </f:facet> 
-            </f:facet>
-
-        </h:head>
-
-        <h:body>
-
-            <p:layout fullPage="true">
-                <p:layoutUnit id="layout-upper" position="north" size="100" resizable="false" closable="true" collapsible="true">
-                    <h:form>    
-                        <p:graphicImage value="/resources/images/Atealogo.gif" /><p:growl id="messages"/> 
-                    </h:form>
-                </p:layoutUnit>
+    <h:body>
+        <ui:composition template="template/templateSecure.xhtml">
 
 
-                <p:layoutUnit position="center" >
+
+
+            <ui:define name="center">
                     <h:form>
                         <p:growl id="growl" sticky="true" showDetail="true"/>
                         <p:wizard widgetVar="wiz"  
@@ -94,9 +80,9 @@
                         </p:wizard>
                         <p:button id="next" value="AdminPage" href="/faces/secure/adminPage.xhtml" />
                     </h:form>  
-                </p:layoutUnit>
-            </p:layout>
+            </ui:define>
+        </ui:composition>
         </h:body>
-    </f:view>
+    </f:view
 
 </html>
