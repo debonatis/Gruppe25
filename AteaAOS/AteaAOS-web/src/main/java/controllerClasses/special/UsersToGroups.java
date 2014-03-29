@@ -81,9 +81,10 @@ public class UsersToGroups implements Serializable {
         this.skip = skip;
     }
 
-    @PostConstruct
-    public void preCompute() {
-        List<Users> sourceU = new ArrayList<Users>();
+    
+
+    public UsersToGroups() {
+ List<Users> sourceU = new ArrayList<Users>();
         List<Users> targetU = new ArrayList<Users>();
 
         sourceU = usersEJB.findAll();
@@ -92,14 +93,10 @@ public class UsersToGroups implements Serializable {
 
         List<Groups> sourceG = new ArrayList<Groups>();
         List<Groups> targetG = new ArrayList<Groups>();
-        username = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
+
         sourceG = groupsEJB.findAll();
-
+        username = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
         groups = new DualListModel<Groups>(sourceG, targetG);
-    }
-
-    public UsersToGroups() {
-
     }
 
     public DualListModel<Users> getUsers() {
@@ -182,7 +179,7 @@ public class UsersToGroups implements Serializable {
 
     public void saveW(ActionEvent actionEvent) {
         bruker.setProjectid(String.valueOf(56));
-        usersEJB.create(bruker);        
+        usersEJB.create(bruker);
         FacesMessage msg = new FacesMessage("Successful", "Welcome :" + bruker.getFirstname());
         FacesContext.getCurrentInstance().addMessage(null, msg);
         bruker = new Users();

@@ -8,10 +8,6 @@ package controllerClasses.special;
 import entityModels.Projects;
 import entityModels.Projecttypes;
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
 import java.util.UUID;
 import java.util.logging.Level;
 import javax.ejb.EJB;
@@ -22,10 +18,8 @@ import javax.faces.context.FacesContext;
 import org.primefaces.event.FlowEvent;
 
 import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
 import javax.faces.model.DataModel;
 import persistClasses.ProjectsFacade;
-import persistClasses.ProjecttypesFacade;
 
 /**
  *
@@ -38,8 +32,7 @@ public class newProject implements Serializable {
 
     @EJB
     private ProjectsFacade projectsEJB;
-    @EJB
-    private ProjecttypesFacade projecttypesEJB;
+   
     private boolean skip;
     private Projects projects = new Projects();
     private Projecttypes projecttypes;
