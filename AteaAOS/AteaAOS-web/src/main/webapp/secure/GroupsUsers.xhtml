@@ -79,7 +79,107 @@
 
                     </p:wizard>
                 </h:form>
-               
+                <h:form id="form">  
+
+                    <p:growl id="messages" showDetail="true"/>  
+
+                    <p:dataTable var="gr" value="#{distAndGroupEdit.liste}" id="carList" editable="true">  
+
+                        <f:facet name="header">  
+                            Distibrution and Security Groups 
+                        </f:facet>  
+
+                        <p:ajax event="rowEdit" listener="#{distAndGroupEdit.onEditDIST}" update=":form:messages" />  
+                        <p:ajax event="rowEditCancel" listener="#{distAndGroupEdit.onCancelDIST}" update=":form:messages" />  
+
+                        <p:column headerText="Group name" style="width:30%">  
+                            <p:cellEditor>  
+                                <f:facet name="output">  
+                                    <h:outputText value="#{gr.grname}" />  
+                                </f:facet>  
+                                <f:facet name="input">  
+                                    <p:inputText value="#{gr.grname}" style="width:100%"/>  
+                                </f:facet>  
+                            </p:cellEditor>  
+                        </p:column>  
+
+                        <p:column headerText="Distribution Group" style="width:20%">  
+                            <p:cellEditor>  
+                                <f:facet name="output">  
+                                    <p:selectBooleanCheckbox value="#{gr.dg}" />  
+                                </f:facet>  
+                                <f:facet name="input">  
+                                    - 
+                                </f:facet>  
+                            </p:cellEditor>  
+                        </p:column>  
+
+                        <p:column headerText="Security Group" style="width:24%">  
+                            <p:cellEditor>  
+                                <f:facet name="output">  
+                                    <p:selectBooleanCheckbox value="#{gr.sg}" />  
+                                </f:facet>  
+                                <f:facet name="input">  
+                                  -
+                                </f:facet>  
+                            </p:cellEditor>  
+                        </p:column>  
+
+                        <p:column headerText="Group Owner" style="width:20%">  
+                            <p:cellEditor>  
+                                <f:facet name="output">  
+                                    <h:outputText value="#{gr.gowner}" />  
+                                </f:facet>  
+                                <f:facet name="input">  
+                                    <p:inputText value="#{gr.gowner}" style="width:100%"/> 
+                                </f:facet>  
+                            </p:cellEditor>  
+                        </p:column>  
+                        <p:column headerText="Users" style="width: 20%">
+                            <p:dataTable var="usr" value="#{gr.users}" id="usrList" editable="true">  
+
+                        <f:facet name="header">  
+                            Users 
+                        </f:facet>  
+
+                                <p:ajax event="rowEdit" listener="#{distAndGroupEdit.onEditList}" update=":form:messages" />  
+                                <p:ajax event="rowEditCancel" listener="#{distAndGroupEdit.onCancelList}" update=":form:messages" /> 
+                                
+                                <p:column headerText="Group name" style="width:30%">  
+                            <p:cellEditor>  
+                                <f:facet name="output">  
+                                    <h:outputText value="#{usr.username}" />  
+                                </f:facet>  
+                                <f:facet name="input">  
+                                    <p:inputText value="#{usr.username}" style="width:100%"/>  
+                                </f:facet>  
+                            </p:cellEditor>  
+                        </p:column> 
+                                <p:column headerText="Delete">
+                                <f:facet name="header">
+                                    <h:outputText value="" />
+                                </f:facet>
+                                <p:commandButton icon="ui-icon-close" title="remove from list"
+                                                 actionListener="#{distAndGroupEdit.deleteItemDISTUser(gr, usr)}" update="usrList" />
+                            </p:column>
+                            </p:datatable>
+                        </p:column>
+
+                        <p:column style="width:6%">  
+                            <p:rowEditor />  
+                        </p:column>  
+                        <p:column headerText="Delete">
+                                <f:facet name="header">
+                                    <h:outputText value="" />
+                                </f:facet>
+                                <p:commandButton icon="ui-icon-close" title="remove from list"
+                                                 actionListener="#{distAndGroupEdit.deleteItemDIST(gr)}" update="dataTable" />
+                            </p:column>
+
+                    </p:dataTable>  
+
+                </h:form>  
+
             </ui:define>
 
         </ui:composition>
