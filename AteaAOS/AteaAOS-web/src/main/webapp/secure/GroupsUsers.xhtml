@@ -16,12 +16,12 @@
             <ui:define name="center">
 
 
-                       <h:form id="selectForm">
+                <h:form id="selectForm">
                     <p:growl id="growl2" sticky="true" showDetail="true"/>  
 
                     <p:wizard flowListener="#{usersToGroups.onFlowProcessPick}" >
 
-                        <p:tab id="grouppick" title="Select Groups for editing">  
+                        <p:tab id="grouppick" title="Select Security Groups for editing">  
 
                             <p:panel header="Group Selection"> 
 
@@ -79,8 +79,9 @@
 
                     </p:wizard>
                 </h:form>
+               
             </ui:define>
-            
+
         </ui:composition>
     </h:body>
 
