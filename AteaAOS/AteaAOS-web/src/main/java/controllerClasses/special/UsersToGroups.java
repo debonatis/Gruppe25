@@ -80,23 +80,17 @@ public class UsersToGroups implements Serializable {
     public void setSkip(boolean skip) {
         this.skip = skip;
     }
-
+    @PostConstruct
+    private void init(){
     
+        users = new DualListModel<>(usersEJB.findAll(), new ArrayList<Users>());
+
+        groups = new DualListModel<>(groupsEJB.findAll(), new ArrayList<Groups>());
+        username = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
+}
 
     public UsersToGroups() {
- List<Users> sourceU = new ArrayList<Users>();
-        List<Users> targetU = new ArrayList<Users>();
 
-        sourceU = usersEJB.findAll();
-
-        users = new DualListModel<Users>(sourceU, targetU);
-
-        List<Groups> sourceG = new ArrayList<Groups>();
-        List<Groups> targetG = new ArrayList<Groups>();
-
-        sourceG = groupsEJB.findAll();
-        username = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
-        groups = new DualListModel<Groups>(sourceG, targetG);
     }
 
     public DualListModel<Users> getUsers() {
