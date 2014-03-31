@@ -33,48 +33,9 @@
                                 </p:panel>                 
                             </p:tab> 
 
-                            <p:tab id="DepartmentManager" title="Department manager">
-                                <p:panel header="Delegate control to department manager">
-                                    <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid">
-                                        <h:outputText value="Contact name:"/>
-                                        <p:inputText required="false" label="Department manager" value=""/>
-                                        <h:outputText value="Contact mail:"/>
-                                        <p:inputText required="false" label="Contact mail" value=""/>
-                                        
-                                    </h:panelGrid>
-                                </p:panel>
-                            </p:tab>
-
-                            <p:tab id="projectDetails" title="Project details">
-                                <p:panel header="Project details">
-
-                                </p:panel>
-                            </p:tab>
-
-                            <p:tab id="createUsers" title="Create users">
-                                <p:panel header="Create users">
-
-                                </p:panel>
-                            </p:tab>
-
-                            <p:tab id="createGropus" title="Create groups">
-                                <p:panel header="Create groups">
-
-                                </p:panel>
-                            </p:tab>
-
-                            <p:tab id="createResources" title="Create resources">
-                                <p:panel header="Create resources">
-                                    <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid">  
-                                        <h:outputText value="Add printer:"/>
-                                        <p:inputText required="false" label="Project name" value=""/>
-                                        <h:outputText value="addSomething:"/>
-                                        <p:inputText required="false" label="Description" value=""/>     
-                                    </h:panelGrid> 
-                                </p:panel>
-                            </p:tab>
+                          
                         </p:wizard>
-                        <p:button id="next" value="AdminPage" href="/faces/secure/adminPage.xhtml" />
+                        
                     </h:form>  
             </ui:define>
         </ui:composition>
