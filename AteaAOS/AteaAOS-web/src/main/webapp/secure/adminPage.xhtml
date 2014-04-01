@@ -19,15 +19,15 @@
                         <br/>
                         <h:form id="storrelse">
                             <br/><br/>
-                            <h:panelGroup rendered="#{projectsController.items.rowCount > 0}">
-
-                                <p:dataTable value="#{projectsController.items}" var="item" cellSeparator="2">
+                            <p:panel >
+                                <p:poll update="roger" interval="2" listener="true"/>
+                                <p:dataTable id="roger" value="#{newProject.projectList}" var="item" cellSeparator="2" paginator="true" rows="10">
                                     <p:column >                                 
                                         <h:outputText value="#{item.name}" style="font-size: large"/>
                                     </p:column>
 
                                 </p:dataTable>
-                            </h:panelGroup>
+                            </p:panel>
 
                         </h:form>
                     </p:layoutUnit>

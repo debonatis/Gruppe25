@@ -8,10 +8,7 @@ package controllerClasses.special;
 import entityModels.Projects;
 import entityModels.Projecttypes;
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.UUID;
 import java.util.logging.Level;
 import javax.ejb.EJB;
@@ -23,7 +20,6 @@ import org.primefaces.event.FlowEvent;
 
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ViewScoped;
 import javax.faces.model.DataModel;
 import persistClasses.ProjectsFacade;
 import persistClasses.ProjecttypesFacade;
@@ -46,6 +42,7 @@ public class newProject implements Serializable {
     private Projecttypes projecttypes;
     private static final Logger logger = Logger.getLogger(Projects.class.getName());
 
+    private List<Projects> projectList;
     private DataModel items = null;
 //    private List<Projecttypes> projecttypesList;
     
@@ -61,6 +58,18 @@ public class newProject implements Serializable {
         this.projects = (Projects) projects;
     }
 
+    public List<Projects> getProjectList() {
+        return projectList;
+    }
+
+    public void setProjectList(List<Projects> projectList) {
+        this.projectList = projectList;
+    }
+    @PostConstruct
+    public void init(){
+        projectList = projectsEJB.findAll();
+    }
+    
     public Projecttypes getProjecttypes() {
         return projecttypes;
     }
