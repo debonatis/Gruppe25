@@ -14,7 +14,6 @@ import entityModels.Userdistribution;
 import entityModels.Users;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -41,12 +40,12 @@ public class DistAndGroupEdit {
     private UserdistributionFacade dgMMF;
     @EJB
     private GroupusersFacade sgMMF;
-    private List<DistSecGroupModel> liste;
+    private List<DistSecGroupModel> liste = new ArrayList<>();
     
     
     
-    @PostConstruct
-    private void init(){
+    
+    public void init(){
       List<Users> roger;
         for(Groups g :gF.findAll()){
             roger= new ArrayList<>();
@@ -73,6 +72,7 @@ public class DistAndGroupEdit {
     public List<DistSecGroupModel> getListe() {
         return liste;
     }
+    
 
     public void setListe(List<DistSecGroupModel> liste) {
         this.liste = liste;
