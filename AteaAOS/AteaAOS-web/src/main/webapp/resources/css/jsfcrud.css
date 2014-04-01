@@ -14,7 +14,7 @@ a {
 }
 .ui-picklist .ui-picklist-list {
     width: auto;
-    height: auto;
+    height: 400px;
 }
 #pojoPickList{
     float: left;
