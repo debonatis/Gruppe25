@@ -23,6 +23,7 @@ import org.primefaces.event.FlowEvent;
 
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ViewScoped;
 import javax.faces.model.DataModel;
 import persistClasses.ProjectsFacade;
 import persistClasses.ProjecttypesFacade;
