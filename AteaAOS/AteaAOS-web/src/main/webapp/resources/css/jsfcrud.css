@@ -30,10 +30,10 @@ table {
     empty-cells: show;
 }
 #pictureWelcome{
-padding-top: 405px;
-/*    -ms-transform:rotate(90deg);  IE 9 
-    -webkit-transform:rotate(90deg);  Opera, Chrome, and Safari */
-    
+    padding-top: 405px;
+    /*    -ms-transform:rotate(90deg);  IE 9 
+        -webkit-transform:rotate(90deg);  Opera, Chrome, and Safari */
+
     float: right;
 
 }
@@ -42,7 +42,7 @@ padding-top: 405px;
 }
 
 #toLogin {
-     float: right;
+    float: right;
 }
 #velkommenHTekst {
     padding-top: 445px;
@@ -120,4 +120,31 @@ tr.jsfcrud_even_row {
     position: absolute;
     left: 50%;
     top: 50%;
+}
+
+
+#adminHTekst {
+    padding-top: 15px;
+    padding-left: 20px;
+    font-size: xx-large;
+    font-family: "Segoe UI Light","Segoe WPC","Segoe UI",
+        Helvetica, Arial, "Arial Unicode MS", Sans-Serif;
+    display: flex;
+    float: left;
+}
+#adminCTekst {
+    padding-top: 15px;
+    padding-left: 20px;
+    font-size: x-large;
+    font-family: "Segoe UI Light","Segoe WPC","Segoe UI",
+        Helvetica, Arial, "Arial Unicode MS", Sans-Serif;
+    display: flex;
+    float: left;
+}
+#adminUTekst {
+    padding-top: 15px;
+    padding-left: 20px;
+    font-size: x-large;
+    font-family: "Segoe UI Light","Segoe WPC","Segoe UI",
+        Helvetica, Arial, "Arial Unicode MS", Sans-Serif;
 }
