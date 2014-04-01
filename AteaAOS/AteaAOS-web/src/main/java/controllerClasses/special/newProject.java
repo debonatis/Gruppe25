@@ -6,7 +6,6 @@
 package controllerClasses.special;
 
 import entityModels.Projects;
-import entityModels.Projecttypes;
 import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
@@ -22,7 +21,6 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.model.DataModel;
 import persistClasses.ProjectsFacade;
-import persistClasses.ProjecttypesFacade;
 
 /**
  *
@@ -35,16 +33,12 @@ public class newProject implements Serializable {
 
     @EJB
     private ProjectsFacade projectsEJB;
-    @EJB
-    private ProjecttypesFacade projecttypesEJB;
     private boolean skip;
     private Projects projects = new Projects();
-    private Projecttypes projecttypes;
     private static final Logger logger = Logger.getLogger(Projects.class.getName());
 
     private List<Projects> projectList;
     private DataModel items = null;
-//    private List<Projecttypes> projecttypesList;
     
     private void prepareCreate() {
         projects = new Projects();
@@ -65,25 +59,13 @@ public class newProject implements Serializable {
     public void setProjectList(List<Projects> projectList) {
         this.projectList = projectList;
     }
+
+    
+    
     @PostConstruct
     public void init(){
         projectList = projectsEJB.findAll();
     }
-    
-    public Projecttypes getProjecttypes() {
-        return projecttypes;
-    }
-
-    public void setProjecttypes(Object projecttypes) {
-        this.projecttypes = (Projecttypes) projecttypes;
-    }
-//
-//    public List<Projecttypes> getList(){
-//        for(int i = 0; i< 6;i++ ){
-//            projecttypesList.get(i).getProjecttype();
-//        }
-//        return projecttypesList;
-//    }
 
     private UUID getUUID() {
         UUID idOne = UUID.randomUUID();
