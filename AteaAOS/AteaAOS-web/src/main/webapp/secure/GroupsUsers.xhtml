@@ -15,8 +15,10 @@
 
             <ui:define name="center">
 
-
+<p:tabView id="tabView">
+    <p:tab id="tab1" title="Users to Groups">  
                 <h:form id="selectForm">
+                    
                     <p:growl id="growl2" sticky="true" showDetail="true"/>  
 
                     <p:wizard flowListener="#{usersToGroups.onFlowProcessPick}" >
@@ -79,6 +81,8 @@
 
                     </p:wizard>
                 </h:form>
+    </p:tab>
+    <p:tab id="tab2" title="Group Edit">
                 <h:form id="form">  
 
                     <p:growl id="messages" showDetail="true"/>  
@@ -89,8 +93,8 @@
                             Distibrution and Security Groups 
                         </f:facet>  
 
-                        <p:ajax event="rowEdit" listener="#{distAndGroupEdit.onEditDIST}" update=":form:messages" />  
-                        <p:ajax event="rowEditCancel" listener="#{distAndGroupEdit.onCancelDIST}" update=":form:messages" />  
+                        <p:ajax event="rowEdit" listener="#{distAndGroupEdit.onEditDIST}" update=":tabView:form:messages" />  
+                        <p:ajax event="rowEditCancel" listener="#{distAndGroupEdit.onCancelDIST}" update=":tabView:form:messages" />  
 
                         <p:column headerText="Group name" style="width:30%">  
                             <p:cellEditor>  
@@ -142,10 +146,10 @@
                             Users 
                         </f:facet>  
 
-                                <p:ajax event="rowEdit" listener="#{distAndGroupEdit.onEditList}" update=":form:messages" />  
-                                <p:ajax event="rowEditCancel" listener="#{distAndGroupEdit.onCancelList}" update=":form:messages" /> 
+                                <p:ajax event="rowEdit" listener="#{distAndGroupEdit.onEditList}" update=":tabView:form:messages" />  
+                                <p:ajax event="rowEditCancel" listener="#{distAndGroupEdit.onCancelList}" update=":tabView:form:messages" /> 
                                 
-                                <p:column headerText="Group name" style="width:30%">  
+                                <p:column headerText="User name" style="width:30%">  
                             <p:cellEditor>  
                                 <f:facet name="output">  
                                     <h:outputText value="#{usr.username}" />  
@@ -181,8 +185,9 @@
                     
                     <p:commandButton value="Refresh" action="#{distAndGroupEdit.init()}" icon="ui-icon-refresh" update="carList"/>
 
-                </h:form>  
-
+                </h:form> 
+        </p:tab>
+</p:tabView>
             </ui:define>
 
         </ui:composition>
