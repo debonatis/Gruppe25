@@ -25,6 +25,10 @@
                                 <h:outputText value="Description:"/>
                                 <p:inputText required="false" label="Description" value="#{newProject.projects.description}"/>
                                 <h:outputText value="Select type of project: *" />  
+                                <p:selectOneMenu value="#{newProject.projects.projecttype}" effect="fold" editable="true">  
+                                    <f:selectItem itemLabel="Select One" itemValue="" />  
+                                    <f:selectItems value="#{newProject.projectTypes}" />  
+                                </p:selectOneMenu>
                             </h:panelGrid>  
                             <p:commandButton value="Submit" update="growl"   
                                              action="#{newProject.save()}" />

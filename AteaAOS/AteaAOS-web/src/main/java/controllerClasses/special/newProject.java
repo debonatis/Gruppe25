@@ -36,12 +36,21 @@ public class newProject implements Serializable {
     private boolean skip;
     private Projects projects = new Projects();
     private static final Logger logger = Logger.getLogger(Projects.class.getName());
+    private String[] projectTypes = {"V4", "Single Forrest, Single Domain", "Single Forrest, Multiple Domain"};
 
     private List<Projects> projectList;
     private DataModel items = null;
     
     private void prepareCreate() {
         projects = new Projects();
+    }
+
+    public String[] getProjectTypes() {
+        return projectTypes;
+    }
+
+    public void setProjectTypes(String[] projectTypes) {
+        this.projectTypes = projectTypes;
     }
 
     public Projects getProjects() {
@@ -76,6 +85,7 @@ public class newProject implements Serializable {
         try {
             projects.setProjectid(getUUID().toString());
             projectsEJB.create(projects);
+            prepareCreate();
 
             FacesMessage msg = new FacesMessage();
             msg.setSeverity(FacesMessage.SEVERITY_INFO);
@@ -89,6 +99,7 @@ public class newProject implements Serializable {
             msg.setSeverity(FacesMessage.SEVERITY_INFO);
             msg.setSummary("Project not created!");
             msg.setDetail("Maybe faulty inputs?");
+            prepareCreate();
 
             FacesContext.getCurrentInstance().addMessage(null, msg);
 
@@ -126,15 +137,6 @@ public class newProject implements Serializable {
         } else {
             return event.getNewStep();
         }
-    }
-
-    private void recreateModel() {
-        items = null;
-    }
-
-    public String prepareList() {
-        recreateModel();
-        return "List";
     }
 
 }
