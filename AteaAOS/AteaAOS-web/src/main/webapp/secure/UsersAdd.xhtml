@@ -10,78 +10,103 @@
     <h:body>
         <ui:composition template="template/templateSecure.xhtml">
             <ui:define name="center">
-                <h:form id="userForm">
-                    <p:growl id="growl" sticky="true" showDetail="true"/>  
+
+                <p:tabView id="tabView">
+                    <p:tab id="tab1" title="Create new user">  
+                        <h:form id="userForm">
+                            <p:growl id="growl" sticky="true" showDetail="true"/>  
 
 
-                    <p:wizard flowListener="#{usersToGroups.onFlowProcess}">
-                        <p:tab id="userinput" title="Create Users">  
+                            <p:wizard flowListener="#{usersToGroups.onFlowProcess}">
+                                <p:tab id="userinput" title="Create Users">  
 
-                            <p:panel header="Users Details">  
+                                    <p:panel header="Users Details">  
 
-                                <h:messages errorClass="error"/>  
+                                        <h:messages errorClass="error"/>  
 
-                                <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid">  
-                                    <h:outputText value="Firstname: *" />  
-                                    <p:inputText required="true" label="Firstname"  
-                                                 value="#{usersToGroups.bruker.firstname}" />  
+                                        <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid">  
+                                            <h:outputText value="Firstname: *" />  
+                                            <p:inputText required="true" label="Firstname"  
+                                                         value="#{usersToGroups.bruker.firstname}" />  
 
-                                    <h:outputText value="Lastname: *" />  
-                                    <p:inputText required="true" label="Lastname"  
-                                                 value="#{usersToGroups.bruker.lastname}" />  
+                                            <h:outputText value="Lastname: *" />  
+                                            <p:inputText required="true" label="Lastname"  
+                                                         value="#{usersToGroups.bruker.lastname}" />  
 
-                                    <h:outputText value="Title: *" />  
-                                    <p:inputText value="#{usersToGroups.bruker.title}" />  
-
-
-                                </h:panelGrid>  
-                            </p:panel>  
-                        </p:tab>  
-                        <p:tab id="workspec" title="Work spesific">  
-                            <p:panel header="Work Details">  
-
-                                <h:messages errorClass="error"/>  
-
-                                <h:panelGrid columns="2" columnClasses="label, value">  
-                                    <h:outputText value="Department *: " />  
-                                    <p:inputText value="#{usersToGroups.bruker.department}" />  
-
-                                    <h:outputText value="Prefered, or root Email : " />  
-                                    <p:inputText value="#{usersToGroups.bruker.email}" />  
-
-                                    <h:outputText value="Additonal Emails(1@test.no, 2@test.no ): " />  
-                                    <p:inputText value="#{usersToGroups.bruker.emailalias}" /> 
-                                    <h:outputText value="Enployment nr(if any): " />  
-                                    <p:inputText value="#{usersToGroups.bruker.employmentnr}" /> 
-                                    <h:outputText value="Itcontact(yes, or no): " />  
-                                    <p:inputText value="#{usersToGroups.bruker.itcontact}" /> 
-                                    <h:outputText value="Mobile (worknumber): " />  
-                                    <p:inputText value="#{usersToGroups.bruker.mobile}" />  
+                                            <h:outputText value="Title: *" />  
+                                            <p:inputText value="#{usersToGroups.bruker.title}" />  
 
 
-                                </h:panelGrid>  
-                            </p:panel>  
-                        </p:tab> 
-                        <p:tab id="username" title="Username">  
-                            <p:panel header="Username Details">  
+                                        </h:panelGrid>  
+                                    </p:panel>  
+                                </p:tab>  
+                                <p:tab id="workspec" title="Work spesific">  
+                                    <p:panel header="Work Details">  
 
-                                <h:messages errorClass="error"/>  
+                                        <h:messages errorClass="error"/>  
 
-                                <h:panelGrid columns="2" columnClasses="label, value">  
-                                    <h:outputText value="Preferd Username *: " />  
-                                    <p:inputText value="#{usersToGroups.bruker.username}"  />  
+                                        <h:panelGrid columns="2" columnClasses="label, value">  
+                                            <h:outputText value="Department *: " />  
+                                            <p:inputText value="#{usersToGroups.bruker.department}" />  
+
+                                            <h:outputText value="Prefered, or root Email : " />  
+                                            <p:inputText value="#{usersToGroups.bruker.email}" />  
+
+                                            <h:outputText value="Additonal Emails(1@test.no, 2@test.no ): " />  
+                                            <p:inputText value="#{usersToGroups.bruker.emailalias}" /> 
+                                            <h:outputText value="Enployment nr(if any): " />  
+                                            <p:inputText value="#{usersToGroups.bruker.employmentnr}" /> 
+                                            <h:outputText value="Itcontact(yes, or no): " />  
+                                            <p:inputText value="#{usersToGroups.bruker.itcontact}" /> 
+                                            <h:outputText value="Mobile (worknumber): " />  
+                                            <p:inputText value="#{usersToGroups.bruker.mobile}" />  
+
+
+                                        </h:panelGrid>  
+                                    </p:panel>  
+                                </p:tab> 
+                                <p:tab id="username" title="Username">  
+                                    <p:panel header="Username Details">  
+
+                                        <h:messages errorClass="error"/>  
+
+                                        <h:panelGrid columns="2" columnClasses="label, value">  
+                                            <h:outputText value="Preferd Username *: " />  
+                                            <p:inputText value="#{usersToGroups.bruker.username}"  />  
 
 
 
-                                </h:panelGrid>  
-                                <p:commandButton value="Submit" update="growl"   
-                                                 actionListener="#{usersToGroups.saveW}" oncomplete="wiz.loadStep(wiz.cfg.steps[0], true)"/>  
+                                        </h:panelGrid>  
+                                        <p:commandButton value="Submit" update="growl"   
+                                                         actionListener="#{usersToGroups.saveW}" oncomplete="wiz.loadStep(wiz.cfg.steps[0], true)"/>  
 
-                            </p:panel>  
-                        </p:tab>  
-                    </p:wizard>
+                                    </p:panel>  
+                                </p:tab>  
+                            </p:wizard>
 
-                </h:form>
+                        </h:form>
+                    </p:tab>
+                    <p:tab id="tab2" title="Edit user">
+                        <h:form id="editForm">
+                            <p:wizard >
+                                <p:panel>
+                                    <p:tab id="chooseuser" title="Create Users">
+                                        <h:panelGrid>
+                                            <h:outputText value="Choose user from list *: " />  
+
+                                        </h:panelGrid>
+                                    </p:tab>
+                                    
+                                    <p:tab id="editChoosen">
+                                        <h:panelGrid columns="2" columnClasses="label, value">
+                                            <h:outputText value="Username: "/>
+                                        </h:panelGrid>
+                                    </p:tab>
+                                </p:panel>
+                            </p:wizard>
+                        </h:form>
+                    </p:tab>
+                </p:tabView>
             </ui:define>
         </ui:composition>
     </h:body>

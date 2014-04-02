@@ -19,7 +19,6 @@ import org.primefaces.event.FlowEvent;
 
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
-import javax.faces.model.DataModel;
 import persistClasses.ProjectsFacade;
 
 /**
@@ -39,7 +38,7 @@ public class newProject implements Serializable {
     private String[] projectTypes = {"V4", "Single Forrest, Single Domain", "Single Forrest, Multiple Domain"};
 
     private List<Projects> projectList;
-    private DataModel items = null;
+  
     
     private void prepareCreate() {
         projects = new Projects();
