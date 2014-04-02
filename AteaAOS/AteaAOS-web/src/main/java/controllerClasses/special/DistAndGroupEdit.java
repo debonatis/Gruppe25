@@ -78,24 +78,24 @@ public class DistAndGroupEdit {
         this.liste = liste;
     }
      public void onEditDIST(RowEditEvent event) {  
-        FacesMessage msg = new FacesMessage("Car Edited", ((DistSecGroupModel) event.getObject()).getGrname());  
+        FacesMessage msg = new FacesMessage("Group Edited", ((DistSecGroupModel) event.getObject()).getGrname());  
   
         FacesContext.getCurrentInstance().addMessage(null, msg);  
     }  
       
     public void onCancelDIST(RowEditEvent event) {  
-        FacesMessage msg = new FacesMessage("Car Cancelled", ((DistSecGroupModel) event.getObject()).getGrname());  
+        FacesMessage msg = new FacesMessage("Group Cancelled", ((DistSecGroupModel) event.getObject()).getGrname());  
   
         FacesContext.getCurrentInstance().addMessage(null, msg);  
     }  
      public void onEditList(RowEditEvent event) {  
-        FacesMessage msg = new FacesMessage("Car Edited", ((Users) event.getObject()).getUsername());  
+        FacesMessage msg = new FacesMessage("User Edited", ((Users) event.getObject()).getUsername());  
   
         FacesContext.getCurrentInstance().addMessage(null, msg);  
     }  
       
     public void onCancelList(RowEditEvent event) {  
-        FacesMessage msg = new FacesMessage("Car Cancelled", ((Users) event.getObject()).getUsername());  
+        FacesMessage msg = new FacesMessage("User Cancelled", ((Users) event.getObject()).getUsername());  
   
         FacesContext.getCurrentInstance().addMessage(null, msg);  
     } 
@@ -104,8 +104,17 @@ public class DistAndGroupEdit {
 
     }
      public void deleteItemDISTUser(DistSecGroupModel g,Users e) {
-        int i =liste.indexOf(g);
+       
+         if(g.isSg()){
+             sgMMF.find(new Groupusers(e.getUsername(), g.getGrname()));
+         } else if (g.isDg()) {
+             dgMMF.find(new Userdistribution(e.getUsername(), g.getGrname()));
+         }       
+         
+         int i =liste.indexOf(g);
         liste.get(i).getUsers().remove(e);
+        
+        
 
     }
     
