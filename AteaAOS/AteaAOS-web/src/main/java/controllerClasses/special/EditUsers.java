@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package controllerClasses.special;
 
 import entityModels.Users;
@@ -12,6 +11,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import org.primefaces.event.FlowEvent;
 
 import persistClasses.UsersFacade;
 
@@ -19,20 +19,19 @@ import persistClasses.UsersFacade;
  *
  * @author Martin
  */
-@ManagedBean (name = "editUsers")
+@ManagedBean(name = "editUsers")
 @ViewScoped
 public class EditUsers {
+
     @EJB
     private UsersFacade uFac;
-    
+
     private List<Users> usersList;
-    
-    
+
     @PostConstruct
-    public void init(){
+    public void init() {
         usersList = uFac.findAll();
     }
-
 
     public List<Users> getUsersList() {
         return usersList;
@@ -41,6 +40,10 @@ public class EditUsers {
     public void setUsersList(List<Users> usersList) {
         this.usersList = usersList;
     }
-    
-    
+
+    public String onFlowProcess(FlowEvent event) {
+
+        return event.getNewStep();
+
+    }
 }

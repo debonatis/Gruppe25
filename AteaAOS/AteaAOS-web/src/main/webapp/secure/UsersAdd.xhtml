@@ -86,24 +86,18 @@
 
                         </h:form>
                     </p:tab>
-                    <p:tab id="tab2" title="Edit user">
+                    <p:tab id="table" title="Edit user">
                         <h:form id="editForm">
-                            <p:wizard >
-                                <p:panel>
-                                    <p:tab id="chooseuser" title="Create Users">
-                                        <h:panelGrid>
-                                            <h:outputText value="Choose user from list *: " />  
+                                    <p:panel >
+                                        <p:poll update="roger" interval="2" listener="true"/>
+                                        <p:dataTable id="roger" value="#{editUsers.usersList}" var="item" cellSeparator="2" paginator="true" rows="10" editable="true">
+                                            <p:column >                                 
+                                                <h:outputText value="#{item.username}" style="font-size: large"/>
+                                            </p:column>
 
-                                        </h:panelGrid>
-                                    </p:tab>
-                                    
-                                    <p:tab id="editChoosen">
-                                        <h:panelGrid columns="2" columnClasses="label, value">
-                                            <h:outputText value="Username: "/>
-                                        </h:panelGrid>
-                                    </p:tab>
-                                </p:panel>
-                            </p:wizard>
+                                        </p:dataTable>
+                                        <p:commandButton value="Refresh" action="#{editUsers.init()}" icon="ui-icon-refresh" update="roger"/>
+                                    </p:panel>
                         </h:form>
                     </p:tab>
                 </p:tabView>
