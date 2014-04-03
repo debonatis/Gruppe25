@@ -76,27 +76,26 @@ public class EditUsers {
     public void onEdit(RowEditEvent event) {
         
         try {
-            Users test = getFacade().find(users.getUsername());
-            test.setFirstname(users.getFirstname());
-            test.setLastname(users.getLastname());  
-            test.setMobile(users.getMobile());
-            test.setEmploymentnr(users.getEmploymentnr());
+            
+            Users test = getFacade().find(((Users)event.getObject()).getUsername());
+            
+            test.setFirstname(((Users)event.getObject()).getFirstname());
+            test.setLastname(((Users)event.getObject()).getLastname());  
+            test.setMobile(((Users)event.getObject()).getMobile());
+            test.setEmploymentnr(((Users)event.getObject()).getEmploymentnr());
             uFac.edit(test);
-            prepareEdit();
 
             FacesMessage msg = new FacesMessage();
             msg.setSeverity(FacesMessage.SEVERITY_INFO);
             msg.setSummary("Project is created");
 
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            prepareEdit();
 
         } catch (Exception e) {
             FacesMessage msg = new FacesMessage();
             msg.setSeverity(FacesMessage.SEVERITY_INFO);
             msg.setSummary("User not edited!");
             msg.setDetail("Maybe faulty inputs?");
-            prepareEdit();
 
             FacesContext.getCurrentInstance().addMessage(null, msg);
 
