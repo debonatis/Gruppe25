@@ -113,17 +113,7 @@ public class DistAndGroupEdit {
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
-    public void onEditList(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("User Edited", ((Users) event.getObject()).getUsername());
-
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-    }
-
-    public void onCancelList(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("User Cancelled", ((Users) event.getObject()).getUsername());
-
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-    }
+    
 
     public void deleteItemDIST(DistSecGroupModel e) {
         if (e.isSg()) {

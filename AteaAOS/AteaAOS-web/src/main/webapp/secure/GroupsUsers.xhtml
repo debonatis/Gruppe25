@@ -146,18 +146,15 @@
                             Users 
                         </f:facet>  
 
-                                <p:ajax event="rowEdit" listener="#{distAndGroupEdit.onEditList}" update=":tabView:form:messages" />  
-                                <p:ajax event="rowEditCancel" listener="#{distAndGroupEdit.onCancelList}" update=":tabView:form:messages" /> 
+                                 
                                 
                                 <p:column headerText="User name" style="width:30%">  
-                            <p:cellEditor>  
+                             
                                 <f:facet name="output">  
                                     <h:outputText value="#{usr.username}" />  
                                 </f:facet>  
-                                <f:facet name="input">  
-                                    <p:inputText value="#{usr.username}" style="width:100%"/>  
-                                </f:facet>  
-                            </p:cellEditor>  
+                               
+                           
                         </p:column> 
                                 <p:column headerText="Delete">
                                 <f:facet name="header">
