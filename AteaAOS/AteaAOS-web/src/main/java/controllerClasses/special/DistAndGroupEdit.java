@@ -41,6 +41,8 @@ public class DistAndGroupEdit {
     @EJB
     private GroupusersFacade sgMMF;
     private List<DistSecGroupModel> liste = new ArrayList<>();
+    private List<Groups> listsg = new ArrayList<>();
+    private List<Distributiongroups> listdg = new ArrayList<>();
     private Groups selectsg = new Groups();
     private Distributiongroups selectdg = new Distributiongroups();
 
@@ -66,6 +68,31 @@ public class DistAndGroupEdit {
             }
             liste.add(new DistSecGroupModel(d.getDisplayname(), false, true, "-", roger));
         }
+     
+    }
+    public void initdg(){
+        listdg = dgF.findAll();
+       
+    }
+    public void initsg(){
+        listsg = gF.findAll();
+       
+    }
+
+    public List<Groups> getListsg() {
+        return listsg;
+    }
+
+    public void setListsg(List<Groups> listsg) {
+        this.listsg = listsg;
+    }
+
+    public List<Distributiongroups> getListdg() {
+        return listdg;
+    }
+
+    public void setListdg(List<Distributiongroups> listdg) {
+        this.listdg = listdg;
     }
 
     public Distributiongroups getSelectdg() {
@@ -100,6 +127,8 @@ public class DistAndGroupEdit {
     public void setListe(List<DistSecGroupModel> liste) {
         this.liste = liste;
     }
+    
+    
 
     public void onEditDIST(RowEditEvent event) {
         FacesMessage msg = new FacesMessage("Group Edited", ((DistSecGroupModel) event.getObject()).getGrname());
