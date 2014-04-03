@@ -131,7 +131,7 @@ public class DistAndGroupEdit {
                 sgMMF.remove(new Groupusers(u.getUsername(), e.getGrname()));
 
             }
-            Groups gru = gF.find(new Groups(e.getGrname()));
+            Groups gru = gF.find(e.getGrname());
             gF.remove(gru);
             
             liste.remove(e);
@@ -140,7 +140,7 @@ public class DistAndGroupEdit {
                 dgMMF.remove(new Userdistribution(u.getUsername(), e.getGrname()));
 
             }
-            Distributiongroups roger = dgF.find(new Distributiongroups(e.getGrname()));
+            Distributiongroups roger = dgF.find(e.getGrname());
             dgF.remove(roger);
             liste.remove(e);
         }
