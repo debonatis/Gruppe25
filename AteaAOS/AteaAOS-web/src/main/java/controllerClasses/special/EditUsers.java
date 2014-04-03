@@ -76,7 +76,12 @@ public class EditUsers {
     public void onEdit(RowEditEvent event) {
         
         try {
-            uFac.edit(users);
+            Users test = getFacade().find(users.getUsername());
+            test.setFirstname(users.getFirstname());
+            test.setLastname(users.getLastname());  
+            test.setMobile(users.getMobile());
+            test.setEmploymentnr(users.getEmploymentnr());
+            uFac.edit(test);
             prepareEdit();
 
             FacesMessage msg = new FacesMessage();
@@ -89,7 +94,7 @@ public class EditUsers {
         } catch (Exception e) {
             FacesMessage msg = new FacesMessage();
             msg.setSeverity(FacesMessage.SEVERITY_INFO);
-            msg.setSummary("Project not created!");
+            msg.setSummary("User not edited!");
             msg.setDetail("Maybe faulty inputs?");
             prepareEdit();
 
