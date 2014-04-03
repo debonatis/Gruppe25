@@ -88,16 +88,73 @@
                     </p:tab>
                     <p:tab id="table" title="Edit user">
                         <h:form id="editForm">
-                                    <p:panel >
-                                        <p:poll update="roger" interval="2" listener="true"/>
-                                        <p:dataTable id="roger" value="#{editUsers.usersList}" var="item" cellSeparator="2" paginator="true" rows="10" editable="true">
-                                            <p:column >                                 
-                                                <h:outputText value="#{item.username}" style="font-size: large"/>
-                                            </p:column>
+                            <p:panel >
+                                <p:poll update="roger" interval="2" listener="true"/>
+                                <p:dataTable id="roger" value="#{editUsers.usersList}" var="item" cellSeparator="2" paginator="true" rows="10" editable="true">
+                                    <p:ajax event="rowEdit" listener="#{editUsers.onEdit}" update=":tabView:form:messages" />  
+                                    <p:ajax event="rowEditCancel" listener="#{editUsers.onCancel}" update=":tabView:form:messages" />
+                                    <p:column headerText="Username" style="width:30%">  
+                                        <p:cellEditor>  
+                                            <f:facet name="output">  
+                                                <h:outputText value="#{item.username}" />  
+                                            </f:facet>  
+                                            <f:facet name="input">  
+                                                <p:inputText value="#{item.username}" style="width:100%"/>  
+                                            </f:facet>  
+                                        </p:cellEditor>  
+                                    </p:column>  
 
-                                        </p:dataTable>
-                                        <p:commandButton value="Refresh" action="#{editUsers.init()}" icon="ui-icon-refresh" update="roger"/>
-                                    </p:panel>
+                                    <p:column headerText="First name" style="width:30%">  
+                                        <p:cellEditor>  
+                                            <f:facet name="output">  
+                                                <h:outputText value="#{item.firstname}" />  
+                                            </f:facet>  
+                                            <f:facet name="input">  
+                                                <p:inputText value="#{item.firstname}" style="width:100%"/>  
+                                            </f:facet>  
+                                        </p:cellEditor>  
+                                    </p:column>
+                                    
+                                    <p:column headerText="Last name" style="width:30%">  
+                                        <p:cellEditor>  
+                                            <f:facet name="output">  
+                                                <h:outputText value="#{item.lastname}" />  
+                                            </f:facet>  
+                                            <f:facet name="input">  
+                                                <p:inputText value="#{item.lastname}" style="width:100%"/>  
+                                            </f:facet>  
+                                        </p:cellEditor>  
+                                    </p:column>
+                                    
+                                    <p:column headerText="Employment number" style="width:30%">  
+                                        <p:cellEditor>  
+                                            <f:facet name="output">  
+                                                <h:outputText value="#{item.employmentnr}" />  
+                                            </f:facet>  
+                                            <f:facet name="input">  
+                                                <p:inputText value="#{item.employmentnr}" style="width:100%"/>  
+                                            </f:facet>  
+                                        </p:cellEditor>  
+                                    </p:column>
+                                    
+                                    <p:column headerText="Mobile" style="width:30%">  
+                                        <p:cellEditor>  
+                                            <f:facet name="output">  
+                                                <h:outputText value="#{item.mobile}" />  
+                                            </f:facet>  
+                                            <f:facet name="input">  
+                                                <p:inputText value="#{item.mobile}" style="width:100%"/>  
+                                            </f:facet>  
+                                        </p:cellEditor>  
+                                    </p:column>
+
+                                    <p:column style="width:6%">  
+                                        <p:rowEditor />  
+                                    </p:column> 
+                                    
+                                </p:dataTable>
+                                <p:commandButton value="Refresh" action="#{editUsers.init()}" icon="ui-icon-refresh" update="roger"/>
+                            </p:panel>
                         </h:form>
                     </p:tab>
                 </p:tabView>
