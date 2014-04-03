@@ -69,10 +69,33 @@ public class EditUsers {
 
     }
 
+    public void prepareEdit(){
+        users = (Users) getItems().getRowData();
+    }
+    
     public void onEdit(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Car Edited", ((Users) event.getObject()).getUsername());
+        
+        try {
+            uFac.edit(users);
+            prepareEdit();
 
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+            FacesMessage msg = new FacesMessage();
+            msg.setSeverity(FacesMessage.SEVERITY_INFO);
+            msg.setSummary("Project is created");
+
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            prepareEdit();
+
+        } catch (Exception e) {
+            FacesMessage msg = new FacesMessage();
+            msg.setSeverity(FacesMessage.SEVERITY_INFO);
+            msg.setSummary("Project not created!");
+            msg.setDetail("Maybe faulty inputs?");
+            prepareEdit();
+
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+
+        }       
     }
 
     public void onCancel(RowEditEvent event) {
@@ -85,6 +108,14 @@ public class EditUsers {
         return uFac;
     }
 
+
+    public DataModel getItems() {
+        if (items == null) {
+            items = getPagination().createPageDataModel();
+        }
+        return items;
+    }
+    
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -101,53 +132,5 @@ public class EditUsers {
             };
         }
         return pagination;
-    }
-
-    public DataModel getItems() {
-        if (items == null) {
-            items = getPagination().createPageDataModel();
-        }
-        return items;
-    }
-
-    public void prepareEdit() {
-        users = (Users) getItems().getRowData();
-    }
-
-    public void update() {
-        try {
-            Users test = new Users(users.getUsername());
-            test.setFirstname(users.getFirstname());
-            test.setLastname(users.getLastname());
-            test.setMobile(users.getMobile());
-            test.setEmploymentnr(users.getEmploymentnr());
-            getFacade().edit(test);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UsersUpdated"));
-        } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-        }
-    }
-    
-    public void save() {
-        try {
-            uFac.edit(users);
-            prepareEdit();
-
-            FacesMessage msg = new FacesMessage();
-            msg.setSeverity(FacesMessage.SEVERITY_INFO);
-            msg.setSummary("Project is created");
-
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            prepareEdit();
-
-        } catch (Exception e) {
-            FacesMessage msg = new FacesMessage();
-            msg.setSeverity(FacesMessage.SEVERITY_INFO);
-            msg.setSummary("User not edited!");
-            msg.setDetail("Maybe faulty inputs?");
-            prepareEdit();
-
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-        }
     }
 }
