@@ -187,6 +187,48 @@
 
                 </h:form> 
         </p:tab>
+    <p:tab id="tab3" title="New Security Group">
+        <p:panel header="Personal Details">  
+              
+                <h:messages errorClass="error"/>  
+                  
+                <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid">  
+                    <h:outputText value="Group Name: *" />  
+                    <p:inputText required="true" label="Group name"  
+                                 value="#{distAndGroupEdit.selectsg.groupname}" />  
+                      
+                    <h:outputText value="Description: *" />  
+                    <p:inputText required="true" label="Description"  
+                                 value="#{distAndGroupEdit.selectsg.description}" />  
+                      
+                    <h:outputText value="Function: " />  
+                    <p:inputText value="#{distAndGroupEdit.selectsg.functions}" />  
+                      
+                    
+                </h:panelGrid>  
+            </p:panel>  
+    </p:tab>
+    <p:tab id="tab4" title="New Distibrution Group">
+        <p:panel header="Personal Details">  
+              
+                <h:messages errorClass="error"/>  
+                  
+                <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid">  
+                    <h:outputText value="Group Name: *" />  
+                    <p:inputText required="true" label="Group name"  
+                                 value="#{distAndGroupEdit.selectdg.displayname}" />  
+                      
+                    <h:outputText value="Email Alias: *" />  
+                    <p:inputText required="true" label="Description"  
+                                 value="#{distAndGroupEdit.selectdg.emailalias}" />  
+                      
+                    <h:outputText value="External(YES|NO): " />  
+                    <p:inputText value="#{distAndGroupEdit.selectdg.externalemail}" />  
+                      
+                    
+                </h:panelGrid>  
+            </p:panel>  
+    </p:tab>
 </p:tabView>
             </ui:define>
 

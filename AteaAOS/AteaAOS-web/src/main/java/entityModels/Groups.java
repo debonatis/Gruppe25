@@ -29,7 +29,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Groups.findAll", query = "SELECT g FROM Groups g"),
     @NamedQuery(name = "Groups.findByGroupname", query = "SELECT g FROM Groups g WHERE g.groupname = :groupname"),
     @NamedQuery(name = "Groups.findByDescription", query = "SELECT g FROM Groups g WHERE g.description = :description"),
-    @NamedQuery(name = "Groups.findByFunctions", query = "SELECT g FROM Groups g WHERE g.functions = :functions")})
+    @NamedQuery(name = "Groups.findByFunctions", query = "SELECT g FROM Groups g WHERE g.functions = :functions"),
+    @NamedQuery(name = "Groups.findByProjectid", query = "SELECT g FROM Groups g WHERE g.projectid = :projectid")})
 public class Groups implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -48,6 +49,11 @@ public class Groups implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "FUNCTIONS")
     private String functions;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "PROJECTID")
+    private String projectid;
 
     public Groups() {
     }
@@ -56,10 +62,11 @@ public class Groups implements Serializable {
         this.groupname = groupname;
     }
 
-    public Groups(String groupname, String description, String functions) {
+    public Groups(String groupname, String description, String functions, String projectid) {
         this.groupname = groupname;
         this.description = description;
         this.functions = functions;
+        this.projectid = projectid;
     }
 
     public String getGroupname() {
@@ -84,6 +91,14 @@ public class Groups implements Serializable {
 
     public void setFunctions(String functions) {
         this.functions = functions;
+    }
+
+    public String getProjectid() {
+        return projectid;
+    }
+
+    public void setProjectid(String projectid) {
+        this.projectid = projectid;
     }
 
     @Override

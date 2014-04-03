@@ -29,7 +29,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Distributiongroups.findAll", query = "SELECT d FROM Distributiongroups d"),
     @NamedQuery(name = "Distributiongroups.findByDisplayname", query = "SELECT d FROM Distributiongroups d WHERE d.displayname = :displayname"),
     @NamedQuery(name = "Distributiongroups.findByEmailalias", query = "SELECT d FROM Distributiongroups d WHERE d.emailalias = :emailalias"),
-    @NamedQuery(name = "Distributiongroups.findByExternalemail", query = "SELECT d FROM Distributiongroups d WHERE d.externalemail = :externalemail")})
+    @NamedQuery(name = "Distributiongroups.findByExternalemail", query = "SELECT d FROM Distributiongroups d WHERE d.externalemail = :externalemail"),
+    @NamedQuery(name = "Distributiongroups.findByProjectid", query = "SELECT d FROM Distributiongroups d WHERE d.projectid = :projectid")})
 public class Distributiongroups implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -48,6 +49,11 @@ public class Distributiongroups implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "EXTERNALEMAIL")
     private String externalemail;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "PROJECTID")
+    private String projectid;
 
     public Distributiongroups() {
     }
@@ -56,10 +62,11 @@ public class Distributiongroups implements Serializable {
         this.displayname = displayname;
     }
 
-    public Distributiongroups(String displayname, String emailalias, String externalemail) {
+    public Distributiongroups(String displayname, String emailalias, String externalemail, String projectid) {
         this.displayname = displayname;
         this.emailalias = emailalias;
         this.externalemail = externalemail;
+        this.projectid = projectid;
     }
 
     public String getDisplayname() {
@@ -84,6 +91,14 @@ public class Distributiongroups implements Serializable {
 
     public void setExternalemail(String externalemail) {
         this.externalemail = externalemail;
+    }
+
+    public String getProjectid() {
+        return projectid;
+    }
+
+    public void setProjectid(String projectid) {
+        this.projectid = projectid;
     }
 
     @Override

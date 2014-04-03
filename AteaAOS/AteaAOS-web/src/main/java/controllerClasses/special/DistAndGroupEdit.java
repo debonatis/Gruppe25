@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package controllerClasses.special;
 
 import controllerClasses.special.model.DistSecGroupModel;
@@ -32,6 +31,7 @@ import persistClasses.UserdistributionFacade;
 @ManagedBean
 @ViewScoped
 public class DistAndGroupEdit {
+
     @EJB
     private DistributiongroupsFacade dgF;
     @EJB
@@ -41,82 +41,120 @@ public class DistAndGroupEdit {
     @EJB
     private GroupusersFacade sgMMF;
     private List<DistSecGroupModel> liste = new ArrayList<>();
-    
-    
-    
-    
-    public void init(){
-      List<Users> roger;
-        for(Groups g :gF.findAll()){
-            roger= new ArrayList<>();
-            for(Groupusers gu : sgMMF.findAll()){
-                if(gu.getGroupusersPK().getUsergroupname().equalsIgnoreCase(g.getGroupname())){
+    private Groups selectsg = new Groups();
+    private Distributiongroups selectdg = new Distributiongroups();
+
+    public void init() {
+        List<Users> roger;
+        for (Groups g : gF.findAll()) {
+            roger = new ArrayList<>();
+            for (Groupusers gu : sgMMF.findAll()) {
+                if (gu.getGroupusersPK().getUsergroupname().equalsIgnoreCase(g.getGroupname())) {
                     roger.add(new Users(gu.getGroupusersPK().getUsername()));
-                    
+
                 }
             }
             liste.add(new DistSecGroupModel(g.getGroupname(), true, false, "-", roger));
         }
-        for(Distributiongroups d :dgF.findAll()){
-            roger= new ArrayList<>();
-            for(Userdistribution du : dgMMF.findAll()){
-                if(du.getUserdistributionPK().getDisplayname().equalsIgnoreCase(d.getDisplayname())){
+        for (Distributiongroups d : dgF.findAll()) {
+            roger = new ArrayList<>();
+            for (Userdistribution du : dgMMF.findAll()) {
+                if (du.getUserdistributionPK().getDisplayname().equalsIgnoreCase(d.getDisplayname())) {
                     roger.add(new Users(du.getUserdistributionPK().getUsername()));
-                    
+
                 }
             }
             liste.add(new DistSecGroupModel(d.getDisplayname(), false, true, "-", roger));
         }
     }
 
+    public Distributiongroups getSelectdg() {
+        return selectdg;
+    }
+
+    public void setSelectdg(Distributiongroups selectdg) {
+        this.selectdg = selectdg;
+    }
+    
+    private void saveSelectdg89(){
+    dgF.create(selectdg);
+    selectdg = new Distributiongroups();
+}
+
+    public Groups getSelectsg() {
+        return selectsg;
+    }
+
+    public void setSelectsg(Groups select) {
+        this.selectsg = select;
+    }
+    public void saveSelectsg(){
+        gF.create(selectsg);
+        selectsg = new Groups();
+    }
+
     public List<DistSecGroupModel> getListe() {
         return liste;
     }
-    
 
     public void setListe(List<DistSecGroupModel> liste) {
         this.liste = liste;
     }
-     public void onEditDIST(RowEditEvent event) {  
-        FacesMessage msg = new FacesMessage("Group Edited", ((DistSecGroupModel) event.getObject()).getGrname());  
-  
-        FacesContext.getCurrentInstance().addMessage(null, msg);  
-    }  
-      
-    public void onCancelDIST(RowEditEvent event) {  
-        FacesMessage msg = new FacesMessage("Group Cancelled", ((DistSecGroupModel) event.getObject()).getGrname());  
-  
-        FacesContext.getCurrentInstance().addMessage(null, msg);  
-    }  
-     public void onEditList(RowEditEvent event) {  
-        FacesMessage msg = new FacesMessage("User Edited", ((Users) event.getObject()).getUsername());  
-  
-        FacesContext.getCurrentInstance().addMessage(null, msg);  
-    }  
-      
-    public void onCancelList(RowEditEvent event) {  
-        FacesMessage msg = new FacesMessage("User Cancelled", ((Users) event.getObject()).getUsername());  
-  
-        FacesContext.getCurrentInstance().addMessage(null, msg);  
-    } 
-     public void deleteItemDIST(DistSecGroupModel e) {
-        liste.remove(e);
+
+    public void onEditDIST(RowEditEvent event) {
+        FacesMessage msg = new FacesMessage("Group Edited", ((DistSecGroupModel) event.getObject()).getGrname());
+
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void onCancelDIST(RowEditEvent event) {
+        FacesMessage msg = new FacesMessage("Group Cancelled", ((DistSecGroupModel) event.getObject()).getGrname());
+
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void onEditList(RowEditEvent event) {
+        FacesMessage msg = new FacesMessage("User Edited", ((Users) event.getObject()).getUsername());
+
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void onCancelList(RowEditEvent event) {
+        FacesMessage msg = new FacesMessage("User Cancelled", ((Users) event.getObject()).getUsername());
+
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void deleteItemDIST(DistSecGroupModel e) {
+        if (e.isSg()) {
+            for (Users u : e.getUsers()) {
+                sgMMF.remove(new Groupusers(u.getUsername(), e.getGrname()));
+
+            }
+            gF.remove(new Groups(e.getGrname()));
+            liste.remove(e);
+        } else if (e.isDg()) {
+            for (Users u : e.getUsers()) {
+                dgMMF.remove(new Userdistribution(u.getUsername(), e.getGrname()));
+
+            }
+            dgF.remove(new Distributiongroups(e.getGrname()));
+            liste.remove(e);
+        }
 
     }
-     public void deleteItemDISTUser(DistSecGroupModel g,Users e) {
-       
-         if(g.isSg()){
-             sgMMF.find(new Groupusers(e.getUsername(), g.getGrname()));
-         } else if (g.isDg()) {
-             dgMMF.find(new Userdistribution(e.getUsername(), g.getGrname()));
-         }       
-         
-         int i =liste.indexOf(g);
+
+    public void deleteItemDISTUser(DistSecGroupModel g, Users e) {
+
+        if (g.isSg()) {
+            sgMMF.remove(new Groupusers(e.getUsername(), g.getGrname()));
+        } else if (g.isDg()) {
+            dgMMF.remove(new Userdistribution(e.getUsername(), g.getGrname()));
+        }
+
+        int i = liste.indexOf(g);
         liste.get(i).getUsers().remove(e);
-        
-        
 
     }
-    
-    
+
 }
