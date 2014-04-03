@@ -131,14 +131,17 @@ public class DistAndGroupEdit {
                 sgMMF.remove(new Groupusers(u.getUsername(), e.getGrname()));
 
             }
-            gF.remove(new Groups(e.getGrname()));
+            Groups gru = gF.find(new Groups(e.getGrname()));
+            gF.remove(gru);
+            
             liste.remove(e);
         } else if (e.isDg()) {
             for (Users u : e.getUsers()) {
                 dgMMF.remove(new Userdistribution(u.getUsername(), e.getGrname()));
 
             }
-            dgF.remove(new Distributiongroups(e.getGrname()));
+            Distributiongroups roger = dgF.find(new Distributiongroups(e.getGrname()));
+            dgF.remove(roger);
             liste.remove(e);
         }
 
