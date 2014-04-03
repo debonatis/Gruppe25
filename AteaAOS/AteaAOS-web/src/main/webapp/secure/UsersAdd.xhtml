@@ -89,10 +89,10 @@
                     <p:tab id="table" title="Edit user">
                         <h:form id="editForm">
                             <p:panel >
-                                <p:poll update="roger" interval="2" listener="true"/>
+                                <p:growl id="messages" showDetail="true"/> 
                                 <p:dataTable id="roger" value="#{editUsers.usersList}" var="item" cellSeparator="2" paginator="true" rows="10" editable="true">
-                                    <p:ajax event="rowEdit" listener="#{editUsers.onEdit}" update=":tabView:form:messages" />  
-                                    <p:ajax event="rowEditCancel" listener="#{editUsers.onCancel}" update=":tabView:form:messages" />
+                                    <p:ajax event="rowEdit" listener="#{editUsers.onEdit}" update=":tabView:editForm:messages" />  
+                                    <p:ajax event="rowEditCancel" listener="#{editUsers.onCancel}" update=":tabView:editForm:messages" />
                                     <p:column headerText="Username" style="width:30%">  
                                         <p:cellEditor>  
                                             <f:facet name="output">  
@@ -153,7 +153,7 @@
                                     </p:column> 
                                     
                                 </p:dataTable>
-                                <p:commandButton value="Refresh" action="#{editUsers.init()}" icon="ui-icon-refresh" update="roger"/>
+                                <p:commandButton value="Refresh" action="#{editUsers.save()}" update="roger"/>
                             </p:panel>
                         </h:form>
                     </p:tab>
