@@ -122,6 +122,7 @@ public class EditUsers {
             msg.setSummary("Project is created");
 
             FacesContext.getCurrentInstance().addMessage(null, msg);
+            prepareEdit();
 
         } catch (Exception e) {
             FacesMessage msg = new FacesMessage();
