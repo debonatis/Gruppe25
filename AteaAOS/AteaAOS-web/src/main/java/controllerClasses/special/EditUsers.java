@@ -114,14 +114,17 @@ public class EditUsers {
         users = (Users) getItems().getRowData();
     }
 
-    public String update() {
+    public void update() {
         try {
-            getFacade().edit(users);
+            Users test = new Users(users.getUsername());
+            test.setFirstname(users.getFirstname());
+            test.setLastname(users.getLastname());
+            test.setMobile(users.getMobile());
+            test.setEmploymentnr(users.getEmploymentnr());
+            getFacade().edit(test);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UsersUpdated"));
-            return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-            return null;
         }
     }
     
