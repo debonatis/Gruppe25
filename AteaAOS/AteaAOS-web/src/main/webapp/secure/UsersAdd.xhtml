@@ -93,7 +93,9 @@
                                 <p:dataTable id="roger" value="#{editUsers.usersList}" var="item" cellSeparator="2" paginator="true" rows="10" editable="true">
                                     <p:ajax event="rowEdit" listener="#{editUsers.onEdit}" update=":tabView:editForm:messages" />  
                                     <p:ajax event="rowEditCancel" listener="#{editUsers.onCancel}" update=":tabView:editForm:messages" />
-                                    <p:column headerText="Username" style="width:30%">  
+
+                                    <p:column headerText="Username" style="width:30%" 
+                                              id="modelColumn" filterBy="username" filterMatchMode="contains">   
                                         <p:cellEditor>  
                                             <f:facet name="output">  
                                                 <h:outputText value="#{item.username}" />  
@@ -114,7 +116,7 @@
                                             </f:facet>  
                                         </p:cellEditor>  
                                     </p:column>
-                                    
+
                                     <p:column headerText="Last name" style="width:30%">  
                                         <p:cellEditor>  
                                             <f:facet name="output">  
@@ -125,7 +127,7 @@
                                             </f:facet>  
                                         </p:cellEditor>  
                                     </p:column>
-                                    
+
                                     <p:column headerText="Employment number" style="width:30%">  
                                         <p:cellEditor>  
                                             <f:facet name="output">  
@@ -136,7 +138,7 @@
                                             </f:facet>  
                                         </p:cellEditor>  
                                     </p:column>
-                                    
+
                                     <p:column headerText="Mobile" style="width:30%">  
                                         <p:cellEditor>  
                                             <f:facet name="output">  
@@ -151,9 +153,9 @@
                                     <p:column style="width:6%">  
                                         <p:rowEditor />  
                                     </p:column> 
-                                    
+
                                 </p:dataTable>
-                                <p:commandButton value="Refresh" action="#{editUsers.save()}" update="roger"/>
+                                <p:commandButton value="Update" action="#{editUsers.update}" update="roger"/>
                             </p:panel>
                         </h:form>
                     </p:tab>

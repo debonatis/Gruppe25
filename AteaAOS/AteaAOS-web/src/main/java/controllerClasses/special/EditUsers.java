@@ -5,9 +5,11 @@
  */
 package controllerClasses.special;
 
+import controllerClasses.util.JsfUtil;
 import controllerClasses.util.PaginationHelper;
 import entityModels.Users;
 import java.util.List;
+import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -36,7 +38,7 @@ public class EditUsers {
     private ProjectsFacade pFac;
 
     private List<Users> liste;
-    private Users users = new Users();
+    private Users users;
     private DataModel items = null;
     private PaginationHelper pagination;
 
@@ -112,6 +114,15 @@ public class EditUsers {
         users = (Users) getItems().getRowData();
     }
 
+    public void update() {
+        try {
+            getFacade().edit(users);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UsersUpdated"));
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+        }
+    }
+    
     public void save() {
         try {
             uFac.edit(users);
