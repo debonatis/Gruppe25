@@ -114,6 +114,8 @@ public class DistAndGroupEdit {
     }
 
     private void saveSelectdg() {
+        Object projectID = new Object();
+        selectdg.setProjectid(FacesContext.getCurrentInstance().getAttributes().get(projectID).toString());
         dgF.create(selectdg);
         selectdg = new Distributiongroups();
     }
