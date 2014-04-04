@@ -81,14 +81,6 @@ public class DistAndGroupEdit {
 
     }
 
-    public void savesg() {
-
-    }
-
-    public void savedg() {
-
-    }
-
     public List<Groups> getListsg() {
         return listsg;
     }
@@ -114,8 +106,8 @@ public class DistAndGroupEdit {
     }
 
     public void saveSelectdg() {
-        
-        selectdg.setProjectid(((String)FacesContext.getCurrentInstance().getAttributes().get("projectID")));
+
+        selectdg.setProjectid(((String) FacesContext.getCurrentInstance().getAttributes().get("projectID")));
         dgF.create(selectdg);
         selectdg = new Distributiongroups();
     }
@@ -129,8 +121,8 @@ public class DistAndGroupEdit {
     }
 
     public void saveSelectsg() {
-        
-        selectsg.setProjectid(((String)FacesContext.getCurrentInstance().getAttributes().get("projectID")));
+
+        selectsg.setProjectid(((String) FacesContext.getCurrentInstance().getAttributes().get("projectID")));
         gF.create(selectsg);
         selectsg = new Groups();
     }
