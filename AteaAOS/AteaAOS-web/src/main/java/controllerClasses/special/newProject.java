@@ -83,7 +83,7 @@ private ProjectsListModel selectList;
     }
 
     public newProject() {
-        List<Projects> projectListT;
+        List<Projects> projectListT = new ArrayList<>();
         projectListT = projectsEJB.findAll();
         for(Projects p:projectListT){
             projectList.add(new ProjectModel(p, false));
