@@ -148,3 +148,10 @@ tr.jsfcrud_even_row {
     font-family: "Segoe UI Light","Segoe WPC","Segoe UI",
         Helvetica, Arial, "Arial Unicode MS", Sans-Serif;
 }
+
+topBar{
+    background-position: 0% 0%;
+    position: fixed;
+    color: black;
+}
+
