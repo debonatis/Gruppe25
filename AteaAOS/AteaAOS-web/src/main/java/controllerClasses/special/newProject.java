@@ -42,6 +42,7 @@ public class newProject implements Serializable {
 private ProjectsListModel selectList;
     private List<ProjectModel> projectList = new ArrayList<>();
     private ProjectModel selected = new ProjectModel();
+    List<Projects> projectListT = new ArrayList<>();
 
     public ProjectModel getSelected() {
         return selected;
@@ -83,7 +84,7 @@ private ProjectsListModel selectList;
     }
 
     public newProject() {
-        List<Projects> projectListT = new ArrayList<>();
+        
         projectListT = projectsEJB.findAll();
         for(Projects p:projectListT){
             projectList.add(new ProjectModel(p, false));
