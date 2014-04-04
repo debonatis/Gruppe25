@@ -117,6 +117,10 @@ public class DistAndGroupEdit {
     }
 
     public Groups getSelectsg() {
+        if (selectsg == null) {
+            selectsg = new Groups();
+            
+        }
         return selectsg;
     }
 
