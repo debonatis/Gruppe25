@@ -189,7 +189,7 @@
 
                             <h:messages errorClass="error"/>  
 
-                            <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid">  
+                            <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid" id="sgDetail">  
                                 <h:outputText value="Group Name: *" />  
                                 <p:inputText required="true" label="Group name"  
                                              value="#{distAndGroupEdit.selectsg.groupname}" />  
@@ -203,6 +203,7 @@
 
 
                             </h:panelGrid>  
+                            <p:commandButton value="Save" action="#{distAndGroupEdit.savesg()}" icon="ui-icon-save" update="sgDetail"/>
                         </p:panel>  
                          <p:panel header="Security Group List">
                             <p:dataTable var="sg" value="#{distAndGroupEdit.listsg}" id="sgList" >  
@@ -248,7 +249,7 @@
 
                             <h:messages errorClass="error"/>  
 
-                            <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid">  
+                            <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid" id="dgDetail">  
                                 <h:outputText value="Group Name: *" />  
                                 <p:inputText required="true" label="Group name"  
                                              value="#{distAndGroupEdit.selectdg.displayname}" />  
@@ -262,6 +263,7 @@
 
 
                             </h:panelGrid>  
+                            <p:commandButton value="Save" action="#{distAndGroupEdit.savedg()}" icon="ui-icon-save" update="dgDetail"/>
                         </p:panel>  
                         <p:panel header="Distibrution Group List">
                             <p:dataTable var="dg" value="#{distAndGroupEdit.listdg}" id="dgList" >  
