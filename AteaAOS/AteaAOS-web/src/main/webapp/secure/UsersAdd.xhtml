@@ -99,16 +99,8 @@
                                         <p:rowEditor  />  
                                     </p:column> 
 
-                                    <p:column headerText="Username" style="width:30%" 
-                                              id="usernameColumn" filterBy="username" filterMatchMode="contains">   
-                                        <p:cellEditor>  
-                                            <f:facet name="output">  
-                                                <h:outputText value="#{item.username}" />  
-                                            </f:facet>  
-                                            <f:facet name="input">  
-                                                <p:inputText value="#{item.username}" style="width:100%"/>  
-                                            </f:facet>  
-                                        </p:cellEditor>  
+                                    <p:column headerText="Username" style="width:30%" >
+                                        <h:outputText value="#{item.username}" />
                                     </p:column>  
 
                                     <p:column headerText="First name" style="width:30%" 
