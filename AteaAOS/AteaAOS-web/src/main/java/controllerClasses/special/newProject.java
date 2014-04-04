@@ -96,9 +96,9 @@ private ProjectsListModel selectList;
     
     
     public void init(){
-        List<Projects> projectListT;
+       
         projectListT = projectsEJB.findAll();
-        for(Projects p:projectListT){
+        for(Projects p : projectListT){
             projectList.add(new ProjectModel(p, false));
         }
         projectList.get(projectList.size()-1).setSel(true);
