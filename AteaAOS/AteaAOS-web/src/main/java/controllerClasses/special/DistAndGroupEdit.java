@@ -113,7 +113,7 @@ public class DistAndGroupEdit {
         this.selectdg = selectdg;
     }
 
-    private void saveSelectdg() {
+    public void saveSelectdg() {
         Object projectID = new Object();
         selectdg.setProjectid(FacesContext.getCurrentInstance().getAttributes().get(projectID).toString());
         dgF.create(selectdg);

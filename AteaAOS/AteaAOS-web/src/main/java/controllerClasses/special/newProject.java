@@ -5,7 +5,6 @@
  */
 package controllerClasses.special;
 
-
 import controllerClasses.special.model.ProjectsListModel;
 import entityModels.Projects;
 import java.io.Serializable;
@@ -40,7 +39,7 @@ public class newProject implements Serializable {
     private static final Logger logger = Logger.getLogger(Projects.class.getName());
     private String[] projectTypes = {"V4", "Single Forrest, Single Domain", "Single Forrest, Multiple Domain"};
     private ProjectsListModel selectList = new ProjectsListModel();
-    
+
     private Projects selected = new Projects();
     private List<Projects> projectListT = new ArrayList<>();
 
@@ -49,9 +48,10 @@ public class newProject implements Serializable {
     }
 
     public void setSelected(Projects selected) {
+
+        this.selected = selected;
         Object projectID = new Object();
         FacesContext.getCurrentInstance().getAttributes().put(projectID, selected.getProjectid());
-        this.selected = selected;
     }
 
     private void prepareCreate() {
@@ -73,8 +73,6 @@ public class newProject implements Serializable {
     public void setProjects(Object projects) {
         this.projects = (Projects) projects;
     }
-
-    
 
     @PostConstruct
     public void init() {
