@@ -114,8 +114,8 @@ public class DistAndGroupEdit {
     }
 
     public void saveSelectdg() {
-        Object projectID = new Object();
-        selectdg.setProjectid(FacesContext.getCurrentInstance().getAttributes().get(projectID).toString());
+        
+        selectdg.setProjectid(((String)FacesContext.getCurrentInstance().getAttributes().get("projectID")));
         dgF.create(selectdg);
         selectdg = new Distributiongroups();
     }
@@ -129,8 +129,8 @@ public class DistAndGroupEdit {
     }
 
     public void saveSelectsg() {
-        Object projectID = new Object();
-        selectsg.setProjectid(FacesContext.getCurrentInstance().getAttributes().get(projectID).toString());
+        
+        selectsg.setProjectid(((String)FacesContext.getCurrentInstance().getAttributes().get("projectID")));
         gF.create(selectsg);
         selectsg = new Groups();
     }
