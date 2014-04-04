@@ -6,6 +6,7 @@
 package controllerClasses.special;
 
 import controllerClasses.special.model.ProjectModel;
+import controllerClasses.special.model.ProjectsListModel;
 import entityModels.Projects;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class newProject implements Serializable {
     private Projects projects = new Projects();
     private static final Logger logger = Logger.getLogger(Projects.class.getName());
     private String[] projectTypes = {"V4", "Single Forrest, Single Domain", "Single Forrest, Multiple Domain"};
-
+private ProjectsListModel selectList;
     private List<ProjectModel> projectList = new ArrayList<>();
     private ProjectModel selected = new ProjectModel();
 
@@ -90,13 +91,23 @@ public class newProject implements Serializable {
         for(Projects p:projectListT){
             projectList.add(new ProjectModel(p, false));
         }
-        projectList.get(projectList.size()).setSel(true);
+        projectList.get(projectList.size()-1).setSel(true);
+        selectList = new ProjectsListModel(projectList);
     }
 
     private UUID getUUID() {
         UUID idOne = UUID.randomUUID();
         return idOne;
     }
+
+    public ProjectsListModel getSelectList() {
+        return selectList;
+    }
+
+    public void setSelectList(ProjectsListModel selectList) {
+        this.selectList = selectList;
+    }
+    
 
     public void save() {
         try {
