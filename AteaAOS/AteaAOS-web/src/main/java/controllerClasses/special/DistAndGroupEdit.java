@@ -68,15 +68,25 @@ public class DistAndGroupEdit {
             }
             liste.add(new DistSecGroupModel(d.getDisplayname(), false, true, "-", roger));
         }
-     
+
     }
-    public void initdg(){
+
+    public void initdg() {
         listdg = dgF.findAll();
-       
+
     }
-    public void initsg(){
+
+    public void initsg() {
         listsg = gF.findAll();
-       
+
+    }
+
+    public void savesg() {
+
+    }
+
+    public void savedg() {
+
     }
 
     public List<Groups> getListsg() {
@@ -102,11 +112,11 @@ public class DistAndGroupEdit {
     public void setSelectdg(Distributiongroups selectdg) {
         this.selectdg = selectdg;
     }
-    
-    private void saveSelectdg89(){
-    dgF.create(selectdg);
-    selectdg = new Distributiongroups();
-}
+
+    private void saveSelectdg89() {
+        dgF.create(selectdg);
+        selectdg = new Distributiongroups();
+    }
 
     public Groups getSelectsg() {
         return selectsg;
@@ -115,7 +125,8 @@ public class DistAndGroupEdit {
     public void setSelectsg(Groups select) {
         this.selectsg = select;
     }
-    public void saveSelectsg(){
+
+    public void saveSelectsg() {
         gF.create(selectsg);
         selectsg = new Groups();
     }
@@ -127,8 +138,6 @@ public class DistAndGroupEdit {
     public void setListe(List<DistSecGroupModel> liste) {
         this.liste = liste;
     }
-    
-    
 
     public void onEditDIST(RowEditEvent event) {
         FacesMessage msg = new FacesMessage("Group Edited", ((DistSecGroupModel) event.getObject()).getGrname());
@@ -142,8 +151,6 @@ public class DistAndGroupEdit {
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
-    
-
     public void deleteItemDIST(DistSecGroupModel e) {
         if (e.isSg()) {
             for (Users u : e.getUsers()) {
@@ -152,7 +159,7 @@ public class DistAndGroupEdit {
             }
             Groups gru = gF.find(e.getGrname());
             gF.remove(gru);
-            
+
             liste.remove(e);
         } else if (e.isDg()) {
             for (Users u : e.getUsers()) {
