@@ -82,9 +82,19 @@ private ProjectsListModel selectList;
         this.projectList = projectList;
     }
 
+    public newProject() {
+        List<Projects> projectListT;
+        projectListT = projectsEJB.findAll();
+        for(Projects p:projectListT){
+            projectList.add(new ProjectModel(p, false));
+        }
+        projectList.get(projectList.size()-1).setSel(true);
+        selectList = new ProjectsListModel(projectList);
+    }
+
     
     
-    @PostConstruct
+    
     public void init(){
         List<Projects> projectListT;
         projectListT = projectsEJB.findAll();
