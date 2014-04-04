@@ -43,8 +43,8 @@ public class DistAndGroupEdit {
     private List<DistSecGroupModel> liste = new ArrayList<>();
     private List<Groups> listsg = new ArrayList<>();
     private List<Distributiongroups> listdg = new ArrayList<>();
-    private Groups selectsg = new Groups();
-    private Distributiongroups selectdg = new Distributiongroups();
+    private Groups selectsg;
+    private Distributiongroups selectdg;
 
     public void init() {
         List<Users> roger;
@@ -98,6 +98,10 @@ public class DistAndGroupEdit {
     }
 
     public Distributiongroups getSelectdg() {
+        if (selectdg == null) {
+            selectdg = new Distributiongroups();
+            
+        }
         return selectdg;
     }
 
