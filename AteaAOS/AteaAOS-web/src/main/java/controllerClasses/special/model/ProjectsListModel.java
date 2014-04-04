@@ -6,6 +6,7 @@
 
 package controllerClasses.special.model;
 
+import entityModels.Projects;
 import java.util.List;
 import javax.faces.model.ListDataModel;
 import org.primefaces.model.SelectableDataModel;
@@ -14,23 +15,23 @@ import org.primefaces.model.SelectableDataModel;
  *
  * @author simond
  */
-public class ProjectsListModel extends ListDataModel<ProjectModel> implements SelectableDataModel<ProjectModel> {    
+public class ProjectsListModel extends ListDataModel<Projects> implements SelectableDataModel<Projects> {    
   
     public ProjectsListModel() {  
     }  
   
-    public ProjectsListModel(List<ProjectModel> data) {  
+    public ProjectsListModel(List<Projects> data) {  
         super(data);  
     }  
       
     @Override  
-    public ProjectModel getRowData(String rowKey) {  
+    public Projects getRowData(String rowKey) {  
         //In a real app, a more efficient way like a query by rowKey should be implemented to deal with huge data  
           
-        List<ProjectModel> projects = (List<ProjectModel>) getWrappedData();  
+        List<Projects> projects = (List<Projects>) getWrappedData();  
           
-        for(ProjectModel pr : projects) {  
-            if(pr.getPro().getProjectid().equals(rowKey))  
+        for(Projects pr : projects) {  
+            if(pr.getName().equals(rowKey))  
                 return pr;  
         }  
           
@@ -38,7 +39,7 @@ public class ProjectsListModel extends ListDataModel<ProjectModel> implements Se
     }  
   
     @Override  
-    public Object getRowKey(ProjectModel pr) {  
-        return pr.getPro().getName();  
+    public Object getRowKey(Projects pr) {  
+        return pr.getName();
     }  
 }  

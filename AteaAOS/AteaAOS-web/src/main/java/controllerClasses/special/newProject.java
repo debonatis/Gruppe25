@@ -5,7 +5,7 @@
  */
 package controllerClasses.special;
 
-import controllerClasses.special.model.ProjectModel;
+
 import controllerClasses.special.model.ProjectsListModel;
 import entityModels.Projects;
 import java.io.Serializable;
@@ -40,17 +40,17 @@ public class newProject implements Serializable {
     private static final Logger logger = Logger.getLogger(Projects.class.getName());
     private String[] projectTypes = {"V4", "Single Forrest, Single Domain", "Single Forrest, Multiple Domain"};
     private ProjectsListModel selectList = new ProjectsListModel();
-    private List<ProjectModel> projectList = new ArrayList<>();
-    private ProjectModel selected = new ProjectModel();
+    
+    private Projects selected = new Projects();
     private List<Projects> projectListT = new ArrayList<>();
 
-    public ProjectModel getSelected() {
+    public Projects getSelected() {
         return selected;
     }
 
-    public void setSelected(ProjectModel selected) {
+    public void setSelected(Projects selected) {
         Object projectID = new Object();
-        FacesContext.getCurrentInstance().getAttributes().put(projectID, selected.getPro().getProjectid());
+        FacesContext.getCurrentInstance().getAttributes().put(projectID, selected.getProjectid());
         this.selected = selected;
     }
 
@@ -74,23 +74,14 @@ public class newProject implements Serializable {
         this.projects = (Projects) projects;
     }
 
-    public List<ProjectModel> getProjectList() {
-        return projectList;
-    }
-
-    public void setProjectList(List<ProjectModel> projectList) {
-        this.projectList = projectList;
-    }
+    
 
     @PostConstruct
     public void init() {
 
         projectListT = projectsEJB.findAll();
-        for (Projects p : projectListT) {
-            projectList.add(new ProjectModel(p, false));
-        }
-        projectList.get(projectList.size() - 1).setSel(true);
-        selectList = new ProjectsListModel(projectList);
+
+        selectList = new ProjectsListModel(projectListT);
     }
 
     private UUID getUUID() {
