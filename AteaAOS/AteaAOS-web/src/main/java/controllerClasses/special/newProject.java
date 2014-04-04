@@ -8,6 +8,7 @@ package controllerClasses.special;
 import controllerClasses.special.model.ProjectModel;
 import entityModels.Projects;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -38,7 +39,7 @@ public class newProject implements Serializable {
     private static final Logger logger = Logger.getLogger(Projects.class.getName());
     private String[] projectTypes = {"V4", "Single Forrest, Single Domain", "Single Forrest, Multiple Domain"};
 
-    private List<ProjectModel> projectList;
+    private List<ProjectModel> projectList = new ArrayList<>();
     private ProjectModel selected = new ProjectModel();
 
     public ProjectModel getSelected() {
