@@ -183,10 +183,14 @@
                             <p:commandButton value="Refresh" action="#{distAndGroupEdit.init()}" icon="ui-icon-refresh" update="carList"/>
 
                         </h:form> 
+
+
                     </p:tab>
+
                     <p:tab id="tab3" title="New Security Group">
-                        <p:panel header="Details">  
-                            <h:form>
+                        <h:form>
+
+                            <p:panel header="Details">  
                                 <h:messages errorClass="error"/>  
 
                                 <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid" id="sgDetail">  
@@ -205,108 +209,116 @@
                                     <p:commandButton value="Save" action="#{distAndGroupEdit.saveSelectsg()}" icon="ui-icon-disk" />
 
                                 </h:panelGrid> 
-                            </h:form>  
-
-                        </p:panel>  
-                        <p:panel header="Security Group List">
-                            <p:dataTable var="sg" value="#{distAndGroupEdit.listsg}" id="sgList" >  
-
-                                <f:facet name="header">  
-                                    Groups 
-                                </f:facet>  
 
 
+                            </p:panel>  
+                            <p:panel header="Security Group List">
+                                <p:dataTable var="sg" value="#{distAndGroupEdit.listsg}" id="sgList" >  
 
-                                <p:column headerText="Group Name" style="width:30%">  
-
-                                    <f:facet name="output">  
-                                        <h:outputText value="#{sg.groupname}" />  
+                                    <f:facet name="header">  
+                                        Groups 
                                     </f:facet>  
 
 
-                                </p:column> 
-                                <p:column headerText="Functions" style="width:30%">  
 
-                                    <f:facet name="output">  
-                                        <h:outputText value="#{sg.functions}" />  
-                                    </f:facet>  
+                                    <p:column headerText="Group Name" style="width:30%">  
 
-
-                                </p:column> 
-                                <p:column headerText="Description" style="width:30%">  
-
-                                    <f:facet name="output">  
-                                        <h:outputText value="#{sg.description}" />  
-                                    </f:facet>  
+                                        <f:facet name="output">  
+                                            <h:outputText value="#{sg.groupname}" />  
+                                        </f:facet>  
 
 
-                                </p:column> 
+                                    </p:column> 
+                                    <p:column headerText="Functions" style="width:30%">  
 
-                            </p:dataTable> 
-                            <p:commandButton value="Refresh" action="#{distAndGroupEdit.initsg()}" icon="ui-icon-refresh" update="sgList"/>
+                                        <f:facet name="output">  
+                                            <h:outputText value="#{sg.functions}" />  
+                                        </f:facet>  
 
-                        </p:panel>
+
+                                    </p:column> 
+                                    <p:column headerText="Description" style="width:30%">  
+
+                                        <f:facet name="output">  
+                                            <h:outputText value="#{sg.description}" />  
+                                        </f:facet>  
+
+
+                                    </p:column> 
+
+                                </p:dataTable> 
+                                <p:commandButton value="Refresh" action="#{distAndGroupEdit.initsg()}" icon="ui-icon-refresh" update="sgList"/>
+
+                            </p:panel>
+                        </h:form>
+
                     </p:tab>
                     <p:tab id="tab4" title="New Distibrution Group">
-                        <p:panel header="Details">  
-                            <h:form>
-                            <h:messages errorClass="error"/>  
+                        <h:form>
 
-                            <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid" id="dgDetail">  
-                                <h:outputText value="Group Name: *" />  
-                                <p:inputText required="true" label="Group name"  
-                                             value="#{distAndGroupEdit.selectdg.displayname}" />  
+                            <p:panel header="Details">  
 
-                                <h:outputText value="Email Alias: *" />  
-                                <p:inputText required="true" label="Description"  
-                                             value="#{distAndGroupEdit.selectdg.emailalias}" />  
+                                <h:messages errorClass="error"/>  
 
-                                <h:outputText value="External(YES|NO): " />  
-                                <p:inputText value="#{distAndGroupEdit.selectdg.externalemail}" />  
+                                <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid" id="dgDetail">  
+                                    <h:outputText value="Group Name: *" />  
+                                    <p:inputText required="true" label="Group name"  
+                                                 value="#{distAndGroupEdit.selectdg.displayname}" />  
 
-                                <p:commandButton value="Save" action="#{distAndGroupEdit.saveSelectdg()}" icon="ui-icon-disk" />
-                            </h:panelGrid>  
-                            </h:form>
+                                    <h:outputText value="Email Alias: *" />  
+                                    <p:inputText required="true" label="Description"  
+                                                 value="#{distAndGroupEdit.selectdg.emailalias}" />  
 
-                        </p:panel>  
-                        <p:panel header="Distibrution Group List">
-                            <p:dataTable var="dg" value="#{distAndGroupEdit.listdg}" id="dgList" >  
+                                    <h:outputText value="External(YES|NO): " />  
+                                    <p:inputText value="#{distAndGroupEdit.selectdg.externalemail}" />  
 
-                                <f:facet name="header">  
-                                    Groups 
-                                </f:facet>  
+                                    <p:commandButton value="Save" action="#{distAndGroupEdit.saveSelectdg()}" icon="ui-icon-disk" />
+                                </h:panelGrid>  
 
 
+                            </p:panel>  
+                            <p:panel header="Distibrution Group List">
+                                <p:dataTable var="dg" value="#{distAndGroupEdit.listdg}" id="dgList" >  
 
-                                <p:column headerText="Group Name" style="width:30%">  
-
-                                    <f:facet name="output">  
-                                        <h:outputText value="#{dg.displayname}" />  
+                                    <f:facet name="header">  
+                                        Groups 
                                     </f:facet>  
 
 
-                                </p:column> 
-                                <p:column headerText="Email Alias" style="width:30%">  
 
-                                    <f:facet name="output">  
-                                        <h:outputText value="#{dg.emailalias}" />  
-                                    </f:facet>  
+                                    <p:column headerText="Group Name" style="width:30%">  
 
-
-                                </p:column> 
-                                <p:column headerText="External Mail" style="width:30%">  
-
-                                    <f:facet name="output">  
-                                        <h:outputText value="#{dg.externalemail}" />  
-                                    </f:facet>  
+                                        <f:facet name="output">  
+                                            <h:outputText value="#{dg.displayname}" />  
+                                        </f:facet>  
 
 
-                                </p:column> 
+                                    </p:column> 
+                                    <p:column headerText="Email Alias" style="width:30%">  
 
-                            </p:dataTable>  
-                            <p:commandButton value="Refresh" action="#{distAndGroupEdit.initdg()}" icon="ui-icon-refresh" update="dgList"/>
-                        </p:panel>
+                                        <f:facet name="output">  
+                                            <h:outputText value="#{dg.emailalias}" />  
+                                        </f:facet>  
+
+
+                                    </p:column> 
+                                    <p:column headerText="External Mail" style="width:30%">  
+
+                                        <f:facet name="output">  
+                                            <h:outputText value="#{dg.externalemail}" />  
+                                        </f:facet>  
+
+
+                                    </p:column> 
+
+                                </p:dataTable>  
+                                <p:commandButton value="Refresh" action="#{distAndGroupEdit.initdg()}" icon="ui-icon-refresh" update="dgList"/>
+                            </p:panel>
+                        </h:form>
+
                     </p:tab>
+
+
                 </p:tabView>
             </ui:define>
 
