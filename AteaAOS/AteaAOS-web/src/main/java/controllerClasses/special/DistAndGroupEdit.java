@@ -47,6 +47,7 @@ public class DistAndGroupEdit {
     private Distributiongroups selectdg;
 
     public void init() {
+        liste.clear();
         List<Users> roger;
         for (Groups g : gF.findAll()) {
             roger = new ArrayList<>();
