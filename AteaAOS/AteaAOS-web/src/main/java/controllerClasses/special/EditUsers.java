@@ -87,7 +87,8 @@ public class EditUsers {
 
             FacesMessage msg = new FacesMessage();
             msg.setSeverity(FacesMessage.SEVERITY_INFO);
-            msg.setSummary("Project is created");
+            msg.setSummary("User edited sucsessfully!");
+            msg.setDetail(" ");
 
             FacesContext.getCurrentInstance().addMessage(null, msg);
 
@@ -103,7 +104,7 @@ public class EditUsers {
     }
 
     public void onCancel(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Car Cancelled", ((Users) event.getObject()).getUsername());
+        FacesMessage msg = new FacesMessage("Editing Cancelled", ((Users) event.getObject()).getUsername());
 
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }

@@ -99,7 +99,8 @@
                                         <p:rowEditor  />  
                                     </p:column> 
 
-                                    <p:column headerText="Username" style="width:30%" >
+                                    <p:column headerText="Username" style="width:30%" 
+                                              id="usernameColumn" filterBy="username" filterMatchMode="contains">
                                         <h:outputText value="#{item.username}" />
                                     </p:column>  
 
