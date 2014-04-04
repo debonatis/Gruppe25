@@ -82,15 +82,7 @@ private ProjectsListModel selectList;
         this.projectList = projectList;
     }
 
-    public newProject() {
-        
-        projectListT = projectsEJB.findAll();
-        for(Projects p:projectListT){
-            projectList.add(new ProjectModel(p, false));
-        }
-        projectList.get(projectList.size()-1).setSel(true);
-        selectList = new ProjectsListModel(projectList);
-    }
+   
 
     
     
