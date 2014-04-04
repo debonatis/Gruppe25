@@ -51,7 +51,7 @@ public class newProject implements Serializable {
 
         this.selected = selected;
        
-        FacesContext.getCurrentInstance().getAttributes().put("projectID", selected.getProjectid());
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("projectID", selected.getProjectid());
     }
 
     private void prepareCreate() {
