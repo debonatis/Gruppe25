@@ -21,6 +21,7 @@ import javax.faces.context.FacesContext;
 import org.primefaces.event.FlowEvent;
 
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import persistClasses.ProjectsFacade;
 
 /**
@@ -38,10 +39,10 @@ public class newProject implements Serializable {
     private Projects projects = new Projects();
     private static final Logger logger = Logger.getLogger(Projects.class.getName());
     private String[] projectTypes = {"V4", "Single Forrest, Single Domain", "Single Forrest, Multiple Domain"};
-private ProjectsListModel selectList;
+    private ProjectsListModel selectList = new ProjectsListModel();
     private List<ProjectModel> projectList = new ArrayList<>();
     private ProjectModel selected = new ProjectModel();
-    List<Projects> projectListT = new ArrayList<>();
+    private List<Projects> projectListT = new ArrayList<>();
 
     public ProjectModel getSelected() {
         return selected;
@@ -52,8 +53,7 @@ private ProjectsListModel selectList;
         FacesContext.getCurrentInstance().getAttributes().put(projectID, selected.getPro().getProjectid());
         this.selected = selected;
     }
-  
-    
+
     private void prepareCreate() {
         projects = new Projects();
     }
@@ -82,18 +82,14 @@ private ProjectsListModel selectList;
         this.projectList = projectList;
     }
 
-   
+    @PostConstruct
+    public void init() {
 
-    
-    
-    
-    public void init(){
-       
         projectListT = projectsEJB.findAll();
-        for(Projects p : projectListT){
+        for (Projects p : projectListT) {
             projectList.add(new ProjectModel(p, false));
         }
-        projectList.get(projectList.size()-1).setSel(true);
+        projectList.get(projectList.size() - 1).setSel(true);
         selectList = new ProjectsListModel(projectList);
     }
 
@@ -109,7 +105,6 @@ private ProjectsListModel selectList;
     public void setSelectList(ProjectsListModel selectList) {
         this.selectList = selectList;
     }
-    
 
     public void save() {
         try {
