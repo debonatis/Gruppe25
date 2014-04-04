@@ -62,7 +62,7 @@ public class EditUsers {
     public void setUsers(Users users) {
         this.users = users;
     }
-
+    
     public String onFlowProcess(FlowEvent event) {
 
         return event.getNewStep();
@@ -78,7 +78,7 @@ public class EditUsers {
         try {
             
             Users test = getFacade().find(((Users)event.getObject()).getUsername());
-            
+                        
             test.setFirstname(((Users)event.getObject()).getFirstname());
             test.setLastname(((Users)event.getObject()).getLastname());  
             test.setMobile(((Users)event.getObject()).getMobile());

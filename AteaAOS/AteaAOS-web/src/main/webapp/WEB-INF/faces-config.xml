@@ -23,15 +23,15 @@
                 <to-view-id>/secure/UsersAdd.xhtml</to-view-id>  
             </navigation-case>
             <navigation-case> 
-                                <from-outcome>home</from-outcome> 
-                                <to-view-id>/secure/adminPage.xhtml</to-view-id> 
-                            </navigation-case>
-                <navigation-case> 
+                <from-outcome>home</from-outcome> 
+                <to-view-id>/secure/adminPage.xhtml</to-view-id> 
+            </navigation-case>
+            <navigation-case> 
                 <from-outcome>groups</from-outcome> 
                 <to-view-id>/secure/GroupsUsers.xhtml</to-view-id> 
             </navigation-case>
-   
         </navigation-rule> 
+        
         <navigation-rule>  
             <from-view-id>/secure/UsersAdd.xhtml</from-view-id>  
             <navigation-case>  
@@ -46,7 +46,7 @@
                                 <from-outcome>home</from-outcome> 
                                 <to-view-id>/secure/adminPage.xhtml</to-view-id> 
                             </navigation-case>
-                <navigation-case> 
+            <navigation-case> 
                 <from-outcome>groups</from-outcome> 
                 <to-view-id>/secure/GroupsUsers.xhtml</to-view-id> 
             </navigation-case>
@@ -66,7 +66,7 @@
                                 <from-outcome>home</from-outcome> 
                                 <to-view-id>/secure/adminPage.xhtml</to-view-id> 
                             </navigation-case>
-                <navigation-case> 
+            <navigation-case> 
                 <from-outcome>groups</from-outcome> 
                 <to-view-id>/secure/GroupsUsers.xhtml</to-view-id> 
             </navigation-case>
@@ -114,7 +114,7 @@
             
  
         </navigation-rule> 
-          
+                  
         <resource-bundle>
             <base-name>/Bundle</base-name>
             <var>bundle</var>
