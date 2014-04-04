@@ -21,7 +21,6 @@ import javax.faces.context.FacesContext;
 import org.primefaces.event.FlowEvent;
 
 import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
 import persistClasses.ProjectsFacade;
 
 /**
