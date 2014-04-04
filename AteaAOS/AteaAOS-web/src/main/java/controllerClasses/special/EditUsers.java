@@ -5,9 +5,11 @@
  */
 package controllerClasses.special;
 
+import controllerClasses.util.JsfUtil;
 import controllerClasses.util.PaginationHelper;
 import entityModels.Users;
 import java.util.List;
+import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -36,7 +38,7 @@ public class EditUsers {
     private ProjectsFacade pFac;
 
     private List<Users> liste;
-    private Users users = new Users();
+    private Users users;
     private DataModel items = null;
     private PaginationHelper pagination;
 
@@ -67,10 +69,37 @@ public class EditUsers {
 
     }
 
+    public void prepareEdit(){
+        users = (Users) getItems().getRowData();
+    }
+    
     public void onEdit(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Car Edited", ((Users) event.getObject()).getUsername());
+        
+        try {
+            
+            Users test = getFacade().find(((Users)event.getObject()).getUsername());
+            
+            test.setFirstname(((Users)event.getObject()).getFirstname());
+            test.setLastname(((Users)event.getObject()).getLastname());  
+            test.setMobile(((Users)event.getObject()).getMobile());
+            test.setEmploymentnr(((Users)event.getObject()).getEmploymentnr());
+            uFac.edit(test);
 
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+            FacesMessage msg = new FacesMessage();
+            msg.setSeverity(FacesMessage.SEVERITY_INFO);
+            msg.setSummary("Project is created");
+
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+
+        } catch (Exception e) {
+            FacesMessage msg = new FacesMessage();
+            msg.setSeverity(FacesMessage.SEVERITY_INFO);
+            msg.setSummary("User not edited!");
+            msg.setDetail("Maybe faulty inputs?");
+
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+
+        }       
     }
 
     public void onCancel(RowEditEvent event) {
@@ -83,6 +112,14 @@ public class EditUsers {
         return uFac;
     }
 
+
+    public DataModel getItems() {
+        if (items == null) {
+            items = getPagination().createPageDataModel();
+        }
+        return items;
+    }
+    
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -99,39 +136,5 @@ public class EditUsers {
             };
         }
         return pagination;
-    }
-
-    public DataModel getItems() {
-        if (items == null) {
-            items = getPagination().createPageDataModel();
-        }
-        return items;
-    }
-
-    public void prepareEdit() {
-        users = (Users) getItems().getRowData();
-    }
-
-    public void save() {
-        try {
-            uFac.edit(users);
-            prepareEdit();
-
-            FacesMessage msg = new FacesMessage();
-            msg.setSeverity(FacesMessage.SEVERITY_INFO);
-            msg.setSummary("Project is created");
-
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            prepareEdit();
-
-        } catch (Exception e) {
-            FacesMessage msg = new FacesMessage();
-            msg.setSeverity(FacesMessage.SEVERITY_INFO);
-            msg.setSummary("User not edited!");
-            msg.setDetail("Maybe faulty inputs?");
-            prepareEdit();
-
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-        }
     }
 }

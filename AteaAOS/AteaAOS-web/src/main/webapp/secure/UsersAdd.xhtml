@@ -91,9 +91,16 @@
                             <p:panel >
                                 <p:growl id="messages" showDetail="true"/> 
                                 <p:dataTable id="roger" value="#{editUsers.usersList}" var="item" cellSeparator="2" paginator="true" rows="10" editable="true">
+
                                     <p:ajax event="rowEdit" listener="#{editUsers.onEdit}" update=":tabView:editForm:messages" />  
                                     <p:ajax event="rowEditCancel" listener="#{editUsers.onCancel}" update=":tabView:editForm:messages" />
-                                    <p:column headerText="Username" style="width:30%">  
+
+                                    <p:column style="width:6%" headerText="Edit">  
+                                        <p:rowEditor  />  
+                                    </p:column> 
+
+                                    <p:column headerText="Username" style="width:30%" 
+                                              id="usernameColumn" filterBy="username" filterMatchMode="contains">   
                                         <p:cellEditor>  
                                             <f:facet name="output">  
                                                 <h:outputText value="#{item.username}" />  
@@ -104,7 +111,8 @@
                                         </p:cellEditor>  
                                     </p:column>  
 
-                                    <p:column headerText="First name" style="width:30%">  
+                                    <p:column headerText="First name" style="width:30%" 
+                                              id="firstnameColumn" filterBy="firstname" filterMatchMode="contains">  
                                         <p:cellEditor>  
                                             <f:facet name="output">  
                                                 <h:outputText value="#{item.firstname}" />  
@@ -114,8 +122,9 @@
                                             </f:facet>  
                                         </p:cellEditor>  
                                     </p:column>
-                                    
-                                    <p:column headerText="Last name" style="width:30%">  
+
+                                    <p:column headerText="Last name" style="width:30%"
+                                              id="lastnameColumn" filterBy="lastname" filterMatchMode="contains">  
                                         <p:cellEditor>  
                                             <f:facet name="output">  
                                                 <h:outputText value="#{item.lastname}" />  
@@ -125,8 +134,9 @@
                                             </f:facet>  
                                         </p:cellEditor>  
                                     </p:column>
-                                    
-                                    <p:column headerText="Employment number" style="width:30%">  
+
+                                    <p:column headerText="Employment number" style="width:30%"
+                                              id="employmentnrColumn" filterBy="employmentnr" filterMatchMode="contains">  
                                         <p:cellEditor>  
                                             <f:facet name="output">  
                                                 <h:outputText value="#{item.employmentnr}" />  
@@ -136,8 +146,9 @@
                                             </f:facet>  
                                         </p:cellEditor>  
                                     </p:column>
-                                    
-                                    <p:column headerText="Mobile" style="width:30%">  
+
+                                    <p:column headerText="Mobile" style="width:30%"
+                                              id="mobileColumn" filterBy="mobile" filterMatchMode="contains">  
                                         <p:cellEditor>  
                                             <f:facet name="output">  
                                                 <h:outputText value="#{item.mobile}" />  
@@ -148,12 +159,7 @@
                                         </p:cellEditor>  
                                     </p:column>
 
-                                    <p:column style="width:6%">  
-                                        <p:rowEditor />  
-                                    </p:column> 
-                                    
                                 </p:dataTable>
-                                <p:commandButton value="Refresh" action="#{editUsers.save()}" update="roger"/>
                             </p:panel>
                         </h:form>
                     </p:tab>
