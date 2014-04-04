@@ -39,6 +39,6 @@ public class ProjectsListModel extends ListDataModel<ProjectModel> implements Se
   
     @Override  
     public Object getRowKey(ProjectModel pr) {  
-        return pr.getPro().getProjectid();  
+        return pr.getPro().getName();  
     }  
 }  
