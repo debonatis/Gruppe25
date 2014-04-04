@@ -113,7 +113,7 @@ public class DistAndGroupEdit {
         this.selectdg = selectdg;
     }
 
-    private void saveSelectdg89() {
+    private void saveSelectdg() {
         dgF.create(selectdg);
         selectdg = new Distributiongroups();
     }
@@ -127,6 +127,8 @@ public class DistAndGroupEdit {
     }
 
     public void saveSelectsg() {
+        Object projectID = new Object();
+        selectsg.setProjectid(FacesContext.getCurrentInstance().getAttributes().get(projectID).toString());
         gF.create(selectsg);
         selectsg = new Groups();
     }

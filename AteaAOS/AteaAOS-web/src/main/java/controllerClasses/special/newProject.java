@@ -5,6 +5,7 @@
  */
 package controllerClasses.special;
 
+import controllerClasses.special.model.ProjectModel;
 import entityModels.Projects;
 import java.io.Serializable;
 import java.util.List;
@@ -37,7 +38,18 @@ public class newProject implements Serializable {
     private static final Logger logger = Logger.getLogger(Projects.class.getName());
     private String[] projectTypes = {"V4", "Single Forrest, Single Domain", "Single Forrest, Multiple Domain"};
 
-    private List<Projects> projectList;
+    private List<ProjectModel> projectList;
+    private ProjectModel selected = new ProjectModel();
+
+    public ProjectModel getSelected() {
+        return selected;
+    }
+
+    public void setSelected(ProjectModel selected) {
+        Object projectID = new Object();
+        FacesContext.getCurrentInstance().getAttributes().put(projectID, selected.getPro().getProjectid());
+        this.selected = selected;
+    }
   
     
     private void prepareCreate() {
@@ -60,11 +72,11 @@ public class newProject implements Serializable {
         this.projects = (Projects) projects;
     }
 
-    public List<Projects> getProjectList() {
+    public List<ProjectModel> getProjectList() {
         return projectList;
     }
 
-    public void setProjectList(List<Projects> projectList) {
+    public void setProjectList(List<ProjectModel> projectList) {
         this.projectList = projectList;
     }
 
@@ -72,7 +84,12 @@ public class newProject implements Serializable {
     
     @PostConstruct
     public void init(){
-        projectList = projectsEJB.findAll();
+        List<Projects> projectListT;
+        projectListT = projectsEJB.findAll();
+        for(Projects p:projectListT){
+            projectList.add(new ProjectModel(p, false));
+        }
+        projectList.get(projectList.size()).setSel(true);
     }
 
     private UUID getUUID() {
