@@ -41,10 +41,13 @@ public class DistAndGroupEdit {
     @EJB
     private GroupusersFacade sgMMF;
     private List<DistSecGroupModel> liste = new ArrayList<>();
-    private Groups selectsg = new Groups();
-    private Distributiongroups selectdg = new Distributiongroups();
+    private List<Groups> listsg = new ArrayList<>();
+    private List<Distributiongroups> listdg = new ArrayList<>();
+    private Groups selectsg;
+    private Distributiongroups selectdg;
 
     public void init() {
+        liste.clear();
         List<Users> roger;
         for (Groups g : gF.findAll()) {
             roger = new ArrayList<>();
@@ -66,29 +69,69 @@ public class DistAndGroupEdit {
             }
             liste.add(new DistSecGroupModel(d.getDisplayname(), false, true, "-", roger));
         }
+
+    }
+
+    public void initdg() {
+        listdg = dgF.findAll();
+
+    }
+
+    public void initsg() {
+        listsg = gF.findAll();
+
+    }
+
+    public List<Groups> getListsg() {
+        return listsg;
+    }
+
+    public void setListsg(List<Groups> listsg) {
+        this.listsg = listsg;
+    }
+
+    public List<Distributiongroups> getListdg() {
+        return listdg;
+    }
+
+    public void setListdg(List<Distributiongroups> listdg) {
+        this.listdg = listdg;
     }
 
     public Distributiongroups getSelectdg() {
+        if (selectdg == null) {
+            selectdg = new Distributiongroups();
+            
+        }
         return selectdg;
     }
 
     public void setSelectdg(Distributiongroups selectdg) {
         this.selectdg = selectdg;
     }
-    
-    private void saveSelectdg89(){
-    dgF.create(selectdg);
-    selectdg = new Distributiongroups();
-}
+
+    public void saveSelectdg() {
+
+        selectdg.setProjectid(((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
+        dgF.create(selectdg);
+        selectdg = new Distributiongroups();
+    }
 
     public Groups getSelectsg() {
+        if (selectsg == null) {
+            selectsg = new Groups();
+            
+        }
         return selectsg;
     }
 
     public void setSelectsg(Groups select) {
         this.selectsg = select;
     }
-    public void saveSelectsg(){
+
+    public void saveSelectsg() {
+
+        selectsg.setProjectid(((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
         gF.create(selectsg);
         selectsg = new Groups();
     }
@@ -113,32 +156,23 @@ public class DistAndGroupEdit {
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
-    public void onEditList(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("User Edited", ((Users) event.getObject()).getUsername());
-
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-    }
-
-    public void onCancelList(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("User Cancelled", ((Users) event.getObject()).getUsername());
-
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-    }
-
     public void deleteItemDIST(DistSecGroupModel e) {
         if (e.isSg()) {
             for (Users u : e.getUsers()) {
                 sgMMF.remove(new Groupusers(u.getUsername(), e.getGrname()));
 
             }
-            gF.remove(new Groups(e.getGrname()));
+            Groups gru = gF.find(e.getGrname());
+            gF.remove(gru);
+
             liste.remove(e);
         } else if (e.isDg()) {
             for (Users u : e.getUsers()) {
                 dgMMF.remove(new Userdistribution(u.getUsername(), e.getGrname()));
 
             }
-            dgF.remove(new Distributiongroups(e.getGrname()));
+            Distributiongroups roger = dgF.find(e.getGrname());
+            dgF.remove(roger);
             liste.remove(e);
         }
 

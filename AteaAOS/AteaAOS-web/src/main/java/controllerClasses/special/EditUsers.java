@@ -5,11 +5,9 @@
  */
 package controllerClasses.special;
 
-import controllerClasses.util.JsfUtil;
 import controllerClasses.util.PaginationHelper;
 import entityModels.Users;
 import java.util.List;
-import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;

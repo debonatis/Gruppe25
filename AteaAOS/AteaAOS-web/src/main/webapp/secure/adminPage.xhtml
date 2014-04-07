@@ -21,10 +21,12 @@
                             <br/><br/>
                             <p:panel >
                                 <p:poll update="roger" interval="2" listener="true"/>
-                                <p:dataTable id="roger" value="#{newProject.projectList}" var="item" cellSeparator="2" paginator="true" rows="13">
+                                <p:dataTable id="roger" value="#{newProject.selectList}" var="item" selection="#{newProject.selected}" cellSeparator="2" paginator="true" rows="10">
+                                    <p:column selectionMode="single" style="width:2%" />  
                                     <p:column >                                 
                                         <p:commandLink action="#{projectsController.prepareView}" value="#{item.name}"/>
                                     </p:column>
+                                     
 
                                 </p:dataTable>
                             </p:panel>

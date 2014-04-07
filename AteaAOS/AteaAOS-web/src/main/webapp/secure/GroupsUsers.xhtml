@@ -15,221 +15,311 @@
 
             <ui:define name="center">
 
-<p:tabView id="tabView">
-    <p:tab id="tab1" title="Users to Groups">  
-                <h:form id="selectForm">
-                    
-                    <p:growl id="growl2" sticky="true" showDetail="true"/>  
+                <p:tabView id="tabView">
+                    <p:tab id="tab1" title="Users to Groups">  
+                        <h:form id="selectForm">
 
-                    <p:wizard flowListener="#{usersToGroups.onFlowProcessPick}" >
+                            <p:growl id="growl2" sticky="true" showDetail="true"/>  
 
-                        <p:tab id="grouppick" title="Select Security Groups for editing">  
+                            <p:wizard flowListener="#{usersToGroups.onFlowProcessPick}" >
 
-                            <p:panel header="Group Selection"> 
+                                <p:tab id="grouppick" title="Select Security Groups for editing">  
 
-                                <p:growl id="msg2" showDetail="true" escape="false" />  
-                                <p:pickList id="pojoPickList" value="#{usersToGroups.groups}" var="group" effect="bounce"  
-                                            itemValue="#{group}" itemLabel="#{group.groupname}" converter="#{indexConverterG}"  
-                                            showSourceControls="true" showTargetControls="true" showCheckbox="true"  
-                                            showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" >  
+                                    <p:panel header="Group Selection"> 
 
-                                    <f:facet name="sourceCaption">Available Groups</f:facet>  
-                                    <f:facet name="targetCaption">Selected Groups</f:facet>  
+                                        <p:growl id="msg2" showDetail="true" escape="false" />  
+                                        <p:pickList id="pojoPickList" value="#{usersToGroups.groups}" var="group" effect="bounce"  
+                                                    itemValue="#{group}" itemLabel="#{group.groupname}" converter="#{indexConverterG}"  
+                                                    showSourceControls="true" showTargetControls="true" showCheckbox="true"  
+                                                    showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" >  
 
-                                    <p:ajax event="transfer" listener="#{usersToGroups.onTransferG}" update="msg2" />  
+                                            <f:facet name="sourceCaption">Available Groups</f:facet>  
+                                            <f:facet name="targetCaption">Selected Groups</f:facet>  
 
-
-
-                                    <p:column style="width:75%;">  
-                                        #{group.groupname}  
-                                    </p:column>  
-
-                                </p:pickList > 
-
-                            </p:panel>
-                        </p:tab>
-                        <p:tab id="userpick" title="Select Users for adding">  
-
-                            <p:panel header="User Selection"> 
-                                <p:growl id="msg3" showDetail="true" escape="false" />  
-                                <p:pickList id="pojoPickListU" value="#{usersToGroups.users}" var="user" effect="bounce"  
-                                            itemValue="#{user}" itemLabel="#{user.username}" converter="#{indexConverterU}"  
-                                            showSourceControls="true" showTargetControls="true" showCheckbox="true"  
-                                            showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" >  
-
-                                    <f:facet name="sourceCaption">Available Users</f:facet>  
-                                    <f:facet name="targetCaption">Selected users in predefined group/es</f:facet>  
-
-                                    <p:ajax event="transfer" listener="#{usersToGroups.onTransferU}" update="msg3" />  
+                                            <p:ajax event="transfer" listener="#{usersToGroups.onTransferG}" update="msg2" />  
 
 
 
-                                    <p:column style="width:75%;">  
-                                        #{user.username}  
-                                    </p:column>  
+                                            <p:column style="width:75%;">  
+                                                #{group.groupname}  
+                                            </p:column>  
 
-                                </p:pickList>  
+                                        </p:pickList > 
+
+                                    </p:panel>
+                                </p:tab>
+                                <p:tab id="userpick" title="Select Users for adding">  
+
+                                    <p:panel header="User Selection"> 
+                                        <p:growl id="msg3" showDetail="true" escape="false" />  
+                                        <p:pickList id="pojoPickListU" value="#{usersToGroups.users}" var="user" effect="bounce"  
+                                                    itemValue="#{user}" itemLabel="#{user.username}" converter="#{indexConverterU}"  
+                                                    showSourceControls="true" showTargetControls="true" showCheckbox="true"  
+                                                    showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" >  
+
+                                            <f:facet name="sourceCaption">Available Users</f:facet>  
+                                            <f:facet name="targetCaption">Selected users in predefined group/es</f:facet>  
+
+                                            <p:ajax event="transfer" listener="#{usersToGroups.onTransferU}" update="msg3" />  
+
+
+
+                                            <p:column style="width:75%;">  
+                                                #{user.username}  
+                                            </p:column>  
+
+                                        </p:pickList>  
 
 
 
 
-                            </p:panel>
-                            <p:commandButton id="pojoSubmit" value="Submit"   style="margin-top:5px" action="#{usersToGroups.saveU()}"/> 
-                        </p:tab>
+                                    </p:panel>
+                                    <p:commandButton id="pojoSubmit" value="Submit"   style="margin-top:5px" action="#{usersToGroups.saveU()}"/> 
+                                </p:tab>
 
 
 
-                    </p:wizard>
-                </h:form>
-    </p:tab>
-    <p:tab id="tab2" title="Group Edit">
-                <h:form id="form">  
+                            </p:wizard>
+                        </h:form>
+                    </p:tab>
+                    <p:tab id="tab2" title="Group Edit">
+                        <h:form id="form">  
 
-                    <p:growl id="messages" showDetail="true"/>  
+                            <p:growl id="messages" showDetail="true"/>  
 
-                    <p:dataTable var="gr" value="#{distAndGroupEdit.liste}" id="carList" editable="true">  
+                            <p:dataTable var="gr" value="#{distAndGroupEdit.liste}" id="carList" editable="true">  
 
-                        <f:facet name="header">  
-                            Distibrution and Security Groups 
-                        </f:facet>  
-
-                        <p:ajax event="rowEdit" listener="#{distAndGroupEdit.onEditDIST}" update=":tabView:form:messages" />  
-                        <p:ajax event="rowEditCancel" listener="#{distAndGroupEdit.onCancelDIST}" update=":tabView:form:messages" />  
-
-                        <p:column headerText="Group name" style="width:30%">  
-                            <p:cellEditor>  
-                                <f:facet name="output">  
-                                    <h:outputText value="#{gr.grname}" />  
+                                <f:facet name="header">  
+                                    Distibrution and Security Groups 
                                 </f:facet>  
-                                <f:facet name="input">  
-                                    <p:inputText value="#{gr.grname}" style="width:100%"/>  
-                                </f:facet>  
-                            </p:cellEditor>  
-                        </p:column>  
 
-                        <p:column headerText="Distribution Group" style="width:20%">  
-                            <p:cellEditor>  
-                                <f:facet name="output">  
-                                    <p:selectBooleanCheckbox value="#{gr.dg}" />  
-                                </f:facet>  
-                                <f:facet name="input">  
-                                    - 
-                                </f:facet>  
-                            </p:cellEditor>  
-                        </p:column>  
+                                <p:ajax event="rowEdit" listener="#{distAndGroupEdit.onEditDIST}" update=":tabView:form:messages" />  
+                                <p:ajax event="rowEditCancel" listener="#{distAndGroupEdit.onCancelDIST}" update=":tabView:form:messages" />  
 
-                        <p:column headerText="Security Group" style="width:24%">  
-                            <p:cellEditor>  
-                                <f:facet name="output">  
-                                    <p:selectBooleanCheckbox value="#{gr.sg}" />  
-                                </f:facet>  
-                                <f:facet name="input">  
-                                  -
-                                </f:facet>  
-                            </p:cellEditor>  
-                        </p:column>  
+                                <p:column headerText="Group name" style="width:30%">  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">  
+                                            <h:outputText value="#{gr.grname}" />  
+                                        </f:facet>  
+                                        <f:facet name="input">  
+                                            <p:inputText value="#{gr.grname}" style="width:100%"/>  
+                                        </f:facet>  
+                                    </p:cellEditor>  
+                                </p:column>  
 
-                        <p:column headerText="Group Owner" style="width:20%">  
-                            <p:cellEditor>  
-                                <f:facet name="output">  
-                                    <h:outputText value="#{gr.gowner}" />  
-                                </f:facet>  
-                                <f:facet name="input">  
-                                    <p:inputText value="#{gr.gowner}" style="width:100%"/> 
-                                </f:facet>  
-                            </p:cellEditor>  
-                        </p:column>  
-                        <p:column headerText="Users" style="width: 20%">
-                            <p:dataTable var="usr" value="#{gr.users}" id="usrList" editable="true">  
+                                <p:column headerText="Distribution Group" style="width:20%">  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">  
+                                            <p:selectBooleanCheckbox value="#{gr.dg}" />  
+                                        </f:facet>  
+                                        <f:facet name="input">  
+                                            - 
+                                        </f:facet>  
+                                    </p:cellEditor>  
+                                </p:column>  
 
-                        <f:facet name="header">  
-                            Users 
-                        </f:facet>  
+                                <p:column headerText="Security Group" style="width:24%">  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">  
+                                            <p:selectBooleanCheckbox value="#{gr.sg}" />  
+                                        </f:facet>  
+                                        <f:facet name="input">  
+                                            -
+                                        </f:facet>  
+                                    </p:cellEditor>  
+                                </p:column>  
 
-                                <p:ajax event="rowEdit" listener="#{distAndGroupEdit.onEditList}" update=":tabView:form:messages" />  
-                                <p:ajax event="rowEditCancel" listener="#{distAndGroupEdit.onCancelList}" update=":tabView:form:messages" /> 
-                                
-                                <p:column headerText="User name" style="width:30%">  
-                            <p:cellEditor>  
-                                <f:facet name="output">  
-                                    <h:outputText value="#{usr.username}" />  
-                                </f:facet>  
-                                <f:facet name="input">  
-                                    <p:inputText value="#{usr.username}" style="width:100%"/>  
-                                </f:facet>  
-                            </p:cellEditor>  
-                        </p:column> 
+                                <p:column headerText="Group Owner" style="width:20%">  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">  
+                                            <h:outputText value="#{gr.gowner}" />  
+                                        </f:facet>  
+                                        <f:facet name="input">  
+                                            <p:inputText value="#{gr.gowner}" style="width:100%"/> 
+                                        </f:facet>  
+                                    </p:cellEditor>  
+                                </p:column>  
+                                <p:column headerText="Users" style="width: 20%">
+                                    <p:dataTable var="usr" value="#{gr.users}" id="usrList" >  
+
+                                        <f:facet name="header">  
+                                            Users 
+                                        </f:facet>  
+
+
+
+                                        <p:column headerText="User name" style="width:30%">  
+
+                                            <f:facet name="output">  
+                                                <h:outputText value="#{usr.username}" />  
+                                            </f:facet>  
+
+
+                                        </p:column> 
+                                        <p:column headerText="Delete">
+                                            <f:facet name="header">
+                                                <h:outputText value="" />
+                                            </f:facet>
+                                            <p:commandButton icon="ui-icon-close" title="remove from list"
+                                                             actionListener="#{distAndGroupEdit.deleteItemDISTUser(gr, usr)}" update="usrList" />
+                                        </p:column>
+                                    </p:dataTable>     
+
+                                </p:column>
+
+                                <p:column style="width:6%">  
+                                    <p:rowEditor />  
+                                </p:column>  
                                 <p:column headerText="Delete">
-                                <f:facet name="header">
-                                    <h:outputText value="" />
-                                </f:facet>
-                                <p:commandButton icon="ui-icon-close" title="remove from list"
-                                                 actionListener="#{distAndGroupEdit.deleteItemDISTUser(gr, usr)}" update="usrList" />
-                            </p:column>
-                            </p:dataTable>     
-                            
-                        </p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                    <p:commandButton icon="ui-icon-close" title="remove from list"
+                                                     actionListener="#{distAndGroupEdit.deleteItemDIST(gr)}" update="carList" />
+                                </p:column>
 
-                        <p:column style="width:6%">  
-                            <p:rowEditor />  
-                        </p:column>  
-                        <p:column headerText="Delete">
-                                <f:facet name="header">
-                                    <h:outputText value="" />
-                                </f:facet>
-                                <p:commandButton icon="ui-icon-close" title="remove from list"
-                                                 actionListener="#{distAndGroupEdit.deleteItemDIST(gr)}" update="carList" />
-                            </p:column>
+                            </p:dataTable>  
 
-                    </p:dataTable>  
-                    
-                    <p:commandButton value="Refresh" action="#{distAndGroupEdit.init()}" icon="ui-icon-refresh" update="carList"/>
+                            <p:commandButton value="Refresh" action="#{distAndGroupEdit.init()}" icon="ui-icon-refresh" update="carList"/>
 
-                </h:form> 
-        </p:tab>
-    <p:tab id="tab3" title="New Security Group">
-        <p:panel header="Personal Details">  
-              
-                <h:messages errorClass="error"/>  
-                  
-                <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid">  
-                    <h:outputText value="Group Name: *" />  
-                    <p:inputText required="true" label="Group name"  
-                                 value="#{distAndGroupEdit.selectsg.groupname}" />  
-                      
-                    <h:outputText value="Description: *" />  
-                    <p:inputText required="true" label="Description"  
-                                 value="#{distAndGroupEdit.selectsg.description}" />  
-                      
-                    <h:outputText value="Function: " />  
-                    <p:inputText value="#{distAndGroupEdit.selectsg.functions}" />  
-                      
-                    
-                </h:panelGrid>  
-            </p:panel>  
-    </p:tab>
-    <p:tab id="tab4" title="New Distibrution Group">
-        <p:panel header="Personal Details">  
-              
-                <h:messages errorClass="error"/>  
-                  
-                <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid">  
-                    <h:outputText value="Group Name: *" />  
-                    <p:inputText required="true" label="Group name"  
-                                 value="#{distAndGroupEdit.selectdg.displayname}" />  
-                      
-                    <h:outputText value="Email Alias: *" />  
-                    <p:inputText required="true" label="Description"  
-                                 value="#{distAndGroupEdit.selectdg.emailalias}" />  
-                      
-                    <h:outputText value="External(YES|NO): " />  
-                    <p:inputText value="#{distAndGroupEdit.selectdg.externalemail}" />  
-                      
-                    
-                </h:panelGrid>  
-            </p:panel>  
-    </p:tab>
-</p:tabView>
+                        </h:form> 
+
+
+                    </p:tab>
+
+                    <p:tab id="tab3" title="New Security Group">
+                        <h:form>
+
+                            <p:panel header="Details">  
+                                <h:messages errorClass="error"/>  
+
+                                <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid" id="sgDetail">  
+
+                                    <h:outputText value="Group Name: *" />  
+                                    <p:inputText required="true" label="Group name"  
+                                                 value="#{distAndGroupEdit.selectsg.groupname}" />  
+
+                                    <h:outputText value="Description: *" />  
+                                    <p:inputText required="true" label="Description"  
+                                                 value="#{distAndGroupEdit.selectsg.description}" />  
+
+                                    <h:outputText value="Function: " />  
+                                    <p:inputText value="#{distAndGroupEdit.selectsg.functions}" />  
+
+                                    <p:commandButton value="Save" action="#{distAndGroupEdit.saveSelectsg()}" icon="ui-icon-disk" />
+
+                                </h:panelGrid> 
+
+
+                            </p:panel>  
+                            <p:panel header="Security Group List">
+                                <p:dataTable var="sg" value="#{distAndGroupEdit.listsg}" id="sgList" >  
+
+                                    <f:facet name="header">  
+                                        Groups 
+                                    </f:facet>  
+
+
+
+                                    <p:column headerText="Group Name" style="width:30%">  
+
+                                        <f:facet name="output">  
+                                            <h:outputText value="#{sg.groupname}" />  
+                                        </f:facet>  
+
+
+                                    </p:column> 
+                                    <p:column headerText="Functions" style="width:30%">  
+
+                                        <f:facet name="output">  
+                                            <h:outputText value="#{sg.functions}" />  
+                                        </f:facet>  
+
+
+                                    </p:column> 
+                                    <p:column headerText="Description" style="width:30%">  
+
+                                        <f:facet name="output">  
+                                            <h:outputText value="#{sg.description}" />  
+                                        </f:facet>  
+
+
+                                    </p:column> 
+
+                                </p:dataTable> 
+                                <p:commandButton value="Refresh" action="#{distAndGroupEdit.initsg()}" icon="ui-icon-refresh" update="sgList"/>
+
+                            </p:panel>
+                        </h:form>
+
+                    </p:tab>
+                    <p:tab id="tab4" title="New Distibrution Group">
+                        <h:form>
+
+                            <p:panel header="Details">  
+
+                                <h:messages errorClass="error"/>  
+
+                                <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid" id="dgDetail">  
+                                    <h:outputText value="Group Name: *" />  
+                                    <p:inputText required="true" label="Group name"  
+                                                 value="#{distAndGroupEdit.selectdg.displayname}" />  
+
+                                    <h:outputText value="Email Alias: *" />  
+                                    <p:inputText required="true" label="Description"  
+                                                 value="#{distAndGroupEdit.selectdg.emailalias}" />  
+
+                                    <h:outputText value="External(YES|NO): " />  
+                                    <p:inputText value="#{distAndGroupEdit.selectdg.externalemail}" />  
+
+                                    <p:commandButton value="Save" action="#{distAndGroupEdit.saveSelectdg()}" icon="ui-icon-disk" />
+                                </h:panelGrid>  
+
+
+                            </p:panel>  
+                            <p:panel header="Distibrution Group List">
+                                <p:dataTable var="dg" value="#{distAndGroupEdit.listdg}" id="dgList" >  
+
+                                    <f:facet name="header">  
+                                        Groups 
+                                    </f:facet>  
+
+
+
+                                    <p:column headerText="Group Name" style="width:30%">  
+
+                                        <f:facet name="output">  
+                                            <h:outputText value="#{dg.displayname}" />  
+                                        </f:facet>  
+
+
+                                    </p:column> 
+                                    <p:column headerText="Email Alias" style="width:30%">  
+
+                                        <f:facet name="output">  
+                                            <h:outputText value="#{dg.emailalias}" />  
+                                        </f:facet>  
+
+
+                                    </p:column> 
+                                    <p:column headerText="External Mail" style="width:30%">  
+
+                                        <f:facet name="output">  
+                                            <h:outputText value="#{dg.externalemail}" />  
+                                        </f:facet>  
+
+
+                                    </p:column> 
+
+                                </p:dataTable>  
+                                <p:commandButton value="Refresh" action="#{distAndGroupEdit.initdg()}" icon="ui-icon-refresh" update="dgList"/>
+                            </p:panel>
+                        </h:form>
+
+                    </p:tab>
+
+
+                </p:tabView>
             </ui:define>
 
         </ui:composition>

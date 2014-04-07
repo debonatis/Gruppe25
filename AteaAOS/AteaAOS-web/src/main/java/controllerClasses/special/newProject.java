@@ -5,8 +5,10 @@
  */
 package controllerClasses.special;
 
+import controllerClasses.special.model.ProjectsListModel;
 import entityModels.Projects;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -36,10 +38,22 @@ public class newProject implements Serializable {
     private Projects projects = new Projects();
     private static final Logger logger = Logger.getLogger(Projects.class.getName());
     private String[] projectTypes = {"V4", "Single Forrest, Single Domain", "Single Forrest, Multiple Domain"};
+    private ProjectsListModel selectList = new ProjectsListModel();
 
-    private List<Projects> projectList;
-  
-    
+    private Projects selected = new Projects();
+    private List<Projects> projectListT = new ArrayList<>();
+
+    public Projects getSelected() {
+        return selected;
+    }
+
+    public void setSelected(Projects selected) {
+
+        this.selected = selected;
+       
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("projectID", selected.getProjectid());
+    }
+
     private void prepareCreate() {
         projects = new Projects();
     }
@@ -60,24 +74,25 @@ public class newProject implements Serializable {
         this.projects = (Projects) projects;
     }
 
-    public List<Projects> getProjectList() {
-        return projectList;
-    }
-
-    public void setProjectList(List<Projects> projectList) {
-        this.projectList = projectList;
-    }
-
-    
-    
     @PostConstruct
-    public void init(){
-        projectList = projectsEJB.findAll();
+    public void init() {
+
+        projectListT = projectsEJB.findAll();
+
+        selectList = new ProjectsListModel(projectListT);
     }
 
     private UUID getUUID() {
         UUID idOne = UUID.randomUUID();
         return idOne;
+    }
+
+    public ProjectsListModel getSelectList() {
+        return selectList;
+    }
+
+    public void setSelectList(ProjectsListModel selectList) {
+        this.selectList = selectList;
     }
 
     public void save() {
