@@ -49,7 +49,7 @@ public class DistAndGroupEdit {
     public void init() {
         liste.clear();
         List<Users> roger;
-        for (Groups g : gF.findAll()) {
+        for (Groups g : gF.findAllPro((String)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))) {
             roger = new ArrayList<>();
             for (Groupusers gu : sgMMF.findAll()) {
                 if (gu.getGroupusersPK().getUsergroupname().equalsIgnoreCase(g.getGroupname())) {
@@ -59,7 +59,7 @@ public class DistAndGroupEdit {
             }
             liste.add(new DistSecGroupModel(g.getGroupname(), true, false, "-", roger));
         }
-        for (Distributiongroups d : dgF.findAll()) {
+        for (Distributiongroups d : dgF.findAllPro((String)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))) {
             roger = new ArrayList<>();
             for (Userdistribution du : dgMMF.findAll()) {
                 if (du.getUserdistributionPK().getDisplayname().equalsIgnoreCase(d.getDisplayname())) {
