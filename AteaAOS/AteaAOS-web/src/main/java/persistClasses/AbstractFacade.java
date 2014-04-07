@@ -45,7 +45,7 @@ public abstract class AbstractFacade<T> {
     }
     public List<T> findAllPro(String projectID) {
         
-        javax.persistence.Query q = getEntityManager().createNamedQuery("Distributiongroups.findByProjectid").setParameter("projectid", projectID);
+        javax.persistence.Query q = getEntityManager().createNamedQuery("Distributiongroups.findByProjectid", entityClass).setParameter("projectid",projectID);
         return q.getResultList();
     }
 
