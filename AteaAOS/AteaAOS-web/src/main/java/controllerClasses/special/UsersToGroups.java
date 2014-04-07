@@ -52,7 +52,7 @@ public class UsersToGroups implements Serializable {
     private DualListModel<Users> users;
     private DualListModel<Users> dusers;
     private DualListModel<Groups> groups;
-    private DualListModel<Distributiongroups> dGroups;
+    private DualListModel<Distributiongroups> dgroups;
     private String username;
     private String usernameProp;
     private boolean skip;
@@ -66,13 +66,15 @@ public class UsersToGroups implements Serializable {
         this.dusers = dusers;
     }
 
-    public DualListModel<Distributiongroups> getdGroups() {
-        return dGroups;
+    public DualListModel<Distributiongroups> getDgroups() {
+        return dgroups;
     }
 
-    public void setdGroups(DualListModel<Distributiongroups> dGroups) {
-        this.dGroups = dGroups;
+    public void setDgroups(DualListModel<Distributiongroups> dgroups) {
+        this.dgroups = dgroups;
     }
+
+    
 
     public String getUsernameProp() {
         usernameProp = (bruker.getFirstname().substring(0, 8) + bruker.getLastname().substring(3, 5));
@@ -112,7 +114,7 @@ public class UsersToGroups implements Serializable {
 
         users = new DualListModel<>(usersEJB.findAll(), new ArrayList<Users>());
         dusers = new DualListModel<>(usersEJB.findAll(), new ArrayList<Users>());
-        dGroups = new DualListModel<>(dgF.findAllPro(((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))), new ArrayList<Distributiongroups>());
+        dgroups = new DualListModel<>(dgF.findAllPro(((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))), new ArrayList<Distributiongroups>());
         groups = new DualListModel<>(groupsEJB.findAllPro(((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))), new ArrayList<Groups>());
         username = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
     }
@@ -145,7 +147,7 @@ public class UsersToGroups implements Serializable {
     }
 
     public void saveDU() {
-        List<Distributiongroups> gr = dGroups.getTarget();
+        List<Distributiongroups> gr = dgroups.getTarget();
         List<Users> ur = dusers.getTarget();
         for (Distributiongroups dg : gr) {
             for (Users u : ur) {
@@ -284,6 +286,10 @@ public class UsersToGroups implements Serializable {
     }
 
     public String onFlowProcessPick(FlowEvent event) {
+
+        return event.getNewStep();
+    }
+    public String onFlowProcessPick2(FlowEvent event) {
 
         return event.getNewStep();
     }
