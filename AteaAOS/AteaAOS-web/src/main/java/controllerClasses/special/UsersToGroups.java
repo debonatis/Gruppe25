@@ -9,6 +9,7 @@ import entityModels.Distributiongroups;
 import entityModels.Groups;
 import entityModels.Groupusers;
 import entityModels.Logging;
+import entityModels.Userdistribution;
 import entityModels.Users;
 import java.io.Serializable;
 import java.sql.Date;
@@ -49,12 +50,21 @@ public class UsersToGroups implements Serializable {
     @EJB
     private UserdistributionFacade dMMF;
     private DualListModel<Users> users;
+    private DualListModel<Users> dusers;
     private DualListModel<Groups> groups;
     private DualListModel<Distributiongroups> dGroups;
     private String username;
     private String usernameProp;
     private boolean skip;
     private Users bruker = new Users();
+
+    public DualListModel<Users> getDusers() {
+        return dusers;
+    }
+
+    public void setDusers(DualListModel<Users> dusers) {
+        this.dusers = dusers;
+    }
 
     public DualListModel<Distributiongroups> getdGroups() {
         return dGroups;
@@ -101,6 +111,7 @@ public class UsersToGroups implements Serializable {
     private void init() {
 
         users = new DualListModel<>(usersEJB.findAll(), new ArrayList<Users>());
+        dusers = new DualListModel<>(usersEJB.findAll(), new ArrayList<Users>());
         dGroups = new DualListModel<>(dgF.findAllPro(((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))), new ArrayList<Distributiongroups>());
         groups = new DualListModel<>(groupsEJB.findAllPro(((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))), new ArrayList<Groups>());
         username = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
@@ -134,8 +145,15 @@ public class UsersToGroups implements Serializable {
     }
 
     public void saveDU() {
-        List<Groups> gr = groups.getTarget();
-        List<Users> ur = users.getTarget();
+        List<Distributiongroups> gr = dGroups.getTarget();
+        List<Users> ur = dusers.getTarget();
+        for (Distributiongroups dg : gr) {
+            for (Users u : ur) {
+                dMMF.create(new Userdistribution(u.getUsername(), dg.getDisplayname()));
+            }
+        }
+
+        LoggingEJB.create(new Logging(new Date(System.currentTimeMillis()), "simond", "test", "INFO", "test"));
     }
 
     public void onTransferU(TransferEvent event) {
@@ -175,6 +193,69 @@ public class UsersToGroups implements Serializable {
             for (Object item : event.getItems()) {
                 Groups gruppe = (Groups) item;
                 builder.append(gruppe.getGroupname()).append("<br />");
+
+            }
+            FacesMessage msg = new FacesMessage();
+            msg.setSeverity(FacesMessage.SEVERITY_INFO);
+            msg.setSummary("Items Removed");
+            msg.setDetail(builder.toString());
+
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+
+    }
+
+    public void onTransferDU(TransferEvent event) {
+        StringBuilder builder = new StringBuilder();
+        if (event.isAdd()) {
+            for (Object item : event.getItems()) {
+                Users bruker3 = (Users) item;
+                builder.append(bruker3.getUsername()).append("<br />");
+
+            }
+
+            FacesMessage msg = new FacesMessage();
+            msg.setSeverity(FacesMessage.SEVERITY_INFO);
+            msg.setSummary("Items Transferred");
+            msg.setDetail(builder.toString());
+
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        } else if (!event.isAdd()) {
+            for (Object item : event.getItems()) {
+                Users bruker3 = (Users) item;
+                builder.append(bruker3.getUsername()).append("<br />");
+
+            }
+
+            FacesMessage msg = new FacesMessage();
+            msg.setSeverity(FacesMessage.SEVERITY_INFO);
+            msg.setSummary("Items Removed");
+            msg.setDetail(builder.toString());
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+    }
+
+    public void onTransferDG(TransferEvent event) {
+        StringBuilder builder = new StringBuilder();
+        if (event.isAdd()) {
+
+            for (Object item : event.getItems()) {
+                Distributiongroups gruppe = (Distributiongroups) item;
+                builder.append(gruppe.getDisplayname()).append("<br />");
+
+            }
+
+            FacesMessage msg = new FacesMessage();
+            msg.setSeverity(FacesMessage.SEVERITY_INFO);
+            msg.setSummary("Items Transferred");
+            msg.setDetail(builder.toString());
+
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+
+        } else if (!event.isAdd()) {
+            for (Object item : event.getItems()) {
+                Distributiongroups gruppe = (Distributiongroups) item;
+                builder.append(gruppe.getDisplayname()).append("<br />");
 
             }
             FacesMessage msg = new FacesMessage();
