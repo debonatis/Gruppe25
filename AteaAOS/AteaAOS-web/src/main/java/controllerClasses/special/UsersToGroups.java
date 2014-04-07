@@ -9,7 +9,6 @@ import entityModels.Distributiongroups;
 import entityModels.Groups;
 import entityModels.Groupusers;
 import entityModels.Logging;
-import entityModels.Userdistribution;
 import entityModels.Users;
 import java.io.Serializable;
 import java.sql.Date;
@@ -97,14 +96,15 @@ public class UsersToGroups implements Serializable {
     public void setSkip(boolean skip) {
         this.skip = skip;
     }
-    @PostConstruct
-    private void init(){
-    
-        users = new DualListModel<>(usersEJB.findAll(), new ArrayList<Users>());
 
-        groups = new DualListModel<>(groupsEJB.findAll(), new ArrayList<Groups>());
+    @PostConstruct
+    private void init() {
+
+        users = new DualListModel<>(usersEJB.findAll(), new ArrayList<Users>());
+        dGroups = new DualListModel<>(dgF.findAllPro(((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))), new ArrayList<Distributiongroups>());
+        groups = new DualListModel<>(groupsEJB.findAllPro(((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))), new ArrayList<Groups>());
         username = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
-}
+    }
 
     public UsersToGroups() {
 
@@ -132,8 +132,8 @@ public class UsersToGroups implements Serializable {
         LoggingEJB.create(new Logging(new Date(System.currentTimeMillis()), "simond", "test", "INFO", "test"));
 
     }
-    
-    public void saveDU(){
+
+    public void saveDU() {
         List<Groups> gr = groups.getTarget();
         List<Users> ur = users.getTarget();
     }
@@ -194,7 +194,7 @@ public class UsersToGroups implements Serializable {
     }
 
     public void saveW(ActionEvent actionEvent) {
-        bruker.setProjectid(((String)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
+        bruker.setProjectid(((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
         usersEJB.create(bruker);
         FacesMessage msg = new FacesMessage("Successful", "Welcome :" + bruker.getFirstname());
         FacesContext.getCurrentInstance().addMessage(null, msg);
