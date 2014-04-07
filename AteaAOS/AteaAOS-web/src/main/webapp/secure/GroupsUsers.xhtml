@@ -117,7 +117,7 @@
                                 <p:tab id="userpickD" title="Select Users for adding">  
 
                                     <p:panel header="User Selection"> 
-                                        <p:growl id="msg3" showDetail="true" escape="false" />  
+                                        <p:growl id="msg4" showDetail="true" escape="false" />  
                                         <p:pickList id="pojoPickListUD" value="#{usersToGroups.dusers}" var="user" effect="bounce"  
                                                     itemValue="#{user}" itemLabel="#{user.username}" converter="#{indexConverterU}"  
                                                     showSourceControls="true" showTargetControls="true" showCheckbox="true"  
@@ -126,7 +126,7 @@
                                             <f:facet name="sourceCaption">Available Users</f:facet>  
                                             <f:facet name="targetCaption">Selected users in predefined group/es</f:facet>  
 
-                                            <p:ajax event="transfer" listener="#{usersToGroups.onTransferDU}" update="msg3" />  
+                                            <p:ajax event="transfer" listener="#{usersToGroups.onTransferDU}" update="msg4" />  
 
 
 
