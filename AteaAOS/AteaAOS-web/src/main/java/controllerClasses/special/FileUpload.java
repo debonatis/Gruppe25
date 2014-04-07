@@ -142,7 +142,7 @@ public class FileUpload implements Serializable {
 
     public synchronized void readAndPersist() {
         for (CSVRow e : getListCSV()) {
-            brukerEJB.create(new Users(e.getSamAccountName(), e.getSn(), e.getDisplayName(), e.getDn(), e.getGivenName(), "no", "no", "no", "no", 1337, "no"));
+            brukerEJB.create(new Users(e.getSamAccountName(), e.getSn(), e.getDisplayName(), e.getDn(), e.getGivenName(), "no", "no", "no", "no", 1337,(String)FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().get("projectID")));
         }
     }
 

@@ -5,9 +5,11 @@
  */
 package controllerClasses.special;
 
+import entityModels.Distributiongroups;
 import entityModels.Groups;
 import entityModels.Groupusers;
 import entityModels.Logging;
+import entityModels.Userdistribution;
 import entityModels.Users;
 import java.io.Serializable;
 import java.sql.Date;
@@ -24,9 +26,11 @@ import org.primefaces.event.FlowEvent;
 import org.primefaces.event.TransferEvent;
 
 import org.primefaces.model.DualListModel;
+import persistClasses.DistributiongroupsFacade;
 import persistClasses.GroupsFacade;
 import persistClasses.GroupusersFacade;
 import persistClasses.LoggingFacade;
+import persistClasses.UserdistributionFacade;
 import persistClasses.UsersFacade;
 
 @ManagedBean(name = "usersToGroups")
@@ -41,12 +45,25 @@ public class UsersToGroups implements Serializable {
     private GroupusersFacade groupsusersEJB;
     @EJB
     private LoggingFacade LoggingEJB;
+    @EJB
+    private DistributiongroupsFacade dgF;
+    @EJB
+    private UserdistributionFacade dMMF;
     private DualListModel<Users> users;
     private DualListModel<Groups> groups;
+    private DualListModel<Distributiongroups> dGroups;
     private String username;
     private String usernameProp;
     private boolean skip;
     private Users bruker = new Users();
+
+    public DualListModel<Distributiongroups> getdGroups() {
+        return dGroups;
+    }
+
+    public void setdGroups(DualListModel<Distributiongroups> dGroups) {
+        this.dGroups = dGroups;
+    }
 
     public String getUsernameProp() {
         usernameProp = (bruker.getFirstname().substring(0, 8) + bruker.getLastname().substring(3, 5));
@@ -114,6 +131,11 @@ public class UsersToGroups implements Serializable {
 
         LoggingEJB.create(new Logging(new Date(System.currentTimeMillis()), "simond", "test", "INFO", "test"));
 
+    }
+    
+    public void saveDU(){
+        List<Groups> gr = groups.getTarget();
+        List<Users> ur = users.getTarget();
     }
 
     public void onTransferU(TransferEvent event) {
