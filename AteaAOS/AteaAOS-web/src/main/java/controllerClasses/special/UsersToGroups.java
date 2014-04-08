@@ -110,8 +110,8 @@ public class UsersToGroups implements Serializable {
     @PostConstruct
     private void init() {
         String projectID = ((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
-        users = new DualListModel<>(usersEJB.findAll(), new ArrayList<Users>());
-        dusers = new DualListModel<>(usersEJB.findAll(), new ArrayList<Users>());
+        users = new DualListModel<>(usersEJB.findAllPro(projectID), new ArrayList<Users>());
+        dusers = new DualListModel<>(usersEJB.findAllPro(projectID), new ArrayList<Users>());
         dgroups = new DualListModel<>(dgF.findAllPro(projectID), new ArrayList<Distributiongroups>());
         groups = new DualListModel<>(groupsEJB.findAllPro(projectID), new ArrayList<Groups>());
         username = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();

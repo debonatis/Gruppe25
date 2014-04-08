@@ -201,7 +201,18 @@
                                             <h:outputText value="#{gr.gowner}" />  
                                         </f:facet>  
                                         <f:facet name="input">  
-                                            <p:inputText value="#{gr.gowner}" style="width:100%"/> 
+
+                                            <p:selectOneMenu value="#{gr.gowner}" converter="#{indexConverterU}" panelStyle="width:150px"  
+                                                             effect="fade" var="u" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                                                <f:selectItem itemLabel="Select One" itemValue="" />  
+                                                <f:selectItems value="#{distAndGroupEdit.users}" var="usr" itemLabel="#{usr.username}" itemValue="#{usr}"/>  
+
+
+
+                                                <p:column>  
+                                                    #{u.username} - #{u.firstname}  
+                                                </p:column>  
+                                            </p:selectOneMenu>  
                                         </f:facet>  
                                     </p:cellEditor>  
                                 </p:column>  
@@ -216,16 +227,14 @@
 
                                         <p:column headerText="User name" style="width:30%">  
 
-                                            <f:facet name="output">  
-                                                <h:outputText value="#{usr.username}" />  
-                                            </f:facet>  
+
+                                            <h:outputText value="#{usr.username}" />  
+
 
 
                                         </p:column> 
                                         <p:column headerText="Delete">
-                                            <f:facet name="header">
-                                                <h:outputText value="" />
-                                            </f:facet>
+
                                             <p:commandButton icon="ui-icon-close" title="remove from list"
                                                              actionListener="#{distAndGroupEdit.deleteItemDISTUser(gr, usr)}" update="usrList" />
                                         </p:column>

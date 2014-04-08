@@ -23,6 +23,7 @@ import persistClasses.DistributiongroupsFacade;
 import persistClasses.GroupsFacade;
 import persistClasses.GroupusersFacade;
 import persistClasses.UserdistributionFacade;
+import persistClasses.UsersFacade;
 
 /**
  *
@@ -40,11 +41,24 @@ public class DistAndGroupEdit {
     private UserdistributionFacade dgMMF;
     @EJB
     private GroupusersFacade sgMMF;
+    @EJB
+    private UsersFacade uF;
     private List<DistSecGroupModel> liste = new ArrayList<>();
     private List<Groups> listsg = new ArrayList<>();
     private List<Distributiongroups> listdg = new ArrayList<>();
+    private List<Users> users = new ArrayList<>();
     private Groups selectsg;
     private Distributiongroups selectdg;
+
+    public List<Users> getUsers() {
+        String projectID = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID");
+        users = uF.findAllPro(projectID);
+        return users;
+    }
+
+    public void setUsers(List<Users> users) {
+        this.users = users;
+    }
 
     public void init() {
         liste.clear();
