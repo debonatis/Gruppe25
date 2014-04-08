@@ -29,6 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Groups.findAll", query = "SELECT g FROM Groups g"),
     @NamedQuery(name = "Groups.findByGroupname", query = "SELECT g FROM Groups g WHERE g.groupname = :groupname"),
     @NamedQuery(name = "Groups.findByDescription", query = "SELECT g FROM Groups g WHERE g.description = :description"),
+    @NamedQuery(name = "Groups.findByGroupowner", query = "SELECT g FROM Groups g WHERE g.groupowner = :groupowner"),
     @NamedQuery(name = "Groups.findByFunctions", query = "SELECT g FROM Groups g WHERE g.functions = :functions"),
     @NamedQuery(name = "Groups.findByProjectid", query = "SELECT g FROM Groups g WHERE g.projectid = :projectid")})
 public class Groups implements Serializable {
@@ -44,6 +45,9 @@ public class Groups implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "DESCRIPTION")
     private String description;
+    @Size(max = 100)
+    @Column(name = "GROUPOWNER")
+    private String groupowner;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -83,6 +87,14 @@ public class Groups implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getGroupowner() {
+        return groupowner;
+    }
+
+    public void setGroupowner(String groupowner) {
+        this.groupowner = groupowner;
     }
 
     public String getFunctions() {
