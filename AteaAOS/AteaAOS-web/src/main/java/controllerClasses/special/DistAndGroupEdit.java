@@ -57,7 +57,7 @@ public class DistAndGroupEdit {
 
                 }
             }
-            liste.add(new DistSecGroupModel(g.getGroupname(), true, false, g.getGroupname(), roger));
+            liste.add(new DistSecGroupModel(g.getGroupname(), true, false, g.getGroupowner(), roger));
         }
         for (Distributiongroups d : dgF.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))) {
             roger = new ArrayList<>();
