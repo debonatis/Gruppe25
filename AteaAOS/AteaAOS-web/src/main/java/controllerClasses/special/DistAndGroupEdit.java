@@ -49,7 +49,7 @@ public class DistAndGroupEdit {
     public void init() {
         liste.clear();
         List<Users> roger;
-        for (Groups g : gF.findAllPro((String)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))) {
+        for (Groups g : gF.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))) {
             roger = new ArrayList<>();
             for (Groupusers gu : sgMMF.findAll()) {
                 if (gu.getGroupusersPK().getUsergroupname().equalsIgnoreCase(g.getGroupname())) {
@@ -57,9 +57,9 @@ public class DistAndGroupEdit {
 
                 }
             }
-            liste.add(new DistSecGroupModel(g.getGroupname(), true, false, "-", roger));
+            liste.add(new DistSecGroupModel(g.getGroupname(), true, false, g.getGroupname(), roger));
         }
-        for (Distributiongroups d : dgF.findAllPro((String)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))) {
+        for (Distributiongroups d : dgF.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))) {
             roger = new ArrayList<>();
             for (Userdistribution du : dgMMF.findAll()) {
                 if (du.getUserdistributionPK().getDisplayname().equalsIgnoreCase(d.getDisplayname())) {
@@ -101,7 +101,7 @@ public class DistAndGroupEdit {
     public Distributiongroups getSelectdg() {
         if (selectdg == null) {
             selectdg = new Distributiongroups();
-            
+
         }
         return selectdg;
     }
@@ -120,7 +120,7 @@ public class DistAndGroupEdit {
     public Groups getSelectsg() {
         if (selectsg == null) {
             selectsg = new Groups();
-            
+
         }
         return selectsg;
     }
@@ -145,13 +145,24 @@ public class DistAndGroupEdit {
     }
 
     public void onEditDIST(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Group Edited", ((DistSecGroupModel) event.getObject()).getGrname());
 
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+        DistSecGroupModel e = (DistSecGroupModel) event.getObject();
+        if (e.isSg()) {
+
+            Groups gru = gF.find(e.getGrname());
+            gru.setGroupowner(e.getGowner());
+            gF.edit(gru);
+
+            init();
+            FacesMessage msg = new FacesMessage("Group Edited", ((DistSecGroupModel) event.getObject()).getGrname());
+
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+
     }
 
     public void onCancelDIST(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Group Cancelled", ((DistSecGroupModel) event.getObject()).getGrname());
+        FacesMessage msg = new FacesMessage("Group Edit Cancelled", ((DistSecGroupModel) event.getObject()).getGrname());
 
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
