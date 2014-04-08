@@ -15,7 +15,7 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author simond
+ * @author Martin
  */
 @Embeddable
 public class ApplicationaccessPK implements Serializable {
@@ -27,15 +27,15 @@ public class ApplicationaccessPK implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(name = "APPLICATIONNAME")
-    private String applicationname;
+    @Column(name = "APPLICATIONID")
+    private String applicationid;
 
     public ApplicationaccessPK() {
     }
 
-    public ApplicationaccessPK(String username, String applicationname) {
+    public ApplicationaccessPK(String username, String applicationid) {
         this.username = username;
-        this.applicationname = applicationname;
+        this.applicationid = applicationid;
     }
 
     public String getUsername() {
@@ -46,19 +46,19 @@ public class ApplicationaccessPK implements Serializable {
         this.username = username;
     }
 
-    public String getApplicationname() {
-        return applicationname;
+    public String getApplicationid() {
+        return applicationid;
     }
 
-    public void setApplicationname(String applicationname) {
-        this.applicationname = applicationname;
+    public void setApplicationid(String applicationid) {
+        this.applicationid = applicationid;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (username != null ? username.hashCode() : 0);
-        hash += (applicationname != null ? applicationname.hashCode() : 0);
+        hash += (applicationid != null ? applicationid.hashCode() : 0);
         return hash;
     }
 
@@ -72,7 +72,7 @@ public class ApplicationaccessPK implements Serializable {
         if ((this.username == null && other.username != null) || (this.username != null && !this.username.equals(other.username))) {
             return false;
         }
-        if ((this.applicationname == null && other.applicationname != null) || (this.applicationname != null && !this.applicationname.equals(other.applicationname))) {
+        if ((this.applicationid == null && other.applicationid != null) || (this.applicationid != null && !this.applicationid.equals(other.applicationid))) {
             return false;
         }
         return true;
@@ -80,7 +80,7 @@ public class ApplicationaccessPK implements Serializable {
 
     @Override
     public String toString() {
-        return "entityModels.ApplicationaccessPK[ username=" + username + ", applicationname=" + applicationname + " ]";
+        return "entityModels.ApplicationaccessPK[ username=" + username + ", applicationid=" + applicationid + " ]";
     }
     
 }
