@@ -35,11 +35,12 @@ public class IndexConverterD implements Converter {
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        
+        if (!(value == null)){
         dGruppe = (Distributiongroups) value;
 
         return dGruppe.getDisplayname();
-
+        }
+        return (new Distributiongroups("fault")).getDisplayname();
     }
 
 }
