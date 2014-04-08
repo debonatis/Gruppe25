@@ -24,8 +24,8 @@
                                     <p:panel header="Application Selection"> 
 
                                         <p:growl id="msg2" showDetail="true" escape="false" />  
-                                        <p:pickList id="pojoPickList" value="#{usersToApps.applications}" var="group" effect="fade"  
-                                                    itemValue="#{application}" itemLabel="#{application.applicationname}" converter="#{indexConverterG}"  
+                                        <p:pickList id="pojoPickList" value="#{usersToApps.applications}" var="application" effect="fade"  
+                                                    itemValue="#{application}" itemLabel="#{application.applicationname}" converter="#{indexConverterA}"  
                                                     showSourceControls="true" showTargetControls="true" showCheckbox="true"  
                                                     showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" >  
 
