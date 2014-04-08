@@ -215,7 +215,7 @@ public class ApplicationaccessController implements Serializable {
             String values[] = value.split(SEPARATOR_ESCAPED);
             key = new entityModels.ApplicationaccessPK();
             key.setUsername(values[0]);
-            key.setApplicationname(values[1]);
+            key.setApplicationid(values[1]);
             return key;
         }
 
@@ -223,7 +223,7 @@ public class ApplicationaccessController implements Serializable {
             StringBuilder sb = new StringBuilder();
             sb.append(value.getUsername());
             sb.append(SEPARATOR);
-            sb.append(value.getApplicationname());
+            sb.append(value.getApplicationid());
             return sb.toString();
         }
 

@@ -28,6 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Applications.findAll", query = "SELECT a FROM Applications a"),
     @NamedQuery(name = "Applications.findByApplicationname", query = "SELECT a FROM Applications a WHERE a.applicationname = :applicationname"),
+    @NamedQuery(name = "Applications.findByApplicationid", query = "SELECT a FROM Applications a WHERE a.applicationid = :applicationid"),
     @NamedQuery(name = "Applications.findByVersion", query = "SELECT a FROM Applications a WHERE a.version = :version"),
     @NamedQuery(name = "Applications.findByApplanguage", query = "SELECT a FROM Applications a WHERE a.applanguage = :applanguage"),
     @NamedQuery(name = "Applications.findByLicense", query = "SELECT a FROM Applications a WHERE a.license = :license"),
@@ -38,12 +39,17 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Applications.findBySizedatabase", query = "SELECT a FROM Applications a WHERE a.sizedatabase = :sizedatabase")})
 public class Applications implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "APPLICATIONNAME")
     private String applicationname;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "APPLICATIONID")
+    private String applicationid;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -86,11 +92,12 @@ public class Applications implements Serializable {
     public Applications() {
     }
 
-    public Applications(String applicationname) {
-        this.applicationname = applicationname;
+    public Applications(String applicationid) {
+        this.applicationid = applicationid;
     }
 
-    public Applications(String applicationname, String version, String applanguage, String license, String contractinformation, String applicationownercustomer, String sizefile, String sizedatabase) {
+    public Applications(String applicationid, String applicationname, String version, String applanguage, String license, String contractinformation, String applicationownercustomer, String sizefile, String sizedatabase) {
+        this.applicationid = applicationid;
         this.applicationname = applicationname;
         this.version = version;
         this.applanguage = applanguage;
@@ -107,6 +114,14 @@ public class Applications implements Serializable {
 
     public void setApplicationname(String applicationname) {
         this.applicationname = applicationname;
+    }
+
+    public String getApplicationid() {
+        return applicationid;
+    }
+
+    public void setApplicationid(String applicationid) {
+        this.applicationid = applicationid;
     }
 
     public String getVersion() {
@@ -176,7 +191,7 @@ public class Applications implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (applicationname != null ? applicationname.hashCode() : 0);
+        hash += (applicationid != null ? applicationid.hashCode() : 0);
         return hash;
     }
 
@@ -187,7 +202,7 @@ public class Applications implements Serializable {
             return false;
         }
         Applications other = (Applications) object;
-        if ((this.applicationname == null && other.applicationname != null) || (this.applicationname != null && !this.applicationname.equals(other.applicationname))) {
+        if ((this.applicationid == null && other.applicationid != null) || (this.applicationid != null && !this.applicationid.equals(other.applicationid))) {
             return false;
         }
         return true;
@@ -195,7 +210,7 @@ public class Applications implements Serializable {
 
     @Override
     public String toString() {
-        return "entityModels.Applications[ applicationname=" + applicationname + " ]";
+        return "entityModels.Applications[ applicationid=" + applicationid + " ]";
     }
     
 }
