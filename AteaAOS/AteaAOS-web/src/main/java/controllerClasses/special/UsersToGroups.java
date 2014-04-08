@@ -74,8 +74,6 @@ public class UsersToGroups implements Serializable {
         this.dgroups = dgroups;
     }
 
-    
-
     public String getUsernameProp() {
         usernameProp = (bruker.getFirstname().substring(0, 8) + bruker.getLastname().substring(3, 5));
         return usernameProp;
@@ -111,11 +109,11 @@ public class UsersToGroups implements Serializable {
 
     @PostConstruct
     private void init() {
-
+        String projectID = ((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
         users = new DualListModel<>(usersEJB.findAll(), new ArrayList<Users>());
         dusers = new DualListModel<>(usersEJB.findAll(), new ArrayList<Users>());
-        dgroups = new DualListModel<>(dgF.findAllPro(((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))), new ArrayList<Distributiongroups>());
-        groups = new DualListModel<>(groupsEJB.findAllPro(((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))), new ArrayList<Groups>());
+        dgroups = new DualListModel<>(dgF.findAllPro(projectID), new ArrayList<Distributiongroups>());
+        groups = new DualListModel<>(groupsEJB.findAllPro(projectID), new ArrayList<Groups>());
         username = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
     }
 
@@ -289,6 +287,7 @@ public class UsersToGroups implements Serializable {
 
         return event.getNewStep();
     }
+
     public String onFlowProcessPick2(FlowEvent event) {
 
         return event.getNewStep();
