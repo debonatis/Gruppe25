@@ -47,7 +47,8 @@ public abstract class AbstractFacade<T> {
         
         javax.persistence.Query q = getEntityManager().createNamedQuery(""+entityClass.getName().substring(13)+".findByProjectid", entityClass);
         q.setParameter("projectid", projectID);
-        return q.getResultList();
+       List<T> res = q.getResultList();
+        return res;
     }
 
     public List<T> findRange(int[] range) {
