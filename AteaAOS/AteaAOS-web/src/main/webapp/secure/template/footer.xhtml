@@ -11,7 +11,8 @@
     <h:body>
         <ui:composition>
             <h:form>
-                <p:dock id="dock">  
+                <p:outputLabel value="#{security.projectID}" rendered="#{not empty security.projectID}" />
+                <p:dock id="dock" >  
                     <p:menuitem value="Home" icon="/resources/images/dock/home.png" outcome="home"/>
                     <p:menuitem value="Users" icon="/resources/images/dock/user.png" outcome="users"/>
                     <p:menuitem value="Groups" icon="/resources/images/dock/group.png" outcome="groups"/> 
@@ -20,6 +21,7 @@
                     <p:menuitem value="Applications" icon="/resources/images/dock/app2.png"  outcome="apps"/>
                     <p:menuitem value="Administration" icon="/resources/images/dock/admin.png"  url="#"/>
                 </p:dock>
+                
             </h:form>
         </ui:composition>
     </h:body> 
