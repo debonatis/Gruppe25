@@ -28,7 +28,7 @@ import persistClasses.ApplicationsFacade;
  */
 @ManagedBean(name = "newApplication")
 @SessionScoped
-public class newAndEditApplication implements Serializable {
+public class NewApplication implements Serializable {
 
     @EJB
     private ApplicationsFacade applicationsEJB;
@@ -38,7 +38,7 @@ public class newAndEditApplication implements Serializable {
     private ApplicationsModel selectList = new ApplicationsModel();
 
     private Applications selected = new Applications();
-    private List<Applications> projectListT = new ArrayList<>();
+    private List<Applications> applicationListT = new ArrayList<>();
 
     public Applications getSelected() {
         return selected;
@@ -66,9 +66,9 @@ public class newAndEditApplication implements Serializable {
     @PostConstruct
     public void init() {
 
-        projectListT = applicationsEJB.findAll();
+        applicationListT = applicationsEJB.findAll();
 
-        selectList = new ApplicationsModel(projectListT);
+        selectList = new ApplicationsModel(applicationListT);
     }
 
     private UUID getUUID() {
@@ -100,45 +100,12 @@ public class newAndEditApplication implements Serializable {
         } catch (Exception e) {
             FacesMessage msg = new FacesMessage();
             msg.setSeverity(FacesMessage.SEVERITY_INFO);
-            msg.setSummary("Project not created!");
+            msg.setSummary("Application not created!");
             msg.setDetail("Maybe faulty inputs?");
             prepareCreate();
 
             FacesContext.getCurrentInstance().addMessage(null, msg);
 
-        }
-    }
-
-    /**
-     *
-     * @return
-     */
-    public boolean isSkip() {
-        return skip;
-    }
-
-    /**
-     *
-     * @param skip
-     */
-    public void setSkip(boolean skip) {
-        this.skip = skip;
-    }
-
-    /**
-     *
-     * @param event
-     * @return returns given wisard step
-     */
-    public String onFlowProcess(FlowEvent event) {
-        logger.log(Level.INFO, "Current wizard step:{0}", event.getOldStep());
-        logger.log(Level.INFO, "Next step:{0}", event.getNewStep());
-
-        if (skip) {
-            skip = false;
-            return "confirm";
-        } else {
-            return event.getNewStep();
         }
     }
 

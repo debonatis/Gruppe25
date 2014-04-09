@@ -13,7 +13,7 @@ import org.primefaces.model.SelectableDataModel;
 
 /**
  *
- * @author simond
+ * @author Martin
  */
 public class ApplicationsModel extends ListDataModel<Applications> implements SelectableDataModel<Applications> {    
   
