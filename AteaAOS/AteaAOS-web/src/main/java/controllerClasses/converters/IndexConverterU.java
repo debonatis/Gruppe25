@@ -11,6 +11,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
+import javax.faces.convert.ConverterException;
 import javax.inject.Named;
 import persistClasses.UsersFacade;
 
@@ -35,7 +36,16 @@ public class IndexConverterU implements Converter {
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        bruker = (Users) value;
+       if(value == null){
+           return null;
+       }else if(!(value instanceof Users)){
+           throw new ConverterException("The value is not a valid User: " + value);
+       }else{
+           bruker = (Users) value;
+       }
+        
+       
+        
         
             
         
