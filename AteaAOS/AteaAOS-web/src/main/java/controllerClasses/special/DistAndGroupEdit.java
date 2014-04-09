@@ -87,12 +87,12 @@ public class DistAndGroupEdit {
     }
 
     public void initdg() {
-        listdg = dgF.findAll();
+        listdg = dgF.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
 
     }
 
     public void initsg() {
-        listsg = gF.findAll();
+        listsg = gF.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
 
     }
 
