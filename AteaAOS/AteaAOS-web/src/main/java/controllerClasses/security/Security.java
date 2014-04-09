@@ -10,7 +10,6 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import javax.faces.context.FacesContext;
-import javax.faces.view.facelets.FaceletContext;
 
 /**
  *
@@ -25,16 +24,33 @@ public class Security implements Serializable {
      */
     
     private String projectID;
+    private String username;
     public Security() {
-        projectID = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(projectID);
+        
     }
 
     public String getProjectID() {
+        projectID = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(projectID);
+        if(projectID == null){
+            projectID = "Project not choosen";
+        }
         return projectID;
     }
 
     public void setProjectID(String projectID) {
         this.projectID = projectID;
+    }
+
+    public String getUsername() {
+        username = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
+        if(projectID == null){
+            projectID = "Not logged in";
+        }
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
     
 }

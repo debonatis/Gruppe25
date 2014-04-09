@@ -11,7 +11,7 @@
     <h:body>
         <ui:composition>
             <h:form>
-                <p:outputLabel value="#{security.projectID}" rendered="#{not empty security.projectID}" />
+                <p:outputLabel value="#{security.projectID}" rendered="#{not empty security.projectID}" style="float: left"/>
                 <p:dock id="dock" >  
                     <p:menuitem value="Home" icon="/resources/images/dock/home.png" outcome="home"/>
                     <p:menuitem value="Users" icon="/resources/images/dock/user.png" outcome="users"/>
