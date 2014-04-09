@@ -9,10 +9,6 @@
 
     <h:body>
         <ui:composition template="template/templateSecure.xhtml">
-
-
-
-
             <ui:define name="center">
 
                 <p:tabView id="tabView">
@@ -28,7 +24,7 @@
                                     <p:panel header="Group Selection"> 
 
                                         <p:growl id="msg2" showDetail="true" escape="false" />  
-                                        <p:pickList id="pojoPickList" value="#{usersToGroups.groups}" var="group" effect="bounce"  
+                                        <p:pickList id="pojoPickList" value="#{usersToGroups.groups}" var="group" effect="fade"  
                                                     itemValue="#{group}" itemLabel="#{group.groupname}" converter="#{indexConverterG}"  
                                                     showSourceControls="true" showTargetControls="true" showCheckbox="true"  
                                                     showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" >  

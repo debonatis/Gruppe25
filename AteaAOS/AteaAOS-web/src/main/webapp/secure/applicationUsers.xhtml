@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+    </h:head>
+
+    <h:body>
+        <ui:composition template="template/templateSecure.xhtml">
+            <ui:define name="center">
+                <p:tabView id="tabView">
+                    
+                    <p:tab id="tab1" title="Users to Applications">  
+                        <h:form id="selectForm">
+
+                            <p:growl id="growl2" sticky="true" showDetail="true"/>  
+
+                            <p:wizard flowListener="#{usersToApps.onFlowProcessPick}" >
+
+                                <p:tab id="grouppick" title="Select Applications for editing">  
+
+                                    <p:panel header="Application Selection"> 
+
+                                        <p:growl id="msg2" showDetail="true" escape="false" />  
+                                        <p:pickList id="pojoPickList" value="#{usersToApps.applications}" var="application" effect="fade"  
+                                                    itemValue="#{application}" itemLabel="#{application.applicationname}" converter="#{indexConverterA}"  
+                                                    showSourceControls="true" showTargetControls="true" showCheckbox="true"  
+                                                    showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" >  
+
+                                            <f:facet name="sourceCaption">Available Applications</f:facet>  
+                                            <f:facet name="targetCaption">Selected Applications</f:facet>  
+
+                                            <p:ajax event="transfer" listener="#{usersToApps.onTransferA}" update="msg2" />  
+
+
+
+                                            <p:column style="width:75%;">  
+                                                #{application.applicationname}  
+                                            </p:column>  
+
+                                        </p:pickList > 
+
+                                    </p:panel>
+                                </p:tab>
+                                <p:tab id="userpick" title="Select Users for adding">  
+
+                                    <p:panel header="User Selection"> 
+                                        <p:growl id="msg3" showDetail="true" escape="false" />  
+                                        <p:pickList id="pojoPickListU" value="#{usersToApps.users}" var="user" effect="bounce"  
+                                                    itemValue="#{user}" itemLabel="#{user.username}" converter="#{indexConverterU}"  
+                                                    showSourceControls="true" showTargetControls="true" showCheckbox="true"  
+                                                    showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" >  
+
+                                            <f:facet name="sourceCaption">Available Users</f:facet>  
+                                            <f:facet name="targetCaption">Selected users in predefined applications</f:facet>  
+
+                                            <p:ajax event="transfer" listener="#{usersToApps.onTransferU}" update="msg3" />  
+
+
+
+                                            <p:column style="width:75%;">  
+                                                #{user.username}  
+                                            </p:column>  
+
+                                        </p:pickList>  
+
+
+
+
+                                    </p:panel>
+                                    <p:commandButton id="pojoSubmit" value="Submit"   style="margin-top:5px" action="#{usersToGroups.saveU()}"/> 
+                                </p:tab>
+
+                            </p:wizard>
+                        </h:form>
+                    </p:tab>
+                    
+                    <p:tab id="tab2" title="New Application">
+                        <h:form>
+
+                            <p:panel header="Details">  
+                                <h:messages errorClass="error"/>  
+
+                                <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid" id="sgDetail">  
+
+                                    <h:outputText value="Application Name: *" />  
+                                    <p:inputText required="true" label="Application name"  
+                                                 value="#{distAndGroupEdit.selectsg.groupname}" />  
+
+                                    <h:outputText value="Description: *" />  
+                                    <p:inputText required="true" label="Description"  
+                                                 value="#{distAndGroupEdit.selectsg.description}" />  
+
+                                    <h:outputText value="Function: " />  
+                                    <p:inputText value="#{distAndGroupEdit.selectsg.functions}" />  
+
+                                    <p:commandButton value="Save" action="#{distAndGroupEdit.saveSelectsg()}" icon="ui-icon-disk" />
+
+                                </h:panelGrid> 
+
+
+                            </p:panel>  
+                            <p:panel header="Security Group List">
+                                <p:dataTable var="sg" value="#{distAndGroupEdit.listsg}" id="sgList" >  
+
+                                    <f:facet name="header">  
+                                        Groups 
+                                    </f:facet>  
+
+
+
+                                    <p:column headerText="Group Name" style="width:30%">  
+
+                                        <f:facet name="output">  
+                                            <h:outputText value="#{sg.groupname}" />  
+                                        </f:facet>  
+
+
+                                    </p:column> 
+                                    <p:column headerText="Functions" style="width:30%">  
+
+                                        <f:facet name="output">  
+                                            <h:outputText value="#{sg.functions}" />  
+                                        </f:facet>  
+
+
+                                    </p:column> 
+                                    <p:column headerText="Description" style="width:30%">  
+
+                                        <f:facet name="output">  
+                                            <h:outputText value="#{sg.description}" />  
+                                        </f:facet>  
+
+
+                                    </p:column> 
+
+                                </p:dataTable> 
+                                <p:commandButton value="Refresh" action="#{distAndGroupEdit.initsg()}" icon="ui-icon-refresh" update="sgList"/>
+
+                            </p:panel>
+                        </h:form>
+
+                    </p:tab>
+                    
+                </p:tabView>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

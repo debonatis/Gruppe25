@@ -15,7 +15,7 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author simond
+ * @author Martin
  */
 @Embeddable
 public class ApplicationaccessPK implements Serializable {
