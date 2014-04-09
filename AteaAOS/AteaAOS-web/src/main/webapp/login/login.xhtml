@@ -28,6 +28,7 @@
 
                 <p:layoutUnit position="center">
                     <form method="post" action="j_security_check">
+                        <br/>
                         <h:panelGrid columns="2">
 
                             <h:outputLabel for="j_username" value="Username" />
@@ -37,16 +38,16 @@
                             <input type="password" name="j_password" />
 
                             <h:outputText value="" />
-                            <h:panelGrid columns="2">
-                                <input type="submit" name="submit" value="Login" />
+                            <input type="submit" name="submit" value="Login" />
 
-                                <h:button outcome="/faces/index.xhtml" value="Cancel" /><br/>
-                                <h:button outcome="/faces/login/forgotPassword.xhtml" value="Forgot password?"/>
-
-                                <p:button id="toLogin"  value="Login" href="/faces/secure/adminPage.xhtml"/> 
-
-                            </h:panelGrid>
+                            <br/><br/>
+                            <p:button outcome="/faces/index.xhtml" value="Cancel" />
+                            <p:button outcome="/faces/login/forgotPassword.xhtml" value="Forgot password?"/><br/>
+                            <br/><br/>
                         </h:panelGrid>
+                        <p:panel >
+                            <p:button value="Skip this login shit" outcome="/faces/secure/adminPage.xhtml"/> 
+                        </p:panel>
                     </form>
                 </p:layoutUnit>
             </p:layout>
