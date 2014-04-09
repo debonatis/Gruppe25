@@ -79,10 +79,10 @@
 
                     <p:tab id="tab2" title="Create New Application">  
                         <h:form id="appForm"> 
-                            
+                            <p:growl id="growl" sticky="true" showDetail="true"/>
 
                             <p:panel header="Application Details">  
-                                <p:growl id="growl" sticky="true" showDetail="true"/>
+
                                 <h:messages errorClass="error"/>  
 
                                 <h:panelGrid columns="6" cellspacing="15" columnClasses="label, value" styleClass="grid">  
@@ -105,10 +105,10 @@
 
                                     <h:outputText value="Contract Information: " />  
                                     <p:inputText value="#{usersToApps.apps.contractinformation}" /> 
-                                    
+
                                     <h:outputText value="File size: *" />  
                                     <p:inputText value="#{usersToApps.apps.sizefile}" /> 
-                                    
+
                                     <h:outputText value="SizeDatabase: *" />  
                                     <p:inputText value="#{usersToApps.apps.sizedatabase}" /> 
 
