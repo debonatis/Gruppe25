@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controllerClasses.special;
+package controllerClasses.special.cSVparser;
 
-import controllerClasses.special.cSVparser.CSVRow;
 import entityModels.Users;
 import java.io.File;
 import java.io.FileNotFoundException;
