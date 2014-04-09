@@ -198,17 +198,15 @@
                                         </f:facet>  
                                         <f:facet name="input">  
 
-                                            <p:selectOneMenu value="#{gr.gowner}" converter="#{indexConverterU}" panelStyle="width:150px"  
-                                                             effect="fade" var="u" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                                            <h:selectOneMenu value="#{gr.gowner}"  >
+                                                             
                                                 <f:selectItem itemLabel="Select One" itemValue="" />  
                                                 <f:selectItems value="#{distAndGroupEdit.users}" var="usr" itemLabel="#{usr.username}" itemValue="#{usr}"/>  
 
 
 
-                                                <p:column>  
-                                                    #{u.username} - #{u.firstname}  
-                                                </p:column>  
-                                            </p:selectOneMenu>  
+
+                                            </h:selectOneMenu>  
                                         </f:facet>  
                                     </p:cellEditor>  
                                 </p:column>  
