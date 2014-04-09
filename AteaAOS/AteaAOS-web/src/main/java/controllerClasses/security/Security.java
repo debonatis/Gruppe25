@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package controllerClasses.security;
 
 import javax.inject.Named;
@@ -22,16 +21,20 @@ public class Security implements Serializable {
     /**
      * Creates a new instance of Security
      */
-    
     private String projectID;
     private String username;
+
     public Security() {
-        
+
     }
 
     public String getProjectID() {
-        projectID = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(projectID);
-        if(projectID == null){
+        try {
+
+            projectID = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectName");
+        } catch (Exception e) {
+        }
+        if (projectID == null) {
             projectID = "Project not choosen";
         }
         return projectID;
@@ -42,8 +45,12 @@ public class Security implements Serializable {
     }
 
     public String getUsername() {
-        username = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
-        if(projectID == null){
+        try {
+
+            username = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
+        } catch (Exception e) {
+        }
+        if (projectID == null || projectID.equalsIgnoreCase("")) {
             projectID = "Not logged in";
         }
         return username;
@@ -52,5 +59,5 @@ public class Security implements Serializable {
     public void setUsername(String username) {
         this.username = username;
     }
-    
+
 }
