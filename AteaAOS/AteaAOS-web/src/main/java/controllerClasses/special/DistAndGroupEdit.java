@@ -83,7 +83,8 @@ public class DistAndGroupEdit {
             }
             liste.add(new DistSecGroupModel(d.getDisplayname(), false, true, "-", roger));
         }
-
+        listdg = dgF.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
+        listsg = gF.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
     }
 
     public void initdg() {
