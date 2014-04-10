@@ -29,7 +29,7 @@
                         <h:form id="tableform">
                             <p:fieldset legend="Users" toggleable="true" toggleSpeed="500"> 
 
-                                <p:dataTable id="roger" value="#{fileUpload.list.usr}" var="item" cellSeparator="2" paginator="true" rows="10" editable="true">
+                                <p:dataTable id="roger" value="#{fileUpload.list.usr}" var="item" cellSeparator="2" paginator="true" rows="100" editable="true">
 
 
 
@@ -91,7 +91,7 @@
                                 </p:dataTable>  
                             </p:fieldset>
                             <p:fieldset legend="Security Groups" toggleable="true" toggleSpeed="500"> 
-                                <p:dataTable id="roger2" value="#{fileUpload.list.gr}" var="item" cellSeparator="2" paginator="true" rows="10" editable="true">
+                                <p:dataTable id="roger2" value="#{fileUpload.list.gr}" var="item" cellSeparator="2" paginator="true" rows="100" editable="true">
 
 
 
@@ -135,7 +135,7 @@
                                             <h:outputText value="" />
                                         </f:facet>
                                         <p:commandButton icon="ui-icon-close" title="remove from list"
-                                                         actionListener="#{fileUpload.deleteItem(item)}" update="roger" />
+                                                         actionListener="#{fileUpload.deleteItem(item)}" update="roger2" />
                                     </p:column>
 
 
@@ -145,7 +145,7 @@
                                 </p:dataTable>  
                             </p:fieldset>
                             <p:fieldset legend="Distiribution Groups" toggleable="true" toggleSpeed="500"> 
-                                <p:dataTable id="roger2" value="#{fileUpload.list.dgr}" var="item" cellSeparator="2" paginator="true" rows="10" editable="true">
+                                <p:dataTable id="roger3" value="#{fileUpload.list.dgr}" var="item" cellSeparator="2" paginator="true" rows="100" editable="true">
 
 
 
@@ -182,7 +182,7 @@
                                             <h:outputText value="" />
                                         </f:facet>
                                         <p:commandButton icon="ui-icon-close" title="remove from list"
-                                                         actionListener="#{fileUpload.deleteItem(item)}" update="roger" />
+                                                         actionListener="#{fileUpload.deleteItem(item)}" update="roger3" />
                                     </p:column>
 
 
