@@ -121,8 +121,9 @@ public class FileUpload implements Serializable {
 
             System.out.println(entry.get("cn"));
             System.out.println(entry.get("mail"));
-            System.out.println(entry.get("mozillaNickname"));
+            
             System.out.println(entry.getDn());
+           
 
         }
 
