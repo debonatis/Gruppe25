@@ -5,9 +5,6 @@
  */
 package controllerClasses.special.cSVparser;
 
-import com.google.common.hash.Hashing;
-import com.sun.org.apache.bcel.internal.generic.AALOAD;
-import controllerClasses.special.newProject;
 import entityModels.Distributiongroups;
 import entityModels.Groups;
 import entityModels.Users;
@@ -19,7 +16,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
