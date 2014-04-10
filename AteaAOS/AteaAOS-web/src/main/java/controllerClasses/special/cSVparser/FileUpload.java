@@ -48,7 +48,7 @@ import persistClasses.UsersFacade;
 @SessionScoped
 public class FileUpload implements Serializable {
 
-    private static ADSIentity list = new ADSIentity();
+    private ADSIentity list = new ADSIentity();
     @EJB
     private UsersFacade brukerEJB;
     @EJB
@@ -61,6 +61,14 @@ public class FileUpload implements Serializable {
 
     public FileUpload() {
 
+    }
+
+    public ADSIentity getList() {
+        return list;
+    }
+
+    public void setList(ADSIentity list) {
+        this.list = list;
     }
 
     public UploadedFile getFile() {

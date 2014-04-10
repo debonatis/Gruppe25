@@ -27,66 +27,177 @@
 
                         </h:form>
                         <h:form id="tableform">
+                            <p:fieldset legend="Users" toggleable="true" toggleSpeed="500"> 
 
-                            <p:dataTable  id="dataTable" var="row" value="#{fileUpload.listCSV}" emptyMessage="No items found." editable="true"
-                                          paginator="true" rows="100">  
-                                <f:facet name="header">  
-                                    CSV Output
-                                </f:facet>  
-                                <p:column headerText="Delete">
-                                    <f:facet name="header">
-                                        <h:outputText value="" />
-                                    </f:facet>
-                                    <p:commandButton icon="ui-icon-close" title="remove from list"
-                                                     actionListener="#{fileUpload.deleteItem(row)}" update="dataTable" />
-                                </p:column>
-
-                                <p:column sortBy="objectclass" headerText="Type">  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{row.objectClass}" /></f:facet>  
-                                        <f:facet name="input"><p:inputText id="object" value="#{row.objectClass}" style="width: 96%"/></f:facet>  
-                                    </p:cellEditor>  
-                                </p:column>  
-
-                                <p:column sortBy="dn" headerText="Domain">  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{row.DN}" /></f:facet>  
-                                        <f:facet name="input"><p:inputText id="dn" value="#{row.DN}" style="width: 96%"/>
-                                        </f:facet>  
-                                    </p:cellEditor>  
-                                </p:column>  
-
-                                <p:column sortBy="samAccountName" headerText="Logon">  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{row.getsAMAccountName}" /></f:facet>  
-                                        <f:facet name="input"><p:inputText id="sam" value="#{row.getsAMAccountName}" style="width:96%"/></f:facet>  
-                                    </p:cellEditor>  
-                                </p:column>  
-
-                                <p:column sortBy="displayName" headerText="Name">  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{row.displayName}" /></f:facet>  
-                                        <f:facet name="input"><p:inputText id="displa" value="#{row.displayName}" style="width:96%"/></f:facet>  
-                                    </p:cellEditor>   
-                                </p:column>  
-                                <p:column sortBy="sn" headerText="Password Reset">  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{row.sn}" /></f:facet>  
-                                        <f:facet name="input"><p:inputText id="sn" value="#{row.sn}" style="width:96%"/></f:facet>  
-                                    </p:cellEditor>  
-                                </p:column>  
-                                <f:facet name="footer">  
-                                    <p:commandButton value="Save" icon="ui-icon-disk"  
-                                                     actionListener="#{fileUpload.readAndPersist()}" onclick="if (!confirm('Are you sure, no more editing of user?')) {
-                                                                 return false;
-                                                             }"/> 
-                                    <p:commandButton value="Delete List" icon="ui-icon-disk"  
-                                                     actionListener="#{fileUpload.emptyList()}" title="Delete the presented list, not users in the database"/>
-                                </f:facet> 
-                            </p:dataTable>  
+                                <p:dataTable id="roger" value="#{fileUpload.list.usr}" var="item" cellSeparator="2" paginator="true" rows="10" editable="true">
 
 
 
+                                    <p:column headerText="Username" style="width:30%" 
+                                              id="usernameColumn" filterBy="username" filterMatchMode="contains">
+                                        <h:outputText value="#{item.username}" />
+                                    </p:column>  
+
+                                    <p:column headerText="First name" style="width:30%" 
+                                              id="firstnameColumn" filterBy="firstname" filterMatchMode="contains">  
+
+
+                                        <h:outputText value="#{item.firstname}" />  
+
+
+
+
+                                    </p:column>
+
+                                    <p:column headerText="Last name" style="width:30%"
+                                              id="lastnameColumn" filterBy="lastname" filterMatchMode="contains">  
+
+                                        <h:outputText value="#{item.lastname}" />  
+
+
+
+                                    </p:column>
+
+                                    <p:column headerText="Employment number" style="width:30%"
+                                              id="employmentnrColumn" filterBy="employmentnr" filterMatchMode="contains">  
+
+                                        <h:outputText value="#{item.employmentnr}" />  
+
+
+
+                                    </p:column>
+
+                                    <p:column headerText="Mobile" style="width:30%"
+                                              id="mobileColumn" filterBy="mobile" filterMatchMode="contains">  
+
+                                        <h:outputText value="#{item.mobile}" />  
+
+
+
+
+                                    </p:column>
+                                    <p:column headerText="Delete">
+                                        <f:facet name="header">
+                                            <h:outputText value="" />
+                                        </f:facet>
+                                        <p:commandButton icon="ui-icon-close" title="remove from list"
+                                                         actionListener="#{fileUpload.deleteItem(item)}" update="roger" />
+                                    </p:column>
+
+
+
+
+
+                                </p:dataTable>  
+                            </p:fieldset>
+                            <p:fieldset legend="Security Groups" toggleable="true" toggleSpeed="500"> 
+                                <p:dataTable id="roger2" value="#{fileUpload.list.gr}" var="item" cellSeparator="2" paginator="true" rows="10" editable="true">
+
+
+
+                                    <p:column headerText="Groupname" style="width:30%" 
+                                              id="usernameColumn" filterBy="username" filterMatchMode="contains">
+                                        <h:outputText value="#{item.groupname}" />
+                                    </p:column>  
+
+                                    <p:column headerText="Functions" style="width:30%" 
+                                              id="firstnameColumn" filterBy="firstname" filterMatchMode="contains">  
+
+
+                                        <h:outputText value="#{item.functions}" />  
+
+
+
+
+                                    </p:column>
+
+                                    <p:column headerText="Group Owner" style="width:30%"
+                                              id="lastnameColumn" filterBy="lastname" filterMatchMode="contains">  
+
+                                        <h:outputText value="#{item.groupowner}" />  
+
+
+
+                                    </p:column>
+
+                                    <p:column headerText="Description" style="width:30%"
+                                              id="employmentnrColumn" filterBy="employmentnr" filterMatchMode="contains">  
+
+                                        <h:outputText value="#{item.description}" />  
+
+
+
+                                    </p:column>
+
+
+                                    <p:column headerText="Delete">
+                                        <f:facet name="header">
+                                            <h:outputText value="" />
+                                        </f:facet>
+                                        <p:commandButton icon="ui-icon-close" title="remove from list"
+                                                         actionListener="#{fileUpload.deleteItem(item)}" update="roger" />
+                                    </p:column>
+
+
+
+
+
+                                </p:dataTable>  
+                            </p:fieldset>
+                            <p:fieldset legend="Distiribution Groups" toggleable="true" toggleSpeed="500"> 
+                                <p:dataTable id="roger2" value="#{fileUpload.list.dgr}" var="item" cellSeparator="2" paginator="true" rows="10" editable="true">
+
+
+
+                                    <p:column headerText="Displayname" style="width:30%" 
+                                              id="usernameColumn" filterBy="username" filterMatchMode="contains">
+                                        <h:outputText value="#{item.displayname}" />
+                                    </p:column>  
+
+                                    <p:column headerText="Email" style="width:30%" 
+                                              id="firstnameColumn" filterBy="firstname" filterMatchMode="contains">  
+
+
+                                        <h:outputText value="#{item.emailalias}" />  
+
+
+
+
+                                    </p:column>
+
+                                    <p:column headerText="External" style="width:30%"
+                                              id="lastnameColumn" filterBy="lastname" filterMatchMode="contains">  
+
+                                        <h:outputText value="#{item.externalemail}" />  
+
+
+
+                                    </p:column>
+
+
+
+
+                                    <p:column headerText="Delete">
+                                        <f:facet name="header">
+                                            <h:outputText value="" />
+                                        </f:facet>
+                                        <p:commandButton icon="ui-icon-close" title="remove from list"
+                                                         actionListener="#{fileUpload.deleteItem(item)}" update="roger" />
+                                    </p:column>
+
+
+
+
+
+                                </p:dataTable>  
+                            </p:fieldset>
+
+                            <p:commandButton value="Save" icon="ui-icon-disk"  
+                                             actionListener="#{fileUpload.readAndPersist()}" onclick="if (!confirm('Are you sure, no more editing of user?')) {
+                                                         return false;
+                                                     }"/> 
+                            <p:commandButton value="Delete List" icon="ui-icon-disk"  
+                                             actionListener="#{fileUpload.emptyList()}" title="Delete the presented list, not users in the database"/>
                         </h:form> 
                     </p:tab> 
                     <p:tab id="tab2" title="LDF Download">
