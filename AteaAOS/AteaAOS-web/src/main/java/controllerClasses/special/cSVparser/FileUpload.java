@@ -5,6 +5,12 @@
  */
 package controllerClasses.special.cSVparser;
 
+import com.google.common.hash.Hashing;
+import com.sun.org.apache.bcel.internal.generic.AALOAD;
+import controllerClasses.special.newProject;
+import entityModels.Distributiongroups;
+import entityModels.Groups;
+import entityModels.Users;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -21,12 +27,17 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import org.apache.commons.collections.IteratorUtils;
+import org.apache.directory.shared.ldap.exception.LdapException;
+import org.apache.directory.shared.ldap.exception.LdapInvalidAttributeValueException;
 import org.apache.directory.shared.ldap.ldif.LdapLdifException;
 import org.apache.directory.shared.ldap.ldif.LdifEntry;
 import org.apache.directory.shared.ldap.ldif.LdifReader;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
+import persistClasses.DistributiongroupsFacade;
+import persistClasses.GroupsFacade;
 import persistClasses.UsersFacade;
 
 /**
@@ -37,12 +48,14 @@ import persistClasses.UsersFacade;
 @SessionScoped
 public class FileUpload implements Serializable {
 
-    private static List<CSVRow> listCSV = new ArrayList<>();
+    private static ADSIentity list = new ADSIentity();
     @EJB
     private UsersFacade brukerEJB;
+    @EJB
+    private GroupsFacade grF;
+    @EJB
+    private DistributiongroupsFacade dgrF;
     private UploadedFile file;
-
-    private CSVRow row;
 
     private File fil;
 
@@ -104,9 +117,7 @@ public class FileUpload implements Serializable {
 
             try {
                 readAndPopulateList();
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (LdapLdifException ex) {
+            } catch (FileNotFoundException | LdapLdifException ex) {
                 Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -116,28 +127,112 @@ public class FileUpload implements Serializable {
     private synchronized void readAndPopulateList() throws FileNotFoundException, LdapLdifException {
         LdifReader reader = new LdifReader();
         List<LdifEntry> entries = reader.parseLdifFile(fil.getAbsolutePath());
-
+        int ep = 0;
         for (LdifEntry entry : entries) {
+            ep++;
+            if (null != entry.get("cn")) {
+                List<String> oc = IteratorUtils.toList(entry.get("objectClass").getAll());
 
-            
-            
-            System.out.println(entry.getDn());
-           
+                if (oc.contains("person") && oc.contains("user")) {
+
+                    Users entity = new Users();
+                    try {
+                        entity.setUsername((entry.get("sAMAccountName").getString() == null) ? "" : entry.get("sAMAccountName").getString());
+                    } catch (LdapInvalidAttributeValueException ex) {
+                        Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    try {
+                        entity.setFirstname((entry.get("givenName").getString() == null) ? "" : entry.get("givenName").getString());
+                    } catch (LdapInvalidAttributeValueException ex) {
+                        Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    try {
+                        entity.setLastname((entry.get("sn").getString() == null) ? "" : entry.get("sn").getString());
+                    } catch (LdapInvalidAttributeValueException ex) {
+                        Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    try {
+                        entity.setTitle((entry.get("title").getString() == null) ? "" : entry.get("title").getString());
+                    } catch (LdapInvalidAttributeValueException ex) {
+                        Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    entity.setItcontact("NO");
+
+                    try {
+                        entity.setDepartment((entry.get("department").getString() == null) ? "" : entry.get("department").getString());
+                    } catch (LdapInvalidAttributeValueException ex) {
+                        Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    entity.setProjectid((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
+                    try {
+                        entity.setMobile(Integer.parseInt(entry.get("moblie").getString()));
+                    } catch (LdapInvalidAttributeValueException | NumberFormatException ex) {
+                        Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
+                        entity.setMobile(12345);
+                    }
+                    try {
+                        entity.setEmploymentnr(entry.get("employmentNr").getString());
+                    } catch (LdapInvalidAttributeValueException ex) {
+                        Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
+                        entity.setEmploymentnr(Integer.toString(ep));
+                    }
+                    entity.setDn(entry.getDn().getNormName());
+                    List<String> emailalias = IteratorUtils.toList(entry.get("proxyAddresses").getAll());
+                    String res = "";
+                    for (String e : emailalias) {
+
+                        res = (res + ", " + e + " ");
+                    }
+                    entity.setEmailalias(res);
+                    try {
+                        entity.setEmail(entry.get("mail").getString());
+                    } catch (LdapInvalidAttributeValueException ex) {
+                        Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
+                        entity.setEmploymentnr(Integer.toString(ep));
+                    }
+                    list.getUsr().add(entity);
+                } else if (oc.contains("group")) {
+                    try {
+                        if (entry.get("groupType").isValid()) {
+                            int gr = Integer.parseInt(entry.get("groupType").toString());
+                            if (gr > 0) {
+                                Distributiongroups dgro = new Distributiongroups();
+                                dgro.setDisplayname(entry.get("cn").getString());
+                                dgro.setDn(entry.getDn().getNormName());
+                                dgro.setProjectid((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
+                                dgro.setEmailalias(entry.get("mail").getString());
+                                list.getDgr().add(dgro);
+                            } else if (gr < 0) {
+                                Groups gro = new Groups();
+                                gro.setDescription(entry.get("info").getString());
+                                gro.setGroupowner(entry.get("managedBy").getString());
+                                gro.setGroupname(entry.get("cn").getString());
+                                gro.setFunctions("");
+                                gro.setProjectid((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
+                                list.getGr().add(gro);
+                            }
+                        }
+                    } catch (LdapException ex) {
+                        Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                }
+
+            }
 
         }
-
-    }
-
-    public List<CSVRow> getListCSV() {
-
-        return listCSV;
-    }
-
-    public void setListCSV(List<CSVRow> listCSV) {
-        FileUpload.listCSV = listCSV;
     }
 
     public synchronized void readAndPersist() {
+        for(Groups gr:list.getGr()){
+            grF.create(gr);
+        }
+        for(Users usr:list.getUsr()){
+            brukerEJB.create(usr);
+        }
+        for(Distributiongroups dgr:list.getDgr()){
+            dgrF.create(dgr);
+        }
 
     }
 
@@ -151,13 +246,24 @@ public class FileUpload implements Serializable {
         }
     }
 
-    public void deleteItem(CSVRow e) {
-        listCSV.remove(e);
+    public void deleteItem(Object e) {
+        if (e instanceof Users) {
+            Users usr = (Users) e;
+            list.getUsr().remove(usr);
+        } else if (e instanceof Distributiongroups) {
+            Distributiongroups dgr = (Distributiongroups) e;
+            list.getDgr().remove(dgr);
+        } else {
+            Groups gr = (Groups) e;
+            list.getGr().remove(gr);
+        }
 
     }
 
     public void emptyList() {
-        listCSV.clear();
+        list.getDgr().clear();
+        list.getGr().clear();
+        list.getUsr().clear();
         fil.delete();
     }
 

@@ -37,7 +37,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Users.findByEmploymentnr", query = "SELECT u FROM Users u WHERE u.employmentnr = :employmentnr"),
     @NamedQuery(name = "Users.findByEmail", query = "SELECT u FROM Users u WHERE u.email = :email"),
     @NamedQuery(name = "Users.findByMobile", query = "SELECT u FROM Users u WHERE u.mobile = :mobile"),
-    @NamedQuery(name = "Users.findByProjectid", query = "SELECT u FROM Users u WHERE u.projectid = :projectid")})
+    @NamedQuery(name = "Users.findByProjectid", query = "SELECT u FROM Users u WHERE u.projectid = :projectid"),
+    @NamedQuery(name = "Users.findByDn", query = "SELECT u FROM Users u WHERE u.dn = :dn")})
 public class Users implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -96,6 +97,9 @@ public class Users implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "PROJECTID")
     private String projectid;
+    @Size(max = 100)
+    @Column(name = "DN")
+    private String dn;
 
     public Users() {
     }
@@ -204,6 +208,14 @@ public class Users implements Serializable {
 
     public void setProjectid(String projectid) {
         this.projectid = projectid;
+    }
+
+    public String getDn() {
+        return dn;
+    }
+
+    public void setDn(String dn) {
+        this.dn = dn;
     }
 
     @Override
