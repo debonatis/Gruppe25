@@ -5,11 +5,9 @@
  */
 package controllerClasses.special.cSVparser;
 
-import entityModels.Users;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -23,10 +21,9 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
-import org.jsefa.Deserializer;
-import org.jsefa.common.lowlevel.filter.HeaderAndFooterFilter;
-import org.jsefa.csv.CsvIOFactory;
-import org.jsefa.csv.config.CsvConfiguration;
+import org.apache.directory.shared.ldap.ldif.LdapLdifException;
+import org.apache.directory.shared.ldap.ldif.LdifEntry;
+import org.apache.directory.shared.ldap.ldif.LdifReader;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
@@ -109,25 +106,26 @@ public class FileUpload implements Serializable {
                 readAndPopulateList();
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (LdapLdifException ex) {
+                Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
     }
 
-    private synchronized void readAndPopulateList() throws FileNotFoundException {
+    private synchronized void readAndPopulateList() throws FileNotFoundException, LdapLdifException {
+        LdifReader reader = new LdifReader();
+        List<LdifEntry> entries = reader.parseLdifFile(fil.getAbsolutePath());
 
-        CsvConfiguration csvConfiguration = new CsvConfiguration();
-        csvConfiguration.setFieldDelimiter(',');
-        csvConfiguration.setLineFilter(new HeaderAndFooterFilter(1, false, false));
+        for (LdifEntry entry : entries) {
 
-        Deserializer deserializer = CsvIOFactory.createFactory(csvConfiguration, CSVRow.class).createDeserializer();
+            System.out.println(entry.get("cn"));
+            System.out.println(entry.get("mail"));
+            System.out.println(entry.get("mozillaNickname"));
+            System.out.println(entry.getDn());
 
-        deserializer.open(new FileReader(fil));
-        while (deserializer.hasNext()) {
-            row = deserializer.next();
-            listCSV.add(row);
         }
-        deserializer.close(true);
+
     }
 
     public List<CSVRow> getListCSV() {
@@ -140,9 +138,7 @@ public class FileUpload implements Serializable {
     }
 
     public synchronized void readAndPersist() {
-        for (CSVRow e : getListCSV()) {
-            brukerEJB.create(new Users(e.getsAMAccountName(), e.getGivenName(), e.getSn(), e.getDescription(),"NO", e.getDisplayName(),e.getMemberOf(), "-", "-", 1337, (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
-        }
+
     }
 
     public void onCellEdit(CellEditEvent event) {
