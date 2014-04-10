@@ -11,7 +11,7 @@
         <ui:composition template="template/templateSecure.xhtml">
             <ui:define name="center">
                 <p:tabView id="tabView">
-                    
+
                     <p:tab id="tab1" title="Users to Applications">  
                         <h:form id="selectForm">
 
@@ -76,74 +76,49 @@
                             </p:wizard>
                         </h:form>
                     </p:tab>
-                    
-                    <p:tab id="tab2" title="New Application">
-                        <h:form>
 
-                            <p:panel header="Details">  
+                    <p:tab id="tab2" title="Create New Application">  
+                        <h:form id="appForm"> 
+                            <p:growl id="growl" sticky="true" showDetail="true"/>
+
+                            <p:panel header="Application Details">  
+
                                 <h:messages errorClass="error"/>  
 
-                                <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid" id="sgDetail">  
-
+                                <h:panelGrid columns="6" cellspacing="15" columnClasses="label, value" styleClass="grid">  
                                     <h:outputText value="Application Name: *" />  
-                                    <p:inputText required="true" label="Application name"  
-                                                 value="#{distAndGroupEdit.selectsg.groupname}" />  
+                                    <p:inputText required="true" label="AppName"  
+                                                 value="#{usersToApps.apps.applicationname}" />  
 
-                                    <h:outputText value="Description: *" />  
-                                    <p:inputText required="true" label="Description"  
-                                                 value="#{distAndGroupEdit.selectsg.description}" />  
+                                    <h:outputText value="Version: *" />  
+                                    <p:inputText required="true" label="Version"  
+                                                 value="#{usersToApps.apps.version}" />  
 
-                                    <h:outputText value="Function: " />  
-                                    <p:inputText value="#{distAndGroupEdit.selectsg.functions}" />  
+                                    <h:outputText value="Application Language *" />  
+                                    <p:inputText value="#{usersToApps.apps.applanguage}" /> 
 
-                                    <p:commandButton value="Save" action="#{distAndGroupEdit.saveSelectsg()}" icon="ui-icon-disk" />
+                                    <h:outputText value="License: *" />  
+                                    <p:inputText value="#{usersToApps.apps.license}" />  
 
-                                </h:panelGrid> 
+                                    <h:outputText value="Subcontractor: " />  
+                                    <p:inputText value="#{usersToApps.apps.subcontractor}" />  
 
+                                    <h:outputText value="Contract Information: " />  
+                                    <p:inputText value="#{usersToApps.apps.contractinformation}" /> 
 
+                                    <h:outputText value="File size: *" />  
+                                    <p:inputText value="#{usersToApps.apps.sizefile}" /> 
+
+                                    <h:outputText value="SizeDatabase: *" />  
+                                    <p:inputText value="#{usersToApps.apps.sizedatabase}" /> 
+
+                                </h:panelGrid>
+                                <p:commandButton value="Submit" update="growl"   
+                                                 action="#{newApplication.save()}" />
                             </p:panel>  
-                            <p:panel header="Security Group List">
-                                <p:dataTable var="sg" value="#{distAndGroupEdit.listsg}" id="sgList" >  
-
-                                    <f:facet name="header">  
-                                        Groups 
-                                    </f:facet>  
-
-
-
-                                    <p:column headerText="Group Name" style="width:30%">  
-
-                                        <f:facet name="output">  
-                                            <h:outputText value="#{sg.groupname}" />  
-                                        </f:facet>  
-
-
-                                    </p:column> 
-                                    <p:column headerText="Functions" style="width:30%">  
-
-                                        <f:facet name="output">  
-                                            <h:outputText value="#{sg.functions}" />  
-                                        </f:facet>  
-
-
-                                    </p:column> 
-                                    <p:column headerText="Description" style="width:30%">  
-
-                                        <f:facet name="output">  
-                                            <h:outputText value="#{sg.description}" />  
-                                        </f:facet>  
-
-
-                                    </p:column> 
-
-                                </p:dataTable> 
-                                <p:commandButton value="Refresh" action="#{distAndGroupEdit.initsg()}" icon="ui-icon-refresh" update="sgList"/>
-
-                            </p:panel>
                         </h:form>
-
                     </p:tab>
-                    
+
                 </p:tabView>
             </ui:define>
         </ui:composition>
