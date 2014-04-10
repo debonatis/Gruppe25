@@ -141,14 +141,13 @@ public class FileUpload implements Serializable {
 
     public synchronized void readAndPersist() {
         for (CSVRow e : getListCSV()) {
-            brukerEJB.create(new Users(e.getSamAccountName(), e.getSn(), e.getDisplayName(), e.getDn(), e.getGivenName(), "no", "no", "no", "no", 1337,(String)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
+            brukerEJB.create(new Users(e.getsAMAccountName(), e.getGivenName(), e.getSn(), e.getDescription(),"NO", e.getDisplayName(),e.getMemberOf(), "-", "-", 1337, (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
         }
     }
 
     public void onCellEdit(CellEditEvent event) {
         Object oldValue = event.getOldValue();
         Object newValue = event.getNewValue();
-        
 
         if (newValue != null && !newValue.equals(oldValue)) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
@@ -160,7 +159,8 @@ public class FileUpload implements Serializable {
         listCSV.remove(e);
 
     }
-    public void emptyList(){
+
+    public void emptyList() {
         listCSV.clear();
         fil.delete();
     }
