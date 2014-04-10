@@ -34,9 +34,16 @@ public class IndexConverterA implements Converter {
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        app = (Applications) value;
+       try{
+         app = (Applications) value;
 
-        return app.getApplicationid();
+        return app.getApplicationid();  
+       }
+       catch(Exception e){
+           String lol = "This went wrong";
+           return lol;
+       }
+        
 
     }
 
