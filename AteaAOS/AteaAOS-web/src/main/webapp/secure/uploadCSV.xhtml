@@ -78,8 +78,8 @@
                                 <f:facet name="footer">  
                                     <p:commandButton value="Save" icon="ui-icon-disk"  
                                                      actionListener="#{fileUpload.readAndPersist()}" onclick="if (!confirm('Are you sure, no more editing of user?')) {
-                                                             return false;
-                                                         }"/> 
+                                                                 return false;
+                                                             }"/> 
                                     <p:commandButton value="Delete List" icon="ui-icon-disk"  
                                                      actionListener="#{fileUpload.emptyList()}" title="Delete the presented list, not users in the database"/>
                                 </f:facet> 
@@ -89,6 +89,31 @@
 
                         </h:form> 
                     </p:tab> 
+                    <p:tab id="tab2" title="CSV download">
+                        <p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false" closable="false" resizable="false">  
+                            <p:graphicImage value="/resources/gif/ajaxloadingbar.gif" />  
+                        </p:dialog>  
+
+                        <h:form id="form">  
+
+                            <p:commandButton id="downloadLink" value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop)"   
+                                             icon="ui-icon-arrowthichk-s">  
+                                <p:fileDownload value="#{fileDownload.file}" />  
+                            </p:commandButton>  
+
+                        </h:form>  
+
+                        <script type="text/javascript">
+                            function start() {
+                                PF('statusDialog').show();
+                            }
+
+                            function stop() {
+                                PF('statusDialog').hide();
+                            }
+                        </script>  
+
+                    </p:tab>
                 </p:tabView>
             </ui:define>
         </ui:composition>

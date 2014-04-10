@@ -6,6 +6,9 @@
 package controllerClasses.special.cSVparser;
 
 import java.io.InputStream;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 import org.primefaces.model.DefaultStreamedContent;
@@ -15,6 +18,8 @@ import org.primefaces.model.StreamedContent;
  *
  * @author simond
  */
+@ManagedBean
+@SessionScoped
 public class FileDownload {
 
     private StreamedContent file;
