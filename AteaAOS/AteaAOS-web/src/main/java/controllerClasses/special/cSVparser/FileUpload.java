@@ -119,8 +119,7 @@ public class FileUpload implements Serializable {
 
         for (LdifEntry entry : entries) {
 
-            System.out.println(entry.get("cn"));
-            System.out.println(entry.get("mail"));
+            
             
             System.out.println(entry.getDn());
            
