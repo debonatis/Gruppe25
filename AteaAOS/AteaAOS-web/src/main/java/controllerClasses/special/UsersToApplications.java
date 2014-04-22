@@ -99,7 +99,7 @@ public class UsersToApplications {
     @PostConstruct
     private void init(){
     
-        users = new DualListModel<>(usersEJB.findAll(), new ArrayList<Users>());
+        users = new DualListModel<>(usersEJB.findAllPro((String)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")), new ArrayList<Users>());
 
         applications = new DualListModel<>(applicationsEJB.findAll(), new ArrayList<Applications>());
         username = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
@@ -187,13 +187,18 @@ public class UsersToApplications {
 
     }
     
-    public void saveW(ActionEvent actionEvent) {
-        bruker.setProjectid(((String)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
+    public void savePick() {
+       
+        for(Applications a:getApplications().getTarget()){
+            for(Users u:getUsers().getTarget()){
+                appAccessEJB.create(new Applicationaccess(u.getUsername(), a.getApplicationid()));
+            }
+        }
+    
         
-        usersEJB.create(bruker);
-        FacesMessage msg = new FacesMessage("Successful", "Welcome :" + bruker.getFirstname());
+        FacesMessage msg = new FacesMessage("Successful", "The pick is saved");
         FacesContext.getCurrentInstance().addMessage(null, msg);
-        bruker = new Users();
+       
 
     }
     
