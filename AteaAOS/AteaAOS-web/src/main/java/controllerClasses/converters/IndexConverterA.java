@@ -6,7 +6,6 @@
 package controllerClasses.converters;
 
 import entityModels.Applications;
-import entityModels.Groups;
 import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.component.UIComponent;
@@ -14,7 +13,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.inject.Named;
 import persistClasses.ApplicationsFacade;
-import persistClasses.GroupsFacade;
 
 /**
  *

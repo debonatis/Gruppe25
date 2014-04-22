@@ -48,7 +48,7 @@ public class NewApplication implements Serializable {
 
         this.selected = selected;
        
-        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("projectID", selected.getApplicationid());
+        
     }
 
     private void prepareCreate() {
