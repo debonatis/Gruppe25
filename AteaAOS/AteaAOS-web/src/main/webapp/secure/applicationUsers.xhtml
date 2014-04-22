@@ -85,7 +85,7 @@
 
                                 <h:messages errorClass="error"/>  
 
-                                <h:panelGrid columns="6" cellspacing="15" columnClasses="label, value,label,value,label,value" styleClass="grid">  
+                                <h:panelGrid columns="4" cellspacing="15" columnClasses="label, value,label,value,label,value" styleClass="grid">  
                                     <h:outputText value="Application Name: *" />  
                                     <p:inputText required="true" label="Application Name"  
                                                  value="#{newApplication.applications.applicationname}" />  
@@ -110,7 +110,7 @@
                                                  value="#{newApplication.applications.subcontractor}" />  
 
 
-
+                                    <h:outputText value="Contract Information: *" />  
                                     <p:inputText required="true" label="Contract Information"  
                                                  value="#{newApplication.applications.contractinformation}" /> 
 
@@ -125,7 +125,7 @@
                                     <h:outputText value="Size Database: *" />  
                                     <p:inputText required="true" label="Size Database" 
                                                  value="#{newApplication.applications.sizedatabase}" /> 
-                                    
+
                                     <h:outputText value="ApplicationOwnerCustomer: *" />  
                                     <p:inputText required="true" label="ApplicationOwnerCustomer" 
                                                  value="#{newApplication.applications.applicationownercustomer}" /> 
