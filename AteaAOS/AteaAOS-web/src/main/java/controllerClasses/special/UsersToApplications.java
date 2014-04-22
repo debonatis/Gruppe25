@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package controllerClasses.special;
 
 import entityModels.Applicationaccess;
@@ -28,11 +27,10 @@ import persistClasses.UsersFacade;
  *
  * @author Martin
  */
-
 @ManagedBean(name = "usersToApps")
 @ViewScoped
 public class UsersToApplications {
-    
+
     @EJB
     private UsersFacade usersEJB;
     @EJB
@@ -47,9 +45,7 @@ public class UsersToApplications {
     private String usernameProp;
     private boolean skip;
     private Users bruker = new Users();
-  
-    
-    
+
     public String getUsernameProp() {
         usernameProp = (bruker.getFirstname().substring(0, 8) + bruker.getLastname().substring(3, 5));
         return usernameProp;
@@ -58,18 +54,14 @@ public class UsersToApplications {
     public void setUsernameProp(String usernameProp) {
         this.usernameProp = usernameProp;
     }
-    
-       public Users getBruker() {
+
+    public Users getBruker() {
         return bruker;
     }
 
     public void setBruker(Users bruker) {
         this.bruker = bruker;
     }
-
-    
-    
-    
 
     public DualListModel<Applications> getApplications() {
         return applications;
@@ -78,7 +70,7 @@ public class UsersToApplications {
     public void setApplications(DualListModel<Applications> applications) {
         this.applications = applications;
     }
-    
+
     public boolean isSkip() {
         return skip;
     }
@@ -86,19 +78,20 @@ public class UsersToApplications {
     public void setSkip(boolean skip) {
         this.skip = skip;
     }
+
     @PostConstruct
-    private void init(){
-    
-        users = new DualListModel<>(usersEJB.findAllPro((String)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")), new ArrayList<Users>());
+    private void init() {
+
+        users = new DualListModel<>(usersEJB.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")), new ArrayList<Users>());
 
         applications = new DualListModel<>(applicationsEJB.findAll(), new ArrayList<Applications>());
         username = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
-}
+    }
 
     public UsersToApplications() {
 
     }
-    
+
     public DualListModel<Users> getUsers() {
         return users;
     }
@@ -106,8 +99,7 @@ public class UsersToApplications {
     public void setUsers(DualListModel<Users> users) {
         this.users = users;
     }
-    
-    
+
     public void onTransferU(TransferEvent event) {
         StringBuilder builder = new StringBuilder();
         for (Object item : event.getItems()) {
@@ -123,7 +115,7 @@ public class UsersToApplications {
 
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-    
+
     public void onTransferA(TransferEvent event) {
         StringBuilder builder = new StringBuilder();
         if (event.isAdd()) {
@@ -156,28 +148,26 @@ public class UsersToApplications {
         }
 
     }
-    
+
     public String onFlowProcess(FlowEvent event) {
 
         return event.getNewStep();
 
     }
-    
+
     public void savePick() {
-       
-        for(Applications a:getApplications().getTarget()){
-            for(Users u:getUsers().getTarget()){
+
+        for (Applications a : getApplications().getTarget()) {
+            for (Users u : getUsers().getTarget()) {
                 appAccessEJB.create(new Applicationaccess(u.getUsername(), a.getApplicationid()));
             }
         }
-    
-        
+
         FacesMessage msg = new FacesMessage("Successful", "The pick is saved");
         FacesContext.getCurrentInstance().addMessage(null, msg);
-       
 
     }
-    
+
     public String onFlowProcessPick(FlowEvent event) {
 
         return event.getNewStep();
