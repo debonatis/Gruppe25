@@ -51,7 +51,6 @@ public class UsersToApplications {
     private String usernameProp;
     private boolean skip;
     private Users bruker = new Users();
-    private Applications apps = new Applications();
     
     
     public String getUsernameProp() {
@@ -69,16 +68,7 @@ public class UsersToApplications {
 
     public void setBruker(Users bruker) {
         this.bruker = bruker;
-    }
-
-    public Applications getApps() {
-        return apps;
-    }
-
-    public void setApps(Applications apps) {
-        this.apps = apps;
-    }
-    
+    }   
     
 
     public DualListModel<Applications> getApplications() {

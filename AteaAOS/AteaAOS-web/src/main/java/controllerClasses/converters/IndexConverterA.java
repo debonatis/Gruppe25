@@ -28,23 +28,15 @@ public class IndexConverterA implements Converter {
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        
+
         return applicationsEJB.find(value);
     }
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-       try{
-         app = (Applications) value;
+        app = (Applications) value;
 
-        return app.getApplicationid();  
-       }
-       catch(Exception e){
-           String lol = "This went wrong";
-           return lol;
-       }
-        
-
+        return app.getApplicationid();
     }
 
 }
