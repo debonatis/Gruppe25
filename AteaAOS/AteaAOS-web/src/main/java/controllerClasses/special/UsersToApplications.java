@@ -19,7 +19,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import org.primefaces.event.FlowEvent;
 import org.primefaces.event.TransferEvent;
 import org.primefaces.model.DualListModel;
@@ -117,20 +116,6 @@ public class UsersToApplications {
         this.users = users;
     }
     
-    public void saveU() {
-
-        List<Applications> gr = applications.getTarget();
-        List<Users> ur = users.getTarget();
-
-        for (Applications g : gr) {
-            for (Users u : ur) {
-                appAccessEJB.create(new Applicationaccess(u.getUsername(), g.getApplicationname()));
-            }
-        }
-
-        LoggingEJB.create(new Logging(new Date(System.currentTimeMillis()), "martinB", "ding", "INFO", "ding"));
-
-    }
     
     public void onTransferU(TransferEvent event) {
         StringBuilder builder = new StringBuilder();

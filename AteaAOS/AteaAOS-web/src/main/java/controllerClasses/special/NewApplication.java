@@ -11,7 +11,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -19,7 +18,6 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
-import org.primefaces.event.FlowEvent;
 import persistClasses.ApplicationsFacade;
 
 /**
@@ -87,6 +85,7 @@ public class NewApplication implements Serializable {
     public void save() {
         try {
             applications.setApplicationid(getUUID().toString());
+            applications.setProjectid((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
             applicationsEJB.create(applications);
             prepareCreate();
 
