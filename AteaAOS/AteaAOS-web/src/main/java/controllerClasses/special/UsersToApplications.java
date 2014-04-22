@@ -8,11 +8,8 @@ package controllerClasses.special;
 
 import entityModels.Applicationaccess;
 import entityModels.Applications;
-import entityModels.Logging;
 import entityModels.Users;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -50,7 +47,7 @@ public class UsersToApplications {
     private String usernameProp;
     private boolean skip;
     private Users bruker = new Users();
-    private Applications apps = new Applications();
+  
     
     
     public String getUsernameProp() {
@@ -70,13 +67,7 @@ public class UsersToApplications {
         this.bruker = bruker;
     }
 
-    public Applications getApps() {
-        return apps;
-    }
-
-    public void setApps(Applications apps) {
-        this.apps = apps;
-    }
+    
     
     
 
