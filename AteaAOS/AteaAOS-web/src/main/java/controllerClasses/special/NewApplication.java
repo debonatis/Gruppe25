@@ -7,12 +7,10 @@ package controllerClasses.special;
 
 import controllerClasses.special.model.ApplicationsModel;
 import entityModels.Applications;
-import persistClasses.ApplicationsFacade;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -20,7 +18,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
-import org.primefaces.event.FlowEvent;
+import persistClasses.ApplicationsFacade;
 
 /**
  *
@@ -36,6 +34,7 @@ public class NewApplication implements Serializable {
     private Applications applications = new Applications();
     private static final Logger logger = Logger.getLogger(Applications.class.getName());
     private ApplicationsModel selectList = new ApplicationsModel();
+
     private Applications selected = new Applications();
     private List<Applications> applicationListT = new ArrayList<>();
 
@@ -46,8 +45,8 @@ public class NewApplication implements Serializable {
     public void setSelected(Applications selected) {
 
         this.selected = selected;
-
-        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("projectID", selected.getApplicationid());
+       
+        
     }
 
     private void prepareCreate() {
@@ -86,6 +85,7 @@ public class NewApplication implements Serializable {
     public void save() {
         try {
             applications.setApplicationid(getUUID().toString());
+            applications.setProjectid((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
             applicationsEJB.create(applications);
             prepareCreate();
 
@@ -105,39 +105,6 @@ public class NewApplication implements Serializable {
 
             FacesContext.getCurrentInstance().addMessage(null, msg);
 
-        }
-    }
-
-    /**
-     *
-     * @return
-     */
-    public boolean isSkip() {
-        return skip;
-    }
-
-    /**
-     *
-     * @param skip
-     */
-    public void setSkip(boolean skip) {
-        this.skip = skip;
-    }
-
-    /**
-     *
-     * @param event
-     * @return returns given wisard step
-     */
-    public String onFlowProcess(FlowEvent event) {
-        logger.log(Level.INFO, "Current wizard step:{0}", event.getOldStep());
-        logger.log(Level.INFO, "Next step:{0}", event.getNewStep());
-
-        if (skip) {
-            skip = false;
-            return "confirm";
-        } else {
-            return event.getNewStep();
         }
     }
 

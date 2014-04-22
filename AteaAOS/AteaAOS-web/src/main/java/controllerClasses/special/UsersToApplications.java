@@ -19,7 +19,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import org.primefaces.event.FlowEvent;
 import org.primefaces.event.TransferEvent;
 import org.primefaces.model.DualListModel;
@@ -51,6 +50,7 @@ public class UsersToApplications {
     private String usernameProp;
     private boolean skip;
     private Users bruker = new Users();
+    private Applications apps = new Applications();
     
     
     public String getUsernameProp() {
@@ -68,7 +68,16 @@ public class UsersToApplications {
 
     public void setBruker(Users bruker) {
         this.bruker = bruker;
-    }   
+    }
+
+    public Applications getApps() {
+        return apps;
+    }
+
+    public void setApps(Applications apps) {
+        this.apps = apps;
+    }
+    
     
 
     public DualListModel<Applications> getApplications() {
@@ -89,7 +98,7 @@ public class UsersToApplications {
     @PostConstruct
     private void init(){
     
-        users = new DualListModel<>(usersEJB.findAll(), new ArrayList<Users>());
+        users = new DualListModel<>(usersEJB.findAllPro((String)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")), new ArrayList<Users>());
 
         applications = new DualListModel<>(applicationsEJB.findAll(), new ArrayList<Applications>());
         username = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
@@ -107,20 +116,6 @@ public class UsersToApplications {
         this.users = users;
     }
     
-    public void saveU() {
-
-        List<Applications> gr = applications.getTarget();
-        List<Users> ur = users.getTarget();
-
-        for (Applications g : gr) {
-            for (Users u : ur) {
-                appAccessEJB.create(new Applicationaccess(u.getUsername(), g.getApplicationname()));
-            }
-        }
-
-        LoggingEJB.create(new Logging(new Date(System.currentTimeMillis()), "martinB", "ding", "INFO", "ding"));
-
-    }
     
     public void onTransferU(TransferEvent event) {
         StringBuilder builder = new StringBuilder();
@@ -177,13 +172,18 @@ public class UsersToApplications {
 
     }
     
-    public void saveW(ActionEvent actionEvent) {
-        bruker.setProjectid(((String)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
+    public void savePick() {
+       
+        for(Applications a:getApplications().getTarget()){
+            for(Users u:getUsers().getTarget()){
+                appAccessEJB.create(new Applicationaccess(u.getUsername(), a.getApplicationid()));
+            }
+        }
+    
         
-        usersEJB.create(bruker);
-        FacesMessage msg = new FacesMessage("Successful", "Welcome :" + bruker.getFirstname());
+        FacesMessage msg = new FacesMessage("Successful", "The pick is saved");
         FacesContext.getCurrentInstance().addMessage(null, msg);
-        bruker = new Users();
+       
 
     }
     

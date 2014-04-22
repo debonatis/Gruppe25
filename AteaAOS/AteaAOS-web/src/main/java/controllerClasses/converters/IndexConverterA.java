@@ -28,7 +28,7 @@ public class IndexConverterA implements Converter {
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-
+        
         return applicationsEJB.find(value);
     }
 
@@ -37,6 +37,7 @@ public class IndexConverterA implements Converter {
         app = (Applications) value;
 
         return app.getApplicationid();
+
     }
 
 }
