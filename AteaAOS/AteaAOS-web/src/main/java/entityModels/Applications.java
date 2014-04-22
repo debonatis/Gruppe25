@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Martin
+ * @author simond
  */
 @Entity
 @Table(name = "APPLICATIONS", catalog = "AteaAOS", schema = "")
@@ -36,7 +36,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Applications.findByContractinformation", query = "SELECT a FROM Applications a WHERE a.contractinformation = :contractinformation"),
     @NamedQuery(name = "Applications.findByApplicationownercustomer", query = "SELECT a FROM Applications a WHERE a.applicationownercustomer = :applicationownercustomer"),
     @NamedQuery(name = "Applications.findBySizefile", query = "SELECT a FROM Applications a WHERE a.sizefile = :sizefile"),
-    @NamedQuery(name = "Applications.findBySizedatabase", query = "SELECT a FROM Applications a WHERE a.sizedatabase = :sizedatabase")})
+    @NamedQuery(name = "Applications.findBySizedatabase", query = "SELECT a FROM Applications a WHERE a.sizedatabase = :sizedatabase"),
+    @NamedQuery(name = "Applications.findByProjectid", query = "SELECT a FROM Applications a WHERE a.projectid = :projectid")})
 public class Applications implements Serializable {
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
@@ -88,6 +89,11 @@ public class Applications implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "SIZEDATABASE")
     private String sizedatabase;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "PROJECTID")
+    private String projectid;
 
     public Applications() {
     }
@@ -96,7 +102,7 @@ public class Applications implements Serializable {
         this.applicationid = applicationid;
     }
 
-    public Applications(String applicationid, String applicationname, String version, String applanguage, String license, String contractinformation, String applicationownercustomer, String sizefile, String sizedatabase) {
+    public Applications(String applicationid, String applicationname, String version, String applanguage, String license, String contractinformation, String applicationownercustomer, String sizefile, String sizedatabase, String projectid) {
         this.applicationid = applicationid;
         this.applicationname = applicationname;
         this.version = version;
@@ -106,6 +112,7 @@ public class Applications implements Serializable {
         this.applicationownercustomer = applicationownercustomer;
         this.sizefile = sizefile;
         this.sizedatabase = sizedatabase;
+        this.projectid = projectid;
     }
 
     public String getApplicationname() {
@@ -186,6 +193,14 @@ public class Applications implements Serializable {
 
     public void setSizedatabase(String sizedatabase) {
         this.sizedatabase = sizedatabase;
+    }
+
+    public String getProjectid() {
+        return projectid;
+    }
+
+    public void setProjectid(String projectid) {
+        this.projectid = projectid;
     }
 
     @Override
