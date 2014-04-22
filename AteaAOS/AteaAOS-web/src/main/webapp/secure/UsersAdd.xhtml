@@ -150,7 +150,15 @@
                                                 <p:inputText value="#{item.mobile}" style="width:100%"/>  
                                             </f:facet>  
                                         </p:cellEditor>  
+                                       
                                     </p:column>
+                                     <p:column headerText="Delete">
+                                            <f:facet name="header">
+                                                <h:outputText value="" />
+                                            </f:facet>
+                                            <p:commandButton icon="ui-icon-close" title="remove from list"
+                                                             actionListener="#{editUsers.deleteItemUsr(item)}" update="roger" />
+                                        </p:column>
 
                                 </p:dataTable>
                             </p:panel>

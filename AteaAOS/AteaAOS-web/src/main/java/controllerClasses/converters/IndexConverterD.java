@@ -3,17 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package controllerClasses.converters;
 
-import entityModels.Users;
+import entityModels.Distributiongroups;
 import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.faces.convert.ConverterException;
 import javax.inject.Named;
-import persistClasses.UsersFacade;
+import persistClasses.DistributiongroupsFacade;
 
 /**
  *
@@ -21,38 +21,26 @@ import persistClasses.UsersFacade;
  */
 @Named
 @ApplicationScoped
-public class IndexConverterU implements Converter {
+public class IndexConverterD implements Converter {
 
-    private Users bruker;
+    private Distributiongroups dGruppe;
     @EJB
-    private UsersFacade usersEJB;
+    private DistributiongroupsFacade dGroupsEJB;
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-       
-
-        return usersEJB.find(value);
+        
+        return dGroupsEJB.find(value);
     }
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-       if(value == null){
-           return null;
-       }else if(!(value instanceof Users)){
-           throw new ConverterException("The value is not a valid User: " + value);
-       }else{
-           bruker = (Users) value;
-       }
-        
-       
-        
-        
-            
-        
+        if (!(value == null)){
+        dGruppe = (Distributiongroups) value;
 
-        return bruker.getUsername();
-
+        return dGruppe.getDisplayname();
+        }
+        return (new Distributiongroups("fault")).getDisplayname();
     }
 
-   
 }

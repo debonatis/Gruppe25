@@ -43,6 +43,21 @@ public abstract class AbstractFacade<T> {
         cq.select(cq.from(entityClass));
         return getEntityManager().createQuery(cq).getResultList();
     }
+    public List<T> findAllPro(String projectID) {
+        
+        javax.persistence.Query q = getEntityManager().createNamedQuery(""+entityClass.getName().substring(13)+".findByProjectid", entityClass);
+        q.setParameter("projectid", projectID);
+       List<T> res = q.getResultList();
+        return res;
+    }
+    public List<T> findAllUsr(String username) {
+        
+        javax.persistence.Query q = getEntityManager().createNamedQuery(""+entityClass.getName().substring(13)+".findByUsername", entityClass);
+        q.setParameter("username", username);
+       List<T> res = q.getResultList();
+        return res;
+    }
+
 
     public List<T> findRange(int[] range) {
         javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();

@@ -29,8 +29,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Groups.findAll", query = "SELECT g FROM Groups g"),
     @NamedQuery(name = "Groups.findByGroupname", query = "SELECT g FROM Groups g WHERE g.groupname = :groupname"),
     @NamedQuery(name = "Groups.findByDescription", query = "SELECT g FROM Groups g WHERE g.description = :description"),
+    @NamedQuery(name = "Groups.findByGroupowner", query = "SELECT g FROM Groups g WHERE g.groupowner = :groupowner"),
     @NamedQuery(name = "Groups.findByFunctions", query = "SELECT g FROM Groups g WHERE g.functions = :functions"),
-    @NamedQuery(name = "Groups.findByProjectid", query = "SELECT g FROM Groups g WHERE g.projectid = :projectid")})
+    @NamedQuery(name = "Groups.findByProjectid", query = "SELECT g FROM Groups g WHERE g.projectid = :projectid"),
+    @NamedQuery(name = "Groups.findByDn", query = "SELECT g FROM Groups g WHERE g.dn = :dn")})
 public class Groups implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -44,6 +46,9 @@ public class Groups implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "DESCRIPTION")
     private String description;
+    @Size(max = 100)
+    @Column(name = "GROUPOWNER")
+    private String groupowner;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -54,6 +59,11 @@ public class Groups implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "PROJECTID")
     private String projectid;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "DN")
+    private String dn;
 
     public Groups() {
     }
@@ -62,11 +72,12 @@ public class Groups implements Serializable {
         this.groupname = groupname;
     }
 
-    public Groups(String groupname, String description, String functions, String projectid) {
+    public Groups(String groupname, String description, String functions, String projectid, String dn) {
         this.groupname = groupname;
         this.description = description;
         this.functions = functions;
         this.projectid = projectid;
+        this.dn = dn;
     }
 
     public String getGroupname() {
@@ -85,6 +96,14 @@ public class Groups implements Serializable {
         this.description = description;
     }
 
+    public String getGroupowner() {
+        return groupowner;
+    }
+
+    public void setGroupowner(String groupowner) {
+        this.groupowner = groupowner;
+    }
+
     public String getFunctions() {
         return functions;
     }
@@ -99,6 +118,14 @@ public class Groups implements Serializable {
 
     public void setProjectid(String projectid) {
         this.projectid = projectid;
+    }
+
+    public String getDn() {
+        return dn;
+    }
+
+    public void setDn(String dn) {
+        this.dn = dn;
     }
 
     @Override

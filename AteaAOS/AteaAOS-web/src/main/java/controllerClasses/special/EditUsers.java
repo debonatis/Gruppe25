@@ -6,6 +6,9 @@
 package controllerClasses.special;
 
 import controllerClasses.util.PaginationHelper;
+import entityModels.Groups;
+import entityModels.Groupusers;
+import entityModels.Userdistribution;
 import entityModels.Users;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -18,7 +21,9 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import org.primefaces.event.FlowEvent;
 import org.primefaces.event.RowEditEvent;
+import persistClasses.GroupusersFacade;
 import persistClasses.ProjectsFacade;
+import persistClasses.UserdistributionFacade;
 
 import persistClasses.UsersFacade;
 
@@ -29,45 +34,48 @@ import persistClasses.UsersFacade;
 @ManagedBean(name = "editUsers")
 @ViewScoped
 public class EditUsers {
-
+    
     @EJB
     private UsersFacade uFac;
     @EJB
     private ProjectsFacade pFac;
-
+    @EJB
+    private UserdistributionFacade dgMMF;
+    @EJB
+    private GroupusersFacade sgMMF;
     private List<Users> liste;
     private Users users;
     private DataModel items = null;
     private PaginationHelper pagination;
-
+    
     @PostConstruct
     public void init() {
-        liste = uFac.findAll();
+        liste = uFac.findAllPro(((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
     }
-
+    
     public List<Users> getUsersList() {
         return liste;
     }
-
+    
     public void setUsersList(List<Users> usersList) {
         this.liste = usersList;
     }
-
+    
     public Users getUsers() {
         return users;
     }
-
+    
     public void setUsers(Users users) {
         this.users = users;
     }
     
     public String onFlowProcess(FlowEvent event) {
-
+        
         return event.getNewStep();
-
+        
     }
-
-    public void prepareEdit(){
+    
+    public void prepareEdit() {
         users = (Users) getItems().getRowData();
     }
     
@@ -75,43 +83,42 @@ public class EditUsers {
         
         try {
             
-            Users test = getFacade().find(((Users)event.getObject()).getUsername());
-                        
-            test.setFirstname(((Users)event.getObject()).getFirstname());
-            test.setLastname(((Users)event.getObject()).getLastname());  
-            test.setMobile(((Users)event.getObject()).getMobile());
-            test.setEmploymentnr(((Users)event.getObject()).getEmploymentnr());
+            Users test = getFacade().find(((Users) event.getObject()).getUsername());
+            
+            test.setFirstname(((Users) event.getObject()).getFirstname());
+            test.setLastname(((Users) event.getObject()).getLastname());
+            test.setMobile(((Users) event.getObject()).getMobile());
+            test.setEmploymentnr(((Users) event.getObject()).getEmploymentnr());
             uFac.edit(test);
-
+            
             FacesMessage msg = new FacesMessage();
             msg.setSeverity(FacesMessage.SEVERITY_INFO);
             msg.setSummary("User edited sucsessfully!");
             msg.setDetail(" ");
-
+            
             FacesContext.getCurrentInstance().addMessage(null, msg);
-
+            
         } catch (Exception e) {
             FacesMessage msg = new FacesMessage();
             msg.setSeverity(FacesMessage.SEVERITY_INFO);
             msg.setSummary("User not edited!");
             msg.setDetail("Maybe faulty inputs?");
-
+            
             FacesContext.getCurrentInstance().addMessage(null, msg);
-
-        }       
+            
+        }
     }
-
+    
     public void onCancel(RowEditEvent event) {
         FacesMessage msg = new FacesMessage("Editing Cancelled", ((Users) event.getObject()).getUsername());
-
+        
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-
+    
     private UsersFacade getFacade() {
         return uFac;
     }
-
-
+    
     public DataModel getItems() {
         if (items == null) {
             items = getPagination().createPageDataModel();
@@ -122,12 +129,12 @@ public class EditUsers {
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
-
+                
                 @Override
                 public int getItemsCount() {
                     return getFacade().count();
                 }
-
+                
                 @Override
                 public DataModel createPageDataModel() {
                     return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
@@ -135,5 +142,21 @@ public class EditUsers {
             };
         }
         return pagination;
+    }
+    
+    public void deleteItemUsr(Users e) {
+        
+        for (Groupusers usr : sgMMF.findAllUsr(e.getUsername())) {
+            sgMMF.remove(usr);
+        }
+        
+        for (Userdistribution dusr : dgMMF.findAllUsr(e.getUsername())) {
+            dgMMF.remove(dusr);
+        }        
+        
+        uFac.remove(e);
+        
+        liste.remove(e);
+        
     }
 }

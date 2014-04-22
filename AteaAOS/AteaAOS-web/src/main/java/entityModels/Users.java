@@ -15,7 +15,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -37,7 +36,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Users.findByDepartment", query = "SELECT u FROM Users u WHERE u.department = :department"),
     @NamedQuery(name = "Users.findByEmploymentnr", query = "SELECT u FROM Users u WHERE u.employmentnr = :employmentnr"),
     @NamedQuery(name = "Users.findByEmail", query = "SELECT u FROM Users u WHERE u.email = :email"),
-    @NamedQuery(name = "Users.findByMobile", query = "SELECT u FROM Users u WHERE u.mobile = :mobile")})
+    @NamedQuery(name = "Users.findByMobile", query = "SELECT u FROM Users u WHERE u.mobile = :mobile"),
+    @NamedQuery(name = "Users.findByProjectid", query = "SELECT u FROM Users u WHERE u.projectid = :projectid"),
+    @NamedQuery(name = "Users.findByDn", query = "SELECT u FROM Users u WHERE u.dn = :dn")})
 public class Users implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -81,7 +82,7 @@ public class Users implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "EMPLOYMENTNR")
     private String employmentnr;
-    @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -93,9 +94,12 @@ public class Users implements Serializable {
     private int mobile;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 100)
     @Column(name = "PROJECTID")
     private String projectid;
-    
+    @Size(max = 100)
+    @Column(name = "DN")
+    private String dn;
 
     public Users() {
     }
@@ -205,7 +209,14 @@ public class Users implements Serializable {
     public void setProjectid(String projectid) {
         this.projectid = projectid;
     }
-    
+
+    public String getDn() {
+        return dn;
+    }
+
+    public void setDn(String dn) {
+        this.dn = dn;
+    }
 
     @Override
     public int hashCode() {
