@@ -152,7 +152,7 @@ public class FileUpload implements Serializable {
                 for (Value<?> s : oc) {
                     ocStringList.add(s.getString());
                 }
-                if (ocStringList.contains("person") && ocStringList.contains("user")) {
+                if (ocStringList.contains("person") && ocStringList.contains("user") && !ocStringList.contains("computer")) {
                     
                     Users entity = new Users();
                     try {
