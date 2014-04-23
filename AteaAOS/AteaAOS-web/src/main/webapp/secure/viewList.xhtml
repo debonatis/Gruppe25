@@ -14,38 +14,25 @@
                 <p:layout>
                     <p:layoutUnit position="center">
                         <div id="adminCTekst">
-                            Open existing Project 
+                            List all superusers
                         </div>
                         <br/>
                         <h:form id="storrelse">
                             <br/><br/>
                             <p:panel >
-                                <p:poll update="roger" interval="2" listener="true"/>
-                                <p:dataTable id="roger" value="#{newProject.selectList}" var="item" cellSeparator="2" paginator="true" rows="10">
+                                <p:poll update="rogerS" interval="2" listener="true"/>
+                                <p:dataTable id="rogerS" value="#{superUsers.selectList}" var="item" cellSeparator="2" paginator="true" rows="10">
                                     <p:column selectionMode="single" style="width:2%" /> 
                                     
                                     <p:column headerText="Name" style="width:25%" >  
-                                        #{item.name}  
+                                        #{item.username}  
                                     </p:column>
                                 </p:dataTable>
                             </p:panel>
                         </h:form>
                     </p:layoutUnit>
 
-                    <p:layoutUnit position="west" size="800" resizable="false" closable="true" collapsible="true">
-
-                        <div id="adminUTekst">
-                            Create new project
-                        </div>
-                        <br/>
-                        <h:form>
-                            <p:panel>
-                                <h:panelGrid>
-                                    <p:button value="Create new" href="/faces/secure/newProjectDetails.xhtml" />
-                                </h:panelGrid>
-                            </p:panel>
-                        </h:form>
-                    </p:layoutUnit>
+                   
                 </p:layout>
             </ui:define>
         </ui:composition>
