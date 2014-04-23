@@ -191,13 +191,68 @@
 
                                 </p:dataTable>  
                             </p:fieldset>
+                            <p:fieldset legend="Memberships" toggleable="true" toggleSpeed="500">
+                                <p:dataTable id="roger4" value="#{fileUpload.members}" var="item" cellSeparator="2" paginator="true" rows="100" editable="true">
 
-                            <p:commandButton value="Save" icon="ui-icon-disk"  
-                                             actionListener="#{fileUpload.readAndPersist()}" onclick="if (!confirm('Are you sure, no more editing of user?')) {
+                                    <p:column headerText="Group Name" style="width:30%"
+                                              id="lastnameColumn" filterBy="lastname" filterMatchMode="contains">  
+
+                                        <h:outputText value="#{item.name}" />  
+
+
+
+                                    </p:column>
+                                    <p:column headerText="Members by DN" style="width:30%"
+                                              id="lastnameColumn" filterBy="lastname" filterMatchMode="contains">  
+                                        <p:dataTable id="roger5" value="#{item.members}" var="item2" cellSeparator="2" paginator="true" rows="100" editable="true">
+                                            <f:facet name="header">  
+                                                Members 
+                                            </f:facet> 
+
+                                            <p:column>
+                                                <h:outputText value="#{item2}" />  
+                                            </p:column>
+                                            <p:column headerText="Delete">
+
+                                                <p:commandButton icon="ui-icon-close" title="remove from list"
+                                                                 actionListener="#{fileUpload.deleteItemM2(item,item2)}" update="roger5" />
+                                            </p:column>
+
+
+
+                                        </p:dataTable>
+
+
+
+
+                                    </p:column>
+                                    <p:column headerText="Security Group" style="width:30%"
+                                              id="lastnameColumn" filterBy="lastname" filterMatchMode="contains">  
+
+                                        <p:selectBooleanCheckbox value="#{item.secgr}" />
+
+
+
+                                    </p:column>
+
+                                    <p:column headerText="Delete">
+
+                                        <p:commandButton icon="ui-icon-close" title="remove from list"
+                                                         actionListener="#{fileUpload.deleteItemM(item)}" update="roger4" />
+                                    </p:column>
+                                </p:dataTable>
+                            </p:fieldset> 
+
+                            <p:commandButton value="Save Groups and Users" icon="ui-icon-disk"  
+                                             actionListener="#{fileUpload.readAndPersist()}" onclick="if (!confirm('Are you sure, no more editing of user and Groups?')) {
                                                          return false;
                                                      }"/> 
-                            <p:commandButton value="Delete List" icon="ui-icon-disk"  
+                            <p:commandButton value="Delete Lists" icon="ui-icon-disk"  
                                              actionListener="#{fileUpload.emptyList()}" title="Delete the presented list, not users in the database"/>
+                            <p:commandButton value="Save MemberShips" icon="ui-icon-disk"  
+                                             actionListener="#{fileUpload.saveGroupMemberships()}" onclick="if (!confirm('Are you sure?')) {
+                                                         return false;
+                                                     }"/> 
                         </h:form> 
                     </p:tab> 
                     <p:tab id="tab2" title="LDF Download">
