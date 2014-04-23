@@ -194,11 +194,11 @@ public class FileUpload implements Serializable {
                             entity.setEmploymentnr(Integer.toString(ep));
                         }
                         entity.setDn(entry.getDn().getNormName());
-                        List<String> emailalias = IteratorUtils.toList(entry.get("proxyAddresses").getAll());
+                        List<Value<?>> emailalias = IteratorUtils.toList(entry.get("proxyAddresses").getAll());
                         String res = "";
-                        for (String e : emailalias) {
+                        for (Value e : emailalias) {
 
-                            res = (res + ", " + e + " ");
+                            res = (res + ", " + e.getString() + " ");
                         }
                         entity.setEmailalias(res);
                         try {
