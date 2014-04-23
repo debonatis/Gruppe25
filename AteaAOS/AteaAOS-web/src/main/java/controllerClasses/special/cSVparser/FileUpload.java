@@ -151,92 +151,92 @@ public class FileUpload implements Serializable {
                 List<Value<?>> oc = fraIteratorTilListe(entry.get("objectClass").getAll());
                 for (Value<?> s : oc) {
                     ocStringList.add(s.getString());
-                } 
-                    if (ocStringList.contains("person") && ocStringList.contains("user")) {
+                }
+                if (ocStringList.contains("person") && ocStringList.contains("user")) {
 
-                        Users entity = new Users();
-                        try {
-                            entity.setUsername((entry.get("sAMAccountName").getString() == null) ? "" : entry.get("sAMAccountName").getString());
-                        } catch (LdapInvalidAttributeValueException ex) {
-                            Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                        try {
-                            entity.setFirstname((entry.get("givenName").getString() == null) ? "" : entry.get("givenName").getString());
-                        } catch (LdapInvalidAttributeValueException ex) {
-                            Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                        try {
-                            entity.setLastname((entry.get("sn").getString() == null) ? "" : entry.get("sn").getString());
-                        } catch (LdapInvalidAttributeValueException ex) {
-                            Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                        try {
-                            entity.setTitle((entry.get("title").getString() == null) ? "" : entry.get("title").getString());
-                        } catch (LdapInvalidAttributeValueException ex) {
-                            Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                        entity.setItcontact("NO");
-
-                        try {
-                            entity.setDepartment((entry.get("department").getString() == null) ? "" : entry.get("department").getString());
-                        } catch (LdapInvalidAttributeValueException ex) {
-                            Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                        entity.setProjectid((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
-                        try {
-                            entity.setMobile(Integer.parseInt(entry.get("moblie").getString()));
-                        } catch (LdapInvalidAttributeValueException | NumberFormatException ex) {
-                            Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
-                            entity.setMobile(12345);
-                        }
-                        try {
-                            entity.setEmploymentnr(entry.get("employmentNr").getString());
-                        } catch (LdapInvalidAttributeValueException ex) {
-                            Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
-                            entity.setEmploymentnr(Integer.toString(ep));
-                        }
-                        entity.setDn(entry.getDn().getNormName());
-                        List<Value<?>> emailalias = IteratorUtils.toList(entry.get("proxyAddresses").getAll());
-                        String res = "";
-                        for (Value e : emailalias) {
-
-                            res = (res + ", " + e.getString() + " ");
-                        }
-                        entity.setEmailalias(res);
-                        try {
-                            entity.setEmail(entry.get("mail").getString());
-                        } catch (LdapInvalidAttributeValueException ex) {
-                            Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
-                            entity.setEmploymentnr(Integer.toString(ep));
-                        }
-                        list.getUsr().add(entity);
-                    } else if (ocStringList.contains("group")) {
-                        try {
-                            if (entry.get("groupType").isValid()) {
-                                int gr = Integer.parseInt(entry.get("groupType").get().getString());
-                                if (gr > 0) {
-                                    Distributiongroups dgro = new Distributiongroups();
-                                    dgro.setDisplayname(entry.get("cn").getString());
-                                    dgro.setDn(entry.getDn().getNormName());
-                                    dgro.setProjectid((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
-                                    dgro.setEmailalias(entry.get("mail").getString());
-                                    list.getDgr().add(dgro);
-                                } else if (gr < 0) {
-                                    Groups gro = new Groups();
-                                    gro.setDescription(entry.get("info").getString());
-                                    gro.setGroupowner(entry.get("managedBy").getString());
-                                    gro.setGroupname(entry.get("cn").getString());
-                                    gro.setFunctions("");
-                                    gro.setProjectid((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
-                                    list.getGr().add(gro);
-                                }
-                            }
-                        } catch (LdapException ex) {
-                            Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-
+                    Users entity = new Users();
+                    try {
+                        entity.setUsername((entry.get("sAMAccountName").getString() == null) ? "" : entry.get("sAMAccountName").getString());
+                    } catch (LdapInvalidAttributeValueException  | NullPointerException ex) {
+                        Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                
+                    try {
+                        entity.setFirstname((entry.get("givenName").getString() == null) ? "" : entry.get("givenName").getString());
+                    } catch (LdapInvalidAttributeValueException | NullPointerException ex) {
+                        Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    try {
+                        entity.setLastname((entry.get("sn").getString() == null) ? "" : entry.get("sn").getString());
+                    } catch (LdapInvalidAttributeValueException | NullPointerException ex) {
+                        Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    try {
+                        entity.setTitle((entry.get("title").getString() == null) ? "" : entry.get("title").getString());
+                    } catch (LdapInvalidAttributeValueException | NullPointerException ex) {
+                        Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    entity.setItcontact("NO");
+
+                    try {
+                        entity.setDepartment((entry.get("department").getString() == null) ? "" : entry.get("department").getString());
+                    } catch (LdapInvalidAttributeValueException | NullPointerException ex) {
+                        Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    entity.setProjectid((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
+                    try {
+                        entity.setMobile(Integer.parseInt(entry.get("moblie").getString()));
+                    } catch (LdapInvalidAttributeValueException  | NullPointerException | NumberFormatException ex) {
+                        Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
+                        entity.setMobile(12345);
+                    }
+                    try {
+                        entity.setEmploymentnr(entry.get("employmentNr").getString());
+                    } catch (LdapInvalidAttributeValueException  | NullPointerException ex) {
+                        Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
+                        entity.setEmploymentnr(Integer.toString(ep));
+                    }
+                    entity.setDn(entry.getDn().getNormName());
+                    List<Value<?>> emailalias = IteratorUtils.toList(entry.get("proxyAddresses").getAll());
+                    String res = "";
+                    for (Value e : emailalias) {
+
+                        res = (res + ", " + e.getString() + " ");
+                    }
+                    entity.setEmailalias(res);
+                    try {
+                        entity.setEmail(entry.get("mail").getString());
+                    } catch (LdapInvalidAttributeValueException ex) {
+                        Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
+                        entity.setEmploymentnr(Integer.toString(ep));
+                    }
+                    list.getUsr().add(entity);
+                } else if (ocStringList.contains("group")) {
+                    try {
+                        if (entry.get("groupType").isValid()) {
+                            int gr = Integer.parseInt(entry.get("groupType").get().getString());
+                            if (gr > 0) {
+                                Distributiongroups dgro = new Distributiongroups();
+                                dgro.setDisplayname(entry.get("cn").getString());
+                                dgro.setDn(entry.getDn().getNormName());
+                                dgro.setProjectid((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
+                                dgro.setEmailalias(entry.get("mail").getString());
+                                list.getDgr().add(dgro);
+                            } else if (gr < 0) {
+                                Groups gro = new Groups();
+                                gro.setDescription(entry.get("info").getString());
+                                gro.setGroupowner(entry.get("managedBy").getString());
+                                gro.setGroupname(entry.get("cn").getString());
+                                gro.setFunctions("");
+                                gro.setProjectid((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
+                                list.getGr().add(gro);
+                            }
+                        }
+                    } catch (LdapException | NullPointerException ex) {
+                        Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                }
+
             }
 
         }
