@@ -220,8 +220,8 @@ public class FileUpload implements Serializable {
                     list.getUsr().add(entity);
                 } else if (ocStringList.contains("group")) {
                     try {
-                        if (entry.get("groupType").isValid()) {
-                            int gr = Integer.parseInt(entry.get("groupType").get().getString());
+                        if (entry.get("grouptype").isValid()) {
+                            int gr = Integer.parseInt(entry.get("grouptype").get().getString());
                             if (gr > 0) {
                                 Distributiongroups dgro = new Distributiongroups();
                                 dgro.setDisplayname(entry.get("cn").getString());
