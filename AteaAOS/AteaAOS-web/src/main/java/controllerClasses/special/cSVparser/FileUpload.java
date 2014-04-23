@@ -47,7 +47,7 @@ import persistClasses.UsersFacade;
 @ManagedBean
 @SessionScoped
 public class FileUpload implements Serializable {
-
+    
     private ADSIentity list = new ADSIentity();
     @EJB
     private UsersFacade brukerEJB;
@@ -56,36 +56,36 @@ public class FileUpload implements Serializable {
     @EJB
     private DistributiongroupsFacade dgrF;
     private UploadedFile file;
-
+    
     private File fil;
-
+    
     public FileUpload() {
-
+        
     }
-
+    
     public ADSIentity getList() {
         return list;
     }
-
+    
     public void setList(ADSIentity list) {
         this.list = list;
     }
-
+    
     public UploadedFile getFile() {
         return file;
     }
-
+    
     public void setFile(UploadedFile file) {
         this.file = file;
     }
-
+    
     public void upload() {
         if (file != null) {
             FacesMessage msg = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
-
+    
     public void handleFileUpload(FileUploadEvent event) {
         FacesMessage msg = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
         FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -95,43 +95,43 @@ public class FileUpload implements Serializable {
             Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     private synchronized void copyFile(InputStream inputStream, String filename) {
         fil = new File(filename);
         try {
             OutputStream out;
-
+            
             out = new FileOutputStream(fil);
             int read = 0;
             byte[] bytes = new byte[1024];
             while ((read = inputStream.read(bytes)) != -1) {
-
+                
                 out.write(bytes, 0, read);
-
+                
             }
-
+            
             out.flush();
-
+            
             out.close();
-
+            
             System.out.println("New file created!");
             System.out.println(fil.getAbsolutePath());
-
+            
         } catch (IOException e) {
-
+            
             System.out.println(e.getMessage());
-
+            
         } finally {
-
+            
             try {
                 readAndPopulateList();
             } catch (FileNotFoundException | LdapLdifException ex) {
                 Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
+        
     }
-
+    
     private <T> List<T> fraIteratorTilListe(Iterator<T> iter) {
         List<T> copy = new ArrayList<T>();
         while (iter.hasNext()) {
@@ -139,7 +139,7 @@ public class FileUpload implements Serializable {
         }
         return copy;
     }
-
+    
     private synchronized void readAndPopulateList() throws FileNotFoundException, LdapLdifException {
         LdifReader reader = new LdifReader();
         List<LdifEntry> entries = reader.parseLdifFile(fil.getAbsolutePath());
@@ -153,17 +153,18 @@ public class FileUpload implements Serializable {
                     ocStringList.add(s.getString());
                 }
                 if (ocStringList.contains("person") && ocStringList.contains("user")) {
-
+                    
                     Users entity = new Users();
                     try {
                         entity.setUsername((entry.get("sAMAccountName").getString() == null) ? "" : entry.get("sAMAccountName").getString());
-                    } catch (LdapInvalidAttributeValueException  | NullPointerException ex) {
+                    } catch (LdapInvalidAttributeValueException | NullPointerException ex) {
                         Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     try {
                         entity.setFirstname((entry.get("givenName").getString() == null) ? "" : entry.get("givenName").getString());
                     } catch (LdapInvalidAttributeValueException | NullPointerException ex) {
                         Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
+                        entity.setFirstname(entity.getUsername());
                     }
                     try {
                         entity.setLastname((entry.get("sn").getString() == null) ? "" : entry.get("sn").getString());
@@ -174,38 +175,45 @@ public class FileUpload implements Serializable {
                         entity.setTitle((entry.get("title").getString() == null) ? "" : entry.get("title").getString());
                     } catch (LdapInvalidAttributeValueException | NullPointerException ex) {
                         Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
+                        entity.setTitle(entity.getUsername());
                     }
                     entity.setItcontact("NO");
-
+                    
                     try {
                         entity.setDepartment((entry.get("department").getString() == null) ? "" : entry.get("department").getString());
                     } catch (LdapInvalidAttributeValueException | NullPointerException ex) {
                         Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
+                        entity.setDepartment("NOT SET");
                     }
                     entity.setProjectid((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
                     try {
                         entity.setMobile(Integer.parseInt(entry.get("moblie").getString()));
-                    } catch (LdapInvalidAttributeValueException  | NullPointerException | NumberFormatException ex) {
+                    } catch (LdapInvalidAttributeValueException | NullPointerException | NumberFormatException ex) {
                         Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
                         entity.setMobile(12345);
                     }
                     try {
                         entity.setEmploymentnr(entry.get("employmentNr").getString());
-                    } catch (LdapInvalidAttributeValueException  | NullPointerException ex) {
+                    } catch (LdapInvalidAttributeValueException | NullPointerException ex) {
                         Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
                         entity.setEmploymentnr(Integer.toString(ep));
                     }
-                    entity.setDn(entry.getDn().getNormName());
-                    List<Value<?>> emailalias = IteratorUtils.toList(entry.get("proxyAddresses").getAll());
-                    String res = "";
-                    for (Value e : emailalias) {
-
-                        res = (res + ", " + e.getString() + " ");
+                    try {
+                        entity.setDn(entry.getDn().getNormName());
+                        List<Value<?>> emailalias = IteratorUtils.toList(entry.get("proxyAddresses").getAll());
+                        String res = "";
+                        for (Value e : emailalias) {
+                            
+                            res = (res + ", " + e.getString() + " ");
+                        }
+                        entity.setEmailalias(res);
+                    } catch (NullPointerException e) {
+                        entity.setEmailalias("NOT SET");
                     }
-                    entity.setEmailalias(res);
+                    
                     try {
                         entity.setEmail(entry.get("mail").getString());
-                    } catch (LdapInvalidAttributeValueException ex) {
+                    } catch (LdapInvalidAttributeValueException | NullPointerException ex) {
                         Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
                         entity.setEmploymentnr(Integer.toString(ep));
                     }
@@ -234,14 +242,14 @@ public class FileUpload implements Serializable {
                     } catch (LdapException | NullPointerException ex) {
                         Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
                     }
-
+                    
                 }
-
+                
             }
-
+            
         }
     }
-
+    
     public synchronized void readAndPersist() {
         for (Groups gr : list.getGr()) {
             grF.create(gr);
@@ -252,19 +260,19 @@ public class FileUpload implements Serializable {
         for (Distributiongroups dgr : list.getDgr()) {
             dgrF.create(dgr);
         }
-
+        
     }
-
+    
     public void onCellEdit(CellEditEvent event) {
         Object oldValue = event.getOldValue();
         Object newValue = event.getNewValue();
-
+        
         if (newValue != null && !newValue.equals(oldValue)) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
-
+    
     public void deleteItem(Object e) {
         if (e instanceof Users) {
             Users usr = (Users) e;
@@ -276,14 +284,14 @@ public class FileUpload implements Serializable {
             Groups gr = (Groups) e;
             list.getGr().remove(gr);
         }
-
+        
     }
-
+    
     public void emptyList() {
         list.getDgr().clear();
         list.getGr().clear();
         list.getUsr().clear();
         fil.delete();
     }
-
+    
 }
