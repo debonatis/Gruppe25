@@ -143,14 +143,16 @@ public class FileUpload implements Serializable {
     private synchronized void readAndPopulateList() throws FileNotFoundException, LdapLdifException {
         LdifReader reader = new LdifReader();
         List<LdifEntry> entries = reader.parseLdifFile(fil.getAbsolutePath());
+        List<String> ocStringList = new ArrayList<>();
         int ep = 0;
         for (LdifEntry entry : entries) {
             ep++;
             if (null != entry.get("cn")) {
                 List<Value<?>> oc = fraIteratorTilListe(entry.get("objectClass").getAll());
                 for (Value<?> s : oc) {
-
-                    if (s.getString().equalsIgnoreCase("person") && s.getString().equalsIgnoreCase("user")) {
+                    ocStringList.add(s.getString());
+                } 
+                    if (ocStringList.contains("person") && ocStringList.contains("user")) {
 
                         Users entity = new Users();
                         try {
@@ -208,7 +210,7 @@ public class FileUpload implements Serializable {
                             entity.setEmploymentnr(Integer.toString(ep));
                         }
                         list.getUsr().add(entity);
-                    } else if (s.getString().equalsIgnoreCase("group")) {
+                    } else if (ocStringList.contains("group")) {
                         try {
                             if (entry.get("groupType").isValid()) {
                                 int gr = Integer.parseInt(entry.get("groupType").get().getString());
@@ -234,7 +236,7 @@ public class FileUpload implements Serializable {
                         }
 
                     }
-                }
+                
             }
 
         }
