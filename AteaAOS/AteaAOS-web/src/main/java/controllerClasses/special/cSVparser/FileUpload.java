@@ -270,7 +270,7 @@ public class FileUpload implements Serializable {
                     } else if (gr < 0) {
                         Groups gro = new Groups();
                         try {
-                            gro.setDescription(entry.get("info").getString());
+                            gro.setDescription(entry.get("description").getString());
                         } catch (LdapInvalidAttributeValueException | NullPointerException ex) {
                             Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
                         }
@@ -278,13 +278,14 @@ public class FileUpload implements Serializable {
                             gro.setGroupowner(entry.get("managedBy").getString());
                         } catch (LdapInvalidAttributeValueException | NullPointerException ex) {
                             Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
+                            gro.setGroupowner("NOT SET");
                         }
                         try {
                             gro.setGroupname(entry.get("cn").getString());
                         } catch (LdapInvalidAttributeValueException | NullPointerException ex) {
                             Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                        gro.setFunctions("");
+                        gro.setFunctions("NOT SET");
                         gro.setProjectid((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
                         list.getGr().add(gro);
                         try {
