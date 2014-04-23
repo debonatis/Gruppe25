@@ -16,7 +16,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -26,6 +25,7 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.apache.commons.collections.IteratorUtils;
 import org.apache.directory.shared.ldap.entry.Value;
@@ -47,7 +47,7 @@ import persistClasses.UsersFacade;
  * @author simond
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class FileUpload implements Serializable {
 
     private ADSIentity list = new ADSIentity();
