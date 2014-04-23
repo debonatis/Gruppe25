@@ -251,17 +251,22 @@ public class FileUpload implements Serializable {
                             dgro.setEmailalias(entry.get("mail").getString());
                         } catch (LdapInvalidAttributeValueException | NullPointerException ex) {
                             Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
+                            dgro.setEmailalias("");
                         }
-
                         list.getDgr().add(dgro);
-                        List<Value<?>> members = fraIteratorTilListe(entry.get("member").getAll());
-                        List<String> mem = new ArrayList<>();
+                        try {
 
-                        for (Value<?> s : members) {
-                            mem.add(s.getString());
+                            List<Value<?>> memberss = fraIteratorTilListe(entry.get("member").getAll());
+                            List<String> mem = new ArrayList<>();
 
+                            for (Value<?> s : memberss) {
+                                mem.add(s.getString());
+
+                            }
+                            getMembers().add(new Members(mem, dgro.getDisplayname(), false));
+                        } catch (NullPointerException ex) {
+                            Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                        getMembers().add(new Members(mem, dgro.getDisplayname(), false));
                     } else if (gr < 0) {
                         Groups gro = new Groups();
                         try {
@@ -282,14 +287,18 @@ public class FileUpload implements Serializable {
                         gro.setFunctions("");
                         gro.setProjectid((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
                         list.getGr().add(gro);
-                        List<Value<?>> members = fraIteratorTilListe(entry.get("member").getAll());
-                        List<String> mem = new ArrayList<>();
+                        try {
+                            List<Value<?>> members = fraIteratorTilListe(entry.get("member").getAll());
+                            List<String> mem = new ArrayList<>();
 
-                        for (Value<?> s : members) {
-                            mem.add(s.getString());
+                            for (Value<?> s : members) {
+                                mem.add(s.getString());
 
+                            }
+                            getMembers().add(new Members(mem, gro.getGroupname(), true));
+                        } catch (NullPointerException ex) {
+                            Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                        getMembers().add(new Members(mem, gro.getGroupname(), true));
                     }
 
                 }
@@ -311,29 +320,29 @@ public class FileUpload implements Serializable {
             brukerEJB.create(usr);
         }
         checkSave = true;
-        
+
     }
 
     public void saveGroupMemberships() {
-        if(checkSave){
-        for (Members mem : members) {
-            if (mem.isSecgr()) {
-                for (String s : mem.getMembers()) {
-                    List<Users> ur = brukerEJB.findDN(s);
+        if (checkSave) {
+            for (Members mem : members) {
+                if (mem.isSecgr()) {
+                    for (String s : mem.getMembers()) {
+                        List<Users> ur = brukerEJB.findDN(s);
 
-                    guF.create(new Groupusers(ur.iterator().next().getUsername(), mem.getName()));
-                }
-            } else if (!mem.isSecgr()) {
-                for (String s : mem.getMembers()) {
-                    List<Users> ur = brukerEJB.findDN(s);
+                        guF.create(new Groupusers(ur.iterator().next().getUsername(), mem.getName()));
+                    }
+                } else if (!mem.isSecgr()) {
+                    for (String s : mem.getMembers()) {
+                        List<Users> ur = brukerEJB.findDN(s);
 
-                    udF.create(new Userdistribution(ur.iterator().next().getUsername(), mem.getName()));
+                        udF.create(new Userdistribution(ur.iterator().next().getUsername(), mem.getName()));
+                    }
                 }
             }
-        }
-        members.clear();
-        checkSave = false;
-        emptyList();
+            members.clear();
+            checkSave = false;
+            emptyList();
         }
     }
 
@@ -360,21 +369,21 @@ public class FileUpload implements Serializable {
         }
 
     }
-    
-    public void deleteItemM2(Object e,Object f) {
+
+    public void deleteItemM2(Object e, Object f) {
         if (e instanceof Members) {
-           Members mem = (Members) e;
-          mem = members.get(members.indexOf(mem));
-          mem.getMembers().remove((String)f);
-        } 
+            Members mem = (Members) e;
+            mem = members.get(members.indexOf(mem));
+            mem.getMembers().remove((String) f);
+        }
 
     }
-    
+
     public void deleteItemM(Object e) {
         if (e instanceof Members) {
             Members mem = (Members) e;
             members.remove(mem);
-        } 
+        }
 
     }
 
