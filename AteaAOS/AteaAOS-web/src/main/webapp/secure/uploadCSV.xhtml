@@ -195,7 +195,7 @@
                                 <p:dataTable id="roger4" value="#{fileUpload.members}" var="item" cellSeparator="2" paginator="true" rows="100" editable="true">
 
                                     <p:column headerText="Group Name" style="width:30%"
-                                              id="lastnameColumn" filterBy="lastname" filterMatchMode="contains">  
+                                              id="GroupNName" filterBy="name" filterMatchMode="contains">  
 
                                         <h:outputText value="#{item.name}" />  
 
@@ -203,7 +203,7 @@
 
                                     </p:column>
                                     <p:column headerText="Members by DN" style="width:30%"
-                                              id="lastnameColumn" filterBy="lastname" filterMatchMode="contains">  
+                                              id="dn" filterBy="item2" filterMatchMode="contains">  
                                         <p:dataTable id="roger5" value="#{item.members}" var="item2" cellSeparator="2" paginator="true" rows="100" editable="true">
                                             <f:facet name="header">  
                                                 Members 
@@ -227,7 +227,7 @@
 
                                     </p:column>
                                     <p:column headerText="Security Group" style="width:30%"
-                                              id="lastnameColumn" filterBy="lastname" filterMatchMode="contains">  
+                                              id="secgr" filterBy="secgr" filterMatchMode="contains">  
 
                                         <p:selectBooleanCheckbox value="#{item.secgr}" />
 

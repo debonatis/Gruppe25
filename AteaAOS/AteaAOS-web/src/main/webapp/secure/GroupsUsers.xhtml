@@ -211,7 +211,7 @@
                                     </p:cellEditor>  
                                 </p:column>  
                                 <p:column headerText="Users" style="width: 20%">
-                                    <p:dataTable var="usr" value="#{gr.users}" id="usrList" >  
+                                    <p:dataTable var="usr" value="#{gr.users}" id="memList2" >  
 
                                         <f:facet name="header">  
                                             Users 
@@ -230,7 +230,7 @@
                                         <p:column headerText="Delete">
 
                                             <p:commandButton icon="ui-icon-close" title="remove from list"
-                                                             actionListener="#{distAndGroupEdit.deleteItemDISTUser(gr, usr)}" update="usrList" />
+                                                             actionListener="#{distAndGroupEdit.deleteItemDISTUser(gr, usr)}" update="memList2" />
                                         </p:column>
                                     </p:dataTable>     
 
