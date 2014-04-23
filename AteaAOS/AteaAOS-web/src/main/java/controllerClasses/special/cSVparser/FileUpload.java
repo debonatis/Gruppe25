@@ -220,7 +220,7 @@ public class FileUpload implements Serializable {
                     list.getUsr().add(entity);
                 } else if (ocStringList.contains("group")) {
                     try {
-                        if (entry.get("grouptype").isValid()) {
+                       
                             int gr = Integer.parseInt(entry.get("grouptype").get().getString());
                             if (gr > 0) {
                                 Distributiongroups dgro = new Distributiongroups();
@@ -238,7 +238,7 @@ public class FileUpload implements Serializable {
                                 gro.setProjectid((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
                                 list.getGr().add(gro);
                             }
-                        }
+                        
                     } catch (LdapException | NullPointerException ex) {
                         Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
                     }
