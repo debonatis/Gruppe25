@@ -28,8 +28,7 @@ public class Superusers implements Serializable {
 
     @EJB
     private SiteuserFacade siteuserEJB;
-
-    private boolean skip;
+    
     private SiteuserListModel selectList = new SiteuserListModel();
     private Siteuser selected = new Siteuser();
     private List<Siteuser> projectListT = new ArrayList<>();
@@ -59,21 +58,5 @@ public class Superusers implements Serializable {
 
     public void setSelectList(SiteuserListModel selectList) {
         this.selectList = selectList;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public boolean isSkip() {
-        return skip;
-    }
-
-    /**
-     *
-     * @param skip
-     */
-    public void setSkip(boolean skip) {
-        this.skip = skip;
     }
 }
