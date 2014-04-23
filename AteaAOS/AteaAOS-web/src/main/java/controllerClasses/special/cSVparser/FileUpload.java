@@ -204,7 +204,7 @@ public class FileUpload implements Serializable {
                     }
                     entity.setProjectid((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
                     try {
-                        entity.setMobile(Integer.parseInt(entry.get("moblie").getString()));
+                        entity.setMobile(Integer.parseInt(entry.get("mobile").getString()));
                     } catch (LdapInvalidAttributeValueException | NullPointerException | NumberFormatException ex) {
                         Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
                         entity.setMobile(12345);
@@ -251,7 +251,7 @@ public class FileUpload implements Serializable {
                             dgro.setEmailalias(entry.get("mail").getString());
                         } catch (LdapInvalidAttributeValueException | NullPointerException ex) {
                             Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
-                            dgro.setEmailalias("");
+                            dgro.setEmailalias("NOT SET");
                         }
                         list.getDgr().add(dgro);
                         try {
