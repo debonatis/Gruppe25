@@ -30,9 +30,11 @@ import javax.faces.context.FacesContext;
 import org.apache.commons.collections.IteratorUtils;
 import org.apache.directory.shared.ldap.entry.Value;
 import org.apache.directory.shared.ldap.exception.LdapInvalidAttributeValueException;
+import org.apache.directory.shared.ldap.exception.LdapInvalidDnException;
 import org.apache.directory.shared.ldap.ldif.LdapLdifException;
 import org.apache.directory.shared.ldap.ldif.LdifEntry;
 import org.apache.directory.shared.ldap.ldif.LdifReader;
+import org.apache.directory.shared.ldap.name.DN;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
@@ -171,23 +173,23 @@ public class FileUpload implements Serializable {
 
                     Users entity = new Users();
                     try {
-                        entity.setUsername((entry.get("sAMAccountName").getString() == null) ? "" : entry.get("sAMAccountName").getString());
+                        entity.setUsername((entry.get("sAMAccountName").getString() == null) ? "NOT SET" : entry.get("sAMAccountName").getString());
                     } catch (LdapInvalidAttributeValueException | NullPointerException ex) {
                         Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     try {
-                        entity.setFirstname((entry.get("givenName").getString() == null) ? "" : entry.get("givenName").getString());
+                        entity.setFirstname((entry.get("givenName").getString() == null) ? "NOT SET" : entry.get("givenName").getString());
                     } catch (LdapInvalidAttributeValueException | NullPointerException ex) {
                         Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
                         entity.setFirstname(entity.getUsername());
                     }
                     try {
-                        entity.setLastname((entry.get("sn").getString() == null) ? "" : entry.get("sn").getString());
+                        entity.setLastname((entry.get("sn").getString() == null) ? "NOT SET" : entry.get("sn").getString());
                     } catch (LdapInvalidAttributeValueException | NullPointerException ex) {
                         Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     try {
-                        entity.setTitle((entry.get("title").getString() == null) ? "" : entry.get("title").getString());
+                        entity.setTitle((entry.get("title").getString() == null) ? "NOT SET" : entry.get("title").getString());
                     } catch (LdapInvalidAttributeValueException | NullPointerException ex) {
                         Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
                         entity.setTitle(entity.getUsername());
@@ -195,7 +197,7 @@ public class FileUpload implements Serializable {
                     entity.setItcontact("NO");
 
                     try {
-                        entity.setDepartment((entry.get("department").getString() == null) ? "" : entry.get("department").getString());
+                        entity.setDepartment((entry.get("department").getString() == null) ? "NOT SET" : entry.get("department").getString());
                     } catch (LdapInvalidAttributeValueException | NullPointerException ex) {
                         Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
                         entity.setDepartment("NOT SET");
@@ -255,10 +257,14 @@ public class FileUpload implements Serializable {
                         try {
 
                             List<Value<?>> memberss = fraIteratorTilListe(entry.get("member").getAll());
-                            List<String> mem = new ArrayList<>();
+                            List<DN> mem = new ArrayList<>();
 
                             for (Value<?> s : memberss) {
-                                mem.add(s.getString());
+                                try {
+                                    mem.add(new DN(s.getString()));
+                                } catch (LdapInvalidDnException ex) {
+                                    Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
+                                }
 
                             }
                             getMembers().add(new Members(mem, dgro.getDisplayname(), false));
@@ -271,6 +277,7 @@ public class FileUpload implements Serializable {
                             gro.setDescription(entry.get("description").getString());
                         } catch (LdapInvalidAttributeValueException | NullPointerException ex) {
                             Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
+                            gro.setDescription("NOT SET");
                         }
                         try {
                             gro.setGroupowner(entry.get("managedBy").getString());
@@ -288,10 +295,14 @@ public class FileUpload implements Serializable {
                         list.getGr().add(gro);
                         try {
                             List<Value<?>> members = fraIteratorTilListe(entry.get("member").getAll());
-                            List<String> mem = new ArrayList<>();
+                            List<DN> mem = new ArrayList<>();
 
                             for (Value<?> s : members) {
-                                mem.add(s.getString());
+                                try {
+                                    mem.add(new DN(s.getString()));
+                                } catch (LdapInvalidDnException ex) {
+                                    Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
+                                }
 
                             }
                             getMembers().add(new Members(mem, gro.getGroupname(), true));
@@ -304,6 +315,11 @@ public class FileUpload implements Serializable {
 
             }
 
+        }
+        try {
+            reader.close();
+        } catch (IOException ex) {
+            Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -326,14 +342,14 @@ public class FileUpload implements Serializable {
         if (checkSave) {
             for (Members mem : members) {
                 if (mem.isSecgr()) {
-                    for (String s : mem.getMembers()) {
-                        List<Users> ur = brukerEJB.findDN(s);
+                    for (DN s : mem.getMembers()) {
+                        List<Users> ur = brukerEJB.findDN(s.getNormName());
 
                         guF.create(new Groupusers(ur.iterator().next().getUsername(), mem.getName()));
                     }
                 } else if (!mem.isSecgr()) {
-                    for (String s : mem.getMembers()) {
-                        List<Users> ur = brukerEJB.findDN(s);
+                    for (DN s : mem.getMembers()) {
+                        List<Users> ur = brukerEJB.findDN(s.getNormName());
 
                         udF.create(new Userdistribution(ur.iterator().next().getUsername(), mem.getName()));
                     }
@@ -373,7 +389,7 @@ public class FileUpload implements Serializable {
         if (e instanceof Members) {
             Members mem = (Members) e;
             mem = members.get(members.indexOf(mem));
-            mem.getMembers().remove((String) f);
+            mem.getMembers().remove((DN) f);
         }
 
     }
