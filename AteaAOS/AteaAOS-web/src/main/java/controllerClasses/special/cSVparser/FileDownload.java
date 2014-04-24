@@ -23,6 +23,8 @@ import org.primefaces.model.StreamedContent;
 public class FileDownload {
 
     private StreamedContent file;
+    
+    
 
     public FileDownload() {
         InputStream stream = ((ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext()).getResourceAsStream("/images/optimusprime.jpg");

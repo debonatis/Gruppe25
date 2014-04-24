@@ -6,8 +6,8 @@
 
 package controllerClasses.special.cSVparser;
 
-import java.util.ArrayList;
 import java.util.List;
+import org.apache.directory.shared.ldap.name.DN;
 
 /**
  *
@@ -17,21 +17,21 @@ public class Members {
 
    
     
-    private List<String> members;
+    private List<DN> members;
     private String name;
     boolean secgr;
 
-    public Members(List<String> members, String name, boolean secgr) {
+    public Members(List<DN> members, String name, boolean secgr) {
         this.members = members;
         this.name = name;
         this.secgr = secgr;
     }
 
-    public List<String> getMembers() {
+    public List<DN> getMembers() {
         return members;
     }
 
-    public void setMembers(List<String> members) {
+    public void setMembers(List<DN> members) {
         this.members = members;
     }
 
@@ -51,6 +51,7 @@ public class Members {
         this.secgr = secgr;
     }
 
+   
     
     
 
