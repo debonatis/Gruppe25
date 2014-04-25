@@ -51,7 +51,7 @@ import persistClasses.UsersFacade;
 @ManagedBean
 @ViewScoped
 public class FileUpload implements Serializable {
-
+    
     private ADSIentity list = new ADSIentity();
     @EJB
     private UsersFacade brukerEJB;
@@ -67,42 +67,42 @@ public class FileUpload implements Serializable {
     private boolean checkSave = false;
     private File fil;
     private List<Members> members = new ArrayList<>();
-
+    
     public FileUpload() {
-
+        
     }
-
+    
     public List<Members> getMembers() {
         return members;
     }
-
+    
     public void setMembers(List<Members> members) {
         this.members = members;
     }
-
+    
     public ADSIentity getList() {
         return list;
     }
-
+    
     public void setList(ADSIentity list) {
         this.list = list;
     }
-
+    
     public UploadedFile getFile() {
         return file;
     }
-
+    
     public void setFile(UploadedFile file) {
         this.file = file;
     }
-
+    
     public void upload() {
         if (file != null) {
             FacesMessage msg = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
-
+    
     public void handleFileUpload(FileUploadEvent event) {
         FacesMessage msg = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
         FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -112,43 +112,43 @@ public class FileUpload implements Serializable {
             Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     private synchronized void copyFile(InputStream inputStream, String filename) {
         fil = new File(filename);
         try {
             OutputStream out;
-
+            
             out = new FileOutputStream(fil);
             int read = 0;
             byte[] bytes = new byte[1024];
             while ((read = inputStream.read(bytes)) != -1) {
-
+                
                 out.write(bytes, 0, read);
-
+                
             }
-
+            
             out.flush();
-
+            
             out.close();
-
+            
             System.out.println("New file created!");
             System.out.println(fil.getAbsolutePath());
-
+            
         } catch (IOException e) {
-
+            
             System.out.println(e.getMessage());
-
+            
         } finally {
-
+            
             try {
                 readAndPopulateList();
             } catch (FileNotFoundException | LdapLdifException ex) {
                 Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
+        
     }
-
+    
     private <T> List<T> fraIteratorTilListe(Iterator<T> iter) {
         List<T> liste = new ArrayList<T>();
         while (iter.hasNext()) {
@@ -156,14 +156,14 @@ public class FileUpload implements Serializable {
         }
         return liste;
     }
-
+    
     private synchronized void readAndPopulateList() throws FileNotFoundException, LdapLdifException {
         LdifReader reader = new LdifReader();
         List<LdifEntry> entries = reader.parseLdifFile(fil.getAbsolutePath());
         List<String> ocStringList = new ArrayList<>();
         int ep = 0;
         for (LdifEntry entry : entries) {
-
+            
             if (null != entry.get("cn")) {
                 List<Value<?>> oc = fraIteratorTilListe(entry.get("objectClass").getAll());
                 for (Value<?> s : oc) {
@@ -195,7 +195,7 @@ public class FileUpload implements Serializable {
                         entity.setTitle(entity.getUsername());
                     }
                     entity.setItcontact("NO");
-
+                    
                     try {
                         entity.setDepartment((entry.get("department").getString() == null) ? "NOT SET" : entry.get("department").getString());
                     } catch (LdapInvalidAttributeValueException | NullPointerException ex) {
@@ -220,14 +220,14 @@ public class FileUpload implements Serializable {
                         List<Value<?>> emailalias = IteratorUtils.toList(entry.get("proxyAddresses").getAll());
                         String res = "";
                         for (Value e : emailalias) {
-
+                            
                             res = (res + ", " + e.getString() + " ");
                         }
                         entity.setEmailalias(res);
                     } catch (NullPointerException e) {
                         entity.setEmailalias("NOT SET");
                     }
-
+                    
                     try {
                         entity.setEmail(entry.get("mail").getString());
                     } catch (LdapInvalidAttributeValueException | NullPointerException ex) {
@@ -236,7 +236,7 @@ public class FileUpload implements Serializable {
                     }
                     list.getUsr().add(entity);
                 } else if (ocStringList.contains("group")) {
-
+                    
                     int gr = Integer.parseInt(entry.get("grouptype").get().getString());
                     if (gr > 0) {
                         Distributiongroups dgro = new Distributiongroups();
@@ -253,20 +253,31 @@ public class FileUpload implements Serializable {
                             Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
                             dgro.setEmailalias("NOT SET");
                         }
-
+                        try {
+                            dgro.setExternalemail(entry.get("msExchRequireAuthToSentTo").getString());
+                        } catch (LdapInvalidAttributeValueException | NullPointerException ex) {
+                            Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
+                            
+                            dgro.setExternalemail("NO");
+                            
+                        }
+                        if ((!dgro.getExternalemail().isEmpty()) && dgro.getExternalemail().equalsIgnoreCase("true")) {
+                            dgro.setExternalemail("YES");
+                        }
+                        
                         list.getDgr().add(dgro);
                         try {
-
+                            
                             List<Value<?>> memberss = fraIteratorTilListe(entry.get("member").getAll());
                             List<DN> mem = new ArrayList<>();
-
+                            
                             for (Value<?> s : memberss) {
                                 try {
                                     mem.add(new DN(s.getString()));
                                 } catch (LdapInvalidDnException ex) {
                                     Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
                                 }
-
+                                
                             }
                             getMembers().add(new Members(mem, dgro.getDisplayname(), false));
                         } catch (NullPointerException ex) {
@@ -298,25 +309,25 @@ public class FileUpload implements Serializable {
                         try {
                             List<Value<?>> members = fraIteratorTilListe(entry.get("member").getAll());
                             List<DN> mem = new ArrayList<>();
-
+                            
                             for (Value<?> s : members) {
                                 try {
                                     mem.add(new DN(s.getString()));
                                 } catch (LdapInvalidDnException ex) {
                                     Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
                                 }
-
+                                
                             }
                             getMembers().add(new Members(mem, gro.getGroupname(), true));
                         } catch (NullPointerException ex) {
                             Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
-
+                    
                 }
-
+                
             }
-
+            
         }
         try {
             reader.close();
@@ -324,7 +335,7 @@ public class FileUpload implements Serializable {
             Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     public synchronized void readAndPersist() {
         for (Groups gr : list.getGr()) {
             try {
@@ -333,9 +344,9 @@ public class FileUpload implements Serializable {
                 FacesMessage msg = new FacesMessage("Unsuccesful", (gr.getGroupname()) + " is probably already made.");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
-
+            
         }
-
+        
         for (Distributiongroups dgr : list.getDgr()) {
             try {
                 dgrF.create(dgr);
@@ -353,16 +364,16 @@ public class FileUpload implements Serializable {
             }
         }
         checkSave = true;
-
+        
     }
-
+    
     public void saveGroupMemberships() {
         if (checkSave) {
             for (Members mem : members) {
                 if (mem.isSecgr()) {
                     for (DN s : mem.getMembers()) {
                         List<Users> ur = brukerEJB.findDN(s.getNormName());
-
+                        
                         try {
                             guF.create(new Groupusers(ur.iterator().next().getUsername(), mem.getName()));
                         } catch (Exception e) {
@@ -387,17 +398,17 @@ public class FileUpload implements Serializable {
             emptyList();
         }
     }
-
+    
     public void onCellEdit(CellEditEvent event) {
         Object oldValue = event.getOldValue();
         Object newValue = event.getNewValue();
-
+        
         if (newValue != null && !newValue.equals(oldValue)) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
-
+    
     public void deleteItem(Object e) {
         if (e instanceof Users) {
             Users usr = (Users) e;
@@ -409,31 +420,31 @@ public class FileUpload implements Serializable {
             Groups gr = (Groups) e;
             list.getGr().remove(gr);
         }
-
+        
     }
-
+    
     public void deleteItemM2(Object e, Object f) {
         if (e instanceof Members) {
             Members mem = (Members) e;
             mem = members.get(members.indexOf(mem));
             mem.getMembers().remove((DN) f);
         }
-
+        
     }
-
+    
     public void deleteItemM(Object e) {
         if (e instanceof Members) {
             Members mem = (Members) e;
             members.remove(mem);
         }
-
+        
     }
-
+    
     public void emptyList() {
         list.getDgr().clear();
         list.getGr().clear();
         list.getUsr().clear();
         fil.delete();
     }
-
+    
 }
