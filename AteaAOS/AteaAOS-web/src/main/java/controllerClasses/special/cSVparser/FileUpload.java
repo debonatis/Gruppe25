@@ -327,14 +327,30 @@ public class FileUpload implements Serializable {
 
     public synchronized void readAndPersist() {
         for (Groups gr : list.getGr()) {
-            grF.create(gr);
+            try {
+                grF.create(gr);
+            } catch (Exception e) {
+                FacesMessage msg = new FacesMessage("Unsuccesful", (gr.getGroupname()) + " is probably already made.");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+            }
+
         }
 
         for (Distributiongroups dgr : list.getDgr()) {
-            dgrF.create(dgr);
+            try {
+                dgrF.create(dgr);
+            } catch (Exception e) {
+                FacesMessage msg = new FacesMessage("Unsuccesful", (dgr.getDisplayname()) + " is probably already made.");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+            }
         }
         for (Users usr : list.getUsr()) {
-            brukerEJB.create(usr);
+            try {
+                brukerEJB.create(usr);
+            } catch (Exception e) {
+                FacesMessage msg = new FacesMessage("Unsuccesful", (usr.getUsername()) + " is probably already made.");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+            }
         }
         checkSave = true;
 
@@ -347,13 +363,22 @@ public class FileUpload implements Serializable {
                     for (DN s : mem.getMembers()) {
                         List<Users> ur = brukerEJB.findDN(s.getNormName());
 
-                        guF.create(new Groupusers(ur.iterator().next().getUsername(), mem.getName()));
+                        try {
+                            guF.create(new Groupusers(ur.iterator().next().getUsername(), mem.getName()));
+                        } catch (Exception e) {
+                            FacesMessage msg = new FacesMessage("Unsuccesful", "Binding is probably already made.");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                        }
                     }
                 } else if (!mem.isSecgr()) {
                     for (DN s : mem.getMembers()) {
                         List<Users> ur = brukerEJB.findDN(s.getNormName());
-
-                        udF.create(new Userdistribution(ur.iterator().next().getUsername(), mem.getName()));
+                        try {
+                            udF.create(new Userdistribution(ur.iterator().next().getUsername(), mem.getName()));
+                        } catch (Exception e) {
+                            FacesMessage msg = new FacesMessage("Unsuccesful", "Binding is probably already made.");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                        }
                     }
                 }
             }
