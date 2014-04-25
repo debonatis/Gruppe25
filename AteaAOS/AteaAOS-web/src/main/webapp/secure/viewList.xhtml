@@ -20,19 +20,61 @@
                         <h:form id="storrelse">
                             <br/><br/>
                             <p:panel >
-                                <p:poll update="rogerS" interval="2" listener="true"/>
-                                <p:dataTable id="rogerS" value="#{superUsers.selectList}" var="item" cellSeparator="2" paginator="true" rows="10">
-                                    <p:column selectionMode="single" style="width:2%" /> 
-                                    
-                                    <p:column headerText="Name" style="width:25%" >  
-                                        #{item.username}  
+                                <p:growl id="messages" showDetail="true"/> 
+
+                                <p:dataTable id="rogerS" value="#{superUsers.selectList}" var="item" cellSeparator="2" paginator="true" rows="10" editable="true">
+
+                                    <p:ajax event="rowEdit" listener="#{superUsers.onEdit}" update=":storrelse:messages" />  
+                                    <p:ajax event="rowEditCancel" listener="#{superUsers.onCancel}" update=":storrelse:messages" />
+
+                                    <p:column style="width:6%" headerText="Edit">  
+                                        <p:rowEditor  />  
+                                    </p:column> 
+
+                                    <p:column headerText="Username" style="width:30%" 
+                                              id="usernameColumn" filterBy="username" filterMatchMode="contains">
+                                        <h:outputText value="#{item.username}" />
+                                    </p:column>  
+
+                                    <p:column headerText="Password" style="width:30%" 
+                                              id="passwordColumn" filterBy="password" filterMatchMode="contains">  
+                                        <p:cellEditor>  
+                                            <f:facet name="output">  
+                                                <h:outputText value="#{item.password}" />  
+                                            </f:facet>  
+                                            <f:facet name="input">  
+                                                <p:inputText value="#{item.password}" style="width:100%"/>  
+                                            </f:facet>  
+                                        </p:cellEditor>  
                                     </p:column>
+
+                                    <p:column headerText="First name" style="width:30%"
+                                              id="firstnameColumn" filterBy="firstname" filterMatchMode="contains">  
+                                        <p:cellEditor>  
+                                            <f:facet name="output">  
+                                                <h:outputText value="#{item.firstname}" />  
+                                            </f:facet>  
+                                            <f:facet name="input">  
+                                                <p:inputText value="#{item.firstname}" style="width:100%"/>  
+                                            </f:facet>  
+                                        </p:cellEditor>  
+                                    </p:column>
+
+                                    <p:column headerText="Delete">
+                                        <f:facet name="header">
+                                            <h:outputText value="" />
+                                        </f:facet>
+                                        <p:commandButton icon="ui-icon-close" title="remove from list"
+                                                         actionListener="#{superUsers.deleteItemUsr(item)}" update="rogerS" />
+                                    </p:column>
+
                                 </p:dataTable>
+
                             </p:panel>
                         </h:form>
                     </p:layoutUnit>
 
-                   
+
                 </p:layout>
             </ui:define>
         </ui:composition>
