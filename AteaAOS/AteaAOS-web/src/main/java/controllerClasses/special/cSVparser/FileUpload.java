@@ -253,6 +253,7 @@ public class FileUpload implements Serializable {
                             Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
                             dgro.setEmailalias("NOT SET");
                         }
+                        
                         list.getDgr().add(dgro);
                         try {
 
@@ -290,6 +291,7 @@ public class FileUpload implements Serializable {
                         } catch (LdapInvalidAttributeValueException | NullPointerException ex) {
                             Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
                         }
+                        gro.setDn(entry.getDn().toString());
                         gro.setFunctions("NOT SET");
                         gro.setProjectid((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
                         list.getGr().add(gro);
