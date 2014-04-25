@@ -163,14 +163,14 @@ public class FileUpload implements Serializable {
         List<String> ocStringList = new ArrayList<>();
         int ep = 0;
         for (LdifEntry entry : entries) {
-            ep++;
+
             if (null != entry.get("cn")) {
                 List<Value<?>> oc = fraIteratorTilListe(entry.get("objectClass").getAll());
                 for (Value<?> s : oc) {
                     ocStringList.add(s.getString());
                 }
                 if (ocStringList.contains("person") && ocStringList.contains("user") && !ocStringList.contains("computer")) {
-
+                    ep++;
                     Users entity = new Users();
                     try {
                         entity.setUsername((entry.get("sAMAccountName").getString() == null) ? "NOT SET" : entry.get("sAMAccountName").getString());
@@ -253,7 +253,7 @@ public class FileUpload implements Serializable {
                             Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
                             dgro.setEmailalias("NOT SET");
                         }
-                        
+
                         list.getDgr().add(dgro);
                         try {
 
