@@ -181,18 +181,19 @@ public class FileUpload implements Serializable {
                         entity.setFirstname((entry.get("givenName").getString() == null) ? "NOT SET" : entry.get("givenName").getString());
                     } catch (LdapInvalidAttributeValueException | NullPointerException ex) {
                         Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
-                        entity.setFirstname(entity.getUsername());
+                        entity.setFirstname("NOT SET");
                     }
                     try {
                         entity.setLastname((entry.get("sn").getString() == null) ? "NOT SET" : entry.get("sn").getString());
                     } catch (LdapInvalidAttributeValueException | NullPointerException ex) {
                         Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
+                        entity.setLastname("NOT SET");
                     }
                     try {
                         entity.setTitle((entry.get("title").getString() == null) ? "NOT SET" : entry.get("title").getString());
                     } catch (LdapInvalidAttributeValueException | NullPointerException ex) {
                         Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
-                        entity.setTitle(entity.getUsername());
+                        entity.setTitle("NOT SET");
                     }
                     entity.setItcontact("NO");
                     
@@ -232,7 +233,8 @@ public class FileUpload implements Serializable {
                         entity.setEmail(entry.get("mail").getString());
                     } catch (LdapInvalidAttributeValueException | NullPointerException ex) {
                         Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
-                        entity.setEmploymentnr(Integer.toString(ep));
+                        entity.setEmail("NOT SET");
+                       
                     }
                     list.getUsr().add(entity);
                 } else if (ocStringList.contains("group")) {
