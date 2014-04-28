@@ -143,7 +143,7 @@ public class FoldersEdit {
     public void addNode() {
         folder.getFoldersPK().setProjectid((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
         Folders k = (Folders) selectedNode.getData();
-        if (!k.getParentfolder().equalsIgnoreCase("Root")) {
+        if (k.getParentfolder()!=null) {
             folder.setParentfolder(k.getParentfolder());
         }
 
