@@ -42,19 +42,9 @@ public class UsersToApplications {
     private LoggingFacade LoggingEJB;
     private DualListModel<Users> users;
     private DualListModel<Applications> applications;
-    private String username;
-    private String usernameProp;
+
     private boolean skip;
     private Users bruker = new Users();
-
-    public String getUsernameProp() {
-        usernameProp = (bruker.getFirstname().substring(0, 8) + bruker.getLastname().substring(3, 5));
-        return usernameProp;
-    }
-
-    public void setUsernameProp(String usernameProp) {
-        this.usernameProp = usernameProp;
-    }
 
     public Users getBruker() {
         return bruker;
@@ -85,8 +75,8 @@ public class UsersToApplications {
 
         users = new DualListModel<>(usersEJB.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")), new ArrayList<Users>());
 
-        applications = new DualListModel<>(applicationsEJB.findAll(), new ArrayList<Applications>());
-        username = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
+        applications = new DualListModel<>(applicationsEJB.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")), new ArrayList<Applications>());
+        
     }
 
     public UsersToApplications() {

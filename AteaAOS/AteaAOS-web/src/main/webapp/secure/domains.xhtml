@@ -1,12 +1,150 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" >
     <h:head>
-        <title>Facelet Title</title>
     </h:head>
-    <h:body>
-        Hello from Facelets
-    </h:body>
-</html>
 
+    <h:body>
+        <ui:composition template="template/templateSecure.xhtml">
+            <ui:define name="center">
+
+                <p:tabView id="tabView">
+                    <p:tab id="tab1" title="Create new Domain">  
+                        <h:form id="userForm">
+                            <p:growl id="growl" sticky="true" showDetail="true"/>  
+
+
+                            <p:wizard flowListener="#{domainEdit.onFlowProcess}">
+                                <p:tab id="userinput" title="Create Domain">  
+
+                                    <p:panel header="Domain Details ">  
+
+                                        <h:messages errorClass="error"/>  
+
+                                        <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid">  
+                                            <h:outputText value="Domainname: *" />  
+                                            <p:inputText required="true" label="domainname"  
+                                                         value="#{domainEdit.domain.domainname}" />  
+
+                                            <h:outputText value="IP-pointer: *" />  
+                                            <p:inputText required="true" label="ippointer"  
+                                                         value="#{domainEdit.domain.ippointer}" />  
+
+                                            <h:outputText value="Domain Function: *" />  
+                                            <p:inputText required="true" label="domainfunction"  value="#{domainEdit.domain.domainfunction}" />  
+
+
+                                        </h:panelGrid>  
+                                    </p:panel>  
+                                </p:tab>  
+                                <p:tab id="workspec" title="Registar Details">  
+                                    <p:panel header="Technical Details">  
+
+                                        <h:messages errorClass="error"/>  
+
+                                        <h:panelGrid columns="2" columnClasses="label, value">  
+                                            <h:outputText value="Registrar *: " />  
+                                            <p:inputText required="true" label="registrar"  value="#{domainEdit.domain.registrar}" />  
+
+                                            <h:outputText value="Registrar Contact *: " />  
+                                            <p:inputText required="true" label="registrarcontact" value="#{domainEdit.domain.registrarcontact}" />  
+                                            
+
+                                        </h:panelGrid>  
+                                        <p:commandButton value="Submit" update="growl"   
+                                                         actionListener="#{domainEdit.save}" oncomplete="wiz.loadStep(wiz.cfg.steps[0], true)"/>  
+                                    </p:panel>  
+                                </p:tab> 
+
+                            </p:wizard>
+
+                        </h:form>
+                    </p:tab>
+                    <p:tab id="table" title="Edit Printers">
+                        <h:form id="editForm">
+                            <p:panel >
+                                <p:growl id="messages" showDetail="true"/> 
+                                <p:dataTable id="roger" value="#{domainEdit.dlist}" var="item" cellSeparator="2" paginator="true" rows="10" editable="true">
+
+                                    <p:ajax event="rowEdit" listener="#{domainEdit.onEdit}" update=":tabView:editForm:messages" />  
+                                    <p:ajax event="rowEditCancel" listener="#{domainEdit.onCancel}" update=":tabView:editForm:messages" />
+
+                                    <p:column style="width:6%" headerText="Edit">  
+                                        <p:rowEditor  />  
+                                    </p:column> 
+
+                                    <p:column headerText="Domainname" style="width:30%" 
+                                              id="usernameColumn" filterBy="domainname" filterMatchMode="contains">
+                                        <h:outputText value="#{item.domainname}" />
+                                    </p:column>  
+
+                                    <p:column headerText="Domain Function" style="width:30%" 
+                                              id="firstnameColumn" filterBy="domainfunction" filterMatchMode="contains">  
+                                        <p:cellEditor>  
+                                            <f:facet name="output">  
+                                                <h:outputText value="#{item.domainfunction}" />  
+                                            </f:facet>  
+                                            <f:facet name="input">  
+                                                <p:inputText value="#{item.domainfunction}" style="width:100%"/>  
+                                            </f:facet>  
+                                        </p:cellEditor>  
+                                    </p:column>
+
+                                    <p:column headerText="IP-pointer" style="width:30%"
+                                              id="lastnameColumn" filterBy="ippointer" filterMatchMode="contains">  
+                                        <p:cellEditor>  
+                                            <f:facet name="output">  
+                                                <h:outputText value="#{item.ippointer}" />  
+                                            </f:facet>  
+                                            <f:facet name="input">  
+                                                <p:inputText value="#{item.ippointer}" style="width:100%"/>  
+                                            </f:facet>  
+                                        </p:cellEditor>  
+                                    </p:column>
+
+                                    <p:column headerText="Registrar" style="width:30%"
+                                              id="employmentnrColumn" filterBy="registrar" filterMatchMode="contains">  
+                                        <p:cellEditor>  
+                                            <f:facet name="output">  
+                                                <h:outputText value="#{item.registrar}" />  
+                                            </f:facet>  
+                                            <f:facet name="input">  
+                                                <p:inputText value="#{item.registrar}" style="width:100%"/>  
+                                            </f:facet>  
+                                        </p:cellEditor>  
+                                    </p:column>
+
+                                    <p:column headerText="Registrar Contact" style="width:30%"
+                                              id="mobileColumn" filterBy="registrarcontact" filterMatchMode="contains">  
+                                        <p:cellEditor>  
+                                            <f:facet name="output">  
+                                                <h:outputText value="#{item.registrarcontact}" />  
+                                            </f:facet>  
+                                            <f:facet name="input">  
+                                                <p:inputText value="#{item.registrarcontact}" style="width:100%"/>  
+                                            </f:facet>  
+                                        </p:cellEditor>  
+
+                                    </p:column>
+                                  
+                                    
+                                    <p:column headerText="Delete">
+                                        <f:facet name="header">
+                                            <h:outputText value="" />
+                                        </f:facet>
+                                        <p:commandButton icon="ui-icon-close" title="remove from list"
+                                                         actionListener="#{domainEdit.deleteItemDom(item)}" update="roger" />
+                                    </p:column>
+
+                                </p:dataTable>
+                            </p:panel>
+                        </h:form>
+                    </p:tab>
+                </p:tabView>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html> 
