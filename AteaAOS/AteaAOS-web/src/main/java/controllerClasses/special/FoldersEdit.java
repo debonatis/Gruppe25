@@ -43,35 +43,31 @@ public class FoldersEdit {
     private List<Groups> gru = new ArrayList<>();
     private boolean rw = false;
     private boolean r = false;
-    
-    
 
     public FoldersEdit() {
         root = new DefaultTreeNode("Root", null);
-        TreeNode node0 = new DefaultTreeNode(new Folders("root", (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")), root);
+        TreeNode node0 = new DefaultTreeNode(new Folders("Root", (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")), root);
         try {
             for (Folders f : fF.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))) {
-              if(f.getParentfolder().isEmpty()){
-                  TreeNode node = new DefaultTreeNode(f, root);
-              } else if (!f.getParentfolder().isEmpty()){
-                  for(TreeNode node : root.getChildren()){
-                     if(f.getParentfolder().equalsIgnoreCase(((Folders) node.getData()).getParentfolder())){
-                         TreeNode node2 = new DefaultTreeNode(f, node);
-                     }
-                  }
-                 
-                  
-              }
+                if (f.getParentfolder().isEmpty()) {
+                    TreeNode node = new DefaultTreeNode(f, root);
+                } else if (!f.getParentfolder().isEmpty()) {
+                    for (TreeNode node : root.getChildren()) {
+                        if (f.getParentfolder().equalsIgnoreCase(((Folders) node.getData()).getParentfolder())) {
+                            TreeNode node2 = new DefaultTreeNode(f, node);
+                        }
+                    }
+
+                }
             }
         } catch (NullPointerException e) {
 
         }
-        try{
-            
-        
-        gru = gF.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
-        } catch(Exception e){
-            
+        try {
+
+            gru = gF.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
+        } catch (Exception e) {
+
         }
     }
 
@@ -115,7 +111,6 @@ public class FoldersEdit {
     public void setFolder(Folders folder) {
         this.folder = folder;
     }
-    
 
     public TreeNode getRoot() {
         return root;
@@ -147,34 +142,38 @@ public class FoldersEdit {
 
     public void addNode() {
         folder.getFoldersPK().setProjectid((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
-        folder.setParentfolder(((Folders)selectedNode.getParent().getData()).getFoldersPK().getFoldername());
+        Folders k = (Folders) selectedNode.getData();
+        if (!k.getParentfolder().equalsIgnoreCase("Root")) {
+            folder.setParentfolder(k.getParentfolder());
+        }
+
         TreeNode a = new DefaultTreeNode(folder, selectedNode);
-        
+
         folder = new Folders();
     }
-    
-    public void saveF(){
-        for(TreeNode e : root.getChildren()){
-            
-           Folders f = (Folders)e.getData();
-           try{
-            fF.create(f);
-           } catch(Exception k){
-               
-           }
+
+    public void saveF() {
+        for (TreeNode e : root.getChildren()) {
+
+            Folders f = (Folders) e.getData();
+            try {
+                fF.create(f);
+            } catch (Exception k) {
+
+            }
         }
     }
-    public void addGroups(){
-        Folders f = (Folders)selectedNode.getData();
-        for(Groups gr:gruSel){
-            try{
-            fgF.create(new Foldergroups(f.getFoldersPK().getFoldername(), f.getFoldersPK().getProjectid(), gr.getGroupname()));
-            }catch(Exception k){
-                
+
+    public void addGroups() {
+        Folders f = (Folders) selectedNode.getData();
+        for (Groups gr : gruSel) {
+            try {
+                fgF.create(new Foldergroups(f.getFoldersPK().getFoldername(), f.getFoldersPK().getProjectid(), gr.getGroupname()));
+            } catch (Exception k) {
+
             }
         }
         gruSel.clear();
-        
-        
+
     }
 }
