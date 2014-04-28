@@ -17,9 +17,9 @@ import java.util.UUID;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.RowEditEvent;
 import persistClasses.ApplicationaccessFacade;
@@ -30,7 +30,7 @@ import persistClasses.ApplicationsFacade;
  * @author Martin
  */
 @ManagedBean(name = "newApplication")
-@SessionScoped
+@ViewScoped
 public class NewApplication implements Serializable {
 
     @EJB
@@ -142,54 +142,54 @@ public class NewApplication implements Serializable {
 
         }
     }
+
     public void onEdidApp(RowEditEvent event) {
 
         ApplicationUsers e = (ApplicationUsers) event.getObject();
-       
 
-            Applications app = applicationsEJB.find(e.getApp().getApplicationid());
-            app.setVersion(e.getApp().getVersion());
-            app.setApplanguage(e.getApp().getApplanguage());
-            app.setApplicationname(e.getApp().getApplicationname());
-            app.setApplicationownercustomer(e.getApp().getApplicationownercustomer());
-            app.setContractinformation(e.getApp().getContractinformation());
-            app.setContractinformation(e.getApp().getContractinformation());
-            app.setLicense(e.getApp().getLicense());
-            app.setSizedatabase(e.getApp().getSizedatabase());
-            app.setSizefile(e.getApp().getSizefile());
-            app.setSubcontractor(e.getApp().getSubcontractor());
-            applicationsEJB.edit(app);
+        Applications app = applicationsEJB.find(e.getApp().getApplicationid());
+        app.setVersion(e.getApp().getVersion());
+        app.setApplanguage(e.getApp().getApplanguage());
+        app.setApplicationname(e.getApp().getApplicationname());
+        app.setApplicationownercustomer(e.getApp().getApplicationownercustomer());
+        app.setContractinformation(e.getApp().getContractinformation());
+        app.setContractinformation(e.getApp().getContractinformation());
+        app.setLicense(e.getApp().getLicense());
+        app.setSizedatabase(e.getApp().getSizedatabase());
+        app.setSizefile(e.getApp().getSizefile());
+        app.setSubcontractor(e.getApp().getSubcontractor());
+        applicationsEJB.edit(app);
 
-            init();
-            FacesMessage msg = new FacesMessage("Group Edited", ((ApplicationUsers) event.getObject()).getApp().getApplicationname());
+        init();
+        FacesMessage msg = new FacesMessage("Group Edited", ((ApplicationUsers) event.getObject()).getApp().getApplicationname());
 
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-        
+        FacesContext.getCurrentInstance().addMessage(null, msg);
 
     }
+
     public void onCancelApp(RowEditEvent event) {
         FacesMessage msg = new FacesMessage("Group Edit Cancelled", ((ApplicationUsers) event.getObject()).getApp().getApplicationname());
 
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
+
     public void deleteItemApp(ApplicationUsers e) {
-      
-            for (Users u : e.getUsers()) {
-                aaF.remove(new Applicationaccess(u.getUsername(), e.getApp().getApplicationid()));
 
-            }
-            Applications app = applicationsEJB.find(e.getApp().getApplicationid());
-            applicationsEJB.remove(app);
+        for (Users u : e.getUsers()) {
+            aaF.remove(new Applicationaccess(u.getUsername(), e.getApp().getApplicationid()));
 
-            appUsers.remove(e);
-        
+        }
+        Applications app = applicationsEJB.find(e.getApp().getApplicationid());
+        applicationsEJB.remove(app);
+
+        appUsers.remove(e);
 
     }
+
     public void deleteItemAppUser(ApplicationUsers g, Users e) {
 
-        
-           aaF.remove(new Applicationaccess(e.getUsername(), g.getApp().getApplicationid()));
-        
+        aaF.remove(new Applicationaccess(e.getUsername(), g.getApp().getApplicationid()));
+
         int i = appUsers.indexOf(g);
         appUsers.get(i).getUsers().remove(e);
 
