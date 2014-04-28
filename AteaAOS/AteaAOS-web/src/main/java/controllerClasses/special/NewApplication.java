@@ -87,7 +87,7 @@ public class NewApplication implements Serializable {
     @PostConstruct
     public void init() {
 
-        applicationListT = applicationsEJB.findAll();
+        applicationListT = applicationsEJB.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
 
         selectList = new ApplicationsModel(applicationListT);
         appUsers.clear();

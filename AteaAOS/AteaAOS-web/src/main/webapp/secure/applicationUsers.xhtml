@@ -149,8 +149,8 @@
                                     Applications
                                 </f:facet>  
 
-                                <p:ajax event="rowEdit" listener="#{newApplication.onEdidApp}" update=":tabView:form:messages" />  
-                                <p:ajax event="rowEditCancel" listener="#{newApplication.onCancelApp}" update=":tabView:form:messages" />  
+                                <p:ajax event="rowEdit" listener="#{newApplication.onEdidApp}" update=":tabView:form3:messages" />  
+                                <p:ajax event="rowEditCancel" listener="#{newApplication.onCancelApp}" update=":tabView:form3:messages" />  
 
                                 <p:column headerText="Application name" style="width:30%">  
                                     <p:cellEditor>  
@@ -202,7 +202,7 @@
                                         </f:facet>  
                                     </p:cellEditor>  
                                 </p:column>  
-                                <p:column headerText="Application Size (DB)" style="width:30%">  
+                                <p:column headerText="Application Size (DB) in MB" style="width:30%">  
                                     <p:cellEditor>  
                                         <f:facet name="output">  
                                             <h:outputText value="#{app.app.sizedatabase}" />  
@@ -212,7 +212,7 @@
                                         </f:facet>  
                                     </p:cellEditor>  
                                 </p:column>  
-                                <p:column headerText="Application Size" style="width:30%">  
+                                <p:column headerText="Application Size in MB" style="width:30%">  
                                     <p:cellEditor>  
                                         <f:facet name="output">  
                                             <h:outputText value="#{app.app.sizefile}" />  
@@ -251,7 +251,7 @@
                                         <h:outputText value="" />
                                     </f:facet>
                                     <p:commandButton icon="ui-icon-close" title="remove from list"
-                                                     actionListener="#{newApplication.deleteItemApp(app)}" update="carList" />
+                                                     actionListener="#{newApplication.deleteItemApp(app)}" update="List" />
                                 </p:column>
                                 <p:column headerText="Users">
                                     <p:rowExpansion>
@@ -284,7 +284,7 @@
 
                             </p:dataTable>  
 
-                            <p:commandButton value="Refresh" action="#{newApplication.init()}" icon="ui-icon-refresh" update="carList"/>
+                            <p:commandButton value="Refresh" action="#{newApplication.init()}" icon="ui-icon-refresh" update="List"/>
 
                         </h:form> 
                     </p:tab>
