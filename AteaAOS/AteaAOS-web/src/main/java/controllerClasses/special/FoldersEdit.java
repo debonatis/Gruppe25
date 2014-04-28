@@ -45,6 +45,12 @@ public class FoldersEdit {
     private boolean r = false;
 
     public FoldersEdit() {
+        try {
+
+            gru = gF.findAllPro(((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
+        } catch (Exception e) {
+
+        }
         root = new DefaultTreeNode("Root", null);
         TreeNode node0 = new DefaultTreeNode(new Folders("Root", (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")), root);
         try {
@@ -63,12 +69,7 @@ public class FoldersEdit {
         } catch (NullPointerException e) {
 
         }
-        try {
-
-            gru = gF.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
-        } catch (Exception e) {
-
-        }
+       
     }
 
     public boolean isRw() {
