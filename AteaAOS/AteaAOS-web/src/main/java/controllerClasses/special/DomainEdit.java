@@ -34,7 +34,11 @@ public class DomainEdit {
 
     @PostConstruct
     public void init() {
+        try{
         dlist = dF.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
+        }catch(NullPointerException e){
+            dlist = new ArrayList<>();
+        }
     }
 
     public Domains getDomain() {
