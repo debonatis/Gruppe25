@@ -65,8 +65,13 @@ public class FoldersEdit {
         } catch (NullPointerException e) {
 
         }
-        gru = gF.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
+        try{
+            
         
+        gru = gF.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
+        } catch(Exception e){
+            
+        }
     }
 
     public boolean isRw() {
