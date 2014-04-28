@@ -24,7 +24,7 @@
                                 <p:menuitem value="Add Groups" update="treeSingle" onclick="dlg2.show()"  icon="ui-icon-plus"/>
                             </p:contextMenu>  
 
-
+                            <p:poll interval="1" update="treeSingle"/>
                             <p:tree id="treeSingle" value="#{foldersEdit.root}" var="node"  
                                     selectionMode="single"  
                                     selection="#{foldersEdit.selectedNode}"  
@@ -35,9 +35,9 @@
                                 </p:treeNode>  
                             </p:tree>  
 
-                        
-                        <p:dialog header="Enter Foldername" widgetVar="dlg" resizable="true">  
-                            
+
+                            <p:dialog header="Enter Foldername" widgetVar="dlg" resizable="true">  
+
 
                                 <h:panelGrid columns="2" style="margin-bottom:10px">  
                                     <h:outputLabel for="folderName" value="Folder Name:" />  
@@ -46,10 +46,10 @@
 
                                 <p:commandButton action="#{foldersEdit.addNode()}" id="submitButton" value="Submit" update=":tabView:form10:treeSingle" oncomplete="PF('dlg').hide();"/>  
 
-                            
-                        </p:dialog> 
-                        <p:dialog header="Pick Groups" widgetVar="dlg2" resizable="true">  
-                            
+
+                            </p:dialog> 
+                            <p:dialog header="Pick Groups" widgetVar="dlg2" resizable="true">  
+
 
                                 <h:panelGrid columns="2" style="margin-bottom:10px">  
                                     <h:outputLabel for="scroll" value="Groups:" />  
@@ -73,9 +73,9 @@
 
                                 <p:commandButton action="#{foldersEdit.addGroups()}" id="submitButton2" value="Submit" update=":tabView:form10:treeSingle" oncomplete="PF('dlg2').hide();"/>  
 
-                          
-                        </p:dialog>  
-                            </h:form>
+
+                            </p:dialog>  
+                        </h:form>
                     </p:tab>
                     <p:tab id="table" title="TO DO">
 
