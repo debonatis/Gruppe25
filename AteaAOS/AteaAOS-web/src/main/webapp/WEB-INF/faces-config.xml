@@ -274,7 +274,7 @@
  
         </navigation-rule>
         <navigation-rule>
-            <from-view-id>/secure/printers.xhtml</from-view-id>   
+            <from-view-id>/secure/domains.xhtml</from-view-id>   
             <navigation-case> 
                 <from-outcome>printers</from-outcome> 
                 <to-view-id>/secure/printers.xhtml</to-view-id> 

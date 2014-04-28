@@ -34,7 +34,11 @@ public class PrintersEdit {
 
     @PostConstruct
     public void init() {
+        try{
         plist = pF.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
+        } catch(NullPointerException e){
+            plist = new ArrayList<>();
+        }
     }
 
     public Printers getPrinter() {
