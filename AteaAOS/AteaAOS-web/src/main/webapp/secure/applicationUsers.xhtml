@@ -86,7 +86,7 @@
                                 <h:messages errorClass="error"/>  
 
                                 <h:panelGrid columns="6" cellspacing="15" columnClasses="label, value,label,value,label,value" styleClass="grid">  
-                                    
+
                                     <h:outputText value="Application Name: *" />  
                                     <p:inputText required="true" label="Application Name"  
                                                  value="#{newApplication.applications.applicationname}" />  
@@ -135,6 +135,158 @@
                                                  action="#{newApplication.save()}" />
                             </p:panel>  
                         </h:form>
+
+
+                    </p:tab>
+                    <p:tab id="tab3" title="Application Edit">
+                        <h:form id="form3">  
+
+                            <p:growl id="messages" showDetail="true"/>  
+
+                            <p:dataTable var="app" value="#{newApplication.appUsers}" id="List" editable="true">  
+
+                                <f:facet name="header">  
+                                    Applications
+                                </f:facet>  
+
+                                <p:ajax event="rowEdit" listener="#{newApplication.onEdidApp}" update=":tabView:form:messages" />  
+                                <p:ajax event="rowEditCancel" listener="#{newApplication.onCancelApp}" update=":tabView:form:messages" />  
+
+                                <p:column headerText="Application name" style="width:30%">  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">  
+                                            <h:outputText value="#{app.app.applicationname}" />  
+                                        </f:facet>  
+                                        <f:facet name="input">  
+                                            <p:inputText value="#{app.app.applicationname}" style="width:100%"/>  
+                                        </f:facet>  
+                                    </p:cellEditor>  
+                                </p:column>
+                                <p:column headerText="Application Language" style="width:30%">  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">  
+                                            <h:outputText value="#{app.app.applanguage}" />  
+                                        </f:facet>  
+                                        <f:facet name="input">  
+                                            <p:inputText value="#{app.app.applanguage}" style="width:100%"/>  
+                                        </f:facet>  
+                                    </p:cellEditor>  
+                                </p:column>  
+                                <p:column headerText="Application owner" style="width:30%">  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">  
+                                            <h:outputText value="#{app.app.applicationownercustomer}" />  
+                                        </f:facet>  
+                                        <f:facet name="input">  
+                                            <p:inputText value="#{app.app.applicationownercustomer}" style="width:100%"/>  
+                                        </f:facet>  
+                                    </p:cellEditor>  
+                                </p:column>  
+                                <p:column headerText="Application Contract Details" style="width:30%">  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">  
+                                            <h:outputText value="#{app.app.contractinformation}" />  
+                                        </f:facet>  
+                                        <f:facet name="input">  
+                                            <p:inputText value="#{app.app.contractinformation}" style="width:100%"/>  
+                                        </f:facet>  
+                                    </p:cellEditor>  
+                                </p:column>  
+                                <p:column headerText="Application license" style="width:30%">  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">  
+                                            <h:outputText value="#{app.app.license}" />  
+                                        </f:facet>  
+                                        <f:facet name="input">  
+                                            <p:inputText value="#{app.app.license}" style="width:100%"/>  
+                                        </f:facet>  
+                                    </p:cellEditor>  
+                                </p:column>  
+                                <p:column headerText="Application Size (DB)" style="width:30%">  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">  
+                                            <h:outputText value="#{app.app.sizedatabase}" />  
+                                        </f:facet>  
+                                        <f:facet name="input">  
+                                            <p:inputText value="#{app.app.sizedatabase}" style="width:100%"/>  
+                                        </f:facet>  
+                                    </p:cellEditor>  
+                                </p:column>  
+                                <p:column headerText="Application Size" style="width:30%">  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">  
+                                            <h:outputText value="#{app.app.sizefile}" />  
+                                        </f:facet>  
+                                        <f:facet name="input">  
+                                            <p:inputText value="#{app.app.sizefile}" style="width:100%"/>  
+                                        </f:facet>  
+                                    </p:cellEditor>  
+                                </p:column> 
+                                <p:column headerText="Subcontractor" style="width:30%">  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">  
+                                            <h:outputText value="#{app.app.subcontractor}" />  
+                                        </f:facet>  
+                                        <f:facet name="input">  
+                                            <p:inputText value="#{app.app.subcontractor}" style="width:100%"/>  
+                                        </f:facet>  
+                                    </p:cellEditor>  
+                                </p:column> 
+                                <p:column headerText="Version" style="width:30%">  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">  
+                                            <h:outputText value="#{app.app.version}" />  
+                                        </f:facet>  
+                                        <f:facet name="input">  
+                                            <p:inputText value="#{app.app.version}" style="width:100%"/>  
+                                        </f:facet>  
+                                    </p:cellEditor>  
+                                </p:column> 
+
+                                <p:column style="width:6%">  
+                                    <p:rowEditor />  
+                                </p:column>  
+                                <p:column headerText="Delete">
+                                    <f:facet name="header">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                    <p:commandButton icon="ui-icon-close" title="remove from list"
+                                                     actionListener="#{newApplication.deleteItemApp(app)}" update="carList" />
+                                </p:column>
+                                <p:column headerText="Users">
+                                    <p:rowExpansion>
+                                        <p:dataTable var="usr" value="#{app.users}" id="memList2" >  
+
+                                            <f:facet name="header">  
+                                                Users 
+                                            </f:facet>  
+
+
+
+                                            <p:column headerText="User name" style="width:30%">  
+
+
+                                                <h:outputText value="#{usr.username}" />  
+
+
+
+                                            </p:column> 
+                                            <p:column headerText="Delete">
+
+                                                <p:commandButton icon="ui-icon-close" title="remove from list"
+                                                                 actionListener="#{newApplication.deleteItemAppUser(app, usr)}" update="memList2" />
+                                            </p:column>
+                                        </p:dataTable>     
+
+                                    </p:rowExpansion>
+
+                                </p:column>
+
+                            </p:dataTable>  
+
+                            <p:commandButton value="Refresh" action="#{newApplication.init()}" icon="ui-icon-refresh" update="carList"/>
+
+                        </h:form> 
                     </p:tab>
 
                 </p:tabView>
