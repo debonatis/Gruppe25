@@ -7,6 +7,7 @@ package controllerClasses.special;
 
 import entityModels.Foldergroups;
 import entityModels.Folders;
+import entityModels.FoldersPK;
 import entityModels.Groups;
 import java.util.ArrayList;
 import java.util.List;
@@ -107,6 +108,7 @@ public class FoldersEdit {
     }
 
     public Folders getFolder() {
+        folder = new Folders(new FoldersPK());
         return folder;
     }
 
