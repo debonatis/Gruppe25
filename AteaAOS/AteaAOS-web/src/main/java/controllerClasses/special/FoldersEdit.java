@@ -47,7 +47,7 @@ public class FoldersEdit {
     public FoldersEdit() {
         try {
 
-            gru = gF.findAllPro(((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
+            gru = gF.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
         } catch (Exception e) {
 
         }
@@ -134,6 +134,13 @@ public class FoldersEdit {
     }
 
     public void deleteNode() {
+        
+        for(TreeNode t:selectedNode.getChildren()){
+            Folders f = (Folders)t.getData();
+            for(Foldergroups g:fgF.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))){
+                
+            }
+        }
         selectedNode.getChildren().clear();
         selectedNode.getParent().getChildren().remove(selectedNode);
         selectedNode.setParent(null);
