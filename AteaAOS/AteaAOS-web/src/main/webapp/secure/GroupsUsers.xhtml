@@ -149,7 +149,7 @@
 
                             <p:growl id="messages" showDetail="true"/>  
 
-                            <p:dataTable var="gr" value="#{distAndGroupEdit.liste}" id="carList" editable="true">  
+                            <p:dataTable var="gr" value="#{distAndGroupEdit.liste}" id="carList" paginator="true" rows="10" editable="true">  
 
                                 <f:facet name="header">  
                                     Distibrution and Security Groups 
@@ -222,7 +222,7 @@
                                 </p:column>
                                 <p:column headerText="Users">
                                     <p:rowExpansion>
-                                        <p:dataTable var="usr" value="#{gr.users}" id="memList2" >  
+                                        <p:dataTable var="usr" value="#{gr.users}" id="memList2" paginator="true" rows="10">  
 
                                             <f:facet name="header">  
                                                 Users 
@@ -285,7 +285,7 @@
 
                             </p:panel>  
                             <p:panel header="Security Group List">
-                                <p:dataTable var="sg" value="#{distAndGroupEdit.listsg}" id="sgList" >  
+                                <p:dataTable var="sg" value="#{distAndGroupEdit.listsg}" id="sgList" paginator="true" rows="10">  
 
                                     <f:facet name="header">  
                                         Groups 
@@ -354,7 +354,7 @@
 
                             </p:panel>  
                             <p:panel header="Distibrution Group List">
-                                <p:dataTable var="dg" value="#{distAndGroupEdit.listdg}" id="dgList" >  
+                                <p:dataTable var="dg" value="#{distAndGroupEdit.listdg}" id="dgList" paginator="true" rows="10">  
 
                                     <f:facet name="header">  
                                         Groups 

@@ -127,7 +127,7 @@ public class FoldersEdit {
 
     public void displaySelectedSingle() {
         if (selectedNode != null) {
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Selected", selectedNode.getData().toString());
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Selected", ((Folders)selectedNode.getData()).getFoldersPK().getFoldername());
 
             FacesContext.getCurrentInstance().addMessage(null, message);
         }
