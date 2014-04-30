@@ -65,10 +65,6 @@
                                             </p:column>  
 
                                         </p:pickList>  
-
-
-
-
                                     </p:panel>
                                     <p:commandButton id="pojoSubmit" value="Submit"   style="margin-top:5px" action="#{usersToApps.savePick}"/> 
                                 </p:tab>
@@ -79,61 +75,69 @@
 
                     <p:tab id="tab2" title="Create New Application">  
                         <h:form id="appForm"> 
-                            <p:growl id="growl" sticky="true" showDetail="true"/>
+                            <p:growl id="growlL" sticky="true" showDetail="true"/>
 
-                            <p:panel header="Application Details">  
+                            <p:wizard flowListener="#{newApplication.onFlowProcess}">
+                                <p:tab id="tab1" title="Info1">
+                                    <p:panel >
+                                        <h:messages errorClass="error"/>
+                                        <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid">
+                                            <h:outputText value="Application Name: *" />  
+                                            <p:inputText required="true" label="Application Name"  
+                                                         value="#{newApplication.applications.applicationname}" />  
 
-                                <h:messages errorClass="error"/>  
+                                            <h:outputText value="Version: *" />  
+                                            <p:inputText required="true" label="Version"  
+                                                         value="#{newApplication.applications.version}" />  
 
-                                <h:panelGrid columns="6" cellspacing="15" columnClasses="label, value,label,value,label,value" styleClass="grid">  
-
-                                    <h:outputText value="Application Name: *" />  
-                                    <p:inputText required="true" label="Application Name"  
-                                                 value="#{newApplication.applications.applicationname}" />  
-
-                                    <h:outputText value="Version: *" />  
-                                    <p:inputText required="true" label="Version"  
-                                                 value="#{newApplication.applications.version}" />  
-
-                                    <h:outputText value="Application Language *" />  
-                                    <p:inputText required="true" label="Application Language" 
-                                                 value="#{newApplication.applications.applanguage}" /> 
-
-                                    <h:outputText value="License: *" />  
-                                    <p:inputText required="true" label="License"  
-                                                 value="#{newApplication.applications.license}" />  
-
-
-                                    <h:outputText value="Subcontractor: " />  
-                                    <p:inputText required="false" label="Subcntractor" 
-                                                 value="#{newApplication.applications.subcontractor}" />  
-
-
-                                    <h:outputText value="Contract Information: *" /> 
-                                    <p:inputText required="true" label="Contract Information"  
-                                                 value="#{newApplication.applications.contractinformation}" /> 
+                                            <h:outputText value="Application Language *" />  
+                                            <p:inputText required="true" label="Application Language" 
+                                                         value="#{newApplication.applications.applanguage}" /> 
+                                        </h:panelGrid>
+                                    </p:panel> 
+                                </p:tab>
+                                <p:tab id="tab2" title="Info2">
+                                    <p:panel >
+                                        <h:messages errorClass="error"/>
+                                        <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid">
+                                            <h:outputText value="License: *" />  
+                                            <p:inputText required="true" label="License"  
+                                                         value="#{newApplication.applications.license}" />  
 
 
-
-                                    <h:outputText value="File size: *" /> 
-                                    <p:inputText required="true" label="File size" 
-                                                 value="#{newApplication.applications.sizefile}" /> 
-
+                                            <h:outputText value="Subcontractor: " />  
+                                            <p:inputText required="false" label="Subcntractor" 
+                                                         value="#{newApplication.applications.subcontractor}" />  
 
 
-                                    <h:outputText value="Size Database: *" />  
-                                    <p:inputText required="true" label="Size Database" 
-                                                 value="#{newApplication.applications.sizedatabase}" /> 
+                                            <h:outputText value="Contract Information: *" /> 
+                                            <p:inputText required="true" label="Contract Information"  
+                                                         value="#{newApplication.applications.contractinformation}" /> 
+                                        </h:panelGrid>
+                                    </p:panel> 
+                                </p:tab>
+                                <p:tab id="tab3" title="Info3">
+                                    <p:panel >
+                                        <h:messages errorClass="error"/>
+                                        <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid">
+                                            <h:outputText value="File size: *" /> 
+                                            <p:inputText required="true" label="File size" 
+                                                         value="#{newApplication.applications.sizefile}" /> 
 
-                                    <h:outputText value="ApplicationOwnerCustomer: *" />  
-                                    <p:inputText required="true" label="ApplicationOwnerCustomer" 
-                                                 value="#{newApplication.applications.applicationownercustomer}" /> 
+                                            <h:outputText value="Size Database: *" />  
+                                            <p:inputText required="true" label="Size Database" 
+                                                         value="#{newApplication.applications.sizedatabase}" /> 
 
-
-                                </h:panelGrid>
-                                <p:commandButton value="Submit" update="growl"   
-                                                 action="#{newApplication.save()}" />
-                            </p:panel>  
+                                            <h:outputText value="ApplicationOwnerCustomer: *" />  
+                                            <p:inputText required="true" label="ApplicationOwnerCustomer" 
+                                                         value="#{newApplication.applications.applicationownercustomer}" /> 
+                                        </h:panelGrid>
+                                        <p:commandButton value="Submit" update="growlL"   
+                                                         actionListener="#{newApplication.save}" 
+                                                         oncomplete="wiz.loadStep(wiz.cfg.steps[0], true)"/>
+                                    </p:panel> 
+                                </p:tab>
+                            </p:wizard>
                         </h:form>
 
 

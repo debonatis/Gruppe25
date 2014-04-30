@@ -21,6 +21,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import org.primefaces.event.FlowEvent;
 import org.primefaces.event.RowEditEvent;
 import persistClasses.ApplicationaccessFacade;
 import persistClasses.ApplicationsFacade;
@@ -193,6 +194,12 @@ public class NewApplication implements Serializable {
         int i = appUsers.indexOf(g);
         appUsers.get(i).getUsers().remove(e);
 
+    }
+    
+    public String onFlowProcess(FlowEvent event) {
+        
+        return event.getNewStep();
+        
     }
 
 }
