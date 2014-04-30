@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <link rel="shortcut icon" type="image/x-icon" href="#{facesContext.externalContext.requestContextPath}/resources/images/favicon.ico" />
+                <link rel="icon" href="#{facesContext.externalContext.requestContextPath}/resources/images/favicon.ico" type="image/x-icon"/>
+                <title>AOS</title>
+                <f:facet name="last">
+                    <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/resources/css/jsfcrud.css" />
+                </f:facet> 
+            </f:facet>
+        </h:head>
+        <h:body>
+            <h:body> 
+                <ui:include src="/adminSecure/template/SessionControl.xhtml"/>
+                <p:layout fullPage="true">
+                    <p:layoutUnit position="north" size="100">
+                        <ui:insert name="opp" >
+                            <ui:include src="/adminSecure/template/header.xhtml"/>
+                        </ui:insert> 
+                    </p:layoutUnit>
+                    <p:layoutUnit position="center">
+                        <ui:insert name="center" >
+
+                        </ui:insert>   
+                    </p:layoutUnit>
+
+                    <p:layoutUnit position="south" size="100">
+                        <ui:insert name="ned" >
+                            <ui:include src="/adminSecure/template/footer.xhtml"/>                     
+                        </ui:insert>
+                    </p:layoutUnit>
+                </p:layout>
+            </h:body>
+        </h:body>
+    </f:view>
+</html>
+

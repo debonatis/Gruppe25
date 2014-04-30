@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <h:form>
+                <p:poll interval="1" update="projectID, username"/>
+                <p:outputPanel>
+                    <p:outputLabel  id="projectID" value="#{security.projectID} is selected as the project." rendered="#{not empty security.projectID}" style="float: left"/>
+                </p:outputPanel>
+                <p:outputPanel>
+                    <p:outputLabel  id="username" value="You are logged in as #{security.username}." rendered="#{not empty security.username}" style="float: left"/>
+                </p:outputPanel>
+                <p:dock id="dock" >  
+                    <p:menuitem value="Home" icon="/resources/images/dock/home.png" outcome="home"/>
+                    <p:menuitem value="Users" icon="/resources/images/dock/user.png" outcome="users"/>
+                    <p:menuitem value="Groups" icon="/resources/images/dock/group.png" outcome="groups"/>
+                    <p:menuitem value="Folders" icon="/resources/images/dock/folder2.png"  outcome="folders"/> 
+                    <p:menuitem value="Applications" icon="/resources/images/dock/app2.png"  outcome="apps"/>
+                    <p:menuitem value="Upload" icon="/resources/images/dock/csv.png"  outcome="csv"/>
+                    <p:menuitem value="Printers" icon="/resources/images/dock/printer.png"  outcome="printers"/>
+                    <p:menuitem value="Domains" icon="/resources/images/dock/domain.png"  outcome="domains"/>
+                    <p:menuitem value="Administration" icon="/resources/images/dock/admin.png"  outcome="admin"/>
+                </p:dock>
+
+            </h:form>
+        </ui:composition>
+    </h:body> 
+</html>
+
