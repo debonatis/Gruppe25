@@ -92,6 +92,7 @@ public class Users implements Serializable {
     @NotNull
     @Column(name = "MOBILE")
     private int mobile;
+    @Id
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
