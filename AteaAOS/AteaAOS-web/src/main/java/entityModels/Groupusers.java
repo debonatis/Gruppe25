@@ -24,7 +24,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Groupusers.findAll", query = "SELECT g FROM Groupusers g"),
     @NamedQuery(name = "Groupusers.findByUsername", query = "SELECT g FROM Groupusers g WHERE g.groupusersPK.username = :username"),
-    @NamedQuery(name = "Groupusers.findByUsergroupname", query = "SELECT g FROM Groupusers g WHERE g.groupusersPK.usergroupname = :usergroupname")})
+    @NamedQuery(name = "Groupusers.findByUsergroupname", query = "SELECT g FROM Groupusers g WHERE g.groupusersPK.usergroupname = :usergroupname"),
+    @NamedQuery(name = "Groupusers.findByProjectidg", query = "SELECT g FROM Groupusers g WHERE g.groupusersPK.projectidg = :projectidg")})
 public class Groupusers implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -37,8 +38,8 @@ public class Groupusers implements Serializable {
         this.groupusersPK = groupusersPK;
     }
 
-    public Groupusers(String username, String usergroupname) {
-        this.groupusersPK = new GroupusersPK(username, usergroupname);
+    public Groupusers(String username, String usergroupname, String projectidg) {
+        this.groupusersPK = new GroupusersPK(username, usergroupname, projectidg);
     }
 
     public GroupusersPK getGroupusersPK() {

@@ -9,8 +9,8 @@ package entityModels;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -27,20 +27,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Groups.findAll", query = "SELECT g FROM Groups g"),
-    @NamedQuery(name = "Groups.findByGroupname", query = "SELECT g FROM Groups g WHERE g.groupname = :groupname"),
+    @NamedQuery(name = "Groups.findByGroupname", query = "SELECT g FROM Groups g WHERE g.groupsPK.groupname = :groupname"),
     @NamedQuery(name = "Groups.findByDescription", query = "SELECT g FROM Groups g WHERE g.description = :description"),
     @NamedQuery(name = "Groups.findByGroupowner", query = "SELECT g FROM Groups g WHERE g.groupowner = :groupowner"),
     @NamedQuery(name = "Groups.findByFunctions", query = "SELECT g FROM Groups g WHERE g.functions = :functions"),
-    @NamedQuery(name = "Groups.findByProjectid", query = "SELECT g FROM Groups g WHERE g.projectid = :projectid"),
+    @NamedQuery(name = "Groups.findByProjectid", query = "SELECT g FROM Groups g WHERE g.groupsPK.projectid = :projectid"),
     @NamedQuery(name = "Groups.findByDn", query = "SELECT g FROM Groups g WHERE g.dn = :dn")})
 public class Groups implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "GROUPNAME")
-    private String groupname;
+    @EmbeddedId
+    protected GroupsPK groupsPK;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -57,35 +53,33 @@ public class Groups implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(name = "PROJECTID")
-    private String projectid;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
     @Column(name = "DN")
     private String dn;
 
     public Groups() {
     }
 
-    public Groups(String groupname) {
-        this.groupname = groupname;
+    public Groups(GroupsPK groupsPK) {
+        this.groupsPK = groupsPK;
     }
 
-    public Groups(String groupname, String description, String functions, String projectid, String dn) {
-        this.groupname = groupname;
+    public Groups(GroupsPK groupsPK, String description, String functions, String dn) {
+        this.groupsPK = groupsPK;
         this.description = description;
         this.functions = functions;
-        this.projectid = projectid;
         this.dn = dn;
     }
 
-    public String getGroupname() {
-        return groupname;
+    public Groups(String groupname, String projectid) {
+        this.groupsPK = new GroupsPK(groupname, projectid);
     }
 
-    public void setGroupname(String groupname) {
-        this.groupname = groupname;
+    public GroupsPK getGroupsPK() {
+        return groupsPK;
+    }
+
+    public void setGroupsPK(GroupsPK groupsPK) {
+        this.groupsPK = groupsPK;
     }
 
     public String getDescription() {
@@ -112,14 +106,6 @@ public class Groups implements Serializable {
         this.functions = functions;
     }
 
-    public String getProjectid() {
-        return projectid;
-    }
-
-    public void setProjectid(String projectid) {
-        this.projectid = projectid;
-    }
-
     public String getDn() {
         return dn;
     }
@@ -131,7 +117,7 @@ public class Groups implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (groupname != null ? groupname.hashCode() : 0);
+        hash += (groupsPK != null ? groupsPK.hashCode() : 0);
         return hash;
     }
 
@@ -142,7 +128,7 @@ public class Groups implements Serializable {
             return false;
         }
         Groups other = (Groups) object;
-        if ((this.groupname == null && other.groupname != null) || (this.groupname != null && !this.groupname.equals(other.groupname))) {
+        if ((this.groupsPK == null && other.groupsPK != null) || (this.groupsPK != null && !this.groupsPK.equals(other.groupsPK))) {
             return false;
         }
         return true;
@@ -150,7 +136,7 @@ public class Groups implements Serializable {
 
     @Override
     public String toString() {
-        return "entityModels.Groups[ groupname=" + groupname + " ]";
+        return "entityModels.Groups[ groupsPK=" + groupsPK + " ]";
     }
     
 }

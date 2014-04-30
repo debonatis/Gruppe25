@@ -9,8 +9,8 @@ package entityModels;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Users.findAll", query = "SELECT u FROM Users u"),
-    @NamedQuery(name = "Users.findByUsername", query = "SELECT u FROM Users u WHERE u.username = :username"),
+    @NamedQuery(name = "Users.findByUsername", query = "SELECT u FROM Users u WHERE u.usersPK.username = :username"),
     @NamedQuery(name = "Users.findByFirstname", query = "SELECT u FROM Users u WHERE u.firstname = :firstname"),
     @NamedQuery(name = "Users.findByLastname", query = "SELECT u FROM Users u WHERE u.lastname = :lastname"),
     @NamedQuery(name = "Users.findByTitle", query = "SELECT u FROM Users u WHERE u.title = :title"),
@@ -37,16 +37,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Users.findByEmploymentnr", query = "SELECT u FROM Users u WHERE u.employmentnr = :employmentnr"),
     @NamedQuery(name = "Users.findByEmail", query = "SELECT u FROM Users u WHERE u.email = :email"),
     @NamedQuery(name = "Users.findByMobile", query = "SELECT u FROM Users u WHERE u.mobile = :mobile"),
-    @NamedQuery(name = "Users.findByProjectid", query = "SELECT u FROM Users u WHERE u.projectid = :projectid"),
+    @NamedQuery(name = "Users.findByProjectid", query = "SELECT u FROM Users u WHERE u.usersPK.projectid = :projectid"),
     @NamedQuery(name = "Users.findByDn", query = "SELECT u FROM Users u WHERE u.dn = :dn")})
 public class Users implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "USERNAME")
-    private String username;
+    @EmbeddedId
+    protected UsersPK usersPK;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -92,11 +88,6 @@ public class Users implements Serializable {
     @NotNull
     @Column(name = "MOBILE")
     private int mobile;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "PROJECTID")
-    private String projectid;
     @Size(max = 100)
     @Column(name = "DN")
     private String dn;
@@ -104,12 +95,12 @@ public class Users implements Serializable {
     public Users() {
     }
 
-    public Users(String username) {
-        this.username = username;
+    public Users(UsersPK usersPK) {
+        this.usersPK = usersPK;
     }
 
-    public Users(String username, String firstname, String lastname, String title, String itcontact, String emailalias, String department, String employmentnr, String email, int mobile, String projectid) {
-        this.username = username;
+    public Users(UsersPK usersPK, String firstname, String lastname, String title, String itcontact, String emailalias, String department, String employmentnr, String email, int mobile) {
+        this.usersPK = usersPK;
         this.firstname = firstname;
         this.lastname = lastname;
         this.title = title;
@@ -119,15 +110,18 @@ public class Users implements Serializable {
         this.employmentnr = employmentnr;
         this.email = email;
         this.mobile = mobile;
-        this.projectid = projectid;
     }
 
-    public String getUsername() {
-        return username;
+    public Users(String username, String projectid) {
+        this.usersPK = new UsersPK(username, projectid);
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public UsersPK getUsersPK() {
+        return usersPK;
+    }
+
+    public void setUsersPK(UsersPK usersPK) {
+        this.usersPK = usersPK;
     }
 
     public String getFirstname() {
@@ -202,14 +196,6 @@ public class Users implements Serializable {
         this.mobile = mobile;
     }
 
-    public String getProjectid() {
-        return projectid;
-    }
-
-    public void setProjectid(String projectid) {
-        this.projectid = projectid;
-    }
-
     public String getDn() {
         return dn;
     }
@@ -221,7 +207,7 @@ public class Users implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (username != null ? username.hashCode() : 0);
+        hash += (usersPK != null ? usersPK.hashCode() : 0);
         return hash;
     }
 
@@ -232,7 +218,7 @@ public class Users implements Serializable {
             return false;
         }
         Users other = (Users) object;
-        if ((this.username == null && other.username != null) || (this.username != null && !this.username.equals(other.username))) {
+        if ((this.usersPK == null && other.usersPK != null) || (this.usersPK != null && !this.usersPK.equals(other.usersPK))) {
             return false;
         }
         return true;
@@ -240,7 +226,7 @@ public class Users implements Serializable {
 
     @Override
     public String toString() {
-        return "entityModels.Users[ username=" + username + " ]";
+        return "entityModels.Users[ usersPK=" + usersPK + " ]";
     }
     
 }
