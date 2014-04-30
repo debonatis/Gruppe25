@@ -91,8 +91,49 @@
                 <from-outcome>folders</from-outcome> 
                 <to-view-id>/secure/folders.xhtml</to-view-id> 
             </navigation-case>
- 
+            <navigation-case>
+                <from-outcome>/secure/viewList.xhtml</from-outcome>
+                <to-view-id>/secure/viewList.xhtml</to-view-id>
+            </navigation-case>
+        </navigation-rule>
+         
+        <navigation-rule>  
+            <from-view-id>/secure/uploadCSV.xhtml</from-view-id>  
+            <navigation-case>  
+                <from-outcome>csv</from-outcome>  
+                <to-view-id>/secure/uploadCSV.xhtml</to-view-id>  
+            </navigation-case> 
+            <navigation-case>  
+                <from-outcome>apps</from-outcome>  
+                <to-view-id>/secure/applicationUsers.xhtml</to-view-id>  
+            </navigation-case>
+            <navigation-case>  
+                <from-outcome>users</from-outcome>  
+                <to-view-id>/secure/UsersAdd.xhtml</to-view-id>  
+            </navigation-case>  
+            <navigation-case> 
+                <from-outcome>home</from-outcome> 
+                <to-view-id>/secure/adminPage.xhtml</to-view-id> 
+            </navigation-case>
+            <navigation-case> 
+                <from-outcome>groups</from-outcome> 
+                <to-view-id>/secure/GroupsUsers.xhtml</to-view-id> 
+                
+            </navigation-case>
+            <navigation-case> 
+                    <from-outcome>admin</from-outcome> 
+                    <to-view-id>/adminSecure/admin.xhtml</to-view-id> 
+                </navigation-case>
+                <navigation-case> 
+                <from-outcome>folders</from-outcome> 
+                <to-view-id>/secure/folders.xhtml</to-view-id> 
+            </navigation-case>
+            <navigation-case>
+                <from-outcome>administration</from-outcome>
+                <to-view-id>/secure/viewList.xhtml</to-view-id>
+            </navigation-case>
         </navigation-rule> 
+
         <navigation-rule>  
             <from-view-id>/secure/uploadCSV.xhtml</from-view-id>  
             <navigation-case>  
@@ -426,7 +467,7 @@
             
  
         </navigation-rule>
-                  
+                          
         <resource-bundle>
             <base-name>/Bundle</base-name>
             <var>bundle</var>

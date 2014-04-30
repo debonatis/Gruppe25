@@ -78,7 +78,9 @@
 
                                         </h:panelGrid>  
                                         <p:commandButton value="Submit" update="growl"   
-                                                         actionListener="#{usersToGroups.saveW}" oncomplete="wiz.loadStep(wiz.cfg.steps[0], true)"/>  
+                                                         actionListener="#{usersToGroups.saveW}" 
+                                                         oncomplete="wiz.loadStep(wiz.cfg.steps[0], true)"/>
+
 
                                     </p:panel>  
                                 </p:tab>  
@@ -127,15 +129,27 @@
                                             </f:facet>  
                                         </p:cellEditor>  
                                     </p:column>
-
-                                    <p:column headerText="Employment number" style="width:30%"
-                                              id="employmentnrColumn" filterBy="employmentnr" filterMatchMode="contains">  
+                                    
+                                    <p:column headerText="Title" style="width:30%"
+                                              id="titleColumn" filterBy="title" filterMatchMode="contains">  
                                         <p:cellEditor>  
                                             <f:facet name="output">  
-                                                <h:outputText value="#{item.employmentnr}" />  
+                                                <h:outputText value="#{item.title}" />  
                                             </f:facet>  
                                             <f:facet name="input">  
-                                                <p:inputText value="#{item.employmentnr}" style="width:100%"/>  
+                                                <p:inputText value="#{item.title}" style="width:100%"/>  
+                                            </f:facet>  
+                                        </p:cellEditor>  
+                                    </p:column>
+
+                                    <p:column headerText="Email" style="width:30%"
+                                              id="emailColumn" filterBy="email" filterMatchMode="contains">  
+                                        <p:cellEditor>  
+                                            <f:facet name="output">  
+                                                <h:outputText value="#{item.email}" />  
+                                            </f:facet>  
+                                            <f:facet name="input">  
+                                                <p:inputText value="#{item.email}" style="width:100%"/>  
                                             </f:facet>  
                                         </p:cellEditor>  
                                     </p:column>
@@ -152,9 +166,9 @@
                                         </p:cellEditor>  
                                        
                                     </p:column>
-                                     <p:column headerText="Delete">
+                                    <p:column headerText="Delete" style="width: 6%">
                                             <f:facet name="header">
-                                                <h:outputText value="" />
+                                                <h:outputText value="Delete" />
                                             </f:facet>
                                             <p:commandButton icon="ui-icon-close" title="remove from list"
                                                              actionListener="#{editUsers.deleteItemUsr(item)}" update="roger" />
