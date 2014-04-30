@@ -118,6 +118,15 @@
             <navigation-case> 
                 <from-outcome>groups</from-outcome> 
                 <to-view-id>/secure/GroupsUsers.xhtml</to-view-id> 
+                
+            </navigation-case>
+            <navigation-case> 
+                    <from-outcome>admin</from-outcome> 
+                    <to-view-id>/adminSecure/admin.xhtml</to-view-id> 
+                </navigation-case>
+                <navigation-case> 
+                <from-outcome>folders</from-outcome> 
+                <to-view-id>/secure/folders.xhtml</to-view-id> 
             </navigation-case>
             <navigation-case>
                 <from-outcome>administration</from-outcome>
