@@ -5,8 +5,11 @@
  */
 package controllerClasses.special;
 
+import controllerClasses.special.model.ApplicationUsers;
 import controllerClasses.special.model.ApplicationsModel;
+import entityModels.Applicationaccess;
 import entityModels.Applications;
+import entityModels.Users;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,10 +17,12 @@ import java.util.UUID;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import org.primefaces.event.RowEditEvent;
+import persistClasses.ApplicationaccessFacade;
 import persistClasses.ApplicationsFacade;
 
 /**
@@ -25,11 +30,13 @@ import persistClasses.ApplicationsFacade;
  * @author Martin
  */
 @ManagedBean(name = "newApplication")
-@SessionScoped
+@ViewScoped
 public class NewApplication implements Serializable {
 
     @EJB
     private ApplicationsFacade applicationsEJB;
+    @EJB
+    private ApplicationaccessFacade aaF;
     private boolean skip;
     private Applications applications = new Applications();
     private static final Logger logger = Logger.getLogger(Applications.class.getName());
@@ -37,6 +44,15 @@ public class NewApplication implements Serializable {
 
     private Applications selected = new Applications();
     private List<Applications> applicationListT = new ArrayList<>();
+    private List<ApplicationUsers> appUsers = new ArrayList<>();
+
+    public List<ApplicationUsers> getAppUsers() {
+        return appUsers;
+    }
+
+    public void setAppUsers(List<ApplicationUsers> appUsers) {
+        this.appUsers = appUsers;
+    }
 
     public Applications getSelected() {
         return selected;
@@ -45,8 +61,7 @@ public class NewApplication implements Serializable {
     public void setSelected(Applications selected) {
 
         this.selected = selected;
-       
-        
+
     }
 
     private void prepareCreate() {
@@ -61,12 +76,32 @@ public class NewApplication implements Serializable {
         this.applications = (Applications) applications;
     }
 
+    public List<Applications> getApplicationListT() {
+        return applicationListT;
+    }
+
+    public void setApplicationListT(List<Applications> applicationListT) {
+        this.applicationListT = applicationListT;
+    }
+
     @PostConstruct
     public void init() {
 
-        applicationListT = applicationsEJB.findAll();
+        applicationListT = applicationsEJB.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
 
         selectList = new ApplicationsModel(applicationListT);
+        appUsers.clear();
+        List<Users> roger;
+        for (Applications g : applicationsEJB.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))) {
+            roger = new ArrayList<>();
+            for (Applicationaccess gu : aaF.findAll()) {
+                if (gu.getApplicationaccessPK().getApplicationid().equalsIgnoreCase(g.getApplicationid())) {
+                    roger.add(new Users(gu.getApplicationaccessPK().getUsername()));
+
+                }
+            }
+            appUsers.add(new ApplicationUsers(g, roger));
+        }
     }
 
     private UUID getUUID() {
@@ -106,6 +141,58 @@ public class NewApplication implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, msg);
 
         }
+    }
+
+    public void onEdidApp(RowEditEvent event) {
+
+        ApplicationUsers e = (ApplicationUsers) event.getObject();
+
+        Applications app = applicationsEJB.find(e.getApp().getApplicationid());
+        app.setVersion(e.getApp().getVersion());
+        app.setApplanguage(e.getApp().getApplanguage());
+        app.setApplicationname(e.getApp().getApplicationname());
+        app.setApplicationownercustomer(e.getApp().getApplicationownercustomer());
+        app.setContractinformation(e.getApp().getContractinformation());
+        app.setContractinformation(e.getApp().getContractinformation());
+        app.setLicense(e.getApp().getLicense());
+        app.setSizedatabase(e.getApp().getSizedatabase());
+        app.setSizefile(e.getApp().getSizefile());
+        app.setSubcontractor(e.getApp().getSubcontractor());
+        applicationsEJB.edit(app);
+
+        init();
+        FacesMessage msg = new FacesMessage("Group Edited", ((ApplicationUsers) event.getObject()).getApp().getApplicationname());
+
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+
+    }
+
+    public void onCancelApp(RowEditEvent event) {
+        FacesMessage msg = new FacesMessage("Group Edit Cancelled", ((ApplicationUsers) event.getObject()).getApp().getApplicationname());
+
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void deleteItemApp(ApplicationUsers e) {
+
+        for (Users u : e.getUsers()) {
+            aaF.remove(new Applicationaccess(u.getUsername(), e.getApp().getApplicationid()));
+
+        }
+        Applications app = applicationsEJB.find(e.getApp().getApplicationid());
+        applicationsEJB.remove(app);
+
+        appUsers.remove(e);
+
+    }
+
+    public void deleteItemAppUser(ApplicationUsers g, Users e) {
+
+        aaF.remove(new Applicationaccess(e.getUsername(), g.getApp().getApplicationid()));
+
+        int i = appUsers.indexOf(g);
+        appUsers.get(i).getUsers().remove(e);
+
     }
 
 }

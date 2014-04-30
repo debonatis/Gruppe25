@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" >
+    <h:head>
+    </h:head>
+
+    <h:body>
+        <ui:composition template="template/templateSecure.xhtml">
+            <ui:define name="center">
+
+                <p:tabView id="tabView">
+                    <p:tab id="tab1" title="Create Folder Structure">  
+                        <h:form id="form10">  
+
+                            <p:growl id="messages" showDetail="true" />  
+
+                            <p:contextMenu for="treeSingle">  
+                                <p:menuitem value="View" update="messages" actionListener="#{foldersEdit.displaySelectedSingle()}" icon="ui-icon-search" />  
+                                <p:menuitem value="Delete" update="treeSingle" actionListener="#{foldersEdit.deleteNode()}" icon="ui-icon-close"/>
+                                <p:menuitem value="Add folder" update="treeSingle" onclick="dlg.show()" icon="ui-icon-plus"/>
+                                <p:menuitem value="Add Groups" update="treeSingle" onclick="dlg2.show()"  icon="ui-icon-plus"/>
+                            </p:contextMenu>  
+
+                            <p:poll interval="1" update="treeSingle"/>
+                            <p:tree id="treeSingle" value="#{foldersEdit.root}" var="node"  
+                                    selectionMode="single"  
+                                    selection="#{foldersEdit.selectedNode}"  
+                                    dynamic="true">  
+
+                                <p:treeNode>  
+                                    <h:outputText value="#{node.getFoldersPK().foldername}" />  
+                                </p:treeNode>  
+                            </p:tree>  
+
+
+                            <p:dialog header="Enter Foldername" widgetVar="dlg" resizable="true">  
+
+
+                                <h:panelGrid columns="2" style="margin-bottom:10px">  
+                                    <h:outputLabel for="folderName" value="Folder Name:" />  
+                                    <p:inputText id="folderName" value="#{foldersEdit.folder.foldersPK.foldername}" />  
+                                </h:panelGrid>  
+
+                                <p:commandButton action="#{foldersEdit.addNode()}" id="submitButton" value="Submit" update=":tabView:form10:treeSingle" oncomplete="PF('dlg').hide();"/>  
+
+
+                            </p:dialog> 
+                            <p:dialog header="Pick Groups" widgetVar="dlg2" resizable="true">  
+
+
+                                <h:panelGrid columns="2" style="margin-bottom:10px">  
+                                    <h:outputLabel for="scroll" value="Groups:" />  
+                                    <p:selectManyMenu id="scroll" value="#{foldersEdit.gruSel}" converter="#{indexConverterG}" style="width:150px;height:200px" var="item1" showCheckbox="true">  
+                                        <f:selectItems value="#{foldersEdit.gru}" var="item2" itemLabel="#{item2.groupname}" itemValue="#{item2}" />  
+
+
+
+                                        <p:column>  
+                                            #{item1.groupname} - #{item1.description}  
+                                        </p:column>  
+                                    </p:selectManyMenu> 
+
+                                    <h:outputLabel for="RW" value="RW rights?: " />  
+                                    <p:selectBooleanButton id="RW" value="#{foldersEdit.rw}" onLabel="Yes" offLabel="No" />
+                                    <h:outputLabel for="R" value="R rights?:" />  
+                                    <p:selectBooleanButton id="R" value="#{foldersEdit.r}" onLabel="Yes" offLabel="No" />
+
+
+                                </h:panelGrid>  
+
+                                <p:commandButton action="#{foldersEdit.addGroups()}" id="submitButton2" value="Submit" update=":tabView:form10:treeSingle" oncomplete="PF('dlg2').hide();"/>  
+
+
+                            </p:dialog>  
+                        </h:form>
+                    </p:tab>
+                    <p:tab id="table" title="TO DO">
+
+                    </p:tab>
+                </p:tabView>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html> 
+
+

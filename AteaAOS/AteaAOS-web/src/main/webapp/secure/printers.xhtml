@@ -1,0 +1,184 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" >
+    <h:head>
+    </h:head>
+
+    <h:body>
+        <ui:composition template="template/templateSecure.xhtml">
+            <ui:define name="center">
+
+                <p:tabView id="tabView">
+                    <p:tab id="tab1" title="Create new Printer">  
+                        <h:form id="userForm">
+                            <p:growl id="growl" sticky="true" showDetail="true"/>  
+
+
+                            <p:wizard flowListener="#{printersEdit.onFlowProcess}">
+                                <p:tab id="userinput" title="Create Printer">  
+
+                                    <p:panel header="Printer Details ">  
+
+                                        <h:messages errorClass="error"/>  
+
+                                        <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid">  
+                                            <h:outputText value="PrinterName: *" />  
+                                            <p:inputText required="true" label="printername"  
+                                                         value="#{printersEdit.printer.printername}" />  
+
+                                            <h:outputText value="IP-address: *" />  
+                                            <p:inputText required="true" label="ipaddr"  
+                                                         value="#{printersEdit.printer.ipaddr}" />  
+
+                                            <h:outputText value="Location: *" />  
+                                            <p:inputText value="#{printersEdit.printer.location}" />  
+
+
+                                        </h:panelGrid>  
+                                    </p:panel>  
+                                </p:tab>  
+                                <p:tab id="workspec" title="Technical Details">  
+                                    <p:panel header="Technical Details">  
+
+                                        <h:messages errorClass="error"/>  
+
+                                        <h:panelGrid columns="2" columnClasses="label, value">  
+                                            <h:outputText value="Model *: " />  
+                                            <p:inputText value="#{printersEdit.printer.model}" />  
+
+                                            <h:outputText value="Driver *: " />  
+                                            <p:inputText value="#{printersEdit.printer.driver}" />  
+                                            <h:outputText value="Scan mail*: " /> 
+                                            <p:selectOneMenu value="#{printersEdit.printer.scantomail}">  
+                                                <f:selectItem itemLabel="Yes" itemValue="YES" />  
+                                                <f:selectItem itemLabel="No" itemValue="NO" />  
+
+                                            </p:selectOneMenu>
+                                            <h:outputText value="Accessories *: " />  
+                                            <p:inputText value="#{printersEdit.printer.accessories}" />  
+
+                                        </h:panelGrid>  
+                                        <p:commandButton value="Submit" update="growl"   
+                                                         actionListener="#{printersEdit.save}" oncomplete="wiz.loadStep(wiz.cfg.steps[0], true)"/>  
+                                    </p:panel>  
+                                </p:tab> 
+
+                            </p:wizard>
+
+                        </h:form>
+                    </p:tab>
+                    <p:tab id="table" title="Edit Printers">
+                        <h:form id="editForm">
+                            <p:panel >
+                                <p:growl id="messages" showDetail="true"/> 
+                                <p:dataTable id="roger" value="#{printersEdit.plist}" var="item" cellSeparator="2" paginator="true" rows="10" editable="true">
+
+                                    <p:ajax event="rowEdit" listener="#{printersEdit.onEdit}" update=":tabView:editForm:messages" />  
+                                    <p:ajax event="rowEditCancel" listener="#{printersEdit.onCancel}" update=":tabView:editForm:messages" />
+
+                                    <p:column style="width:6%" headerText="Edit">  
+                                        <p:rowEditor  />  
+                                    </p:column> 
+
+                                    <p:column headerText="Printername" style="width:30%" 
+                                              id="usernameColumn" filterBy="printername" filterMatchMode="contains">
+                                        <h:outputText value="#{item.printername}" />
+                                    </p:column>  
+
+                                    <p:column headerText="Location" style="width:30%" 
+                                              id="firstnameColumn" filterBy="location" filterMatchMode="contains">  
+                                        <p:cellEditor>  
+                                            <f:facet name="output">  
+                                                <h:outputText value="#{item.location}" />  
+                                            </f:facet>  
+                                            <f:facet name="input">  
+                                                <p:inputText value="#{item.location}" style="width:100%"/>  
+                                            </f:facet>  
+                                        </p:cellEditor>  
+                                    </p:column>
+
+                                    <p:column headerText="IP-address" style="width:30%"
+                                              id="lastnameColumn" filterBy="ipaddr" filterMatchMode="contains">  
+                                        <p:cellEditor>  
+                                            <f:facet name="output">  
+                                                <h:outputText value="#{item.ipaddr}" />  
+                                            </f:facet>  
+                                            <f:facet name="input">  
+                                                <p:inputText value="#{item.ipaddr}" style="width:100%"/>  
+                                            </f:facet>  
+                                        </p:cellEditor>  
+                                    </p:column>
+
+                                    <p:column headerText="Model" style="width:30%"
+                                              id="employmentnrColumn" filterBy="model" filterMatchMode="contains">  
+                                        <p:cellEditor>  
+                                            <f:facet name="output">  
+                                                <h:outputText value="#{item.model}" />  
+                                            </f:facet>  
+                                            <f:facet name="input">  
+                                                <p:inputText value="#{item.model}" style="width:100%"/>  
+                                            </f:facet>  
+                                        </p:cellEditor>  
+                                    </p:column>
+
+                                    <p:column headerText="Driver" style="width:30%"
+                                              id="mobileColumn" filterBy="driver" filterMatchMode="contains">  
+                                        <p:cellEditor>  
+                                            <f:facet name="output">  
+                                                <h:outputText value="#{item.driver}" />  
+                                            </f:facet>  
+                                            <f:facet name="input">  
+                                                <p:inputText value="#{item.driver}" style="width:100%"/>  
+                                            </f:facet>  
+                                        </p:cellEditor>  
+
+                                    </p:column>
+                                    <p:column headerText="Accessories" style="width:30%"
+                                              id="mobileColumn3" filterBy="accessories" filterMatchMode="contains">  
+                                        <p:cellEditor>  
+                                            <f:facet name="output">  
+                                                <h:outputText value="#{item.accessories}" />  
+                                            </f:facet>  
+                                            <f:facet name="input">  
+                                                <p:inputText value="#{item.accessories}" style="width:100%"/>  
+                                            </f:facet>  
+                                        </p:cellEditor>  
+
+                                    </p:column>
+                                     <p:column headerText="Scan to Mail" style="width:30%"
+                                              id="mobileColumn4" filterBy="scantomail" filterMatchMode="contains">  
+                                        <p:cellEditor>  
+                                            <f:facet name="output">  
+                                                <h:outputText value="#{item.scantomail}" />  
+                                            </f:facet>  
+                                            <f:facet name="input">  
+                                                <p:selectOneMenu value="#{printersEdit.printer.scantomail}" style="width: 100%">  
+                                                <f:selectItem itemLabel="Yes" itemValue="YES" />  
+                                                <f:selectItem itemLabel="No" itemValue="NO" />  
+
+                                            </p:selectOneMenu> 
+                                            </f:facet>  
+                                        </p:cellEditor>  
+
+                                    </p:column>
+                                    <p:column headerText="Delete">
+                                        <f:facet name="header">
+                                            <h:outputText value="" />
+                                        </f:facet>
+                                        <p:commandButton icon="ui-icon-close" title="remove from list"
+                                                         actionListener="#{printersEdit.deleteItemPri(item)}" update="roger" />
+                                    </p:column>
+
+                                </p:dataTable>
+                                <p:commandButton value="Refresh" action="#{printersEdit.init()}" icon="ui-icon-refresh" update="roger"/>
+                            </p:panel>
+                        </h:form>
+                    </p:tab>
+                </p:tabView>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html> 

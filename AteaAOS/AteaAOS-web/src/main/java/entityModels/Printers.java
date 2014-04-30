@@ -33,7 +33,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Printers.findByModel", query = "SELECT p FROM Printers p WHERE p.model = :model"),
     @NamedQuery(name = "Printers.findByDriver", query = "SELECT p FROM Printers p WHERE p.driver = :driver"),
     @NamedQuery(name = "Printers.findByScantomail", query = "SELECT p FROM Printers p WHERE p.scantomail = :scantomail"),
-    @NamedQuery(name = "Printers.findByAccessories", query = "SELECT p FROM Printers p WHERE p.accessories = :accessories")})
+    @NamedQuery(name = "Printers.findByAccessories", query = "SELECT p FROM Printers p WHERE p.accessories = :accessories"),
+    @NamedQuery(name = "Printers.findByProjectid", query = "SELECT p FROM Printers p WHERE p.projectid = :projectid")})
 public class Printers implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -72,6 +73,11 @@ public class Printers implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "ACCESSORIES")
     private String accessories;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "PROJECTID")
+    private String projectid;
 
     public Printers() {
     }
@@ -80,7 +86,7 @@ public class Printers implements Serializable {
         this.printername = printername;
     }
 
-    public Printers(String printername, String ipaddr, String location, String model, String driver, String scantomail, String accessories) {
+    public Printers(String printername, String ipaddr, String location, String model, String driver, String scantomail, String accessories, String projectid) {
         this.printername = printername;
         this.ipaddr = ipaddr;
         this.location = location;
@@ -88,6 +94,7 @@ public class Printers implements Serializable {
         this.driver = driver;
         this.scantomail = scantomail;
         this.accessories = accessories;
+        this.projectid = projectid;
     }
 
     public String getPrintername() {
@@ -144,6 +151,14 @@ public class Printers implements Serializable {
 
     public void setAccessories(String accessories) {
         this.accessories = accessories;
+    }
+
+    public String getProjectid() {
+        return projectid;
+    }
+
+    public void setProjectid(String projectid) {
+        this.projectid = projectid;
     }
 
     @Override

@@ -32,7 +32,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Domains.findByRegistrarcontact", query = "SELECT d FROM Domains d WHERE d.registrarcontact = :registrarcontact"),
     @NamedQuery(name = "Domains.findByDomainfunction", query = "SELECT d FROM Domains d WHERE d.domainfunction = :domainfunction"),
     @NamedQuery(name = "Domains.findByIppointer", query = "SELECT d FROM Domains d WHERE d.ippointer = :ippointer"),
-    @NamedQuery(name = "Domains.findBySetFIL", query = "SELECT d FROM Domains d WHERE d.setFIL = :setFIL")})
+    @NamedQuery(name = "Domains.findBySetFIL", query = "SELECT d FROM Domains d WHERE d.setFIL = :setFIL"),
+    @NamedQuery(name = "Domains.findByProjectid", query = "SELECT d FROM Domains d WHERE d.projectid = :projectid")})
 public class Domains implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -61,10 +62,14 @@ public class Domains implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "IPPOINTER")
     private String ippointer;
-    @Basic(optional = false)
-    @Size(min = 1, max = 100)
+    @Size(max = 100)
     @Column(name = "setFIL")
     private String setFIL;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "PROJECTID")
+    private String projectid;
 
     public Domains() {
     }
@@ -73,13 +78,13 @@ public class Domains implements Serializable {
         this.domainname = domainname;
     }
 
-    public Domains(String domainname, String registrar, String registrarcontact, String domainfunction, String ippointer, String setFIL) {
+    public Domains(String domainname, String registrar, String registrarcontact, String domainfunction, String ippointer, String projectid) {
         this.domainname = domainname;
         this.registrar = registrar;
         this.registrarcontact = registrarcontact;
         this.domainfunction = domainfunction;
         this.ippointer = ippointer;
-        this.setFIL = setFIL;
+        this.projectid = projectid;
     }
 
     public String getDomainname() {
@@ -128,6 +133,14 @@ public class Domains implements Serializable {
 
     public void setSetFIL(String setFIL) {
         this.setFIL = setFIL;
+    }
+
+    public String getProjectid() {
+        return projectid;
+    }
+
+    public void setProjectid(String projectid) {
+        this.projectid = projectid;
     }
 
     @Override

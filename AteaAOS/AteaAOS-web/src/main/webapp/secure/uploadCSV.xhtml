@@ -29,20 +29,20 @@
                         <h:form id="tableform">
                             <p:fieldset legend="Users" toggleable="true" toggleSpeed="500"> 
 
-                                <p:dataTable id="roger" value="#{fileUpload.list.usr}" var="item" cellSeparator="2" paginator="true" rows="100" editable="true">
+                                <p:dataTable id="roger" value="#{fileUpload.list.usr}" var="item1" cellSeparator="2" paginator="true" rows="100" editable="true">
 
 
 
                                     <p:column headerText="Username" style="width:30%" 
                                               id="usernameColumn" filterBy="username" filterMatchMode="contains">
-                                        <h:outputText value="#{item.username}" />
+                                        <h:outputText value="#{item1.username}" />
                                     </p:column>  
 
                                     <p:column headerText="First name" style="width:30%" 
                                               id="firstnameColumn" filterBy="firstname" filterMatchMode="contains">  
 
 
-                                        <h:outputText value="#{item.firstname}" />  
+                                        <h:outputText value="#{item1.firstname}" />  
 
 
 
@@ -52,7 +52,7 @@
                                     <p:column headerText="Last name" style="width:30%"
                                               id="lastnameColumn" filterBy="lastname" filterMatchMode="contains">  
 
-                                        <h:outputText value="#{item.lastname}" />  
+                                        <h:outputText value="#{item1.lastname}" />  
 
 
 
@@ -61,7 +61,7 @@
                                     <p:column headerText="Employment number" style="width:30%"
                                               id="employmentnrColumn" filterBy="employmentnr" filterMatchMode="contains">  
 
-                                        <h:outputText value="#{item.employmentnr}" />  
+                                        <h:outputText value="#{item1.employmentnr}" />  
 
 
 
@@ -70,7 +70,7 @@
                                     <p:column headerText="Mobile" style="width:30%"
                                               id="mobileColumn" filterBy="mobile" filterMatchMode="contains">  
 
-                                        <h:outputText value="#{item.mobile}" />  
+                                        <h:outputText value="#{item1.mobile}" />  
 
 
 
@@ -81,7 +81,7 @@
                                             <h:outputText value="" />
                                         </f:facet>
                                         <p:commandButton icon="ui-icon-close" title="remove from list"
-                                                         actionListener="#{fileUpload.deleteItem(item)}" update="roger" />
+                                                         actionListener="#{fileUpload.deleteItem(item1)}" update="roger" />
                                     </p:column>
 
 
@@ -91,20 +91,20 @@
                                 </p:dataTable>  
                             </p:fieldset>
                             <p:fieldset legend="Security Groups" toggleable="true" toggleSpeed="500"> 
-                                <p:dataTable id="roger2" value="#{fileUpload.list.gr}" var="item" cellSeparator="2" paginator="true" rows="100" editable="true">
+                                <p:dataTable id="roger2" value="#{fileUpload.list.gr}" var="item2" cellSeparator="2" paginator="true" rows="100" editable="true">
 
 
 
                                     <p:column headerText="Groupname" style="width:30%" 
                                               id="usernameColumn" filterBy="username" filterMatchMode="contains">
-                                        <h:outputText value="#{item.groupname}" />
+                                        <h:outputText value="#{item2.groupname}" />
                                     </p:column>  
 
                                     <p:column headerText="Functions" style="width:30%" 
                                               id="firstnameColumn" filterBy="firstname" filterMatchMode="contains">  
 
 
-                                        <h:outputText value="#{item.functions}" />  
+                                        <h:outputText value="#{item2.functions}" />  
 
 
 
@@ -114,7 +114,7 @@
                                     <p:column headerText="Group Owner" style="width:30%"
                                               id="lastnameColumn" filterBy="lastname" filterMatchMode="contains">  
 
-                                        <h:outputText value="#{item.groupowner}" />  
+                                        <h:outputText value="#{item2.groupowner}" />  
 
 
 
@@ -123,7 +123,7 @@
                                     <p:column headerText="Description" style="width:30%"
                                               id="employmentnrColumn" filterBy="employmentnr" filterMatchMode="contains">  
 
-                                        <h:outputText value="#{item.description}" />  
+                                        <h:outputText value="#{item2.description}" />  
 
 
 
@@ -135,7 +135,7 @@
                                             <h:outputText value="" />
                                         </f:facet>
                                         <p:commandButton icon="ui-icon-close" title="remove from list"
-                                                         actionListener="#{fileUpload.deleteItem(item)}" update="roger2" />
+                                                         actionListener="#{fileUpload.deleteItem(item2)}" update="roger2" />
                                     </p:column>
 
 
@@ -145,20 +145,20 @@
                                 </p:dataTable>  
                             </p:fieldset>
                             <p:fieldset legend="Distiribution Groups" toggleable="true" toggleSpeed="500"> 
-                                <p:dataTable id="roger3" value="#{fileUpload.list.dgr}" var="item" cellSeparator="2" paginator="true" rows="100" editable="true">
+                                <p:dataTable id="roger3" value="#{fileUpload.list.dgr}" var="item3" cellSeparator="2" paginator="true" rows="100" editable="true">
 
 
 
                                     <p:column headerText="Displayname" style="width:30%" 
-                                              id="usernameColumn" filterBy="username" filterMatchMode="contains">
-                                        <h:outputText value="#{item.displayname}" />
+                                              id="usernameColumn" filterBy="displayname" filterMatchMode="contains">
+                                        <h:outputText value="#{item3.displayname}" />
                                     </p:column>  
 
                                     <p:column headerText="Email" style="width:30%" 
-                                              id="firstnameColumn" filterBy="firstname" filterMatchMode="contains">  
+                                              id="firstnameColumn" filterBy="emailalias" filterMatchMode="contains">  
 
 
-                                        <h:outputText value="#{item.emailalias}" />  
+                                        <h:outputText value="#{item3.emailalias}" />  
 
 
 
@@ -166,9 +166,9 @@
                                     </p:column>
 
                                     <p:column headerText="External" style="width:30%"
-                                              id="lastnameColumn" filterBy="lastname" filterMatchMode="contains">  
+                                              id="lastnameColumn" filterBy="externalemail" filterMatchMode="contains">  
 
-                                        <h:outputText value="#{item.externalemail}" />  
+                                        <h:outputText value="#{item3.externalemail}" />  
 
 
 
@@ -182,7 +182,7 @@
                                             <h:outputText value="" />
                                         </f:facet>
                                         <p:commandButton icon="ui-icon-close" title="remove from list"
-                                                         actionListener="#{fileUpload.deleteItem(item)}" update="roger3" />
+                                                         actionListener="#{fileUpload.deleteItem(item3)}" update="roger3" />
                                     </p:column>
 
 
@@ -191,13 +191,68 @@
 
                                 </p:dataTable>  
                             </p:fieldset>
+                            <p:fieldset legend="Memberships" toggleable="true" toggleSpeed="500">
+                                <p:dataTable id="roger4" value="#{fileUpload.members}" var="item4" cellSeparator="2" paginator="true" rows="100" editable="true">
 
-                            <p:commandButton value="Save" icon="ui-icon-disk"  
-                                             actionListener="#{fileUpload.readAndPersist()}" onclick="if (!confirm('Are you sure, no more editing of user?')) {
+                                    <p:column headerText="Group Name" style="width:30%"
+                                              id="GroupNName" filterBy="name" filterMatchMode="contains">  
+
+                                        <h:outputText value="#{item4.name}" />  
+
+
+
+                                    </p:column>
+                                    <p:column headerText="Members by DN" style="width:30%"
+                                              id="dn" filterBy="item2" filterMatchMode="contains">  
+                                        <p:dataTable id="roger5" value="#{item4.members}" var="item5" cellSeparator="2" paginator="true" rows="100" editable="true">
+                                            <f:facet name="header">  
+                                                Members 
+                                            </f:facet> 
+
+                                            <p:column>
+                                                <h:outputText value="#{item5.toString()}" />  
+                                            </p:column>
+                                            <p:column headerText="Delete">
+
+                                                <p:commandButton icon="ui-icon-close" title="remove from list"
+                                                                 actionListener="#{fileUpload.deleteItemM2(item4,item5)}" update="roger5" />
+                                            </p:column>
+
+
+
+                                        </p:dataTable>
+
+
+
+
+                                    </p:column>
+                                    <p:column headerText="Security Group" style="width:30%"
+                                              id="secgr" filterBy="secgr" filterMatchMode="contains">  
+
+                                        <p:selectBooleanCheckbox value="#{item4.secgr}" />
+
+
+
+                                    </p:column>
+
+                                    <p:column headerText="Delete">
+
+                                        <p:commandButton icon="ui-icon-close" title="remove from list"
+                                                         actionListener="#{fileUpload.deleteItemM(item4)}" update="roger4" />
+                                    </p:column>
+                                </p:dataTable>
+                            </p:fieldset> 
+
+                            <p:commandButton value="Save Groups and Users" icon="ui-icon-disk"  
+                                             actionListener="#{fileUpload.readAndPersist()}" onclick="if (!confirm('Are you sure, no more editing of user and Groups?')) {
                                                          return false;
                                                      }"/> 
-                            <p:commandButton value="Delete List" icon="ui-icon-disk"  
+                            <p:commandButton value="Delete Lists" icon="ui-icon-disk"  
                                              actionListener="#{fileUpload.emptyList()}" title="Delete the presented list, not users in the database"/>
+                            <p:commandButton value="Save MemberShips" icon="ui-icon-disk"  
+                                             actionListener="#{fileUpload.saveGroupMemberships()}" onclick="if (!confirm('Are you sure?')) {
+                                                         return false;
+                                                     }"/> 
                         </h:form> 
                     </p:tab> 
                     <p:tab id="tab2" title="LDF Download">
@@ -207,7 +262,7 @@
 
                         <h:form id="form2">  
 
-                            <p:commandButton id="downloadLink" value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop)"   
+                            <p:commandButton rendered="" id="downloadLink" value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop)"   
                                              icon="ui-icon-arrowthichk-s">  
                                 <p:fileDownload value="#{fileDownload.file}" />  
                             </p:commandButton>  

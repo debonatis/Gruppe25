@@ -7,6 +7,7 @@
 package persistClasses;
 
 import entityModels.Users;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,5 +29,11 @@ public class UsersFacade extends AbstractFacade<Users> {
     public UsersFacade() {
         super(Users.class);
     }
-    
+    public List<Users> findDN(String dn) {
+        
+        javax.persistence.Query q = getEntityManager().createNamedQuery("Users.findByDn", Users.class);
+        q.setParameter("dn", dn);
+       List<Users> res = q.getResultList();
+        return res;
+    }
 }

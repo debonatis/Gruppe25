@@ -6,7 +6,7 @@
 
 package persistClasses;
 
-import entityModels.Grouplevel1;
+import entityModels.Foldergroups;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -16,8 +16,8 @@ import javax.persistence.PersistenceContext;
  * @author simond
  */
 @Stateless
-public class Grouplevel1Facade extends AbstractFacade<Grouplevel1> {
-    @PersistenceContext(unitName = "com.Gruppe25_AteaAOS-web_war_1.0-SNAPSHOTPU")
+public class FolderGroupsFacade extends AbstractFacade<Foldergroups>{
+     @PersistenceContext(unitName = "com.Gruppe25_AteaAOS-web_war_1.0-SNAPSHOTPU")
     private EntityManager em;
 
     @Override
@@ -25,8 +25,8 @@ public class Grouplevel1Facade extends AbstractFacade<Grouplevel1> {
         return em;
     }
 
-    public Grouplevel1Facade() {
-        super(Grouplevel1.class);
+    public FolderGroupsFacade() {
+        super(Foldergroups.class);
     }
     
 }

@@ -5,8 +5,10 @@
  */
 package controllerClasses.special.cSVparser;
 
+import controllerClasses.special.UsersToGroups;
 import entityModels.Distributiongroups;
 import entityModels.Groups;
+import entityModels.Userdistribution;
 import entityModels.Users;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,18 +17,13 @@ import java.util.List;
  *
  * @author simond
  */
-
 public class ADSIentity {
 
-   private List<Distributiongroups> dgr = new ArrayList<>();
-   private List<Groups> gr = new ArrayList<>();
-   private List<Users> usr = new ArrayList<>();
-
-    public ADSIentity(List<Distributiongroups> dgr, List<Groups> gr, List<Users> usr) {
-        this.dgr = dgr;
-        this.gr = gr;
-        this.usr = usr;
-    }
+    private List<Distributiongroups> dgr = new ArrayList<>();
+    private List<Groups> gr = new ArrayList<>();
+    private List<Users> usr = new ArrayList<>();
+    private List<UsersToGroups> usrgr = new ArrayList<>();
+    private List<Userdistribution> usrdgr = new ArrayList<>();
 
     public ADSIentity() {
     }
@@ -55,5 +52,20 @@ public class ADSIentity {
         this.usr = usr;
     }
 
-   
+    public List<UsersToGroups> getUsrgr() {
+        return usrgr;
+    }
+
+    public void setUsrgr(List<UsersToGroups> usrgr) {
+        this.usrgr = usrgr;
+    }
+
+    public List<Userdistribution> getUsrdgr() {
+        return usrdgr;
+    }
+
+    public void setUsrdgr(List<Userdistribution> usrdgr) {
+        this.usrdgr = usrdgr;
+    }
+
 }

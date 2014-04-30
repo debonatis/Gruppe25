@@ -8,6 +8,8 @@
         <h:head>
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <link rel="shortcut icon" type="image/x-icon" href="#{facesContext.externalContext.requestContextPath}/resources/images/favicon.ico" />
+                <link rel="icon" href="#{facesContext.externalContext.requestContextPath}/resources/images/favicon.ico" type="image/x-icon"/>
                 <title>AOS</title>
                 <f:facet name="last">
                     <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/resources/css/jsfcrud.css" />
@@ -43,7 +45,7 @@
                             <p:button outcome="/login/forgotPassword.xhtml" value="Forgot password?"/><br/>
                         </h:panelGrid>
                         <p:panel >
-                            <p:button value="Skip this login shit" outcome="/secure/adminPage.xhtml"/> 
+                            <p:button value="Skip" outcome="/secure/adminPage.xhtml"/> 
                         </p:panel>
                     </form>
                 </p:layoutUnit>
