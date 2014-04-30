@@ -458,7 +458,7 @@
             
  
         </navigation-rule>
-                  
+                          
         <resource-bundle>
             <base-name>/Bundle</base-name>
             <var>bundle</var>
