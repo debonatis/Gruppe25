@@ -127,7 +127,7 @@ public class FoldersEdit {
 
     public void displaySelectedSingle() {
         if (selectedNode != null) {
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Selected", selectedNode.getData().toString());
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Selected", ((Folders)selectedNode.getData()).getFoldersPK().getFoldername());
 
             FacesContext.getCurrentInstance().addMessage(null, message);
         }
@@ -176,7 +176,7 @@ public class FoldersEdit {
         Folders f = (Folders) selectedNode.getData();
         for (Groups gr : gruSel) {
             try {
-                fgF.create(new Foldergroups(f.getFoldersPK().getFoldername(), f.getFoldersPK().getProjectid(), gr.getGroupname()));
+                fgF.create(new Foldergroups(f.getFoldersPK().getFoldername(), f.getFoldersPK().getProjectid(), gr.getGroupsPK().getGroupname()));
             } catch (Exception k) {
 
             }

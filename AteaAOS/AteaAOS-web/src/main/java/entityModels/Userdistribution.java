@@ -7,11 +7,15 @@
 package entityModels;
 
 import java.io.Serializable;
+import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -24,11 +28,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Userdistribution.findAll", query = "SELECT u FROM Userdistribution u"),
     @NamedQuery(name = "Userdistribution.findByUsername", query = "SELECT u FROM Userdistribution u WHERE u.userdistributionPK.username = :username"),
-    @NamedQuery(name = "Userdistribution.findByDisplayname", query = "SELECT u FROM Userdistribution u WHERE u.userdistributionPK.displayname = :displayname")})
+    @NamedQuery(name = "Userdistribution.findByDisplayname", query = "SELECT u FROM Userdistribution u WHERE u.userdistributionPK.displayname = :displayname"),
+    @NamedQuery(name = "Userdistribution.findByProjectidu", query = "SELECT u FROM Userdistribution u WHERE u.userdistributionPK.projectidu = :projectidu"),
+    @NamedQuery(name = "Userdistribution.findByProjectidd", query = "SELECT u FROM Userdistribution u WHERE u.projectidd = :projectidd")})
 public class Userdistribution implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected UserdistributionPK userdistributionPK;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "PROJECTIDD")
+    private String projectidd;
 
     public Userdistribution() {
     }
@@ -37,8 +48,13 @@ public class Userdistribution implements Serializable {
         this.userdistributionPK = userdistributionPK;
     }
 
-    public Userdistribution(String username, String displayname) {
-        this.userdistributionPK = new UserdistributionPK(username, displayname);
+    public Userdistribution(UserdistributionPK userdistributionPK, String projectidd) {
+        this.userdistributionPK = userdistributionPK;
+        this.projectidd = projectidd;
+    }
+
+    public Userdistribution(String username, String displayname, String projectidu) {
+        this.userdistributionPK = new UserdistributionPK(username, displayname, projectidu);
     }
 
     public UserdistributionPK getUserdistributionPK() {
@@ -47,6 +63,14 @@ public class Userdistribution implements Serializable {
 
     public void setUserdistributionPK(UserdistributionPK userdistributionPK) {
         this.userdistributionPK = userdistributionPK;
+    }
+
+    public String getProjectidd() {
+        return projectidd;
+    }
+
+    public void setProjectidd(String projectidd) {
+        this.projectidd = projectidd;
     }
 
     @Override

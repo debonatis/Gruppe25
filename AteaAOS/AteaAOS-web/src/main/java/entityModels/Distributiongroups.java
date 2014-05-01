@@ -9,8 +9,8 @@ package entityModels;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -27,19 +27,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Distributiongroups.findAll", query = "SELECT d FROM Distributiongroups d"),
-    @NamedQuery(name = "Distributiongroups.findByDisplayname", query = "SELECT d FROM Distributiongroups d WHERE d.displayname = :displayname"),
+    @NamedQuery(name = "Distributiongroups.findByDisplayname", query = "SELECT d FROM Distributiongroups d WHERE d.distributiongroupsPK.displayname = :displayname"),
     @NamedQuery(name = "Distributiongroups.findByEmailalias", query = "SELECT d FROM Distributiongroups d WHERE d.emailalias = :emailalias"),
     @NamedQuery(name = "Distributiongroups.findByExternalemail", query = "SELECT d FROM Distributiongroups d WHERE d.externalemail = :externalemail"),
-    @NamedQuery(name = "Distributiongroups.findByProjectid", query = "SELECT d FROM Distributiongroups d WHERE d.projectid = :projectid"),
+    @NamedQuery(name = "Distributiongroups.findByProjectid", query = "SELECT d FROM Distributiongroups d WHERE d.distributiongroupsPK.projectid = :projectid"),
     @NamedQuery(name = "Distributiongroups.findByDn", query = "SELECT d FROM Distributiongroups d WHERE d.dn = :dn")})
 public class Distributiongroups implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "DISPLAYNAME")
-    private String displayname;
+    @EmbeddedId
+    protected DistributiongroupsPK distributiongroupsPK;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -53,35 +49,33 @@ public class Distributiongroups implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(name = "PROJECTID")
-    private String projectid;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
     @Column(name = "DN")
     private String dn;
 
     public Distributiongroups() {
     }
 
-    public Distributiongroups(String displayname) {
-        this.displayname = displayname;
+    public Distributiongroups(DistributiongroupsPK distributiongroupsPK) {
+        this.distributiongroupsPK = distributiongroupsPK;
     }
 
-    public Distributiongroups(String displayname, String emailalias, String externalemail, String projectid, String dn) {
-        this.displayname = displayname;
+    public Distributiongroups(DistributiongroupsPK distributiongroupsPK, String emailalias, String externalemail, String dn) {
+        this.distributiongroupsPK = distributiongroupsPK;
         this.emailalias = emailalias;
         this.externalemail = externalemail;
-        this.projectid = projectid;
         this.dn = dn;
     }
 
-    public String getDisplayname() {
-        return displayname;
+    public Distributiongroups(String displayname, String projectid) {
+        this.distributiongroupsPK = new DistributiongroupsPK(displayname, projectid);
     }
 
-    public void setDisplayname(String displayname) {
-        this.displayname = displayname;
+    public DistributiongroupsPK getDistributiongroupsPK() {
+        return distributiongroupsPK;
+    }
+
+    public void setDistributiongroupsPK(DistributiongroupsPK distributiongroupsPK) {
+        this.distributiongroupsPK = distributiongroupsPK;
     }
 
     public String getEmailalias() {
@@ -100,14 +94,6 @@ public class Distributiongroups implements Serializable {
         this.externalemail = externalemail;
     }
 
-    public String getProjectid() {
-        return projectid;
-    }
-
-    public void setProjectid(String projectid) {
-        this.projectid = projectid;
-    }
-
     public String getDn() {
         return dn;
     }
@@ -119,7 +105,7 @@ public class Distributiongroups implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (displayname != null ? displayname.hashCode() : 0);
+        hash += (distributiongroupsPK != null ? distributiongroupsPK.hashCode() : 0);
         return hash;
     }
 
@@ -130,7 +116,7 @@ public class Distributiongroups implements Serializable {
             return false;
         }
         Distributiongroups other = (Distributiongroups) object;
-        if ((this.displayname == null && other.displayname != null) || (this.displayname != null && !this.displayname.equals(other.displayname))) {
+        if ((this.distributiongroupsPK == null && other.distributiongroupsPK != null) || (this.distributiongroupsPK != null && !this.distributiongroupsPK.equals(other.distributiongroupsPK))) {
             return false;
         }
         return true;
@@ -138,7 +124,7 @@ public class Distributiongroups implements Serializable {
 
     @Override
     public String toString() {
-        return "entityModels.Distributiongroups[ displayname=" + displayname + " ]";
+        return "entityModels.Distributiongroups[ distributiongroupsPK=" + distributiongroupsPK + " ]";
     }
     
 }
