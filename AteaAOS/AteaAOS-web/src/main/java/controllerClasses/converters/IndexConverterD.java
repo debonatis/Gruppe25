@@ -30,7 +30,7 @@ public class IndexConverterD implements Converter {
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         Distributiongroups d = new Distributiongroups(new DistributiongroupsPK(value, (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
-        return dGroupsEJB.find(value);
+        return dGroupsEJB.find(d.getDistributiongroupsPK());
     }
 
     @Override

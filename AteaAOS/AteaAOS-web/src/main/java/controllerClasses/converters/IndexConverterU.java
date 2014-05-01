@@ -32,7 +32,7 @@ public class IndexConverterU implements Converter {
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         Users u = new Users(new UsersPK(value, (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
 
-        return usersEJB.find(value);
+        return usersEJB.find(u.getUsersPK());
     }
 
     @Override
