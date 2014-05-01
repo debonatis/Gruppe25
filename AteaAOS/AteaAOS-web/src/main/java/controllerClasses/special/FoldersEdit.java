@@ -162,7 +162,7 @@ public class FoldersEdit {
 
     public void saveF() {
         for (TreeNode e : root.getChildren()) {
-
+            System.out.println(e.getData());
             Folders f = (Folders) e.getData();
             try {
                 fF.create(f);
