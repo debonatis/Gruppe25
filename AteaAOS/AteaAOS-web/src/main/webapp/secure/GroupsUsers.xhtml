@@ -49,7 +49,7 @@
                                     <p:panel header="User Selection"> 
                                         <p:growl id="msg3" showDetail="true" escape="false" />  
                                         <p:pickList id="pojoPickListU" value="#{usersToGroups.users}" var="user" effect="bounce"  
-                                                    itemValue="#{user}" itemLabel="#{user.getUsersPK().username}" converter="#{indexConverterU}"  
+                                                    itemValue="#{user}" itemLabel="#{user.usersPK.username}" converter="#{indexConverterU}"  
                                                     showSourceControls="true" showTargetControls="true" showCheckbox="true"  
                                                     showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" >  
 
