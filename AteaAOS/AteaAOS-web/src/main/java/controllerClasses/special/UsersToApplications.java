@@ -7,6 +7,7 @@
 package controllerClasses.special;
 
 import entityModels.Applicationaccess;
+import entityModels.ApplicationaccessPK;
 import entityModels.Applications;
 import entityModels.Users;
 import java.util.ArrayList;
@@ -150,7 +151,7 @@ public class UsersToApplications {
 
         for (Applications a : getApplications().getTarget()) {
             for (Users u : getUsers().getTarget()) {
-                appAccessEJB.create(new Applicationaccess(u.getUsersPK().getUsername(), a.getApplicationid()));
+                appAccessEJB.create(new Applicationaccess( new ApplicationaccessPK(u.getUsersPK().getUsername(), a.getApplicationid(),(String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))));
             }
         }
 

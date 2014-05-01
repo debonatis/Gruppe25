@@ -98,7 +98,7 @@ public class NewApplication implements Serializable {
             roger = new ArrayList<>();
             for (Applicationaccess gu : aaF.findAll()) {
                 if (gu.getApplicationaccessPK().getApplicationid().equalsIgnoreCase(g.getApplicationid())) {
-                    roger.add(new Users(new UsersPK(gu.getApplicationaccessPK().getUsername(),;
+                    roger.add(new Users(new UsersPK(gu.getApplicationaccessPK().getUsername(),gu.getApplicationaccessPK().getProjectidu())));
 
                 }
             }
@@ -178,7 +178,7 @@ public class NewApplication implements Serializable {
     public void deleteItemApp(ApplicationUsers e) {
 
         for (Users u : e.getUsers()) {
-            aaF.remove(new Applicationaccess(u.getUsername(), e.getApp().getApplicationid()));
+            aaF.remove(new Applicationaccess(u.getUsersPK().getUsername(), e.getApp().getApplicationid(),(String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
 
         }
         Applications app = applicationsEJB.find(e.getApp().getApplicationid());
@@ -190,7 +190,7 @@ public class NewApplication implements Serializable {
 
     public void deleteItemAppUser(ApplicationUsers g, Users e) {
 
-        aaF.remove(new Applicationaccess(e.getUsername(), g.getApp().getApplicationid()));
+        aaF.remove(new Applicationaccess(e.getUsersPK().getUsername(), g.getApp().getApplicationid(),(String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
 
         int i = appUsers.indexOf(g);
         appUsers.get(i).getUsers().remove(e);
