@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package controllerClasses.converters;
 
 import entityModels.Distributiongroups;
@@ -29,18 +28,17 @@ public class IndexConverterD implements Converter {
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        
+
         return dGroupsEJB.find(value);
     }
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        if (!(value == null)){
+
         dGruppe = (Distributiongroups) value;
 
-        return dGruppe.getDisplayname();
-        }
-        return (new Distributiongroups("fault")).getDisplayname();
+        return dGruppe.getDistributiongroupsPK().getDisplayname();
+
     }
 
 }

@@ -50,7 +50,7 @@ public class IndexConverterU implements Converter {
             
         
 
-        return bruker.getUsername();
+        return bruker.getUsersPK().getUsername();
 
     }
 

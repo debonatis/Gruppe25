@@ -8,7 +8,9 @@ package controllerClasses.special.cSVparser;
 import entityModels.Distributiongroups;
 import entityModels.Groups;
 import entityModels.Groupusers;
+import entityModels.GroupusersPK;
 import entityModels.Userdistribution;
+import entityModels.UserdistributionPK;
 import entityModels.Users;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -173,7 +175,7 @@ public class FileUpload implements Serializable {
                     ep++;
                     Users entity = new Users();
                     try {
-                        entity.setUsername((entry.get("sAMAccountName").getString() == null) ? "NOT SET" : entry.get("sAMAccountName").getString());
+                        entity.getUsersPK().setUsername((entry.get("sAMAccountName").getString() == null) ? "NOT SET" : entry.get("sAMAccountName").getString());
                     } catch (LdapInvalidAttributeValueException | NullPointerException ex) {
                         Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -203,7 +205,7 @@ public class FileUpload implements Serializable {
                         Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
                         entity.setDepartment("NOT SET");
                     }
-                    entity.setProjectid((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
+                    entity.getUsersPK().setProjectid((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
                     try {
                         entity.setMobile(Integer.parseInt(entry.get("mobile").getString()));
                     } catch (LdapInvalidAttributeValueException | NullPointerException | NumberFormatException ex) {
@@ -243,12 +245,12 @@ public class FileUpload implements Serializable {
                     if (gr > 0) {
                         Distributiongroups dgro = new Distributiongroups();
                         try {
-                            dgro.setDisplayname(entry.get("cn").getString());
+                            dgro.getDistributiongroupsPK().setDisplayname(entry.get("cn").getString());
                         } catch (LdapInvalidAttributeValueException | NullPointerException ex) {
                             Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
                         }
                         dgro.setDn(entry.getDn().getNormName());
-                        dgro.setProjectid((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
+                        dgro.getDistributiongroupsPK().setProjectid((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
                         try {
                             dgro.setEmailalias(entry.get("mail").getString());
                         } catch (LdapInvalidAttributeValueException | NullPointerException ex) {
@@ -281,7 +283,7 @@ public class FileUpload implements Serializable {
                                 }
                                 
                             }
-                            getMembers().add(new Members(mem, dgro.getDisplayname(), false));
+                            getMembers().add(new Members(mem, dgro.getDistributiongroupsPK().getDisplayname(), false));
                         } catch (NullPointerException ex) {
                             Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
                         }
@@ -300,13 +302,13 @@ public class FileUpload implements Serializable {
                             gro.setGroupowner("NOT SET");
                         }
                         try {
-                            gro.setGroupname(entry.get("cn").getString());
+                            gro.getGroupsPK().setGroupname(entry.get("cn").getString());
                         } catch (LdapInvalidAttributeValueException | NullPointerException ex) {
                             Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
                         }
                         gro.setDn(entry.getDn().toString());
                         gro.setFunctions("NOT SET");
-                        gro.setProjectid((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
+                        gro.getGroupsPK().setProjectid((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
                         list.getGr().add(gro);
                         try {
                             List<Value<?>> members = fraIteratorTilListe(entry.get("member").getAll());
@@ -320,7 +322,7 @@ public class FileUpload implements Serializable {
                                 }
                                 
                             }
-                            getMembers().add(new Members(mem, gro.getGroupname(), true));
+                            getMembers().add(new Members(mem, gro.getGroupsPK().getGroupname(), true));
                         } catch (NullPointerException ex) {
                             Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
                         }
@@ -343,7 +345,7 @@ public class FileUpload implements Serializable {
             try {
                 grF.create(gr);
             } catch (Exception e) {
-                FacesMessage msg = new FacesMessage("Unsuccesful", (gr.getGroupname()) + " is probably already made.");
+                FacesMessage msg = new FacesMessage("Unsuccesful", (gr.getGroupsPK().getGroupname()) + " is probably already made.");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
             
@@ -353,7 +355,7 @@ public class FileUpload implements Serializable {
             try {
                 dgrF.create(dgr);
             } catch (Exception e) {
-                FacesMessage msg = new FacesMessage("Unsuccesful", (dgr.getDisplayname()) + " is probably already made.");
+                FacesMessage msg = new FacesMessage("Unsuccesful", (dgr.getDistributiongroupsPK().getDisplayname()) + " is probably already made.");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
         }
@@ -361,7 +363,7 @@ public class FileUpload implements Serializable {
             try {
                 brukerEJB.create(usr);
             } catch (Exception e) {
-                FacesMessage msg = new FacesMessage("Unsuccesful", (usr.getUsername()) + " is probably already made.");
+                FacesMessage msg = new FacesMessage("Unsuccesful", (usr.getUsersPK().getUsername()) + " is probably already made.");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
         }
@@ -377,7 +379,7 @@ public class FileUpload implements Serializable {
                         List<Users> ur = brukerEJB.findDN(s.getNormName());
                         
                         try {
-                            guF.create(new Groupusers(ur.iterator().next().getUsername(), mem.getName()));
+                            guF.create(new Groupusers( new GroupusersPK(ur.iterator().next().getUsersPK().getUsername(), mem.getName(),(String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))));
                         } catch (Exception e) {
                             FacesMessage msg = new FacesMessage("Unsuccesful", "Binding is probably already made.");
                             FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -387,7 +389,7 @@ public class FileUpload implements Serializable {
                     for (DN s : mem.getMembers()) {
                         List<Users> ur = brukerEJB.findDN(s.getNormName());
                         try {
-                            udF.create(new Userdistribution(ur.iterator().next().getUsername(), mem.getName()));
+                            udF.create(new Userdistribution(new UserdistributionPK(ur.iterator().next().getUsersPK().getUsername(), mem.getName(),(String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))));
                         } catch (Exception e) {
                             FacesMessage msg = new FacesMessage("Unsuccesful", "Binding is probably already made.");
                             FacesContext.getCurrentInstance().addMessage(null, msg);

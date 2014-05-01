@@ -36,7 +36,7 @@ public class IndexConverterG implements Converter {
     public String getAsString(FacesContext context, UIComponent component, Object value) {
         gruppe = (Groups) value;
 
-        return gruppe.getGroupname();
+        return gruppe.getGroupsPK().getGroupname();
 
     }
 

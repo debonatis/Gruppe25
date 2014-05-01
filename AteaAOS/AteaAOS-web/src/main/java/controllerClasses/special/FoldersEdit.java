@@ -176,7 +176,7 @@ public class FoldersEdit {
         Folders f = (Folders) selectedNode.getData();
         for (Groups gr : gruSel) {
             try {
-                fgF.create(new Foldergroups(f.getFoldersPK().getFoldername(), f.getFoldersPK().getProjectid(), gr.getGroupname()));
+                fgF.create(new Foldergroups(f.getFoldersPK().getFoldername(), f.getFoldersPK().getProjectid(), gr.getGroupsPK().getGroupname()));
             } catch (Exception k) {
 
             }

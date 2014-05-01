@@ -75,9 +75,9 @@ public class Superusers implements Serializable {
             
             Siteuser test = getFacade().find(((Siteuser) event.getObject()).getUsername());
             
-            test.setUsername(((Users) event.getObject()).getUsername());
+            test.setUsername(((Siteuser) event.getObject()).getUsername());
             test.setPassword(((Siteuser) event.getObject()).getPassword());
-            test.setFirstname(((Users) event.getObject()).getFirstname());
+            test.setFirstname(((Siteuser) event.getObject()).getFirstname());
             siteuserEJB.edit(test);
             
             FacesMessage msg = new FacesMessage();
@@ -99,7 +99,7 @@ public class Superusers implements Serializable {
     }
     
     public void onCancel(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Editing Cancelled", ((Users) event.getObject()).getUsername());
+        FacesMessage msg = new FacesMessage("Editing Cancelled", ((Siteuser) event.getObject()).getUsername());
         
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }

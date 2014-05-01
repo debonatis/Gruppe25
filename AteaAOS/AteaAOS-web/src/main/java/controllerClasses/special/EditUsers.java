@@ -83,7 +83,7 @@ public class EditUsers {
         
         try {
             
-            Users test = getFacade().find(((Users) event.getObject()).getUsername());
+            Users test = getFacade().find(((Users) event.getObject()).getUsersPK().getUsername());
             
             test.setFirstname(((Users) event.getObject()).getFirstname());
             test.setLastname(((Users) event.getObject()).getLastname());
@@ -110,7 +110,7 @@ public class EditUsers {
     }
     
     public void onCancel(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Editing Cancelled", ((Users) event.getObject()).getUsername());
+        FacesMessage msg = new FacesMessage("Editing Cancelled", ((Users) event.getObject()).getUsersPK().getUsername());
         
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
@@ -146,11 +146,11 @@ public class EditUsers {
     
     public void deleteItemUsr(Users e) {
         
-        for (Groupusers usr : sgMMF.findAllUsr(e.getUsername())) {
+        for (Groupusers usr : sgMMF.findAllUsr(e.getUsersPK().getUsername())) {
             sgMMF.remove(usr);
         }
         
-        for (Userdistribution dusr : dgMMF.findAllUsr(e.getUsername())) {
+        for (Userdistribution dusr : dgMMF.findAllUsr(e.getUsersPK().getUsername())) {
             dgMMF.remove(dusr);
         }        
         

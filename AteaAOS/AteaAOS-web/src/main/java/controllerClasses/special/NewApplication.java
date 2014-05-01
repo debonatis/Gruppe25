@@ -10,6 +10,7 @@ import controllerClasses.special.model.ApplicationsModel;
 import entityModels.Applicationaccess;
 import entityModels.Applications;
 import entityModels.Users;
+import entityModels.UsersPK;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -96,7 +97,7 @@ public class NewApplication implements Serializable {
             roger = new ArrayList<>();
             for (Applicationaccess gu : aaF.findAll()) {
                 if (gu.getApplicationaccessPK().getApplicationid().equalsIgnoreCase(g.getApplicationid())) {
-                    roger.add(new Users(gu.getApplicationaccessPK().getUsername()));
+                    roger.add(new Users(new UsersPK(gu.getApplicationaccessPK().getUsername(),;
 
                 }
             }

@@ -95,7 +95,7 @@ public class UsersToApplications {
         StringBuilder builder = new StringBuilder();
         for (Object item : event.getItems()) {
             Users bruker3 = (Users) item;
-            builder.append(bruker3.getUsername()).append("<br />");
+            builder.append(bruker3.getUsersPK().getUsername()).append("<br />");
 
         }
 
@@ -150,7 +150,7 @@ public class UsersToApplications {
 
         for (Applications a : getApplications().getTarget()) {
             for (Users u : getUsers().getTarget()) {
-                appAccessEJB.create(new Applicationaccess(u.getUsername(), a.getApplicationid()));
+                appAccessEJB.create(new Applicationaccess(u.getUsersPK().getUsername(), a.getApplicationid()));
             }
         }
 

@@ -8,8 +8,10 @@ package controllerClasses.special;
 import entityModels.Distributiongroups;
 import entityModels.Groups;
 import entityModels.Groupusers;
+import entityModels.GroupusersPK;
 import entityModels.Logging;
 import entityModels.Userdistribution;
+import entityModels.UserdistributionPK;
 import entityModels.Users;
 import java.io.Serializable;
 import java.sql.Date;
@@ -136,7 +138,7 @@ public class UsersToGroups implements Serializable {
 
         for (Groups g : gr) {
             for (Users u : ur) {
-                groupsusersEJB.create(new Groupusers(u.getUsername(), g.getGroupname()));
+                groupsusersEJB.create(new Groupusers(new GroupusersPK(u.getUsersPK().getUsername(), g.getGroupsPK().getGroupname(),(String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))));
             }
         }
 
@@ -149,7 +151,7 @@ public class UsersToGroups implements Serializable {
         List<Users> ur = dusers.getTarget();
         for (Distributiongroups dg : gr) {
             for (Users u : ur) {
-                dMMF.create(new Userdistribution(u.getUsername(), dg.getDisplayname()));
+                dMMF.create(new Userdistribution(new UserdistributionPK(u.getUsersPK().getUsername(), dg.getDistributiongroupsPK().getDisplayname(),(String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))));
             }
         }
 
@@ -160,7 +162,7 @@ public class UsersToGroups implements Serializable {
         StringBuilder builder = new StringBuilder();
         for (Object item : event.getItems()) {
             Users bruker3 = (Users) item;
-            builder.append(bruker3.getUsername()).append("<br />");
+            builder.append(bruker3.getUsersPK().getUsername()).append("<br />");
 
         }
 
@@ -178,7 +180,7 @@ public class UsersToGroups implements Serializable {
 
             for (Object item : event.getItems()) {
                 Groups gruppe = (Groups) item;
-                builder.append(gruppe.getGroupname()).append("<br />");
+                builder.append(gruppe.getGroupsPK().getGroupname()).append("<br />");
 
             }
 
@@ -192,7 +194,7 @@ public class UsersToGroups implements Serializable {
         } else if (!event.isAdd()) {
             for (Object item : event.getItems()) {
                 Groups gruppe = (Groups) item;
-                builder.append(gruppe.getGroupname()).append("<br />");
+                builder.append(gruppe.getGroupsPK().getGroupname()).append("<br />");
 
             }
             FacesMessage msg = new FacesMessage();
@@ -210,7 +212,7 @@ public class UsersToGroups implements Serializable {
         if (event.isAdd()) {
             for (Object item : event.getItems()) {
                 Users bruker3 = (Users) item;
-                builder.append(bruker3.getUsername()).append("<br />");
+                builder.append(bruker3.getUsersPK().getUsername()).append("<br />");
 
             }
 
@@ -223,7 +225,7 @@ public class UsersToGroups implements Serializable {
         } else if (!event.isAdd()) {
             for (Object item : event.getItems()) {
                 Users bruker3 = (Users) item;
-                builder.append(bruker3.getUsername()).append("<br />");
+                builder.append(bruker3.getUsersPK().getUsername()).append("<br />");
 
             }
 
@@ -241,7 +243,7 @@ public class UsersToGroups implements Serializable {
 
             for (Object item : event.getItems()) {
                 Distributiongroups gruppe = (Distributiongroups) item;
-                builder.append(gruppe.getDisplayname()).append("<br />");
+                builder.append(gruppe.getDistributiongroupsPK().getDisplayname()).append("<br />");
 
             }
 
@@ -255,7 +257,7 @@ public class UsersToGroups implements Serializable {
         } else if (!event.isAdd()) {
             for (Object item : event.getItems()) {
                 Distributiongroups gruppe = (Distributiongroups) item;
-                builder.append(gruppe.getDisplayname()).append("<br />");
+                builder.append(gruppe.getDistributiongroupsPK().getDisplayname()).append("<br />");
 
             }
             FacesMessage msg = new FacesMessage();
@@ -275,7 +277,7 @@ public class UsersToGroups implements Serializable {
     }
 
     public void saveW(ActionEvent actionEvent) {
-        bruker.setProjectid(((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
+        bruker.getUsersPK().setProjectid(((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
         usersEJB.create(bruker);
         FacesMessage msg = new FacesMessage("Successful", "Welcome :" + bruker.getFirstname());
         FacesContext.getCurrentInstance().addMessage(null, msg);
