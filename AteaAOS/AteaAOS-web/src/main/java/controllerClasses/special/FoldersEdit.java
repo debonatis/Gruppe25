@@ -51,8 +51,9 @@ public class FoldersEdit {
         } catch (Exception e) {
 
         }
-        root = new DefaultTreeNode("Root", null);
-        TreeNode node0 = new DefaultTreeNode(new Folders("Root", (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")), root);
+        root = new DefaultTreeNode(new Folders("Root", (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")), null);
+        
+        
         try {
             for (Folders f : fF.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))) {
                 if (f.getParentfolder().isEmpty()) {
