@@ -29,13 +29,19 @@ public class ApplicationaccessPK implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "APPLICATIONID")
     private String applicationid;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "PROJECTIDU")
+    private String projectidu;
 
     public ApplicationaccessPK() {
     }
 
-    public ApplicationaccessPK(String username, String applicationid) {
+    public ApplicationaccessPK(String username, String applicationid, String projectidu) {
         this.username = username;
         this.applicationid = applicationid;
+        this.projectidu = projectidu;
     }
 
     public String getUsername() {
@@ -54,11 +60,20 @@ public class ApplicationaccessPK implements Serializable {
         this.applicationid = applicationid;
     }
 
+    public String getProjectidu() {
+        return projectidu;
+    }
+
+    public void setProjectidu(String projectidu) {
+        this.projectidu = projectidu;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (username != null ? username.hashCode() : 0);
         hash += (applicationid != null ? applicationid.hashCode() : 0);
+        hash += (projectidu != null ? projectidu.hashCode() : 0);
         return hash;
     }
 
@@ -75,12 +90,15 @@ public class ApplicationaccessPK implements Serializable {
         if ((this.applicationid == null && other.applicationid != null) || (this.applicationid != null && !this.applicationid.equals(other.applicationid))) {
             return false;
         }
+        if ((this.projectidu == null && other.projectidu != null) || (this.projectidu != null && !this.projectidu.equals(other.projectidu))) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "entityModels.ApplicationaccessPK[ username=" + username + ", applicationid=" + applicationid + " ]";
+        return "entityModels.ApplicationaccessPK[ username=" + username + ", applicationid=" + applicationid + ", projectidu=" + projectidu + " ]";
     }
     
 }

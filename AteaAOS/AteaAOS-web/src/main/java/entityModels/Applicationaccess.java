@@ -24,7 +24,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Applicationaccess.findAll", query = "SELECT a FROM Applicationaccess a"),
     @NamedQuery(name = "Applicationaccess.findByUsername", query = "SELECT a FROM Applicationaccess a WHERE a.applicationaccessPK.username = :username"),
-    @NamedQuery(name = "Applicationaccess.findByApplicationid", query = "SELECT a FROM Applicationaccess a WHERE a.applicationaccessPK.applicationid = :applicationid")})
+    @NamedQuery(name = "Applicationaccess.findByApplicationid", query = "SELECT a FROM Applicationaccess a WHERE a.applicationaccessPK.applicationid = :applicationid"),
+    @NamedQuery(name = "Applicationaccess.findByProjectidu", query = "SELECT a FROM Applicationaccess a WHERE a.applicationaccessPK.projectidu = :projectidu")})
 public class Applicationaccess implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -37,8 +38,8 @@ public class Applicationaccess implements Serializable {
         this.applicationaccessPK = applicationaccessPK;
     }
 
-    public Applicationaccess(String username, String applicationid) {
-        this.applicationaccessPK = new ApplicationaccessPK(username, applicationid);
+    public Applicationaccess(String username, String applicationid, String projectidu) {
+        this.applicationaccessPK = new ApplicationaccessPK(username, applicationid, projectidu);
     }
 
     public ApplicationaccessPK getApplicationaccessPK() {
