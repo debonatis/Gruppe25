@@ -25,7 +25,7 @@
 
                                         <p:growl id="msg2" showDetail="true" escape="false" />  
                                         <p:pickList id="pojoPickList" value="#{usersToGroups.groups}" var="group" effect="fade"  
-                                                    itemValue="#{group}" itemLabel="#{group.groupname}" converter="#{indexConverterG}"  
+                                                    itemValue="#{group}" itemLabel="#{group.getGroupsPK().groupname}" converter="#{indexConverterG}"  
                                                     showSourceControls="true" showTargetControls="true" showCheckbox="true"  
                                                     showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" >  
 
@@ -37,7 +37,7 @@
 
 
                                             <p:column style="width:75%;">  
-                                                #{group.groupname}  
+                                                #{group.getGroupsPK().groupname}  
                                             </p:column>  
 
                                         </p:pickList > 
@@ -49,7 +49,7 @@
                                     <p:panel header="User Selection"> 
                                         <p:growl id="msg3" showDetail="true" escape="false" />  
                                         <p:pickList id="pojoPickListU" value="#{usersToGroups.users}" var="user" effect="bounce"  
-                                                    itemValue="#{user}" itemLabel="#{user.username}" converter="#{indexConverterU}"  
+                                                    itemValue="#{user}" itemLabel="#{user.getUsersPK().username}" converter="#{indexConverterU}"  
                                                     showSourceControls="true" showTargetControls="true" showCheckbox="true"  
                                                     showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" >  
 
@@ -61,7 +61,7 @@
 
 
                                             <p:column style="width:75%;">  
-                                                #{user.username}  
+                                                #{user.getUsersPK().username}  
                                             </p:column>  
 
                                         </p:pickList>  
@@ -91,7 +91,7 @@
 
                                         <p:growl id="msg3" showDetail="true" escape="false" />  
                                         <p:pickList id="pojoPickListD" value="#{usersToGroups.dgroups}" var="dgroup" effect="bounce"  
-                                                    itemValue="#{dgroup}" itemLabel="#{dgroup.displayname}" converter="#{indexConverterD}"  
+                                                    itemValue="#{dgroup}" itemLabel="#{dgroup.getUserdistributionPK().displayname}" converter="#{indexConverterD}"  
                                                     showSourceControls="true" showTargetControls="true" showCheckbox="true"  
                                                     showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" >  
 
@@ -103,7 +103,7 @@
 
 
                                             <p:column style="width:75%;">  
-                                                #{dgroup.displayname}  
+                                                #{dgroup.getUserdistributionPK().displayname}  
                                             </p:column>  
 
                                         </p:pickList > 
@@ -115,7 +115,7 @@
                                     <p:panel header="User Selection"> 
                                         <p:growl id="msg4" showDetail="true" escape="false" />  
                                         <p:pickList id="pojoPickListUD" value="#{usersToGroups.dusers}" var="user" effect="bounce"  
-                                                    itemValue="#{user}" itemLabel="#{user.username}" converter="#{indexConverterU}"  
+                                                    itemValue="#{user}" itemLabel="#{user.getUsersPK().username}" converter="#{indexConverterU}"  
                                                     showSourceControls="true" showTargetControls="true" showCheckbox="true"  
                                                     showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" >  
 
@@ -127,7 +127,7 @@
 
 
                                             <p:column style="width:75%;">  
-                                                #{user.username}  
+                                                #{user.getUsersPK().username}  
                                             </p:column>  
 
                                         </p:pickList>  
@@ -269,7 +269,7 @@
 
                                     <h:outputText value="Group Name: *" />  
                                     <p:inputText required="true" label="Group name"  
-                                                 value="#{distAndGroupEdit.selectsg.groupname}" />  
+                                                 value="#{distAndGroupEdit.selectsg.groupsPK.groupname}" />  
 
                                     <h:outputText value="Description: *" />  
                                     <p:inputText required="true" label="Description"  
@@ -296,7 +296,7 @@
                                     <p:column headerText="Group Name" style="width:30%">  
 
 
-                                        <h:outputText value="#{sg.groupname}" />  
+                                        <h:outputText value="#{sg.groupsPK.groupname}" />  
 
 
 
@@ -335,7 +335,7 @@
                                 <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid" id="dgDetail">  
                                     <h:outputText value="Group Name: *" />  
                                     <p:inputText required="true" label="Group name"  
-                                                 value="#{distAndGroupEdit.selectdg.displayname}" />  
+                                                 value="#{distAndGroupEdit.selectdg.distributiongroupsPK.displayname}" />  
 
                                     <h:outputText value="Email Alias: *" />  
                                     <p:inputText required="true" label="Description"  
@@ -365,7 +365,7 @@
                                     <p:column headerText="Group Name" style="width:30%">  
 
 
-                                        <h:outputText value="#{dg.displayname}" />  
+                                        <h:outputText value="#{dg.distributiongroupsPK.displayname}" />  
 
 
 

@@ -7,7 +7,9 @@ package controllerClasses.special;
 
 import controllerClasses.special.model.DistSecGroupModel;
 import entityModels.Distributiongroups;
+import entityModels.DistributiongroupsPK;
 import entityModels.Groups;
+import entityModels.GroupsPK;
 import entityModels.Groupusers;
 import entityModels.GroupusersPK;
 import entityModels.Userdistribution;
@@ -118,7 +120,7 @@ public class DistAndGroupEdit {
 
     public Distributiongroups getSelectdg() {
         if (selectdg == null) {
-            selectdg = new Distributiongroups();
+            selectdg = new Distributiongroups(new DistributiongroupsPK());
 
         }
         return selectdg;
@@ -137,7 +139,7 @@ public class DistAndGroupEdit {
 
     public Groups getSelectsg() {
         if (selectsg == null) {
-            selectsg = new Groups();
+            selectsg = new Groups(new GroupsPK());
 
         }
         return selectsg;

@@ -13,6 +13,7 @@ import entityModels.Logging;
 import entityModels.Userdistribution;
 import entityModels.UserdistributionPK;
 import entityModels.Users;
+import entityModels.UsersPK;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -58,7 +59,7 @@ public class UsersToGroups implements Serializable {
     private String username;
     private String usernameProp;
     private boolean skip;
-    private Users bruker = new Users();
+    private Users bruker = new Users(new UsersPK());
 
     public DualListModel<Users> getDusers() {
         return dusers;
