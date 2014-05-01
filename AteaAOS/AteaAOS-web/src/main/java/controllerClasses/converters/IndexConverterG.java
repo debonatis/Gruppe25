@@ -6,6 +6,7 @@
 package controllerClasses.converters;
 
 import entityModels.Groups;
+import entityModels.GroupsPK;
 import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.component.UIComponent;
@@ -28,7 +29,7 @@ public class IndexConverterG implements Converter {
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        
+        Groups g = new Groups(new GroupsPK(value, (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
         return groupsEJB.find(value);
     }
 

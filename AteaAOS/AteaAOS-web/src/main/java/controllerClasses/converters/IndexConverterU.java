@@ -6,6 +6,7 @@
 package controllerClasses.converters;
 
 import entityModels.Users;
+import entityModels.UsersPK;
 import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.component.UIComponent;
@@ -29,30 +30,23 @@ public class IndexConverterU implements Converter {
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-       
+        Users u = new Users(new UsersPK(value, (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
 
         return usersEJB.find(value);
     }
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-       if(value == null){
-           return null;
-       }else if(!(value instanceof Users)){
-           throw new ConverterException("The value is not a valid User: " + value);
-       }else{
-           bruker = (Users) value;
-       }
-        
-       
-        
-        
-            
-        
+        if (value == null) {
+            return null;
+        } else if (!(value instanceof Users)) {
+            throw new ConverterException("The value is not a valid User: " + value);
+        } else {
+            bruker = (Users) value;
+        }
 
         return bruker.getUsersPK().getUsername();
 
     }
 
-   
 }
