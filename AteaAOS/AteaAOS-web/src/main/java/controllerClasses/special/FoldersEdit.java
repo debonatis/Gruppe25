@@ -38,7 +38,7 @@ public class FoldersEdit {
     @EJB
     private GroupsFacade gF;
     private TreeNode selectedNode;
-    private Folders folder = new Folders();
+    private Folders folder = new Folders(new FoldersPK());
     private List<Groups> gruSel = new ArrayList<>();
     private List<Groups> gru = new ArrayList<>();
     private boolean rw = false;
@@ -154,13 +154,13 @@ public class FoldersEdit {
     public void addNode() {
         folder.getFoldersPK().setProjectid((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
         Folders k = (Folders) selectedNode.getData();
-        if (k.getParentfolder()!=null) {
-            folder.setParentfolder(k.getParentfolder());
-        }
+       
+            folder.setParentfolder(k.getFoldersPK().getFoldername());
+        
           
         TreeNode a = new DefaultTreeNode(folder, selectedNode);
 
-        folder = new Folders();
+        folder = new Folders(new FoldersPK());
     }
 
     public void saveF() {
