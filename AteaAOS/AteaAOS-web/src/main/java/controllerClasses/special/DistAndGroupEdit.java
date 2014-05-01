@@ -134,7 +134,7 @@ public class DistAndGroupEdit {
 
         selectdg.getDistributiongroupsPK().setProjectid(((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
         dgF.create(selectdg);
-        selectdg = new Distributiongroups();
+        selectdg = new Distributiongroups(new DistributiongroupsPK());
     }
 
     public Groups getSelectsg() {
@@ -153,7 +153,7 @@ public class DistAndGroupEdit {
 
         selectsg.getGroupsPK().setProjectid(((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
         gF.create(selectsg);
-        selectsg = new Groups();
+        selectsg = new Groups(new GroupsPK());
     }
 
     public List<DistSecGroupModel> getListe() {
