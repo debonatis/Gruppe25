@@ -52,7 +52,7 @@ public class FoldersEdit {
 
         }
         root = new DefaultTreeNode(new Folders("Progmatic", (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")), null);
-        Folders fo = new Folders("Root", (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
+        Folders fo = new Folders("ROOT", (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
         fo.setParentfolder("Progmatic");
         TreeNode node0 = new DefaultTreeNode(fo, root);
         
