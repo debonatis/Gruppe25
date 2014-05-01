@@ -152,7 +152,7 @@ public class UsersToGroups implements Serializable {
         List<Users> ur = dusers.getTarget();
         for (Distributiongroups dg : gr) {
             for (Users u : ur) {
-                dMMF.create(new Userdistribution(new UserdistributionPK(u.getUsersPK().getUsername(), dg.getDistributiongroupsPK().getDisplayname(),(String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))));
+                dMMF.create(new Userdistribution(new UserdistributionPK(u.getUsersPK().getUsername(), dg.getDistributiongroupsPK().getDisplayname(),(String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")),(String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
             }
         }
 
