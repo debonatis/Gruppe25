@@ -26,7 +26,7 @@ import persistClasses.SiteuserFacade;
 @ManagedBean(name = "superUsers")
 @SessionScoped
 
-public class Superusers implements Serializable {
+public class SiteUsersEdit implements Serializable {
 
     @EJB
     private SiteuserFacade siteuserEJB;
