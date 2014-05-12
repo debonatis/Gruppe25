@@ -190,14 +190,8 @@ public class FoldersEdit {
         if (e.isLeaf()) {
             fF.remove((Folders) e.getData());
             nodes.remove(((Folders) e.getData()).getFoldersPK().getFoldername());
-        }
 
-    }
-
-    public void deleteNode() {
-
-        for (TreeNode t : selectedNode.getChildren()) {
-            Folders f = (Folders) t.getData();
+            Folders f = (Folders) e.getData();
             for (Foldergroups g : fgF.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))) {
                 if (f.getFoldersPK().getFoldername().equalsIgnoreCase(g.getFoldergroupsPK().getFoldername())) {
                     fgF.remove(g);
@@ -206,8 +200,15 @@ public class FoldersEdit {
             }
 
         }
-        fF.remove((Folders) selectedNode.getData());
+
+    }
+
+    public void deleteNode() {
+
+        
+
         ryddTreNode(selectedNode);
+        fF.remove((Folders) selectedNode.getData());
         selectedNode.getChildren().clear();
         selectedNode.getParent().getChildren().remove(selectedNode);
         selectedNode.setParent(null);
