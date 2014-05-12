@@ -66,10 +66,10 @@ public class FoldersEdit {
         }
         root = new DefaultTreeNode(new Folders("Root", (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")), null);
         root.setExpanded(true);
-        try{
-        fF.create(new Folders("Root", (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
-        } catch(Exception e){
-            System.out.println("Fins fra før"+e);
+        try {
+            fF.create(new Folders("Root", (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
+        } catch (Exception e) {
+            System.out.println("Fins fra før" + e);
         }
         TreeMap<String, TreeNode> treeMap = new TreeMap<>();
         if (!nodes.isEmpty()) {
@@ -183,10 +183,10 @@ public class FoldersEdit {
 
         } else if (e.isLeaf()) {
             fF.remove((Folders) e.getData());
-
+            selectedNode.getChildren().clear();
             e.getParent().getChildren().remove(e);
             e.setParent(null);
-            
+
         }
 
     }
@@ -205,6 +205,9 @@ public class FoldersEdit {
         }
 
         ryddTreNode(selectedNode);
+        selectedNode.getChildren().clear();
+        selectedNode.getParent().getChildren().remove(selectedNode);
+        selectedNode.setParent(null);
 
         selectedNode = null;
         lagTre();
