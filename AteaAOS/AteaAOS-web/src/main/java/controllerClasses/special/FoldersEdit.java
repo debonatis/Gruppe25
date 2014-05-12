@@ -45,6 +45,7 @@ public class FoldersEdit {
     private Folders folder = new Folders(new FoldersPK());
     private List<Groups> gruSel = new ArrayList<>();
     private List<Groups> gru = new ArrayList<>();
+    private List<Foldergroups> viewList = new ArrayList<>();
     private boolean rw = false;
     private boolean r = false;
     private HashMap<String, String> nodes = new HashMap<>();
@@ -140,6 +141,15 @@ public class FoldersEdit {
         this.gru = gru;
     }
 
+    public List<Foldergroups> getViewList() {
+        viewList = fgF.FindAllfolder(getName(selectedNode.getData()));
+        return viewList;
+    }
+
+    public void setViewList(List<Foldergroups> viewList) {
+        this.viewList = viewList;
+    }
+
     public String getNameText() {
         return nameText;
     }
@@ -169,12 +179,11 @@ public class FoldersEdit {
         this.selectedNode = selectedNode;
     }
 
-    public void displaySelectedSingle() {
-        if (selectedNode != null) {
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Selected", ((Folders) selectedNode.getData()).getFoldersPK().getFoldername());
+    public void delSecGroup(Foldergroups g) {
+        fgF.remove(g);
+        FacesMessage msg = new FacesMessage("Group Deleted", g.getFoldergroupsPK().getGroupname());
 
-            FacesContext.getCurrentInstance().addMessage(null, message);
-        }
+        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     private void ryddTreNode(TreeNode e) {
@@ -187,7 +196,7 @@ public class FoldersEdit {
             for (TreeNode s : slettet) {
                 e.getChildren().remove(s);
             }
-            
+
         }
         if (e.isLeaf()) {
             fF.remove((Folders) e.getData());

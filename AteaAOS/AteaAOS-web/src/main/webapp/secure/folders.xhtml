@@ -18,13 +18,13 @@
                             <p:growl id="messages" showDetail="true" />  
 
                             <p:contextMenu for="treeSingle">  
-                                <p:menuitem value="View" update="messages" actionListener="#{foldersEdit.displaySelectedSingle()}" icon="ui-icon-search" />  
+                                <p:menuitem value="View" update="messages" onclick="dlg3.show()" icon="ui-icon-search" />  
                                 <p:menuitem value="Delete" update="treeSingle" actionListener="#{foldersEdit.deleteNode()}" icon="ui-icon-close"/>
                                 <p:menuitem value="Add folder" update="treeSingle" onclick="dlg.show()" icon="ui-icon-plus"/>
                                 <p:menuitem value="Add Groups" update="treeSingle" onclick="dlg2.show()"  icon="ui-icon-plus"/>
                             </p:contextMenu>  
 
-                            
+
                             <p:treeTable id="treeSingle" value="#{foldersEdit.root}" var="node"  
                                          selectionMode="single"  
                                          selection="#{foldersEdit.selectedNode}"  
@@ -78,6 +78,30 @@
                                 </h:panelGrid>  
 
                                 <p:commandButton action="#{foldersEdit.addGroups()}" id="submitButton2" value="Submit" update=":tabView:form10:treeSingle" oncomplete="PF('dlg2').hide();"/>  
+
+
+                            </p:dialog> 
+                            <p:dialog header="View Folder" widgetVar="dlg3" resizable="true">  
+
+
+                                <p:dataTable var="gr" value="#{foldersEdit.viewList}" id="Liste" paginator="true" rows="10" editable="true">  
+
+                                    <f:facet name="header">  
+                                        Security Group/s Securing Folder
+                                    </f:facet>  
+                                    <p:column headerText="Group name" style="width:30%"> 
+                                        <h:outputText value="#{gr.foldergroupsPK.groupname}" />  
+                                    </p:column>  
+
+                                    <p:column headerText="Delete">
+
+                                        <p:commandButton icon="ui-icon-close" title="remove from list"
+                                                         actionListener="#{foldersEdit.delSecGroup(gr)}" update="Liste" />
+                                    </p:column>
+
+                                </p:dataTable>   
+
+                                <p:commandButton  id="submitButton2" value="OK"  oncomplete="PF('dlg3').hide();"/>  
 
 
                             </p:dialog>  
