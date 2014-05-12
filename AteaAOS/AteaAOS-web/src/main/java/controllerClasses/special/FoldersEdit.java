@@ -179,13 +179,14 @@ public class FoldersEdit {
 
             for (TreeNode h : e.getChildren()) {
                 ryddTreNode(h);
+
             }
 
         }
         if (e.isLeaf()) {
             fF.remove((Folders) e.getData());
-            selectedNode.getChildren().clear();
-            e.getParent().getChildren().remove(e);
+            e.getChildren().clear();
+
             e.setParent(null);
 
         }
@@ -206,7 +207,7 @@ public class FoldersEdit {
         }
 
         ryddTreNode(selectedNode);
-
+        selectedNode.getParent().getChildren().remove(selectedNode);
         selectedNode = null;
         lagTre();
     }
