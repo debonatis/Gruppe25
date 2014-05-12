@@ -48,6 +48,7 @@ public class FoldersEdit {
     private boolean rw = false;
     private boolean r = false;
     private HashMap<String, String> nodes = new HashMap<>();
+    private  String nameText = "";
 
     public FoldersEdit() {
 
@@ -131,6 +132,14 @@ public class FoldersEdit {
         this.gru = gru;
     }
 
+    public String getNameText() {
+        return nameText;
+    }
+
+    public void setNameText(String nameText) {
+        this.nameText = nameText;
+    }
+
     public Folders getFolder() {
         folder = new Folders(new FoldersPK());
         return folder;
@@ -206,7 +215,10 @@ public class FoldersEdit {
             }
         }
     }
-
+public String getName(Object s){
+    Folders k = (Folders)s;
+    return k.getFoldersPK().getFoldername();
+}
     public void addGroups() {
         Folders f = (Folders) selectedNode.getData();
         for (Groups gr : gruSel) {
