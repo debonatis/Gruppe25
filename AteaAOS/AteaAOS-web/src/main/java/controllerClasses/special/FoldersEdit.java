@@ -48,7 +48,7 @@ public class FoldersEdit {
     private boolean rw = false;
     private boolean r = false;
     private HashMap<String, String> nodes = new HashMap<>();
-    private  String nameText = "";
+    private String nameText = "";
 
     public FoldersEdit() {
 
@@ -169,6 +169,16 @@ public class FoldersEdit {
         }
     }
 
+    private void ryddTreNode(TreeNode e) {
+        if(e.isLeaf()){
+            fF.remove((Folders)e.getData());
+        } else if(!e.isLeaf()){
+            for(TreeNode h :e.getChildren())
+                ryddTreNode(h);
+        }
+
+    }
+
     public void deleteNode() {
 
         for (TreeNode t : selectedNode.getChildren()) {
@@ -179,13 +189,13 @@ public class FoldersEdit {
                 }
 
             }
-            fF.remove(f);
+            
         }
 
         selectedNode.getChildren().clear();
         selectedNode.getParent().getChildren().remove(selectedNode);
         selectedNode.setParent(null);
-        fF.remove((Folders) selectedNode.getData());
+        ryddTreNode(selectedNode);
         selectedNode = null;
         lagTre();
     }
@@ -204,11 +214,11 @@ public class FoldersEdit {
         lagTre();
     }
 
-   
-public String getName(Object s){
-    Folders k = (Folders)s;
-    return k.getFoldersPK().getFoldername();
-}
+    public String getName(Object s) {
+        Folders k = (Folders) s;
+        return k.getFoldersPK().getFoldername();
+    }
+
     public void addGroups() {
         Folders f = (Folders) selectedNode.getData();
         for (Groups gr : gruSel) {
