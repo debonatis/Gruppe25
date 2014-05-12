@@ -47,7 +47,7 @@ public class FoldersEdit {
     private List<Groups> gru = new ArrayList<>();
     private boolean rw = false;
     private boolean r = false;
-    private HashMap<String, String> nodes;
+    private HashMap<String, String> nodes = new HashMap<>();
 
     public FoldersEdit() {
 
