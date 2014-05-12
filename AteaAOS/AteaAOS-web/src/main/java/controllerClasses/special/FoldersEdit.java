@@ -55,6 +55,8 @@ public class FoldersEdit {
 
     @PostConstruct
     public void lagTre() {
+        
+        getFoldersFromDB();
         try {
 
             gru = gF.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
@@ -181,8 +183,11 @@ public class FoldersEdit {
         folder.setParentfolder(k.getFoldersPK().getFoldername());
 
         TreeNode a = new DefaultTreeNode(folder, selectedNode);
+        
+        fF.create(folder);
 
         folder = new Folders(new FoldersPK());
+        lagTre();
     }
 
     public void saveF() {
