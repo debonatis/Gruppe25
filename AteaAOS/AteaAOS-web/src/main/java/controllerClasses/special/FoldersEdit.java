@@ -55,7 +55,7 @@ public class FoldersEdit {
 
     @PostConstruct
     public void lagTre() {
-        
+
         getFoldersFromDB();
         try {
 
@@ -69,20 +69,21 @@ public class FoldersEdit {
         TreeNode node0 = new DefaultTreeNode(fo, root);
 
         TreeMap<String, TreeNode> treeMap = new TreeMap<>();
-
-        for (String subordinateNodeName : nodes.keySet()) {
-            if (subordinateNodeName != null) {
-                TreeNode treeNode = new DefaultTreeNode(subordinateNodeName, root);
+        if (!nodes.isEmpty()) {
+            for (String subordinateNodeName : nodes.keySet()) {
+                if (subordinateNodeName != null) {
+                    TreeNode treeNode = new DefaultTreeNode(subordinateNodeName, root);
 //                treeNode.setExpanded(nodeExpanded);
-                treeMap.put(subordinateNodeName, treeNode);
+                    treeMap.put(subordinateNodeName, treeNode);
+                }
             }
-        }
 
-        for (Map.Entry<String, String> entry : nodes.entrySet()) {
-            String subordinateNodeName = entry.getKey();
-            String superiorNodeName = entry.getValue();
-            if (superiorNodeName != null) {
-                setParentFolder(treeMap.get(subordinateNodeName), treeMap.get(superiorNodeName));
+            for (Map.Entry<String, String> entry : nodes.entrySet()) {
+                String subordinateNodeName = entry.getKey();
+                String superiorNodeName = entry.getValue();
+                if (superiorNodeName != null) {
+                    setParentFolder(treeMap.get(subordinateNodeName), treeMap.get(superiorNodeName));
+                }
             }
         }
     }
@@ -99,7 +100,7 @@ public class FoldersEdit {
             parent.getChildren().add(node);
         }
     }
-    
+
     public boolean isRw() {
         return rw;
     }
@@ -183,7 +184,7 @@ public class FoldersEdit {
         folder.setParentfolder(k.getFoldersPK().getFoldername());
 
         TreeNode a = new DefaultTreeNode(folder, selectedNode);
-        
+
         fF.create(folder);
 
         folder = new Folders(new FoldersPK());
