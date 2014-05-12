@@ -167,13 +167,18 @@ public class FoldersEdit {
         for (TreeNode t : selectedNode.getChildren()) {
             Folders f = (Folders) t.getData();
             for (Foldergroups g : fgF.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))) {
+                if (f.getFoldersPK().getFoldername().equalsIgnoreCase(g.getFoldergroupsPK().getFoldername())) {
+                    fgF.remove(g);
+                }
 
             }
+            fF.remove(f);
         }
+
         selectedNode.getChildren().clear();
         selectedNode.getParent().getChildren().remove(selectedNode);
         selectedNode.setParent(null);
-
+        fF.remove((Folders) selectedNode.getData());
         selectedNode = null;
     }
 
