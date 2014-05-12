@@ -70,7 +70,7 @@ public class FoldersEdit {
         if (!nodes.isEmpty()) {
             for (String subordinateNodeName : nodes.keySet()) {
                 if (subordinateNodeName != null) {
-                    TreeNode treeNode = new DefaultTreeNode(subordinateNodeName, root);
+                    TreeNode treeNode = new DefaultTreeNode(new Folders(subordinateNodeName, (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")), root);
 //                treeNode.setExpanded(nodeExpanded);
                     treeMap.put(subordinateNodeName, treeNode);
                 }
