@@ -50,7 +50,6 @@ public class FoldersEdit {
     private HashMap<String, String> nodes = new HashMap<>();
     private String nameText = "";
     private TreeMap<String, TreeNode> treeMap = new TreeMap<>();
-    
 
     public FoldersEdit() {
 
@@ -59,7 +58,7 @@ public class FoldersEdit {
     @PostConstruct
     public void lagTre() {
         String projectID = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID");
-        
+
         root = new DefaultTreeNode(new Folders("Root", projectID), null);
         root.setExpanded(true);
         try {
@@ -189,7 +188,7 @@ public class FoldersEdit {
         }
         if (e.isLeaf()) {
             fF.remove((Folders) e.getData());
-
+            nodes.remove(((Folders) e.getData()).getFoldersPK().getFoldername());
         }
 
     }
@@ -212,6 +211,7 @@ public class FoldersEdit {
         selectedNode.getParent().getChildren().remove(selectedNode);
         selectedNode.setParent(null);
         treeMap.remove(getName(selectedNode.getData()));
+        nodes.remove(getName(selectedNode.getData()));
         selectedNode = null;
 
     }
