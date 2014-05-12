@@ -204,17 +204,7 @@ public class FoldersEdit {
         lagTre();
     }
 
-    public void saveF() {
-        for (TreeNode e : root.getChildren()) {
-            System.out.println(e.getData());
-            Folders f = (Folders) e.getData();
-            try {
-                fF.create(f);
-            } catch (Exception k) {
-
-            }
-        }
-    }
+   
 public String getName(Object s){
     Folders k = (Folders)s;
     return k.getFoldersPK().getFoldername();
