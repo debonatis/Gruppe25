@@ -248,6 +248,9 @@ public class FoldersEdit {
     }
 
     public String getName(Object s) {
+        if(s==null){
+            return "Select a Node";
+        }
         Folders k = (Folders) s;
         return k.getFoldersPK().getFoldername();
         }
