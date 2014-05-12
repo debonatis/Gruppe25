@@ -56,14 +56,6 @@ public class FoldersEdit {
 
     @PostConstruct
     public void lagTre() {
-
-        getFoldersFromDB();
-        try {
-
-            gru = gF.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
-        } catch (Exception e) {
-
-        }
         root = new DefaultTreeNode(new Folders("Root", (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")), null);
         root.setExpanded(true);
         try {
@@ -71,6 +63,14 @@ public class FoldersEdit {
         } catch (Exception e) {
             System.out.println("Fins fra før" + e);
         }
+        getFoldersFromDB();
+        try {
+
+            gru = gF.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
+        } catch (Exception e) {
+
+        }
+
         TreeMap<String, TreeNode> treeMap = new TreeMap<>();
         if (!nodes.isEmpty()) {
             for (String subordinateNodeName : nodes.keySet()) {
@@ -179,16 +179,12 @@ public class FoldersEdit {
 
             for (TreeNode h : e.getChildren()) {
                 ryddTreNode(h);
-               
 
             }
-            
+
         }
         if (e.isLeaf()) {
             fF.remove((Folders) e.getData());
-            
-            
-            
 
         }
 
@@ -211,7 +207,7 @@ public class FoldersEdit {
         selectedNode.getChildren().clear();
         selectedNode.getParent().getChildren().remove(selectedNode);
         selectedNode.setParent(null);
-         
+
         selectedNode = null;
         lagTre();
     }
