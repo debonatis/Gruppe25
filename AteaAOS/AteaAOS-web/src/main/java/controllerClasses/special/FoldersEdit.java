@@ -49,6 +49,7 @@ public class FoldersEdit {
     private boolean r = false;
     private HashMap<String, String> nodes = new HashMap<>();
     private String nameText = "";
+    private TreeMap<String, TreeNode> treeMap = new TreeMap<>();
 
     public FoldersEdit() {
 
@@ -71,7 +72,7 @@ public class FoldersEdit {
 
         }
 
-        TreeMap<String, TreeNode> treeMap = new TreeMap<>();
+        treeMap = new TreeMap<>();
         if (!nodes.isEmpty()) {
             for (String subordinateNodeName : nodes.keySet()) {
                 if (subordinateNodeName != null) {
@@ -207,10 +208,9 @@ public class FoldersEdit {
         selectedNode.getChildren().clear();
         selectedNode.getParent().getChildren().remove(selectedNode);
         selectedNode.setParent(null);
-
+        treeMap.remove(getName(selectedNode.getData()));
         selectedNode = null;
 
-        lagTre();
     }
 
     public void addNode() {
