@@ -6,7 +6,6 @@
 package controllerClasses.special;
 
 import entityModels.Foldergroups;
-import entityModels.FoldergroupsPK;
 import entityModels.Folders;
 import entityModels.FoldersPK;
 import entityModels.Groups;
@@ -17,7 +16,6 @@ import java.util.Map;
 import java.util.TreeMap;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.inject.Default;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -144,7 +142,7 @@ public class FoldersEdit {
     }
 
     public List<Foldergroups> getViewList() {
-      if(this.viewList.isEmpty()){
+      if(!this.viewList.isEmpty()){
            for(Foldergroups f : this.viewList) {
                if(!f.getFoldergroupsPK().getFoldername().equalsIgnoreCase(((Folders)selectedNode.getData()).getFoldersPK().getFoldername()))
                    this.viewList.remove(f);
