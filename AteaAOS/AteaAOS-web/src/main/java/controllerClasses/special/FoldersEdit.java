@@ -170,11 +170,16 @@ public class FoldersEdit {
     }
 
     private void ryddTreNode(TreeNode e) {
-        if(e.isLeaf()){
-            fF.remove((Folders)e.getData());
-        } else if(!e.isLeaf()){
-            for(TreeNode h :e.getChildren())
+        if (e.isLeaf()) {
+            fF.remove((Folders) e.getData());
+            e.getChildren().clear();
+            e.getParent().getChildren().remove(selectedNode);
+            e.setParent(null);
+            e = null;
+        } else if (!e.isLeaf()) {
+            for (TreeNode h : e.getChildren()) {
                 ryddTreNode(h);
+            }
         }
 
     }
@@ -189,13 +194,11 @@ public class FoldersEdit {
                 }
 
             }
-            
+
         }
 
-        selectedNode.getChildren().clear();
-        selectedNode.getParent().getChildren().remove(selectedNode);
-        selectedNode.setParent(null);
         ryddTreNode(selectedNode);
+
         selectedNode = null;
         lagTre();
     }
