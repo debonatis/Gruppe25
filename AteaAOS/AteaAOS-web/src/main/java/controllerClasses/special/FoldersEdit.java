@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.inject.Default;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -242,6 +243,7 @@ public class FoldersEdit {
     }
 
     public String getName(Object s) {
+        
         Folders k = (Folders) s;
         String str = "";
         try{

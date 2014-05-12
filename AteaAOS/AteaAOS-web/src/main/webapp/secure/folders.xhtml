@@ -87,7 +87,7 @@
                                 <p:dataTable var="gr" value="#{foldersEdit.viewList}" id="Liste" paginator="true" rows="10" editable="true">  
 
                                     <f:facet name="header">  
-                                        Security Group/s Securing: #{foldersEdit.getName(foldersEdit.selectedNode)}
+                                        Security Group/s Securing: #{foldersEdit.getName(foldersEdit.selectedNode.data)}
                                     </f:facet>  
                                     <p:column headerText="Group name" style="width:30%"> 
                                         <h:outputText value="#{gr.foldergroupsPK.groupname}" />  
