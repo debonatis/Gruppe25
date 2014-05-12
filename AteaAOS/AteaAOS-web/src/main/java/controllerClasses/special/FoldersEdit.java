@@ -182,7 +182,7 @@ public class FoldersEdit {
 
             e.getParent().getChildren().remove(e);
             e.setParent(null);
-            e = null;
+            
         }
 
     }
