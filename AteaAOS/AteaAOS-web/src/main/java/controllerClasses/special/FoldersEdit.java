@@ -142,6 +142,7 @@ public class FoldersEdit {
     }
 
     public List<Foldergroups> getViewList() {
+        if(selectedNode.getData() == null) return new ArrayList<>();
       if(!this.viewList.isEmpty()){
            for(Foldergroups f : this.viewList) {
                if(!f.getFoldergroupsPK().getFoldername().equalsIgnoreCase(((Folders)selectedNode.getData()).getFoldersPK().getFoldername()))
