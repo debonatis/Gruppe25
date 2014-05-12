@@ -178,11 +178,16 @@ public class FoldersEdit {
     }
 
     private void ryddTreNode(TreeNode e) {
-
+        List<TreeNode> slettet = new ArrayList<>();
         if (!e.isLeaf()) {
             for (TreeNode h : e.getChildren()) {
                 ryddTreNode(h);
+                slettet.add(h);
             }
+            for (TreeNode s : slettet) {
+                e.getChildren().remove(s);
+            }
+            
         }
         if (e.isLeaf()) {
             fF.remove((Folders) e.getData());
@@ -197,8 +202,6 @@ public class FoldersEdit {
     }
 
     public void deleteNode() {
-
-        
 
         ryddTreNode(selectedNode);
         fF.remove((Folders) selectedNode.getData());
