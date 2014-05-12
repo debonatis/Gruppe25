@@ -170,18 +170,19 @@ public class FoldersEdit {
     }
 
     private void ryddTreNode(TreeNode e) {
-        if (e.isLeaf()) {
-            fF.remove((Folders) e.getData());
-            e.getChildren().clear();
-            e.getParent().getChildren().remove(selectedNode);
-            e.setParent(null);
-            e = null;
-        } else if (!e.isLeaf()) {
-            for (TreeNode h : e.getChildren()) {
-                ryddTreNode(h);
+        while (e != null) {
+            if (e.isLeaf()) {
+                fF.remove((Folders) e.getData());
+                e.getChildren().clear();
+                e.getParent().getChildren().remove(e);
+                e.setParent(null);
+                e = null;
+            } else if (!e.isLeaf()) {
+                for (TreeNode h : e.getChildren()) {
+                    ryddTreNode(h);
+                }
             }
         }
-
     }
 
     public void deleteNode() {
