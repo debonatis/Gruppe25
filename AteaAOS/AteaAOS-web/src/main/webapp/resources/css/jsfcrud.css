@@ -172,8 +172,8 @@ topBar{
 .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight{
     color:#ffffff;
     text-decoration:none;
-    background-color:#0088cc;
-    background-color:#0081c2;
+    background-color:#10C406;
+    background-color:#10DC05;
     background-position:0px;
     background-image:-moz-linear-gradient(top, #0088cc, #0077b3);
     background-image:-webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0077b3));
