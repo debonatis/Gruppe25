@@ -10,7 +10,11 @@ import entityModels.Folders;
 import entityModels.FoldersPK;
 import entityModels.Groups;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -43,8 +47,14 @@ public class FoldersEdit {
     private List<Groups> gru = new ArrayList<>();
     private boolean rw = false;
     private boolean r = false;
+    private HashMap<String, String> nodes;
 
     public FoldersEdit() {
+
+    }
+
+    @PostConstruct
+    public void lagTre() {
         try {
 
             gru = gF.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
@@ -55,26 +65,39 @@ public class FoldersEdit {
         Folders fo = new Folders("ROOT", (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
         fo.setParentfolder("Progmatic");
         TreeNode node0 = new DefaultTreeNode(fo, root);
-        
-        try {
-            for (Folders f : fF.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))) {
-                if (f.getParentfolder().isEmpty()) {
-                    TreeNode node = new DefaultTreeNode(f, root);
-                } else if (!f.getParentfolder().isEmpty()) {
-                    for (TreeNode node : root.getChildren()) {
-                        if (f.getParentfolder().equalsIgnoreCase(((Folders) node.getData()).getParentfolder())) {
-                            TreeNode node2 = new DefaultTreeNode(f, node);
-                        }
-                    }
 
-                }
+        TreeMap<String, TreeNode> treeMap = new TreeMap<>();
+
+        for (String subordinateNodeName : nodes.keySet()) {
+            if (subordinateNodeName != null) {
+                TreeNode treeNode = new DefaultTreeNode(subordinateNodeName, root);
+//                treeNode.setExpanded(nodeExpanded);
+                treeMap.put(subordinateNodeName, treeNode);
             }
-        } catch (NullPointerException e) {
-
         }
-       
+
+        for (Map.Entry<String, String> entry : nodes.entrySet()) {
+            String subordinateNodeName = entry.getKey();
+            String superiorNodeName = entry.getValue();
+            if (superiorNodeName != null) {
+                setParentFolder(treeMap.get(subordinateNodeName), treeMap.get(superiorNodeName));
+            }
+        }
     }
 
+    public void getFoldersFromDB() {
+        for (Folders f : fF.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))) {
+            nodes.put(f.getFoldersPK().getFoldername(), f.getParentfolder());
+        }
+    }
+
+    private void setParentFolder(TreeNode node, TreeNode parent) {
+        if (parent != null) {
+            node.getParent().getChildren().remove(node);
+            parent.getChildren().add(node);
+        }
+    }
+    
     public boolean isRw() {
         return rw;
     }
@@ -130,18 +153,18 @@ public class FoldersEdit {
 
     public void displaySelectedSingle() {
         if (selectedNode != null) {
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Selected", ((Folders)selectedNode.getData()).getFoldersPK().getFoldername());
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Selected", ((Folders) selectedNode.getData()).getFoldersPK().getFoldername());
 
             FacesContext.getCurrentInstance().addMessage(null, message);
         }
     }
 
     public void deleteNode() {
-        
-        for(TreeNode t:selectedNode.getChildren()){
-            Folders f = (Folders)t.getData();
-            for(Foldergroups g:fgF.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))){
-                
+
+        for (TreeNode t : selectedNode.getChildren()) {
+            Folders f = (Folders) t.getData();
+            for (Foldergroups g : fgF.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))) {
+
             }
         }
         selectedNode.getChildren().clear();
@@ -154,10 +177,9 @@ public class FoldersEdit {
     public void addNode() {
         folder.getFoldersPK().setProjectid((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
         Folders k = (Folders) selectedNode.getData();
-       
-            folder.setParentfolder(k.getFoldersPK().getFoldername());
-        
-          
+
+        folder.setParentfolder(k.getFoldersPK().getFoldername());
+
         TreeNode a = new DefaultTreeNode(folder, selectedNode);
 
         folder = new Folders(new FoldersPK());
