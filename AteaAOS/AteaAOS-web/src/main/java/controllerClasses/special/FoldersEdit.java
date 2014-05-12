@@ -57,6 +57,7 @@ public class FoldersEdit {
 
     @PostConstruct
     public void lagTre() {
+        root = null;
         root = new DefaultTreeNode(new Folders("Root", (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")), null);
         root.setExpanded(true);
         try {
