@@ -167,5 +167,5 @@ topBar{
 .ui-state-error, .ui-widget-header .ui-state-error{
     border:1px solid #cd0a0a;
     background:#cd0a0a url("#{resource['primefaces-bootstrap:images/ui-bg_flat_15_cd0a0a_40x100.png']}") 50% 50% repeat-x;
-    color:#ffffff;
+    color:#381F00;
 }
