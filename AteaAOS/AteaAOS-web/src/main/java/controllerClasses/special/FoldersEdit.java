@@ -178,6 +178,10 @@ public class FoldersEdit {
     public void setSelectedNode(TreeNode selectedNode) {
         this.selectedNode = selectedNode;
     }
+    
+    public Boolean value(String k){
+        return Boolean.valueOf(k);
+    }
 
     public void delSecGroup(Foldergroups g) {
         fgF.remove(g);
@@ -239,8 +243,18 @@ public class FoldersEdit {
 
     public String getName(Object s) {
         Folders k = (Folders) s;
-        return k.getFoldersPK().getFoldername();
+        String str = "";
+        try{
+             str = k.getFoldersPK().getFoldername();
+        } catch(NullPointerException e){
+            str="Root";
+        }
+       
+        if(str.isEmpty()) return "Root";
+        return str;
     }
+    
+    
 
     public void addGroups() {
         Folders f = (Folders) selectedNode.getData();

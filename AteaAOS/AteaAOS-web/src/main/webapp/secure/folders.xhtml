@@ -87,11 +87,18 @@
                                 <p:dataTable var="gr" value="#{foldersEdit.viewList}" id="Liste" paginator="true" rows="10" editable="true">  
 
                                     <f:facet name="header">  
-                                        Security Group/s Securing Folder
+                                        Security Group/s Securing: #{foldersEdit.getName(foldersEdit.selectedNode)}
                                     </f:facet>  
                                     <p:column headerText="Group name" style="width:30%"> 
                                         <h:outputText value="#{gr.foldergroupsPK.groupname}" />  
                                     </p:column>  
+                                    <p:column headerText="RW" style="width:30%"> 
+                                        <p:selectBooleanButton id="R" value="#{foldersEdit.value(gr.rw)}" onLabel="Yes" offLabel="No" /> 
+                                    </p:column>  
+                                    <p:column headerText="R" style="width:30%"> 
+                                        <h:outputText value="#{foldersEdit.value(gr.r)}" />  
+                                    </p:column>  
+
 
                                     <p:column headerText="Delete">
 
