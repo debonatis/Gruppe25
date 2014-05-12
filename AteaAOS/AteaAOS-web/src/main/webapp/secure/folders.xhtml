@@ -25,15 +25,21 @@
                             </p:contextMenu>  
 
                             <p:poll interval="1" update="treeSingle"/>
-                            <p:tree id="treeSingle" value="#{foldersEdit.root}" var="node"  
-                                    selectionMode="single"  
-                                    selection="#{foldersEdit.selectedNode}"  
-                                    dynamic="true">  
+                            <p:treeTable id="treeSingle" value="#{foldersEdit.root}" var="node"  
+                                         selectionMode="single"  
+                                         selection="#{foldersEdit.selectedNode}"  
+                                         >  
+                                <f:facet name="header">
+                                    Right-Click to See Options
+                                </f:facet>
+                                <p:column style="width:150px">
+                                    <f:facet name="header">
+                                        Name
+                                    </f:facet>
+                                    <h:outputText value="#{foldersEdit.getName(node)}" />
+                                </p:column>
 
-                                <p:treeNode>  
-                                    <h:outputText value="#{foldersEdit.getName(node)}" />  
-                                </p:treeNode>  
-                            </p:tree>  
+                            </p:treetable>>  
 
 
                             <p:dialog header="Enter Foldername" widgetVar="dlg" resizable="true">  
