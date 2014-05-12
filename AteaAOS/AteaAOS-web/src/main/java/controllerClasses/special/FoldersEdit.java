@@ -179,14 +179,15 @@ public class FoldersEdit {
 
             for (TreeNode h : e.getChildren()) {
                 ryddTreNode(h);
+                h.getParent().getChildren().remove(h);
 
             }
-
+            e.getChildren().clear();
         }
         if (e.isLeaf()) {
             fF.remove((Folders) e.getData());
-            e.getChildren().clear();
-
+            
+            
             e.setParent(null);
 
         }
