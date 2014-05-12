@@ -252,7 +252,7 @@ public class FoldersEdit {
             str="Root";
         }
        
-        if(str.isEmpty()) return "Root";
+        if(str.isEmpty()) return "Fail";
         return str;
     }
     
