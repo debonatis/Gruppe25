@@ -209,6 +209,7 @@ public class FoldersEdit {
         selectedNode.setParent(null);
 
         selectedNode = null;
+         fF.remove((Folders) selectedNode.getData());
         lagTre();
     }
 
