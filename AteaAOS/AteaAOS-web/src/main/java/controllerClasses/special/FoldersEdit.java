@@ -64,9 +64,7 @@ public class FoldersEdit {
 
         }
         root = new DefaultTreeNode(new Folders("Progmatic", (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")), null);
-        Folders fo = new Folders("ROOT", (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
-        fo.setParentfolder("Progmatic");
-        TreeNode node0 = new DefaultTreeNode(fo, root);
+        root.setExpanded(true);
 
         TreeMap<String, TreeNode> treeMap = new TreeMap<>();
         if (!nodes.isEmpty()) {
@@ -180,6 +178,7 @@ public class FoldersEdit {
         selectedNode.setParent(null);
         fF.remove((Folders) selectedNode.getData());
         selectedNode = null;
+        lagTre();
     }
 
     public void addNode() {
