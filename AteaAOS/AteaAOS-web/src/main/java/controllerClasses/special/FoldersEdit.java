@@ -66,7 +66,11 @@ public class FoldersEdit {
         }
         root = new DefaultTreeNode(new Folders("Root", (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")), null);
         root.setExpanded(true);
-
+        try{
+        fF.create(new Folders("Root", (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
+        } catch(Exception e){
+            System.out.println("Fins fra før"+e);
+        }
         TreeMap<String, TreeNode> treeMap = new TreeMap<>();
         if (!nodes.isEmpty()) {
             for (String subordinateNodeName : nodes.keySet()) {
