@@ -143,7 +143,12 @@ public class FoldersEdit {
     }
 
     public List<Foldergroups> getViewList() {
-        viewList = fgF.FindAllfolder(getName(selectedNode.getData()));
+        try {
+            viewList = fgF.FindAllfolder(getName(selectedNode.getData()));
+        } catch (NullPointerException e) {
+            viewList = new ArrayList<>();
+
+        }
         return viewList;
     }
 
@@ -179,8 +184,8 @@ public class FoldersEdit {
     public void setSelectedNode(TreeNode selectedNode) {
         this.selectedNode = selectedNode;
     }
-    
-    public Boolean value(String k){
+
+    public Boolean value(String k) {
         return Boolean.valueOf(k);
     }
 
@@ -243,20 +248,20 @@ public class FoldersEdit {
     }
 
     public String getName(Object s) {
-        
+
         Folders k = (Folders) s;
         String str = "";
-        try{
-             str = k.getFoldersPK().getFoldername();
-        } catch(NullPointerException e){
-            str="Root";
+        try {
+            str = k.getFoldersPK().getFoldername();
+        } catch (NullPointerException e) {
+            str = "Root";
         }
-       
-        if(str.isEmpty()) return "Fail";
+
+        if (str.isEmpty()) {
+            return "Fail";
+        }
         return str;
     }
-    
-    
 
     public void addGroups() {
         Folders f = (Folders) selectedNode.getData();
