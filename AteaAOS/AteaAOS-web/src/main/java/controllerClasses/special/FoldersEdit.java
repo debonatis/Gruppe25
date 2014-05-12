@@ -223,11 +223,16 @@ public String getName(Object s){
         Folders f = (Folders) selectedNode.getData();
         for (Groups gr : gruSel) {
             try {
+                Foldergroups sett = new Foldergroups(f.getFoldersPK().getFoldername(), f.getFoldersPK().getProjectid(), gr.getGroupsPK().getGroupname());
+                sett.setRw(Boolean.toString(isRw()));
+                sett.setR(Boolean.toString(isR()));
                 fgF.create(new Foldergroups(f.getFoldersPK().getFoldername(), f.getFoldersPK().getProjectid(), gr.getGroupsPK().getGroupname()));
             } catch (Exception k) {
 
             }
         }
+        setR(false);
+        setRw(false);
         gruSel.clear();
 
     }
