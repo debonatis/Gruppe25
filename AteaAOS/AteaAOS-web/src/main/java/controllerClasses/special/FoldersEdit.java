@@ -248,20 +248,9 @@ public class FoldersEdit {
     }
 
     public String getName(Object s) {
-
         Folders k = (Folders) s;
-        String str = "";
-        try {
-            str = k.getFoldersPK().getFoldername();
-        } catch (NullPointerException e) {
-            str = "Root";
+        return k.getFoldersPK().getFoldername();
         }
-
-        if (str.isEmpty()) {
-            return "Fail";
-        }
-        return str;
-    }
 
     public void addGroups() {
         Folders f = (Folders) selectedNode.getData();
