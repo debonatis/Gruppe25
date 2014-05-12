@@ -38,7 +38,7 @@ public class FoldersEdit {
     @EJB
     private GroupsFacade gF;
     private TreeNode selectedNode;
-    private Folders folder = new Folders();
+    private Folders folder = new Folders(new FoldersPK());
     private List<Groups> gruSel = new ArrayList<>();
     private List<Groups> gru = new ArrayList<>();
     private boolean rw = false;
@@ -51,8 +51,11 @@ public class FoldersEdit {
         } catch (Exception e) {
 
         }
-        root = new DefaultTreeNode("Root", null);
-        TreeNode node0 = new DefaultTreeNode(new Folders("Root", (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")), root);
+        root = new DefaultTreeNode(new Folders("Progmatic", (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")), null);
+        Folders fo = new Folders("ROOT", (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
+        fo.setParentfolder("Progmatic");
+        TreeNode node0 = new DefaultTreeNode(fo, root);
+        
         try {
             for (Folders f : fF.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))) {
                 if (f.getParentfolder().isEmpty()) {
@@ -151,18 +154,18 @@ public class FoldersEdit {
     public void addNode() {
         folder.getFoldersPK().setProjectid((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
         Folders k = (Folders) selectedNode.getData();
-        if (k.getParentfolder()!=null) {
-            folder.setParentfolder(k.getParentfolder());
-        }
-
+       
+            folder.setParentfolder(k.getFoldersPK().getFoldername());
+        
+          
         TreeNode a = new DefaultTreeNode(folder, selectedNode);
 
-        folder = new Folders();
+        folder = new Folders(new FoldersPK());
     }
 
     public void saveF() {
         for (TreeNode e : root.getChildren()) {
-
+            System.out.println(e.getData());
             Folders f = (Folders) e.getData();
             try {
                 fF.create(f);

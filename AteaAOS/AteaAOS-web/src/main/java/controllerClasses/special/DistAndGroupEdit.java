@@ -7,7 +7,9 @@ package controllerClasses.special;
 
 import controllerClasses.special.model.DistSecGroupModel;
 import entityModels.Distributiongroups;
+import entityModels.DistributiongroupsPK;
 import entityModels.Groups;
+import entityModels.GroupsPK;
 import entityModels.Groupusers;
 import entityModels.GroupusersPK;
 import entityModels.Userdistribution;
@@ -118,7 +120,7 @@ public class DistAndGroupEdit {
 
     public Distributiongroups getSelectdg() {
         if (selectdg == null) {
-            selectdg = new Distributiongroups();
+            selectdg = new Distributiongroups(new DistributiongroupsPK());
 
         }
         return selectdg;
@@ -131,13 +133,14 @@ public class DistAndGroupEdit {
     public void saveSelectdg() {
 
         selectdg.getDistributiongroupsPK().setProjectid(((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
+        selectdg.setDn("NONE");
         dgF.create(selectdg);
-        selectdg = new Distributiongroups();
+        selectdg = new Distributiongroups(new DistributiongroupsPK());
     }
 
     public Groups getSelectsg() {
         if (selectsg == null) {
-            selectsg = new Groups();
+            selectsg = new Groups(new GroupsPK());
 
         }
         return selectsg;
@@ -150,8 +153,9 @@ public class DistAndGroupEdit {
     public void saveSelectsg() {
 
         selectsg.getGroupsPK().setProjectid(((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
+        selectsg.setDn("NONE");
         gF.create(selectsg);
-        selectsg = new Groups();
+        selectsg = new Groups(new GroupsPK());
     }
 
     public List<DistSecGroupModel> getListe() {
@@ -167,12 +171,19 @@ public class DistAndGroupEdit {
         DistSecGroupModel e = (DistSecGroupModel) event.getObject();
         if (e.isSg()) {
 
-            Groups gru = gF.find(e.getGrname());
+            Groups gru = gF.find(new GroupsPK(e.getGrname(), (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
             gru.setGroupowner(e.getGowner());
             gF.edit(gru);
 
             init();
             FacesMessage msg = new FacesMessage("Group Edited", ((DistSecGroupModel) event.getObject()).getGrname());
+
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        } else if (e.isDg()){
+            
+
+            init();
+            FacesMessage msg = new FacesMessage("Distribution Groups dont have owners", ((DistSecGroupModel) event.getObject()).getGrname());
 
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
@@ -191,7 +202,8 @@ public class DistAndGroupEdit {
                 sgMMF.remove(new Groupusers(new GroupusersPK(u.getUsersPK().getUsername(), e.getGrname(),(String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))));
 
             }
-            Groups gru = gF.find(e.getGrname());
+            
+            Groups gru = gF.find(new GroupsPK(e.getGrname(), (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
             gF.remove(gru);
 
             liste.remove(e);
@@ -200,7 +212,7 @@ public class DistAndGroupEdit {
                 dgMMF.remove(new Userdistribution(new UserdistributionPK(u.getUsersPK().getUsername(), e.getGrname(),(String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))));
 
             }
-            Distributiongroups roger = dgF.find(e.getGrname());
+            Distributiongroups roger = dgF.find(new DistributiongroupsPK(e.getGrname(), (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
             dgF.remove(roger);
             liste.remove(e);
         }

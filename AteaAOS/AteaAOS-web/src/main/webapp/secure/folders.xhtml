@@ -54,12 +54,12 @@
                                 <h:panelGrid columns="2" style="margin-bottom:10px">  
                                     <h:outputLabel for="scroll" value="Groups:" />  
                                     <p:selectManyMenu id="scroll" value="#{foldersEdit.gruSel}" converter="#{indexConverterG}" style="width:150px;height:200px" var="item1" showCheckbox="true">  
-                                        <f:selectItems value="#{foldersEdit.gru}" var="item2" itemLabel="#{item2.groupname}" itemValue="#{item2}" />  
+                                        <f:selectItems value="#{foldersEdit.gru}" var="item2" itemLabel="#{item2.groupsPK.groupname}" itemValue="#{item2}" />  
 
 
 
                                         <p:column>  
-                                            #{item1.groupname} - #{item1.description}  
+                                            #{item1.groupsPK.groupname} - #{item1.description}  
                                         </p:column>  
                                     </p:selectManyMenu> 
 
@@ -75,6 +75,7 @@
 
 
                             </p:dialog>  
+                            <p:commandButton  value="Submit"   action="#{foldersEdit.saveF()}"/> 
                         </h:form>
                     </p:tab>
                     <p:tab id="table" title="TO DO">
