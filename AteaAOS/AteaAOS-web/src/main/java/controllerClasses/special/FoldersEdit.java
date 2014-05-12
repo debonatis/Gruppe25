@@ -6,6 +6,7 @@
 package controllerClasses.special;
 
 import entityModels.Foldergroups;
+import entityModels.FoldergroupsPK;
 import entityModels.Folders;
 import entityModels.FoldersPK;
 import entityModels.Groups;
@@ -63,11 +64,11 @@ public class FoldersEdit {
 
         root = new DefaultTreeNode(new Folders("Root", projectID), null);
         root.setExpanded(true);
-        try {
+        if (fF.find(new FoldersPK("Root", projectID)) == null) {
             fF.create(new Folders("Root", projectID));
-        } catch (Exception e) {
-            System.out.println("Fins fra før" + e);
+
         }
+        this.viewList = fgF.findAllPro(projectID);
         getFoldersFromDB();
         try {
 
@@ -143,13 +144,18 @@ public class FoldersEdit {
     }
 
     public List<Foldergroups> getViewList() {
-        try {
-            viewList = fgF.FindAllfolder(getName(selectedNode.getData()));
-        } catch (NullPointerException e) {
-            viewList = new ArrayList<>();
+      if(this.viewList.isEmpty()){
+           for(Foldergroups f : this.viewList) {
+               if(!f.getFoldergroupsPK().getFoldername().equalsIgnoreCase(((Folders)selectedNode.getData()).getFoldersPK().getFoldername()))
+                   this.viewList.remove(f);
+               
+           }
+      }
+        
+            if(this.viewList.isEmpty())this.viewList = new ArrayList<>();
 
-        }
-        return viewList;
+        
+        return this.viewList;
     }
 
     public void setViewList(List<Foldergroups> viewList) {
@@ -248,12 +254,12 @@ public class FoldersEdit {
     }
 
     public String getName(Object s) {
-        if(s==null){
+        if (s == null) {
             return "Select a Node";
         }
         Folders k = (Folders) s;
         return k.getFoldersPK().getFoldername();
-        }
+    }
 
     public void addGroups() {
         Folders f = (Folders) selectedNode.getData();
