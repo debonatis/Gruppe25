@@ -202,14 +202,14 @@ public class FoldersEdit {
             }
 
         }
-
+        fF.remove((Folders) selectedNode.getData());
         ryddTreNode(selectedNode);
         selectedNode.getChildren().clear();
         selectedNode.getParent().getChildren().remove(selectedNode);
         selectedNode.setParent(null);
 
         selectedNode = null;
-         fF.remove((Folders) selectedNode.getData());
+
         lagTre();
     }
 
