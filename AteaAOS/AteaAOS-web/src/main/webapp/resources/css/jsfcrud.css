@@ -179,7 +179,7 @@ topBar{
     background-image:-webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0077b3));
     background-image:-webkit-linear-gradient(top, #0088cc, #0077b3);
     background-image:-o-linear-gradient(top, #0088cc, #0077b3);
-    background-image:linear-gradient(to bottom, #0088cc, #0077b3);
+    background-image: linear-gradient(to bottom, #10DC05, #0077b3);
     background-repeat:repeat-x;
     filter:progid:dximagetransform.microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0077b3', GradientType=0);
 }
