@@ -50,6 +50,7 @@ public class FoldersEdit {
     private HashMap<String, String> nodes = new HashMap<>();
     private String nameText = "";
     private TreeMap<String, TreeNode> treeMap = new TreeMap<>();
+    
 
     public FoldersEdit() {
 
@@ -57,11 +58,12 @@ public class FoldersEdit {
 
     @PostConstruct
     public void lagTre() {
+        String projectID = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID");
         root = null;
-        root = new DefaultTreeNode(new Folders("Root", (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")), null);
+        root = new DefaultTreeNode(new Folders("Root", projectID), null);
         root.setExpanded(true);
         try {
-            fF.create(new Folders("Root", (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
+            fF.create(new Folders("Root", projectID));
         } catch (Exception e) {
             System.out.println("Fins fra før" + e);
         }
@@ -77,7 +79,7 @@ public class FoldersEdit {
         if (!nodes.isEmpty()) {
             for (String subordinateNodeName : nodes.keySet()) {
                 if (subordinateNodeName != null) {
-                    TreeNode treeNode = new DefaultTreeNode(new Folders(subordinateNodeName, (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")), root);
+                    TreeNode treeNode = new DefaultTreeNode(new Folders(subordinateNodeName, projectID), root);
 //                treeNode.setExpanded(nodeExpanded);
                     treeMap.put(subordinateNodeName, treeNode);
                 }
