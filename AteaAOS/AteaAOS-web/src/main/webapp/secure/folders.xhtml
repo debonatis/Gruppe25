@@ -81,12 +81,12 @@
 
 
                             </p:dialog> 
-                           
+
                             <p:commandButton  value="Refresh"   action="#{foldersEdit.lagTre()}" icon="ui-icon-refresh" update="treeSingle"/> 
                         </h:form>
-                         <p:dialog header="View Folder" widgetVar="dlg3" resizable="true">  
+                        <p:dialog header="View Folder" widgetVar="dlg3" resizable="true">  
 
-
+                            <h:form>
                                 <p:dataTable var="gr" value="#{foldersEdit.viewList}" id="Liste" paginator="true" rows="10" editable="true">  
 
                                     <f:facet name="header">  
@@ -112,11 +112,11 @@
                                 </p:dataTable>   
 
                                 <p:commandButton  id="submitButton3" value="OK"  oncomplete="PF('dlg3').hide();"/>  
+                            </h:form>
 
-
-                            </p:dialog>  
+                        </p:dialog>  
                     </p:tab>
-                    
+
                 </p:tabView>
 
             </ui:define>
