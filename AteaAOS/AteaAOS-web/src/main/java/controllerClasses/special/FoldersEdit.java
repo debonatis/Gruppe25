@@ -63,7 +63,7 @@ public class FoldersEdit {
         } catch (Exception e) {
 
         }
-        root = new DefaultTreeNode(new Folders("Progmatic", (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")), null);
+        root = new DefaultTreeNode(new Folders("Root", (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")), null);
         root.setExpanded(true);
 
         TreeMap<String, TreeNode> treeMap = new TreeMap<>();
