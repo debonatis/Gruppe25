@@ -180,27 +180,20 @@ public class FoldersEdit {
     private void ryddTreNode(TreeNode e) {
 
         if (!e.isLeaf()) {
-
             for (TreeNode h : e.getChildren()) {
                 ryddTreNode(h);
-
             }
-
         }
         if (e.isLeaf()) {
             fF.remove((Folders) e.getData());
             nodes.remove(((Folders) e.getData()).getFoldersPK().getFoldername());
-
             Folders f = (Folders) e.getData();
             for (Foldergroups g : fgF.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))) {
                 if (f.getFoldersPK().getFoldername().equalsIgnoreCase(g.getFoldergroupsPK().getFoldername())) {
                     fgF.remove(g);
                 }
-
             }
-
         }
-
     }
 
     public void deleteNode() {
