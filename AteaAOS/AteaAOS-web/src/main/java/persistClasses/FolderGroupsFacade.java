@@ -31,7 +31,7 @@ public class FolderGroupsFacade extends AbstractFacade<Foldergroups> {
     }
 
     public List<Foldergroups> FindAllfolder(String foldername) {
-        javax.persistence.Query q = getEntityManager().createNamedQuery("Foldergroups.findByUsername", Foldergroups.class);
+        javax.persistence.Query q = getEntityManager().createNamedQuery("Foldergroups.findByFoldername", Foldergroups.class);
         q.setParameter("foldername", foldername);
         return q.getResultList();
     }
