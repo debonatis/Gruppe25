@@ -95,6 +95,7 @@ public class FoldersEdit {
     }
 
     public void getFoldersFromDB() {
+        nodes.clear();
         for (Folders f : fF.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))) {
             nodes.put(f.getFoldersPK().getFoldername(), f.getParentfolder());
         }
