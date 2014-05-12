@@ -142,7 +142,7 @@ public class FoldersEdit {
     }
 
     public List<Foldergroups> getViewList() {
-        if(selectedNode.getData() == null) return new ArrayList<>();
+        
       if(!this.viewList.isEmpty()){
            for(Foldergroups f : this.viewList) {
                if(!f.getFoldergroupsPK().getFoldername().equalsIgnoreCase(((Folders)selectedNode.getData()).getFoldersPK().getFoldername()))
@@ -254,7 +254,7 @@ public class FoldersEdit {
 
     public String getName(Object s) {
         if (s == null) {
-            return "Select a Node";
+            return ((Folders)selectedNode.getData()).getFoldersPK().getFoldername();
         }
         Folders k = (Folders) s;
         return k.getFoldersPK().getFoldername();
