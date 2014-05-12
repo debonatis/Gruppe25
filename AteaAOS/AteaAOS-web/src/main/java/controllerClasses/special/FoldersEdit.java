@@ -226,7 +226,7 @@ public String getName(Object s){
                 Foldergroups sett = new Foldergroups(f.getFoldersPK().getFoldername(), f.getFoldersPK().getProjectid(), gr.getGroupsPK().getGroupname());
                 sett.setRw(Boolean.toString(isRw()));
                 sett.setR(Boolean.toString(isR()));
-                fgF.create(new Foldergroups(f.getFoldersPK().getFoldername(), f.getFoldersPK().getProjectid(), gr.getGroupsPK().getGroupname()));
+                fgF.create(sett);
             } catch (Exception k) {
 
             }
