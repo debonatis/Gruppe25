@@ -147,7 +147,7 @@ public class FoldersEdit {
     }
 
     public List<Foldergroups> getSecGr(Object s) {
-        Folders f = new Folders(new FoldersPK());
+        Folders f;
 
         if (s == null) {
             try {
