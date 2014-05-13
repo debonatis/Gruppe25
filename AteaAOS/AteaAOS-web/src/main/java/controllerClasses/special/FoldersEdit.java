@@ -112,7 +112,8 @@ public class FoldersEdit {
     }
 
     public void refresh() {
-        treeMap.clear();
+        treeMap = new TreeMap<>();
+        nodes = new HashMap<>();
         getFoldersFromDB();
         if (!nodes.isEmpty()) {
             for (String subordinateNodeName : nodes.keySet()) {
