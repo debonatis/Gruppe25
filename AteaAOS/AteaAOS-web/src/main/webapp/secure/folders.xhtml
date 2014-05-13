@@ -84,7 +84,7 @@
                             <p:dialog header="View Folder" widgetVar="dlg3" resizable="true">  
 
                                 <p:poll update="Liste"/>
-                                <p:dataTable var="gr" value="#{foldersEdit.viewList}" id="Liste" paginator="true" rows="10" editable="true">  
+                                <p:dataTable var="gr" value="#{foldersEdit.getSecGr(foldersEdit.selectedNode.data)}" id="Liste" paginator="true" rows="10" editable="true">  
 
                                     <f:facet name="header">  
                                         Security Group/s Securing: #{foldersEdit.getName(foldersEdit.selectedNode.data)}
