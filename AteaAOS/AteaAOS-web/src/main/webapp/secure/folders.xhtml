@@ -90,7 +90,7 @@
 
                     </p:tab>
                     <p:tab title="Folder Overview">
-                        <p:dataTable var="gr" value="#{foldersEdit.viewList}" id="Liste" paginator="true" rows="10" editable="true">  
+                        <p:dataTable var="gr" value="#{foldersEdit.folderGM}" id="Liste" paginator="true" rows="10" editable="true">  
 
                             <f:facet name="header">  
                                 Security Group/s Securing Folders
@@ -106,51 +106,40 @@
                                     <p:column headerText="RW" />
                                     <p:column headerText="R" />
                                 </p:row>
-                                <p:subTable var="stats" value="#{player.stats}">
+                                <p:subTable var="gr2" value="#{gr.grList}" id="subList">
                                     <f:facet name="header">
-                                        #{player.name} 
+                                        #{gr.foldername} 
                                     </f:facet>
 
                                     <p:column>
-                                        #{stats.season}
+                                        #{gr2.foldergroupsPK.groupname}
                                     </p:column>
 
                                     <p:column>
-                                        #{stats.goals}
+                                        <p:selectBooleanButton id="RW" value="#{foldersEdit.value(gr2.rw)}" onLabel="Yes" offLabel="No" /> 
                                     </p:column>
 
                                     <p:column>
-                                        #{stats.assists}
+                                        <p:selectBooleanButton id="R" value="#{foldersEdit.value(gr2.r)}" onLabel="Yes" offLabel="No" /> 
                                     </p:column>
+                                    <p:column headerText="Delete">
+
+                                <p:commandButton icon="ui-icon-close" title="remove from list"
+                                                 actionListener="#{foldersEdit.delSecGroup(gr2)}" update="subListe" />
+                            </p:column>
 
                                     <p:columnGroup type="footer">
                                         <p:row>
-                                            <p:column footerText="Totals: " style="text-align:right"/>
-                                            <p:column footerText="#{player.allGoals}" />
-                                            <p:column footerText="#{player.allAssists}" />
+                                            <p:column footerText="-" style="text-align:right"/>
+
                                         </p:row>
                                     </p:columnGroup>
                                 </p:subTable>
                             </p:columnGroup>
-                            <p:column headerText="FolderName" style="width:30%"> 
-                                <h:outputText value="#{gr.foldergroupsPK.groupname}" />  
-                            </p:column>  
-                            <p:column headerText="Group name" style="width:30%"> 
-                                <h:outputText value="#{gr.foldergroupsPK.groupname}" />  
-                            </p:column>  
-                            <p:column headerText="RW" style="width:30%"> 
-                                <p:selectBooleanButton id="RW" value="#{foldersEdit.value(gr.rw)}" onLabel="Yes" offLabel="No" /> 
-                            </p:column>  
-                            <p:column headerText="R" style="width:30%"> 
-                                <p:selectBooleanButton id="R" value="#{foldersEdit.value(gr.r)}" onLabel="Yes" offLabel="No" />  
-                            </p:column>  
 
 
-                            <p:column headerText="Delete">
 
-                                <p:commandButton icon="ui-icon-close" title="remove from list"
-                                                 actionListener="#{foldersEdit.delSecGroup(gr)}" update="Liste" />
-                            </p:column>
+                            
 
                         </p:dataTable>   
 

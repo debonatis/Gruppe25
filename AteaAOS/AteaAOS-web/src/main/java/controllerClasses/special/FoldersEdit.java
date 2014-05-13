@@ -5,6 +5,7 @@
  */
 package controllerClasses.special;
 
+import controllerClasses.special.model.FolderGroupsModel;
 import entityModels.Foldergroups;
 import entityModels.Folders;
 import entityModels.FoldersPK;
@@ -45,18 +46,18 @@ public class FoldersEdit {
     private Folders folder = new Folders(new FoldersPK());
     private List<Groups> gruSel = new ArrayList<>();
     private List<Groups> gru = new ArrayList<>();
-    private List<Foldergroups> viewList = new ArrayList<>();
+
     private boolean rw = false;
     private boolean r = false;
     private HashMap<String, String> nodes = new HashMap<>();
     private String nameText = "";
+    private List<FolderGroupsModel> folderGM = new ArrayList<>();
     private TreeMap<String, TreeNode> treeMap = new TreeMap<>();
 
     public FoldersEdit() {
-
+        lagTre();
     }
 
-    @PostConstruct
     public void lagTre() {
         String projectID = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID");
 
@@ -66,7 +67,21 @@ public class FoldersEdit {
             fF.create(new Folders("Root", projectID));
 
         }
-        this.viewList = fgF.findAllPro(projectID);
+        List<Foldergroups> k = fgF.findAllPro(projectID);
+        List<Folders> l = fF.findAllPro(projectID);
+        folderGM = new ArrayList<>();
+        FolderGroupsModel j = new FolderGroupsModel();
+        for (Folders f : l) {
+
+            for (Foldergroups fg : k) {
+                j = new FolderGroupsModel(f.getFoldersPK().getFoldername(), new ArrayList<Foldergroups>());
+                if (fg.getFoldergroupsPK().getFoldername().equalsIgnoreCase(j.getFoldername())) {
+                    j.getGrList().add(fg);
+                }
+
+            }
+            folderGM.add(j);
+        }
         getFoldersFromDB();
         try {
 
@@ -109,6 +124,14 @@ public class FoldersEdit {
         }
     }
 
+    public List<FolderGroupsModel> getFolderGM() {
+        return folderGM;
+    }
+
+    public void setFolderGM(List<FolderGroupsModel> folderGM) {
+        this.folderGM = folderGM;
+    }
+
     public boolean isRw() {
         return rw;
     }
@@ -139,17 +162,6 @@ public class FoldersEdit {
 
     public void setGru(List<Groups> gru) {
         this.gru = gru;
-    }
-
-    public List<Foldergroups> getViewList() {
-
-        return this.viewList;
-    }
-
-    
-
-    public void setViewList(List<Foldergroups> viewList) {
-        this.viewList = viewList;
     }
 
     public String getNameText() {
