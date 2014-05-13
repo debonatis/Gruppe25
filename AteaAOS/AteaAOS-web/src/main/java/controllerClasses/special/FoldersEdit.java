@@ -122,7 +122,7 @@ public class FoldersEdit {
             for (String subordinateNodeName : nodes.keySet()) {
                 if (subordinateNodeName != null) {
                     TreeNode treeNode = new DefaultTreeNode(new Folders(new FoldersPK(subordinateNodeName, proString)), root);
-//                treeNode.setExpanded(nodeExpanded);
+                    treeNode.setExpanded(true);
                     treeMap.put(subordinateNodeName, treeNode);
                 }
             }
