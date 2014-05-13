@@ -55,9 +55,10 @@ public class FoldersEdit {
     private TreeMap<String, TreeNode> treeMap = new TreeMap<>();
 
     public FoldersEdit() {
-        lagTre();
+        
     }
 
+    @PostConstruct
     public void lagTre() {
         String projectID = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID");
 
