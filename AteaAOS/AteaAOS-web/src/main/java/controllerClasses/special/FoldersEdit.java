@@ -146,34 +146,7 @@ public class FoldersEdit {
         return this.viewList;
     }
 
-    public List<Foldergroups> getSecGr(Object s) {
-        Folders f;
-
-        if (s == null) {
-            try {
-                f = ((Folders) selectedNode.getData());
-            } catch (NullPointerException e) {
-                f = new Folders("Root", (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
-            }
-        }else{
-        f = (Folders) s;
-        }
-        List<Foldergroups> listeFo = new ArrayList<>();
-        if (!getViewList().isEmpty()) {
-            try {
-                for (Foldergroups i : getViewList()) {
-                    if (!i.getFoldergroupsPK().getFoldername().equalsIgnoreCase(f.getFoldersPK().getFoldername())) {
-                        listeFo.add(i);
-                    }
-
-                }
-
-            } catch (NullPointerException e) {
-                listeFo.clear();
-            }
-        }
-        return listeFo;
-    }
+    
 
     public void setViewList(List<Foldergroups> viewList) {
         this.viewList = viewList;

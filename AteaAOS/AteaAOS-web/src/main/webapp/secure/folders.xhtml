@@ -18,7 +18,7 @@
                             <p:growl id="messages" showDetail="true" />  
 
                             <p:contextMenu for="treeSingle">  
-                                <p:menuitem value="View" update="messages, treeSingle" onclick="dlg3.show()" icon="ui-icon-search" />  
+
                                 <p:menuitem value="Delete" update="treeSingle" actionListener="#{foldersEdit.deleteNode()}" icon="ui-icon-close"/>
                                 <p:menuitem value="Add folder" update="treeSingle" onclick="dlg.show()" icon="ui-icon-plus"/>
                                 <p:menuitem value="Add Groups" update="treeSingle" onclick="dlg2.show()"  icon="ui-icon-plus"/>
@@ -81,42 +81,82 @@
 
 
                             </p:dialog> 
-                            <p:dialog header="View Folder" widgetVar="dlg3" resizable="true">  
 
-                                
-                                <p:dataTable var="gr" value="#{foldersEdit.getSecGr(foldersEdit.selectedNode.data)}" id="Liste" paginator="true" rows="10" editable="true">  
-
-                                    <f:facet name="header">  
-                                        Security Group/s Securing: #{foldersEdit.getName(foldersEdit.selectedNode.data)}
-                                    </f:facet>  
-                                    <p:column headerText="Group name" style="width:30%"> 
-                                        <h:outputText value="#{gr.foldergroupsPK.groupname}" />  
-                                    </p:column>  
-                                    <p:column headerText="RW" style="width:30%"> 
-                                        <p:selectBooleanButton id="RW" value="#{foldersEdit.value(gr.rw)}" onLabel="Yes" offLabel="No" /> 
-                                    </p:column>  
-                                    <p:column headerText="R" style="width:30%"> 
-                                        <p:selectBooleanButton id="R" value="#{foldersEdit.value(gr.r)}" onLabel="Yes" offLabel="No" />  
-                                    </p:column>  
-
-
-                                    <p:column headerText="Delete">
-
-                                        <p:commandButton icon="ui-icon-close" title="remove from list"
-                                                         actionListener="#{foldersEdit.delSecGroup(gr)}" update="Liste" />
-                                    </p:column>
-
-                                </p:dataTable>   
-
-                                <p:commandButton  id="submitButton3" value="OK"  oncomplete="PF('dlg3').hide();"/>  
-                          
-
-                        </p:dialog> 
 
                             <p:commandButton  value="Refresh"   action="#{foldersEdit.lagTre()}" icon="ui-icon-refresh" update="messages, treeSingle"/> 
-                           
+
                         </h:form>
-                        
+
+
+                    </p:tab>
+                    <p:tab title="Folder Overview">
+                        <p:dataTable var="gr" value="#{foldersEdit.viewList}" id="Liste" paginator="true" rows="10" editable="true">  
+
+                            <f:facet name="header">  
+                                Security Group/s Securing Folders
+
+                            </f:facet>  
+                            <p:columnGroup type="header">
+                                <p:row>
+                                    <p:column rowspan="2" headerText="Folder" />
+                                    <p:column colspan="2" headerText="Permissons" />
+                                </p:row>
+
+                                <p:row>
+                                    <p:column headerText="RW" />
+                                    <p:column headerText="R" />
+                                </p:row>
+                                <p:subTable var="stats" value="#{player.stats}">
+                                    <f:facet name="header">
+                                        #{player.name} 
+                                    </f:facet>
+
+                                    <p:column>
+                                        #{stats.season}
+                                    </p:column>
+
+                                    <p:column>
+                                        #{stats.goals}
+                                    </p:column>
+
+                                    <p:column>
+                                        #{stats.assists}
+                                    </p:column>
+
+                                    <p:columnGroup type="footer">
+                                        <p:row>
+                                            <p:column footerText="Totals: " style="text-align:right"/>
+                                            <p:column footerText="#{player.allGoals}" />
+                                            <p:column footerText="#{player.allAssists}" />
+                                        </p:row>
+                                    </p:columnGroup>
+                                </p:subTable>
+                            </p:columnGroup>
+                            <p:column headerText="FolderName" style="width:30%"> 
+                                <h:outputText value="#{gr.foldergroupsPK.groupname}" />  
+                            </p:column>  
+                            <p:column headerText="Group name" style="width:30%"> 
+                                <h:outputText value="#{gr.foldergroupsPK.groupname}" />  
+                            </p:column>  
+                            <p:column headerText="RW" style="width:30%"> 
+                                <p:selectBooleanButton id="RW" value="#{foldersEdit.value(gr.rw)}" onLabel="Yes" offLabel="No" /> 
+                            </p:column>  
+                            <p:column headerText="R" style="width:30%"> 
+                                <p:selectBooleanButton id="R" value="#{foldersEdit.value(gr.r)}" onLabel="Yes" offLabel="No" />  
+                            </p:column>  
+
+
+                            <p:column headerText="Delete">
+
+                                <p:commandButton icon="ui-icon-close" title="remove from list"
+                                                 actionListener="#{foldersEdit.delSecGroup(gr)}" update="Liste" />
+                            </p:column>
+
+                        </p:dataTable>   
+
+
+
+
                     </p:tab>
 
                 </p:tabView>
