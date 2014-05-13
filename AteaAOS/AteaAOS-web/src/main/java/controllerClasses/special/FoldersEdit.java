@@ -142,18 +142,22 @@ public class FoldersEdit {
     }
 
     public List<Foldergroups> getViewList() {
-        
-      if(!this.viewList.isEmpty()){
-           for(Foldergroups f : this.viewList) {
-               if(!f.getFoldergroupsPK().getFoldername().equalsIgnoreCase(((Folders)selectedNode.getData()).getFoldersPK().getFoldername()))
-                   this.viewList.remove(f);
-               
-           }
-      }
-        
-            if(this.viewList.isEmpty())this.viewList = new ArrayList<>();
 
-        
+        if (!this.viewList.isEmpty()) {
+            try {
+                for (Foldergroups f : this.viewList) {
+                    if (!f.getFoldergroupsPK().getFoldername().equalsIgnoreCase(((Folders) selectedNode.getData()).getFoldersPK().getFoldername())) {
+                        this.viewList.remove(f);
+                    }
+
+                }
+            } catch (NullPointerException e) {
+                if (this.viewList.isEmpty()) {
+                    this.viewList = new ArrayList<>();
+                }
+            }
+        }
+
         return this.viewList;
     }
 
@@ -254,7 +258,11 @@ public class FoldersEdit {
 
     public String getName(Object s) {
         if (s == null) {
-            return ((Folders)selectedNode.getData()).getFoldersPK().getFoldername();
+            try{
+            return ((Folders) selectedNode.getData()).getFoldersPK().getFoldername();
+            } catch(NullPointerException e){
+                return "Root";
+            }
         }
         Folders k = (Folders) s;
         return k.getFoldersPK().getFoldername();
