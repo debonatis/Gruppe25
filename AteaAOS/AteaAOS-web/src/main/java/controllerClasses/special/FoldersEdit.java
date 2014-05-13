@@ -142,15 +142,17 @@ public class FoldersEdit {
     }
 
     public List<Foldergroups> getViewList() {
-
+List<Foldergroups> listeFo = new ArrayList<>();
         if (!this.viewList.isEmpty()) {
             try {
                 for (Foldergroups f : this.viewList) {
                     if (!f.getFoldergroupsPK().getFoldername().equalsIgnoreCase(((Folders) selectedNode.getData()).getFoldersPK().getFoldername())) {
-                        this.viewList.remove(f);
+                        listeFo.add(f);
                     }
 
                 }
+                viewList.removeAll(listeFo);
+                
             } catch (NullPointerException e) {
                 if (this.viewList.isEmpty()) {
                     this.viewList = new ArrayList<>();
