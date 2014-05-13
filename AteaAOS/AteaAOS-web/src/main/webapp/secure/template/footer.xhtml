@@ -14,7 +14,7 @@
                 <p:poll interval="1" update="projectID, username"/>
                 <p:outputPanel>
                     <p:outputLabel  id="projectID" value="#{security.projectID} is selected as the project." rendered="#{not empty security.projectID}" style="float: left"/>
-                    <p:outputLabel  id="projectID" value="select a project." rendered="#{empty security.projectID}" style="float: left"/>
+                    <p:outputLabel  id="projectID2" value="select a project." rendered="#{empty security.projectID}" style="float: left"/>
                 </p:outputPanel>
                 <p:outputPanel>
                     <p:commandLink  id="username" value="You are logged in as #{security.username}." rendered="#{not empty security.username}" style="float: left"/>
