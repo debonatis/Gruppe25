@@ -142,25 +142,37 @@ public class FoldersEdit {
     }
 
     public List<Foldergroups> getViewList() {
-List<Foldergroups> listeFo = new ArrayList<>();
-        if (!this.viewList.isEmpty()) {
+
+        return this.viewList;
+    }
+
+    public List<Foldergroups> getSecGr(Object s) {
+        Folders f = new Folders(new FoldersPK());
+
+        if (s == null) {
             try {
-                for (Foldergroups f : this.viewList) {
-                    if (!f.getFoldergroupsPK().getFoldername().equalsIgnoreCase(((Folders) selectedNode.getData()).getFoldersPK().getFoldername())) {
-                        listeFo.add(f);
+                f = ((Folders) selectedNode.getData());
+            } catch (NullPointerException e) {
+                f = new Folders("Root", (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
+            }
+        }else{
+        f = (Folders) s;
+        }
+        List<Foldergroups> listeFo = new ArrayList<>();
+        if (!getViewList().isEmpty()) {
+            try {
+                for (Foldergroups i : getViewList()) {
+                    if (!i.getFoldergroupsPK().getFoldername().equalsIgnoreCase(f.getFoldersPK().getFoldername())) {
+                        listeFo.add(i);
                     }
 
                 }
-                viewList.removeAll(listeFo);
-                
+
             } catch (NullPointerException e) {
-                if (this.viewList.isEmpty()) {
-                    this.viewList = new ArrayList<>();
-                }
+                listeFo.clear();
             }
         }
-
-        return this.viewList;
+        return listeFo;
     }
 
     public void setViewList(List<Foldergroups> viewList) {
@@ -260,9 +272,9 @@ List<Foldergroups> listeFo = new ArrayList<>();
 
     public String getName(Object s) {
         if (s == null) {
-            try{
-            return ((Folders) selectedNode.getData()).getFoldersPK().getFoldername();
-            } catch(NullPointerException e){
+            try {
+                return ((Folders) selectedNode.getData()).getFoldersPK().getFoldername();
+            } catch (NullPointerException e) {
                 return "Root";
             }
         }
