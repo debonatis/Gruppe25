@@ -50,9 +50,17 @@
                 <from-outcome>folders</from-outcome> 
                 <to-view-id>/secure/folders.xhtml</to-view-id> 
             </navigation-case>
+            <navigation-case> 
+                <from-outcome>emailcontacts</from-outcome> 
+                <to-view-id>/secure/emailContacts.xhtml</to-view-id> 
+            </navigation-case>
         </navigation-rule> 
         
         <navigation-rule>  
+            <navigation-case> 
+                <from-outcome>emailcontacts</from-outcome> 
+                <to-view-id>/secure/emailContacts.xhtml</to-view-id> 
+            </navigation-case>
             <navigation-case> 
                 <from-outcome>printers</from-outcome> 
                 <to-view-id>/secure/printers.xhtml</to-view-id> 
@@ -84,10 +92,10 @@
                 
             </navigation-case>
             <navigation-case> 
-                    <from-outcome>admin</from-outcome> 
-                    <to-view-id>/adminSecure/admin.xhtml</to-view-id> 
-                </navigation-case>
-                <navigation-case> 
+                <from-outcome>admin</from-outcome> 
+                <to-view-id>/adminSecure/admin.xhtml</to-view-id> 
+            </navigation-case>
+            <navigation-case> 
                 <from-outcome>folders</from-outcome> 
                 <to-view-id>/secure/folders.xhtml</to-view-id> 
             </navigation-case>
@@ -98,7 +106,11 @@
         </navigation-rule>
          
         <navigation-rule>  
-            <from-view-id>/secure/uploadCSV.xhtml</from-view-id>  
+            <from-view-id>/secure/uploadCSV.xhtml</from-view-id> 
+            <navigation-case> 
+                <from-outcome>emailcontacts</from-outcome> 
+                <to-view-id>/secure/emailContacts.xhtml</to-view-id> 
+            </navigation-case> 
             <navigation-case>  
                 <from-outcome>csv</from-outcome>  
                 <to-view-id>/secure/uploadCSV.xhtml</to-view-id>  
@@ -121,10 +133,10 @@
                 
             </navigation-case>
             <navigation-case> 
-                    <from-outcome>admin</from-outcome> 
-                    <to-view-id>/adminSecure/admin.xhtml</to-view-id> 
-                </navigation-case>
-                <navigation-case> 
+                <from-outcome>admin</from-outcome> 
+                <to-view-id>/adminSecure/admin.xhtml</to-view-id> 
+            </navigation-case>
+            <navigation-case> 
                 <from-outcome>folders</from-outcome> 
                 <to-view-id>/secure/folders.xhtml</to-view-id> 
             </navigation-case>
@@ -136,6 +148,10 @@
 
         <navigation-rule>  
             <from-view-id>/secure/uploadCSV.xhtml</from-view-id>  
+            <navigation-case> 
+                <from-outcome>emailcontacts</from-outcome> 
+                <to-view-id>/secure/emailContacts.xhtml</to-view-id> 
+            </navigation-case>
             <navigation-case>  
                 <from-outcome>csv</from-outcome>  
                 <to-view-id>/secure/uploadCSV.xhtml</to-view-id>  
@@ -149,7 +165,7 @@
                 <to-view-id>/secure/UsersAdd.xhtml</to-view-id>  
             </navigation-case>  
             <navigation-case> 
-                                <from-outcome>home</from-outcome> 
+                <from-outcome>home</from-outcome> 
                                 <to-view-id>/secure/adminPage.xhtml</to-view-id> 
                             </navigation-case>
             <navigation-case> 
@@ -160,7 +176,7 @@
                 <from-outcome>admin</from-outcome> 
                 <to-view-id>/adminSecure/admin.xhtml</to-view-id> 
             </navigation-case>
-             <navigation-case> 
+            <navigation-case> 
                 <from-outcome>printers</from-outcome> 
                 <to-view-id>/secure/printers.xhtml</to-view-id> 
             </navigation-case>
@@ -175,6 +191,10 @@
  
         </navigation-rule> 
         <navigation-rule> 
+            <navigation-case> 
+                <from-outcome>emailcontacts</from-outcome> 
+                <to-view-id>/secure/emailContacts.xhtml</to-view-id> 
+            </navigation-case>
             <navigation-case> 
                 <from-outcome>printers</from-outcome> 
                 <to-view-id>/secure/printers.xhtml</to-view-id> 
@@ -222,6 +242,10 @@
             <navigation-case>  
                 <from-outcome>csv</from-outcome>  
                 <to-view-id>/secure/uploadCSV.xhtml</to-view-id>  
+            </navigation-case>
+            <navigation-case> 
+                <from-outcome>emailcontacts</from-outcome> 
+                <to-view-id>/secure/emailContacts.xhtml</to-view-id> 
             </navigation-case> 
             <navigation-case>  
                 <from-outcome>apps</from-outcome>  
@@ -243,7 +267,7 @@
                 <from-outcome>admin</from-outcome> 
                 <to-view-id>/adminSecure/admin.xhtml</to-view-id> 
             </navigation-case>
-             <navigation-case> 
+            <navigation-case> 
                 <from-outcome>printers</from-outcome> 
                 <to-view-id>/secure/printers.xhtml</to-view-id> 
             </navigation-case>
@@ -260,6 +284,10 @@
         </navigation-rule> 
         
         <navigation-rule> 
+            <navigation-case> 
+                <from-outcome>emailcontacts</from-outcome> 
+                <to-view-id>/secure/emailContacts.xhtml</to-view-id> 
+            </navigation-case>
             <navigation-case> 
                 <from-outcome>printers</from-outcome> 
                 <to-view-id>/secure/printers.xhtml</to-view-id> 
@@ -303,6 +331,10 @@
         <navigation-rule> 
             <from-view-id>/secure/printers.xhtml</from-view-id>  
             <navigation-case> 
+                <from-outcome>emailcontacts</from-outcome> 
+                <to-view-id>/secure/emailContacts.xhtml</to-view-id> 
+            </navigation-case>
+            <navigation-case> 
                 <from-outcome>printers</from-outcome> 
                 <to-view-id>/secure/printers.xhtml</to-view-id> 
             </navigation-case>
@@ -343,6 +375,10 @@
  
         </navigation-rule>
         <navigation-rule>
+            <navigation-case> 
+                <from-outcome>emailcontacts</from-outcome> 
+                <to-view-id>/secure/emailContacts.xhtml</to-view-id> 
+            </navigation-case>
             <from-view-id>/secure/domains.xhtml</from-view-id>   
             <navigation-case> 
                 <from-outcome>printers</from-outcome> 
@@ -384,7 +420,11 @@
         </navigation-rule>
             
         <navigation-rule>
-            <from-view-id>/adminSecure/admin.xhtml</from-view-id>   
+            <from-view-id>/adminSecure/admin.xhtml</from-view-id> 
+            <navigation-case> 
+                <from-outcome>emailcontacts</from-outcome> 
+                <to-view-id>/secure/emailContacts.xhtml</to-view-id> 
+            </navigation-case>  
             <navigation-case> 
                 <from-outcome>printers</from-outcome> 
                 <to-view-id>/secure/printers.xhtml</to-view-id> 
@@ -427,6 +467,56 @@
         </navigation-rule>
         <navigation-rule>
             <from-view-id>/secure/folders.xhtml</from-view-id> 
+            <navigation-case> 
+                <from-outcome>emailcontacts</from-outcome> 
+                <to-view-id>/secure/emailContacts.xhtml</to-view-id> 
+            </navigation-case>
+            <navigation-case> 
+                <from-outcome>folders</from-outcome> 
+                <to-view-id>/secure/folders.xhtml</to-view-id> 
+            </navigation-case>  
+            <navigation-case> 
+                <from-outcome>printers</from-outcome> 
+                <to-view-id>/secure/printers.xhtml</to-view-id> 
+            </navigation-case>
+            <navigation-case> 
+                <from-outcome>domains</from-outcome> 
+                <to-view-id>/secure/domains.xhtml</to-view-id> 
+            </navigation-case> 
+            
+            <navigation-case>  
+                <from-outcome>csv</from-outcome>  
+                <to-view-id>/secure/uploadCSV.xhtml</to-view-id>  
+            </navigation-case> 
+            <navigation-case>  
+                <from-outcome>apps</from-outcome>  
+                <to-view-id>/secure/applicationUsers.xhtml</to-view-id>  
+            </navigation-case>
+            <navigation-case>  
+                <from-outcome>users</from-outcome>  
+                <to-view-id>/secure/UsersAdd.xhtml</to-view-id>  
+            </navigation-case>  
+            <navigation-case> 
+                <from-outcome>home</from-outcome> 
+                <to-view-id>/secure/adminPage.xhtml</to-view-id> 
+            </navigation-case>
+            <navigation-case> 
+                <from-outcome>groups</from-outcome> 
+                <to-view-id>/secure/GroupsUsers.xhtml</to-view-id> 
+            </navigation-case>
+            <navigation-case> 
+                <from-outcome>admin</from-outcome> 
+                <to-view-id>/adminSecure/admin.xhtml</to-view-id> 
+            </navigation-case>
+            
+ 
+        </navigation-rule>
+        <navigation-rule>
+            <from-view-id>/secure/emailContacts.xhtml</from-view-id> 
+            <navigation-case> 
+                <from-outcome>emailcontacts</from-outcome> 
+                <to-view-id>/secure/emailContacts.xhtml</to-view-id> 
+            </navigation-case>
             <navigation-case> 
                 <from-outcome>folders</from-outcome> 
                 <to-view-id>/secure/folders.xhtml</to-view-id> 

@@ -12,135 +12,77 @@
             <ui:define name="center">
 
                 <p:tabView id="tabView">
-                    <p:tab id="tab1" title="Create new Domain">  
+                    <p:tab id="tab1" title="Create new Email Contact">  
                         <h:form id="userForm">
                             <p:growl id="growl" sticky="true" showDetail="true"/>  
 
 
-                            <p:wizard flowListener="#{email}">
-                                <p:tab id="userinput" title="Create Domain">  
-
-                                    <p:panel header="Domain Details ">  
-
-                                        <h:messages errorClass="error"/>  
-
-                                        <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid">  
-                                            <h:outputText value="Domainname: *" />  
-                                            <p:inputText required="true" label="domainname"  
-                                                         value="#{domainEdit.domain.domainname}" />  
-
-                                            <h:outputText value="IP-pointer: *" />  
-                                            <p:inputText required="true" label="ippointer"  
-                                                         value="#{domainEdit.domain.ippointer}" />  
-
-                                            <h:outputText value="Domain Function: *" />  
-                                            <p:inputText required="true" label="domainfunction"  value="#{domainEdit.domain.domainfunction}" />  
 
 
-                                        </h:panelGrid>  
-                                    </p:panel>  
-                                </p:tab>  
-                                <p:tab id="workspec" title="Registar Details">  
-                                    <p:panel header="Technical Details">  
+                            <p:panel>  
 
-                                        <h:messages errorClass="error"/>  
+                                <h:messages errorClass="error"/>  
 
-                                        <h:panelGrid columns="2" columnClasses="label, value">  
-                                            <h:outputText value="Registrar *: " />  
-                                            <p:inputText required="true" label="registrar"  value="#{domainEdit.domain.registrar}" />  
+                                <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid">  
+                                    <h:outputText value="Contact Name: *" />  
+                                    <p:inputText required="true" label="contactname"  
+                                                 value="#{emailContactsEdit.contact.emailcontactsPK.contactname}" />  
 
-                                            <h:outputText value="Registrar Contact *: " />  
-                                            <p:inputText required="true" label="registrarcontact" value="#{domainEdit.domain.registrarcontact}" />  
-                                            
+                                    <h:outputText value="Mail Address: *" />  
+                                    <p:inputText required="true" label="emailaddress"  
+                                                 value="#{emailContactsEdit.contact.emailaddress}" />  
 
-                                        </h:panelGrid>  
-                                        <p:commandButton value="Submit" update="growl"   
-                                                         actionListener="#{domainEdit.save}" oncomplete="wiz.loadStep(wiz.cfg.steps[0], true)"/>  
-                                    </p:panel>  
-                                </p:tab> 
 
-                            </p:wizard>
+
+                                </h:panelGrid>  
+                            </p:panel>  
+
 
                         </h:form>
                     </p:tab>
-                    <p:tab id="table" title="Edit Domains">
+                    <p:tab id="table" title="Edit Email Contacts">
                         <h:form id="editForm">
                             <p:panel >
                                 <p:growl id="messages" showDetail="true"/> 
-                                <p:dataTable id="roger" value="#{domainEdit.dlist}" var="item" cellSeparator="2" paginator="true" rows="10" editable="true">
+                                <p:dataTable id="roger" value="#{emailContactsEdit.clist}" var="item" cellSeparator="2" paginator="true" rows="10" editable="true">
 
-                                    <p:ajax event="rowEdit" listener="#{domainEdit.onEdit}" update=":tabView:editForm:messages" />  
-                                    <p:ajax event="rowEditCancel" listener="#{domainEdit.onCancel}" update=":tabView:editForm:messages" />
+                                    <p:ajax event="rowEdit" listener="#{emailContactsEdit.onEdit}" update=":tabView:editForm:messages" />  
+                                    <p:ajax event="rowEditCancel" listener="#{emailContactsEdit.onCancel}" update=":tabView:editForm:messages" />
 
                                     <p:column style="width:6%" headerText="Edit">  
                                         <p:rowEditor  />  
                                     </p:column> 
 
-                                    <p:column headerText="Domainname" style="width:30%" 
-                                              id="usernameColumn" filterBy="domainname" filterMatchMode="contains">
-                                        <h:outputText value="#{item.domainname}" />
+                                    <p:column headerText="Contact Name" style="width:30%" 
+                                              id="usernameColumn" filterBy="contactname" filterMatchMode="contains">
+                                        <h:outputText value="#{item.emailcontactsPK.contactname}" />
                                     </p:column>  
 
-                                    <p:column headerText="Domain Function" style="width:30%" 
-                                              id="firstnameColumn" filterBy="domainfunction" filterMatchMode="contains">  
+                                    <p:column headerText="Mail Address" style="width:30%" 
+                                              id="firstnameColumn" filterBy="emailaddress" filterMatchMode="contains">  
                                         <p:cellEditor>  
                                             <f:facet name="output">  
-                                                <h:outputText value="#{item.domainfunction}" />  
+                                                <h:outputText value="#{item.emailaddress}" />  
                                             </f:facet>  
                                             <f:facet name="input">  
-                                                <p:inputText value="#{item.domainfunction}" style="width:100%"/>  
+                                                <p:inputText value="#{item.emailaddress}" style="width:100%"/>  
                                             </f:facet>  
                                         </p:cellEditor>  
                                     </p:column>
 
-                                    <p:column headerText="IP-pointer" style="width:30%"
-                                              id="lastnameColumn" filterBy="ippointer" filterMatchMode="contains">  
-                                        <p:cellEditor>  
-                                            <f:facet name="output">  
-                                                <h:outputText value="#{item.ippointer}" />  
-                                            </f:facet>  
-                                            <f:facet name="input">  
-                                                <p:inputText value="#{item.ippointer}" style="width:100%"/>  
-                                            </f:facet>  
-                                        </p:cellEditor>  
-                                    </p:column>
 
-                                    <p:column headerText="Registrar" style="width:30%"
-                                              id="employmentnrColumn" filterBy="registrar" filterMatchMode="contains">  
-                                        <p:cellEditor>  
-                                            <f:facet name="output">  
-                                                <h:outputText value="#{item.registrar}" />  
-                                            </f:facet>  
-                                            <f:facet name="input">  
-                                                <p:inputText value="#{item.registrar}" style="width:100%"/>  
-                                            </f:facet>  
-                                        </p:cellEditor>  
-                                    </p:column>
 
-                                    <p:column headerText="Registrar Contact" style="width:30%"
-                                              id="mobileColumn" filterBy="registrarcontact" filterMatchMode="contains">  
-                                        <p:cellEditor>  
-                                            <f:facet name="output">  
-                                                <h:outputText value="#{item.registrarcontact}" />  
-                                            </f:facet>  
-                                            <f:facet name="input">  
-                                                <p:inputText value="#{item.registrarcontact}" style="width:100%"/>  
-                                            </f:facet>  
-                                        </p:cellEditor>  
 
-                                    </p:column>
-                                  
-                                    
                                     <p:column headerText="Delete">
                                         <f:facet name="header">
                                             <h:outputText value="" />
                                         </f:facet>
                                         <p:commandButton icon="ui-icon-close" title="remove from list"
-                                                         actionListener="#{domainEdit.deleteItemDom(item)}" update="roger" />
+                                                         actionListener="#{emailContactsEdit.deleteItemDom(item)}" update="roger" />
                                     </p:column>
 
                                 </p:dataTable>
-                                <p:commandButton value="Refresh" action="#{domainEdit.init()}" icon="ui-icon-refresh" update="roger"/>
+                                <p:commandButton value="Refresh" action="#{emailContactsEdit.init()}" icon="ui-icon-refresh" update="roger"/>
                             </p:panel>
                         </h:form>
                     </p:tab>
