@@ -62,7 +62,7 @@ public class FoldersEdit {
     public void lagTre() {
         String projectID = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID");
 
-        root = new DefaultTreeNode(new Folders("Root", projectID), null);
+        root = new DefaultTreeNode(new Folders(new FoldersPK("Root", projectID)), null);
         root.setExpanded(true);
         if (fF.find(new FoldersPK("Root", projectID)) == null) {
             fF.create(new Folders("Root", projectID));
@@ -95,7 +95,7 @@ public class FoldersEdit {
         if (!nodes.isEmpty()) {
             for (String subordinateNodeName : nodes.keySet()) {
                 if (subordinateNodeName != null) {
-                    TreeNode treeNode = new DefaultTreeNode(new Folders(subordinateNodeName, projectID), root);
+                    TreeNode treeNode = new DefaultTreeNode(new Folders(new FoldersPK(subordinateNodeName, projectID)), root);
 //                treeNode.setExpanded(nodeExpanded);
                     treeMap.put(subordinateNodeName, treeNode);
                 }
@@ -113,7 +113,7 @@ public class FoldersEdit {
 
     public void refresh() {
         String proString = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID");
-        root = new DefaultTreeNode(new Folders("Root", proString), null);
+        root = new DefaultTreeNode(new Folders( new FoldersPK("Root", proString)), null);
         root.setExpanded(true);
         treeMap = new TreeMap<>();
         nodes = new HashMap<>();
@@ -121,7 +121,7 @@ public class FoldersEdit {
         if (!nodes.isEmpty()) {
             for (String subordinateNodeName : nodes.keySet()) {
                 if (subordinateNodeName != null) {
-                    TreeNode treeNode = new DefaultTreeNode(new Folders(subordinateNodeName, proString), root);
+                    TreeNode treeNode = new DefaultTreeNode(new Folders(new FoldersPK(subordinateNodeName, proString)), root);
 //                treeNode.setExpanded(nodeExpanded);
                     treeMap.put(subordinateNodeName, treeNode);
                 }
