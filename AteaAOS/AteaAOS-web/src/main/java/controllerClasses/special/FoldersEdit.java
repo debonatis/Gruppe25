@@ -42,7 +42,7 @@ public class FoldersEdit {
     private FolderGroupsFacade fgF;
     @EJB
     private GroupsFacade gF;
-    private TreeNode selectedNode = new DefaultTreeNode();
+    private TreeNode selectedNode;
     private Folders folder = new Folders(new FoldersPK("Empty", "Empty"));
     private List<Groups> gruSel = new ArrayList<>();
     private List<Groups> gru = new ArrayList<>();
@@ -96,7 +96,7 @@ public class FoldersEdit {
             for (String subordinateNodeName : nodes.keySet()) {
                 if (subordinateNodeName != null) {
                     TreeNode treeNode = new DefaultTreeNode(new Folders(new FoldersPK(subordinateNodeName, projectID)), root);
-//                treeNode.setExpanded(nodeExpanded);
+                    treeNode.setExpanded(true);
                     treeMap.put(subordinateNodeName, treeNode);
                 }
             }
@@ -113,7 +113,7 @@ public class FoldersEdit {
 
     public void refresh() {
         String proString = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID");
-        root = new DefaultTreeNode(new Folders( new FoldersPK("Root", proString)), null);
+        root = new DefaultTreeNode(new Folders(new FoldersPK("Root", proString)), null);
         root.setExpanded(true);
         treeMap = new TreeMap<>();
         nodes = new HashMap<>();
