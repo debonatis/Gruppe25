@@ -112,6 +112,8 @@ public class FoldersEdit {
     }
 
     public void refresh() {
+        root = new DefaultTreeNode(new Folders("Root", (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")), null);
+        root.setExpanded(true);
         treeMap = new TreeMap<>();
         nodes = new HashMap<>();
         getFoldersFromDB();
