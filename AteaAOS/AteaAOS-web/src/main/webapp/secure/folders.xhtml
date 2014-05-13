@@ -83,7 +83,7 @@
                             </p:dialog> 
 
 
-                            <p:commandButton  value="Refresh"   action="#{foldersEdit.lagTre()}" icon="ui-icon-refresh" update="messages, treeSingle"/> 
+                            <p:commandButton  value="Refresh"   action="#{foldersEdit.refresh()}" icon="ui-icon-refresh" update="messages, treeSingle"/> 
 
                         </h:form>
 
@@ -144,7 +144,7 @@
 
                         </p:dataTable>   
 
-
+                            <p:commandButton update="Liste" action="#{foldersEdit.lagTre()}"/>
                         </h:form>
 
                     </p:tab>

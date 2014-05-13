@@ -55,7 +55,7 @@ public class FoldersEdit {
     private TreeMap<String, TreeNode> treeMap = new TreeMap<>();
 
     public FoldersEdit() {
-        
+
     }
 
     @PostConstruct
@@ -96,6 +96,27 @@ public class FoldersEdit {
             for (String subordinateNodeName : nodes.keySet()) {
                 if (subordinateNodeName != null) {
                     TreeNode treeNode = new DefaultTreeNode(new Folders(subordinateNodeName, projectID), root);
+//                treeNode.setExpanded(nodeExpanded);
+                    treeMap.put(subordinateNodeName, treeNode);
+                }
+            }
+
+            for (Map.Entry<String, String> entry : nodes.entrySet()) {
+                String subordinateNodeName = entry.getKey();
+                String superiorNodeName = entry.getValue();
+                if (superiorNodeName != null) {
+                    setParentFolder(treeMap.get(subordinateNodeName), treeMap.get(superiorNodeName));
+                }
+            }
+        }
+    }
+
+    public void refresh() {
+        getFoldersFromDB();
+        if (!nodes.isEmpty()) {
+            for (String subordinateNodeName : nodes.keySet()) {
+                if (subordinateNodeName != null) {
+                    TreeNode treeNode = new DefaultTreeNode(new Folders(subordinateNodeName, (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")), root);
 //                treeNode.setExpanded(nodeExpanded);
                     treeMap.put(subordinateNodeName, treeNode);
                 }
@@ -239,6 +260,7 @@ public class FoldersEdit {
         treeMap.remove(getName(selectedNode.getData()));
         nodes.remove(getName(selectedNode.getData()));
         selectedNode = null;
+        refresh();
 
     }
 
@@ -253,7 +275,8 @@ public class FoldersEdit {
         fF.create(folder);
 
         folder = new Folders(new FoldersPK());
-        lagTre();
+        refresh();
+
     }
 
     public String getName(Object s) {
@@ -283,6 +306,7 @@ public class FoldersEdit {
         setR(false);
         setRw(false);
         gruSel.clear();
+        refresh();
 
     }
 }
