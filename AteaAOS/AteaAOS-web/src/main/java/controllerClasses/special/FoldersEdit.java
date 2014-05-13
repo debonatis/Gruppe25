@@ -112,7 +112,8 @@ public class FoldersEdit {
     }
 
     public void refresh() {
-        root = new DefaultTreeNode(new Folders("Root", (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")), null);
+        String proString = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID");
+        root = new DefaultTreeNode(new Folders("Root", proString), null);
         root.setExpanded(true);
         treeMap = new TreeMap<>();
         nodes = new HashMap<>();
@@ -120,7 +121,7 @@ public class FoldersEdit {
         if (!nodes.isEmpty()) {
             for (String subordinateNodeName : nodes.keySet()) {
                 if (subordinateNodeName != null) {
-                    TreeNode treeNode = new DefaultTreeNode(new Folders(subordinateNodeName, (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")), root);
+                    TreeNode treeNode = new DefaultTreeNode(new Folders(subordinateNodeName, proString), root);
 //                treeNode.setExpanded(nodeExpanded);
                     treeMap.put(subordinateNodeName, treeNode);
                 }
