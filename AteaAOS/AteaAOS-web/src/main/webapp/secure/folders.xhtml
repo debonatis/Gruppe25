@@ -90,6 +90,7 @@
 
                     </p:tab>
                     <p:tab title="Folder Overview">
+                        <h:form>
                         <p:dataTable var="gr" value="#{foldersEdit.folderGM}" id="Liste" paginator="true" rows="10" editable="true">  
 
                             <f:facet name="header">  
@@ -124,9 +125,9 @@
                                     </p:column>
                                     <p:column headerText="Delete">
 
-                                <p:commandButton icon="ui-icon-close" title="remove from list"
-                                                 actionListener="#{foldersEdit.delSecGroup(gr2)}" update="subListe" />
-                            </p:column>
+                                        <p:commandButton icon="ui-icon-close" title="remove from list"
+                                                         actionListener="#{foldersEdit.delSecGroup(gr2)}" update="subListe" />
+                                    </p:column>
 
                                     <p:columnGroup type="footer">
                                         <p:row>
@@ -139,12 +140,12 @@
 
 
 
-                            
+
 
                         </p:dataTable>   
 
 
-
+                        </h:form>
 
                     </p:tab>
 
