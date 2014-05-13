@@ -43,7 +43,7 @@ public class FoldersEdit {
     @EJB
     private GroupsFacade gF;
     private TreeNode selectedNode = new DefaultTreeNode();
-    private Folders folder = new Folders(new FoldersPK());
+    private Folders folder = new Folders(new FoldersPK("Empty", "Empty"));
     private List<Groups> gruSel = new ArrayList<>();
     private List<Groups> gru = new ArrayList<>();
 
