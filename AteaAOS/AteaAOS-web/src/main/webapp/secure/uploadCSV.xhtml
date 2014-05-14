@@ -261,7 +261,7 @@
                         </p:dialog> 
 
                         <h:form id="form2">  
-
+                            <p:poll update="downloadLink" interval="2"/>
                             <p:commandButton rendered="#{fileDownload.okDownload}" id="downloadLink" value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop)"   
                                              icon="ui-icon-arrowthichk-s">  
                                 <p:fileDownload value="#{fileDownload.file}" />  
@@ -285,7 +285,7 @@
 
                                 </h:panelGrid>
 
-                                <p:commandButton value="Submit" action="#{fileDownload.setDown(true)}" />
+                                <p:commandButton value="Submit" action="#{fileDownload.generateFile}" />
 
 
 

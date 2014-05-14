@@ -31,7 +31,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.servlet.ServletContext;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import persistClasses.DistributiongroupsFacade;
@@ -432,7 +431,7 @@ public class FileDownload {
 
                             entry.addAttribute(new Attribute("description:", gu.getGroup().getFunctions()));
                             entry.addAttribute(new Attribute("managedBy:", gu.getGroup().getGroupowner()));
-wr.writeEntry(entry);
+                            wr.writeEntry(entry);
                         } catch (LDAPException ex) {
                             Logger.getLogger(FileDownload.class.getName()).log(Level.SEVERE, null, ex);
                         }
@@ -443,9 +442,10 @@ wr.writeEntry(entry);
                 } catch (IOException ex) {
                     Logger.getLogger(FileDownload.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
+
             }
         }
+        okDownload=true;
 
     }
 
