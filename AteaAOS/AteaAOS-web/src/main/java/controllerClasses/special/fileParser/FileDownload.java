@@ -27,14 +27,27 @@ public class FileDownload {
     private boolean onlyUsers = false;
     private boolean onlyGroups = false;
     private boolean csv = false;
+    private boolean okDownload = false;
 
     public FileDownload() {
         InputStream stream = ((ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext()).getResourceAsStream("/images/optimusprime.jpg");
         file = new DefaultStreamedContent(stream, "image/jpg", "downloaded_optimus.jpg");
     }
+    
+    public void setDown(boolean e){
+        this.okDownload = e;
+    }
 
     public StreamedContent getFile() {
         return file;
+    }
+
+    public boolean isOkDownload() {
+        return okDownload;
+    }
+
+    public void setOkDownload(boolean okDownload) {
+        this.okDownload = okDownload;
     }
 
     public boolean isOnlyUsers() {
