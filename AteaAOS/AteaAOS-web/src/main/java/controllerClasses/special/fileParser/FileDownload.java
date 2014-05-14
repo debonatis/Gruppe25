@@ -153,7 +153,7 @@ public class FileDownload {
 
         if (csv) {
             
-                File k = new File("/secure/FILES/CSVExport.ldf");
+                File k = new File("CSVExport.ldf");
                 
                 
                 InputStream stream = new InputStream() {
@@ -164,7 +164,7 @@ public class FileDownload {
                     }
                 };
                 try {
-                    stream = new FileInputStream(k);
+                    stream = new FileInputStream(k.getAbsolutePath());
                     file = new DefaultStreamedContent(stream, "system/ldf", k.getName());
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(FileDownload.class.getName()).log(Level.SEVERE, null, ex);
@@ -174,7 +174,7 @@ public class FileDownload {
 
         } else if(!csv) {
             
-                File k = new File("/secure/FILES/LDFExport.ldf");
+                File k = new File("LDFExport.ldf");
                 
                 
                 InputStream stream = new InputStream() {
@@ -185,7 +185,7 @@ public class FileDownload {
                     }
                 };
                 try {
-                    stream = new FileInputStream(k);
+                    stream = new FileInputStream(k.getAbsolutePath());
                     file = new DefaultStreamedContent(stream, "system/ldf", k.getName());
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(FileDownload.class.getName()).log(Level.SEVERE, null, ex);
@@ -460,7 +460,7 @@ public class FileDownload {
 
     private LDIFWriter getLDFWriter(File k) throws IOException {
 
-        LDIFWriter wr = new LDIFWriter(k.getAbsoluteFile());
+        LDIFWriter wr = new LDIFWriter(k.getAbsolutePath());
         return wr;
 
     }
