@@ -154,8 +154,8 @@ public class FileDownload {
         if (csv) {
             try {
                 File k = new File("/secure/FILES/CSVExport.ldf");
-                k.delete();
-                k.createNewFile();
+                k.getAbsoluteFile().delete();
+                k.getAbsoluteFile().createNewFile();
                 InputStream stream = new InputStream() {
                     
                     @Override
@@ -177,8 +177,8 @@ public class FileDownload {
         } else if(!csv) {
             try {
                 File k = new File("/secure/FILES/LDFExport.ldf");
-                k.delete();
-                k.createNewFile();
+                k.getAbsoluteFile().delete();
+                k.getAbsoluteFile().createNewFile();
                 InputStream stream = new InputStream() {
                     
                     @Override
