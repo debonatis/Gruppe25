@@ -35,7 +35,7 @@
 
                                     <p:column headerText="Username" style="width:30%" 
                                               id="usernameColumn" filterBy="username" filterMatchMode="contains">
-                                        <h:outputText value="#{item1.username}" />
+                                        <h:outputText value="#{item1.usersPK.username}" />
                                     </p:column>  
 
                                     <p:column headerText="First name" style="width:30%" 
@@ -97,7 +97,7 @@
 
                                     <p:column headerText="Groupname" style="width:30%" 
                                               id="usernameColumn" filterBy="username" filterMatchMode="contains">
-                                        <h:outputText value="#{item2.groupname}" />
+                                        <h:outputText value="#{item2.groupsPK.groupname}" />
                                     </p:column>  
 
                                     <p:column headerText="Functions" style="width:30%" 
@@ -151,7 +151,7 @@
 
                                     <p:column headerText="Displayname" style="width:30%" 
                                               id="usernameColumn" filterBy="displayname" filterMatchMode="contains">
-                                        <h:outputText value="#{item3.displayname}" />
+                                        <h:outputText value="#{item3.distributiongroupsPK.displayname}" />
                                     </p:column>  
 
                                     <p:column headerText="Email" style="width:30%" 
