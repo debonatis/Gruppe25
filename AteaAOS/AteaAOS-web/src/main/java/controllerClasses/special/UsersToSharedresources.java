@@ -9,6 +9,8 @@ import controllerClasses.special.model.ProjectUsersModel;
 import controllerClasses.special.model.SharedresourcesUsersModel;
 import controllerClasses.special.model.SiteuserListModel;
 import controllerClasses.special.model.UsersListModel;
+import entityModels.Distributiongroups;
+import entityModels.DistributiongroupsPK;
 import entityModels.Emailcontacts;
 import entityModels.EmailcontactsPK;
 import entityModels.Logging;
@@ -25,6 +27,7 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -161,6 +164,20 @@ public class UsersToSharedresources implements Serializable {
         LoggingEJB.create(new Logging(new Date(System.currentTimeMillis()), "simond", "test", "INFO", "test"));
 
     }
+    
+    
+    private UUID getUUID() {
+        UUID idOne = UUID.randomUUID();
+        return idOne;
+    }
+    
+    public void saveSR() {
+        shared.setAccessresources("NOT IN USE");
+        shared.getSharedresourcesPK().setProjectid(((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
+        sharedresourcesEJB.create(shared);
+        shared = new Sharedresources(new SharedresourcesPK());
+    }
+    
 
     public void save(ActionEvent actionEvent) {
         shared.getSharedresourcesPK().setProjectid((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
@@ -225,12 +242,12 @@ public class UsersToSharedresources implements Serializable {
 
         selectList = new UsersListModel(projectListT);
         listPro = new DualListModel<>(sharedresourcesEJB.findAll(), new ArrayList<Sharedresources>());
-        listSU = new DualListModel<>(usersEJB.findAll(), new ArrayList<Users>());
+        listSU = new DualListModel<>(usersEJB.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")), new ArrayList<Users>());
         srUsers.clear();
         List<Users> roger;
-        for (Sharedresources g : sharedresourcesEJB.findAll()) {
+        for (Sharedresources g : sharedresourcesEJB.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))) {
             roger = new ArrayList<>();
-            for (Sharedresourcesusers gu : sharedresourcesusersEJB.findAll()) {
+            for (Sharedresourcesusers gu : sharedresourcesusersEJB.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))) {
                 if (gu.getSharedresourcesusersPK().getProjectiddisp().equalsIgnoreCase(g.getSharedresourcesPK().getProjectid())) {
                     roger.add(usersEJB.find(gu.getSharedresourcesusersPK().getUsername()));
 

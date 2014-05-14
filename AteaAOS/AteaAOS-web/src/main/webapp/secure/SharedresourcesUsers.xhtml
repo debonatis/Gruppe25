@@ -23,7 +23,7 @@
 
                                 <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid">  
                                     <h:outputText value="Display name: *" />  
-                                    <p:inputText required="true" label="contactname"  
+                                    <p:inputText required="true" label="displayname"  
                                                  value="#{usersToSharedresources.shared.sharedresourcesPK.displaynameshared}" />  
 
                                     <h:outputText value="E-mail alias: *" />  
@@ -36,7 +36,7 @@
 
                                 </h:panelGrid>  
                                 <p:commandButton value="Submit" update="growl"   
-                                                 actionListener="#{usersToSharedresources.save}" />
+                                                 action="#{usersToSharedresources.saveSR()}" />
                             </p:panel>  
 
 
