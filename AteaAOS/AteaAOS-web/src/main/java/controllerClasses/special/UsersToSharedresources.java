@@ -9,6 +9,9 @@ import controllerClasses.special.model.ProjectUsersModel;
 import controllerClasses.special.model.SharedresourcesUsersModel;
 import controllerClasses.special.model.SiteuserListModel;
 import controllerClasses.special.model.UsersListModel;
+import entityModels.Applicationaccess;
+import entityModels.ApplicationaccessPK;
+import entityModels.Applications;
 import entityModels.Distributiongroups;
 import entityModels.DistributiongroupsPK;
 import entityModels.Emailcontacts;
@@ -164,20 +167,30 @@ public class UsersToSharedresources implements Serializable {
         LoggingEJB.create(new Logging(new Date(System.currentTimeMillis()), "simond", "test", "INFO", "test"));
 
     }
-    
-    
+
+    public void savePick() {
+
+        for (Sharedresources a : getSharedresources().getTarget()) {
+            for (Users u : getUsers().getTarget()) {
+                sharedresourcesusersEJB.create(new Sharedresourcesusers(new SharedresourcesusersPK(a.getSharedresourcesPK().getDisplaynameshared(), u.getUsersPK().getUsername(), (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))));
+            }
+        }
+        FacesMessage msg = new FacesMessage("Successful", "The pick is saved");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+
+    }
+
     private UUID getUUID() {
         UUID idOne = UUID.randomUUID();
         return idOne;
     }
-    
+
     public void saveSR() {
         shared.setAccessresources("NOT IN USE");
         shared.getSharedresourcesPK().setProjectid(((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
         sharedresourcesEJB.create(shared);
         shared = new Sharedresources(new SharedresourcesPK());
     }
-    
 
     public void save(ActionEvent actionEvent) {
         shared.getSharedresourcesPK().setProjectid((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
@@ -238,23 +251,10 @@ public class UsersToSharedresources implements Serializable {
     @PostConstruct
     public void init() {
 
-        projectListT = usersEJB.findAll();
+        users = new DualListModel<>(usersEJB.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")), new ArrayList<Users>());
 
-        selectList = new UsersListModel(projectListT);
-        listPro = new DualListModel<>(sharedresourcesEJB.findAll(), new ArrayList<Sharedresources>());
-        listSU = new DualListModel<>(usersEJB.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")), new ArrayList<Users>());
-        srUsers.clear();
-        List<Users> roger;
-        for (Sharedresources g : sharedresourcesEJB.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))) {
-            roger = new ArrayList<>();
-            for (Sharedresourcesusers gu : sharedresourcesusersEJB.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))) {
-                if (gu.getSharedresourcesusersPK().getProjectiddisp().equalsIgnoreCase(g.getSharedresourcesPK().getProjectid())) {
-                    roger.add(usersEJB.find(gu.getSharedresourcesusersPK().getUsername()));
+        sharedresources = new DualListModel<>(sharedresourcesEJB.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")), new ArrayList<Sharedresources>());
 
-                }
-            }
-            srUsers.add(new SharedresourcesUsersModel(g, roger));
-        }
     }
 
     public void onTransferDU(TransferEvent event) {

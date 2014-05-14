@@ -7,6 +7,7 @@
 package persistClasses;
 
 import entityModels.Sharedresourcesusers;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,6 +28,15 @@ public class SharedresourcesusersFacade extends AbstractFacade<Sharedresourcesus
 
     public SharedresourcesusersFacade() {
         super(Sharedresourcesusers.class);
+    }
+    
+    @Override
+    public List<Sharedresourcesusers> findAllPro(String projectID) {
+        
+        javax.persistence.Query q = getEntityManager().createNamedQuery(""+Sharedresourcesusers.class.getName().substring(13)+".findByProjectiddisp", Sharedresourcesusers.class);
+        q.setParameter("projectiddisp", projectID);
+       List<Sharedresourcesusers> res = q.getResultList();
+        return res;
     }
     
 }

@@ -5,8 +5,6 @@
  */
 package controllerClasses.converters;
 
-import entityModels.Groups;
-import entityModels.GroupsPK;
 import entityModels.Sharedresources;
 import entityModels.SharedresourcesPK;
 import javax.ejb.EJB;
@@ -15,7 +13,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.inject.Named;
-import persistClasses.GroupsFacade;
 import persistClasses.SharedresourcesFacade;
 
 /**
