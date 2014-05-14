@@ -223,8 +223,8 @@ public class UsersToSharedresources implements Serializable {
 
             Sharedresources test = sharedresourcesEJB.find(((SharedresourcesUsersModel) event.getObject()).getSr().getSharedresourcesPK());
 
-            test.setEmailalias(((Sharedresources) event.getObject()).getEmailalias());
-            test.setExternalemail(((Sharedresources) event.getObject()).getExternalemail());
+            test.setEmailalias(((SharedresourcesUsersModel) event.getObject()).getSr().getEmailalias());
+            test.setExternalemail(((SharedresourcesUsersModel) event.getObject()).getSr().getExternalemail());
 
             sharedresourcesEJB.edit(test);
 
