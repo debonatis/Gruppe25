@@ -68,9 +68,18 @@ public class FileDownload {
     private String dc0;
     private String dc1;
     private String dc2;
+    private boolean exchange = false;
 
     public FileDownload() {
         Projectid = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID");
+    }
+
+    public boolean isExchange() {
+        return exchange;
+    }
+
+    public void setExchange(boolean exchange) {
+        this.exchange = exchange;
     }
 
     public String getDc0() {
@@ -292,7 +301,7 @@ public class FileDownload {
                                 entry.addAttribute(new Attribute("sAMAccountName", du.getDist().getDistributiongroupsPK().getDisplayname()));
                                 
                                 entry.addAttribute(new Attribute("mail", du.getDist().getEmailalias()));
-                                if (du.getDist().getExternalemail().equalsIgnoreCase("YES")) {
+                                if (du.getDist().getExternalemail().equalsIgnoreCase("YES") && exchange) {
                                     entry.addAttribute(new Attribute("msExchRequireAuthToSentTo", "true"));
                                     
                                 }
@@ -321,7 +330,11 @@ public class FileDownload {
                                 entry.addAttribute(new Attribute("sAMAccountName", gu.getGroup().getGroupsPK().getGroupname()));
                                 
                                 entry.addAttribute(new Attribute("description", gu.getGroup().getFunctions()));
-                                entry.addAttribute(new Attribute("managedBy", gu.getGroup().getGroupowner()));
+                                if(!gu.getGroup().getGroupowner().equalsIgnoreCase("-")){
+                                Users manusr = new Users(gu.getGroup().getGroupowner(), Projectid);
+                               manusr = uF.find(manusr.getUsersPK());
+                                entry.addAttribute(new Attribute("managedBy","cn=" + manusr.getFirstname() + " " + manusr.getLastname() + ",ou=import,dc=" + dc2 + ",dc=" + dc1 + ",dc=" + dc0 + ""));
+                                }
                                 wr.writeEntry(entry);
                             } catch (LDAPException ex) {
                                 Logger.getLogger(FileDownload.class.getName()).log(Level.SEVERE, null, ex);
@@ -399,7 +412,7 @@ public class FileDownload {
                                 entry.addAttribute(new Attribute("sAMAccountName", du.getDist().getDistributiongroupsPK().getDisplayname()));
                                 
                                 entry.addAttribute(new Attribute("mail", du.getDist().getEmailalias()));
-                                if (du.getDist().getExternalemail().equalsIgnoreCase("YES")) {
+                                if (du.getDist().getExternalemail().equalsIgnoreCase("YES")&& exchange) {
                                     entry.addAttribute(new Attribute("msExchRequireAuthToSentTo", "true"));
                                     
                                 }
