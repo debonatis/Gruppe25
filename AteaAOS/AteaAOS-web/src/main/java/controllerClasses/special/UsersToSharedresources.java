@@ -52,7 +52,6 @@ public class UsersToSharedresources implements Serializable {
     private DualListModel<Sharedresources> sharedresources;
 
     private boolean skip;
-  
 
     private Sharedresources shared = new Sharedresources(new SharedresourcesPK());
 
@@ -184,7 +183,7 @@ public class UsersToSharedresources implements Serializable {
             roger.clear();
             for (Sharedresourcesusers sru : sharedresourcesusersEJB.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))) {
                 if (sr.getSharedresourcesPK().getDisplaynameshared().equalsIgnoreCase(sru.getSharedresourcesusersPK().getDisplaynameshared())) {
-                    roger.add(usersEJB.find(new UsersPK(sru.getSharedresourcesusersPK().getUsername(),(String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))));
+                    roger.add(usersEJB.find(new UsersPK(sru.getSharedresourcesusersPK().getUsername(), (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))));
                 }
             }
             srUsers.add(new SharedresourcesUsersModel(sr, roger));
@@ -217,11 +216,12 @@ public class UsersToSharedresources implements Serializable {
 
         return event.getNewStep();
     }
+
     public void onEdit(RowEditEvent event) {
 
         try {
 
-            Sharedresources test = sharedresourcesEJB.find(((Sharedresources) event.getObject()).getSharedresourcesPK());
+            Sharedresources test = sharedresourcesEJB.find(((SharedresourcesUsersModel) event.getObject()).getSr().getSharedresourcesPK());
 
             test.setEmailalias(((Sharedresources) event.getObject()).getEmailalias());
             test.setExternalemail(((Sharedresources) event.getObject()).getExternalemail());
