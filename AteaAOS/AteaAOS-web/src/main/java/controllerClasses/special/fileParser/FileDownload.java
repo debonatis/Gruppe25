@@ -152,10 +152,10 @@ public class FileDownload {
     public synchronized void generateFile() {
 
         if (csv) {
-            try {
+            
                 File k = new File("/secure/FILES/CSVExport.ldf");
-                k.getAbsoluteFile().delete();
-                k.getAbsoluteFile().createNewFile();
+                
+                
                 InputStream stream = new InputStream() {
                     
                     @Override
@@ -170,15 +170,13 @@ public class FileDownload {
                     Logger.getLogger(FileDownload.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
-            } catch (IOException ex) {
-                Logger.getLogger(FileDownload.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            
 
         } else if(!csv) {
-            try {
+            
                 File k = new File("/secure/FILES/LDFExport.ldf");
-                k.getAbsoluteFile().delete();
-                k.getAbsoluteFile().createNewFile();
+                
+                
                 InputStream stream = new InputStream() {
                     
                     @Override
@@ -454,9 +452,7 @@ public class FileDownload {
                     }
 
                 }
-            } catch (IOException ex) {
-                Logger.getLogger(FileDownload.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            
         }
         okDownload=true;
 
