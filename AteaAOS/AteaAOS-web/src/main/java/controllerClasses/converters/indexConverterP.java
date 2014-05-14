@@ -29,8 +29,8 @@ public class indexConverterP implements Converter{
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        
-        return pF.find(value);
+        Projects k = pF.find(value);
+        return k;
     }
 
     @Override
