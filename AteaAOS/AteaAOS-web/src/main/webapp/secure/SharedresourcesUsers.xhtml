@@ -22,7 +22,7 @@
 
                             <p:growl id="growl2" sticky="true" showDetail="true"/>  
 
-                            <p:wizard flowListener="#{usersToSharedresources.onFlowProcessPick2}" >
+                            <p:wizard flowListener="#{usersToSharedresources.onFlowProcessPick}" >
 
                                 <p:tab id="grouppick" title="Select shared resource(s) for editing">  
                                     <p:panel header="Shared Resource selection">
@@ -36,7 +36,7 @@
                                             <f:facet name="sourceCaption">Available Shared Resources</f:facet>  
                                             <f:facet name="targetCaption">Selected Shared Resources</f:facet> 
                                             
-                                            <p:ajax event="transfer" listener="#{usersToSharedresources.onTransferG}" update="msg2" />
+                                            <p:ajax event="transfer" listener="#{usersToSharedresources.onTransferSR}" update="msg2" />
                                             <p:column style="width:75%;">  
                                                 #{sharedresources89.sharedresourcesPK.displaynameshared}  
                                             </p:column>
@@ -96,7 +96,7 @@
 
                                 </h:panelGrid>  
                                 <p:commandButton value="Submit" update="growl"   
-                                                 action="#{usersToSharedresources.saveSR()}" />
+                                                 action="#{usersToSharedresources.save}" />
                             </p:panel>  
                         </h:form>
                     </p:tab>
@@ -113,7 +113,7 @@
                                 </f:facet>  
 
                                 <p:ajax event="rowEdit" listener="#{superUsers.onEditPro}" update=":tabView:form:messages" />  
-                                <p:ajax event="rowEditCancel" listener="#{superUsers.onCancelPro}" update=":tabView:form:messages" />  
+                                <p:ajax event="rowEditCancel" listener="#{superUsers.onCancel}" update=":tabView:form:messages" />  
 
                                 <p:column headerText="Shared resource name" style="width:30%">  
                                     <f:facet name="output">  
@@ -151,7 +151,7 @@
                                         <h:outputText value="" />
                                     </f:facet>
                                     <p:commandButton icon="ui-icon-close" title="remove from list"
-                                                     actionListener="#{usersToSharedresources.deleteItemPro(sr)}" update="carList" />
+                                                     actionListener="#{usersToSharedresources.deleteItemSR(sr)}" update="carList" />
                                 </p:column>
 
                                 <p:column headerText="Users">
@@ -175,7 +175,7 @@
                                             <p:column headerText="Delete">
 
                                                 <p:commandButton icon="ui-icon-close" title="remove from list"
-                                                                 actionListener="#{usersToSharedresources.deleteItemProUser(sr, usr)}" update="memList2" />
+                                                                 actionListener="#{usersToSharedresources.deleteItemSRUser(sr, usr)}" update="memList2" />
                                             </p:column>
                                         </p:dataTable>     
 
