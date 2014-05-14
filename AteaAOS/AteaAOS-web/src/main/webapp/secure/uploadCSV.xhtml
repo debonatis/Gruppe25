@@ -295,6 +295,10 @@
                                     <p:selectBooleanButton value="#{fileDownload.csv}" onLabel="CSV" offLabel="LDF">
                                         <p:ajax update="msg" listener="#{formBean.addMessage}"/>
                                     </p:selectBooleanButton>
+                                    <h:outputText value="Domainserver with msexchange(Beta!)?: " />
+                                    <p:selectBooleanButton value="#{fileDownload.exchange}" onLabel="Yes" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close">
+                                        
+                                    </p:selectBooleanButton>
 
                                 </h:panelGrid>
 
