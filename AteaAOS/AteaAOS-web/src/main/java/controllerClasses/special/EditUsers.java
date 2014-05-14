@@ -10,6 +10,7 @@ import entityModels.Groups;
 import entityModels.Groupusers;
 import entityModels.Userdistribution;
 import entityModels.Users;
+import entityModels.UsersPK;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -64,7 +65,7 @@ public class EditUsers {
     public Users getUsers() {
         return users;
     }
-    
+   
     public void setUsers(Users users) {
         this.users = users;
     }
@@ -83,7 +84,7 @@ public class EditUsers {
         
         try {
             
-            Users test = getFacade().find(((Users) event.getObject()).getUsersPK().getUsername());
+            Users test = getFacade().find(((UsersPK)((Users) event.getObject()).getUsersPK()));
             
             test.setFirstname(((Users) event.getObject()).getFirstname());
             test.setLastname(((Users) event.getObject()).getLastname());

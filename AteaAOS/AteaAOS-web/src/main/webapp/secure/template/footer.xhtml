@@ -14,14 +14,15 @@
                 <p:poll interval="1" update="projectID, username"/>
                 <p:outputPanel>
                     <p:outputLabel  id="projectID" value="#{security.projectID} is selected as the project." rendered="#{not empty security.projectID}" style="float: left"/>
+                    <p:outputLabel  id="projectID2" value="select a project." rendered="#{empty security.projectID}" style="float: left"/>
                 </p:outputPanel>
                 <p:outputPanel>
-                    <p:outputLabel  id="username" value="You are logged in as #{security.username}." rendered="#{not empty security.username}" style="float: left"/>
+                    <p:commandLink  id="username" value="You are logged in as #{security.username}." rendered="#{not empty security.username}" style="float: left"/>
                 </p:outputPanel>
                 <p:dock id="dock" >  
                     <p:menuitem value="Home" icon="/resources/images/dock/home.png" outcome="home"/>
                     <p:menuitem value="Users" icon="/resources/images/dock/user.png" outcome="users"/>
-                    <p:menuitem value="Email Contacts" icon="/resources/images/dock/EmailContacts.png"  url="#"/>
+                    <p:menuitem value="Email Contacts" icon="/resources/images/dock/EmailContacts.png"  outcome="emailcontacts"/>
                     <p:menuitem value="Groups" icon="/resources/images/dock/group.png" outcome="groups"/>
                     <p:menuitem value="Printers" icon="/resources/images/dock/printer.png"  outcome="printers"/>
                     <p:menuitem value="Folders" icon="/resources/images/dock/folder.png"  outcome="folders"/> 

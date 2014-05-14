@@ -18,22 +18,28 @@
                             <p:growl id="messages" showDetail="true" />  
 
                             <p:contextMenu for="treeSingle">  
-                                <p:menuitem value="View" update="messages" actionListener="#{foldersEdit.displaySelectedSingle()}" icon="ui-icon-search" />  
+
                                 <p:menuitem value="Delete" update="treeSingle" actionListener="#{foldersEdit.deleteNode()}" icon="ui-icon-close"/>
                                 <p:menuitem value="Add folder" update="treeSingle" onclick="dlg.show()" icon="ui-icon-plus"/>
                                 <p:menuitem value="Add Groups" update="treeSingle" onclick="dlg2.show()"  icon="ui-icon-plus"/>
                             </p:contextMenu>  
 
-                            <p:poll interval="1" update="treeSingle"/>
-                            <p:tree id="treeSingle" value="#{foldersEdit.root}" var="node"  
-                                    selectionMode="single"  
-                                    selection="#{foldersEdit.selectedNode}"  
-                                    dynamic="true">  
 
-                                <p:treeNode>  
-                                    <h:outputText value="#{node.getFoldersPK().foldername}" />  
-                                </p:treeNode>  
-                            </p:tree>  
+                            <p:treeTable id="treeSingle" value="#{foldersEdit.root}" var="node"  
+                                         selectionMode="single"  
+                                         selection="#{foldersEdit.selectedNode}"  
+                                         >  
+                                <f:facet name="header">
+                                    Right-Click to See Options
+                                </f:facet>
+                                <p:column style="width:150px">
+                                    <f:facet name="header">
+                                        Name
+                                    </f:facet>
+                                    <h:outputText value="#{foldersEdit.getName(node)}" />
+                                </p:column>
+
+                            </p:treeTable>  
 
 
                             <p:dialog header="Enter Foldername" widgetVar="dlg" resizable="true">  
@@ -74,13 +80,75 @@
                                 <p:commandButton action="#{foldersEdit.addGroups()}" id="submitButton2" value="Submit" update=":tabView:form10:treeSingle" oncomplete="PF('dlg2').hide();"/>  
 
 
-                            </p:dialog>  
-                            <p:commandButton  value="Submit"   action="#{foldersEdit.saveF()}"/> 
+                            </p:dialog> 
+
+
+                            <p:commandButton  value="Refresh"   action="#{foldersEdit.refresh()}" icon="ui-icon-refresh" update="messages, treeSingle"/> 
+
                         </h:form>
-                    </p:tab>
-                    <p:tab id="table" title="TO DO">
+
 
                     </p:tab>
+                    <p:tab title="Folder Overview">
+                        <h:form>
+                        <p:dataTable var="gr" value="#{foldersEdit.folderGM}" id="Liste" paginator="true" rows="10" editable="true">  
+
+                            <f:facet name="header">  
+                                Security Group/s Securing Folders
+
+                            </f:facet>  
+                            <p:columnGroup type="header">
+                                <p:row>
+                                    <p:column rowspan="2" headerText="Folder" />
+                                    <p:column colspan="2" headerText="Permissons" />
+                                </p:row>
+
+                                <p:row>
+                                    <p:column headerText="RW" />
+                                    <p:column headerText="R" />
+                                </p:row>
+                                <p:subTable var="gr2" value="#{gr.grList}" id="subList">
+                                    <f:facet name="header">
+                                        #{gr.foldername} 
+                                    </f:facet>
+
+                                    <p:column>
+                                        #{gr2.foldergroupsPK.groupname}
+                                    </p:column>
+
+                                    <p:column>
+                                        <p:selectBooleanButton id="RW" value="#{foldersEdit.value(gr2.rw)}" onLabel="Yes" offLabel="No" /> 
+                                    </p:column>
+
+                                    <p:column>
+                                        <p:selectBooleanButton id="R" value="#{foldersEdit.value(gr2.r)}" onLabel="Yes" offLabel="No" /> 
+                                    </p:column>
+                                    <p:column headerText="Delete">
+
+                                        <p:commandButton icon="ui-icon-close" title="remove from list"
+                                                         actionListener="#{foldersEdit.delSecGroup(gr2)}" update="subListe" />
+                                    </p:column>
+
+                                    <p:columnGroup type="footer">
+                                        <p:row>
+                                            <p:column footerText="-" style="text-align:right"/>
+
+                                        </p:row>
+                                    </p:columnGroup>
+                                </p:subTable>
+                            </p:columnGroup>
+
+
+
+
+
+                        </p:dataTable>   
+
+                            <p:commandButton update="Liste" action="#{foldersEdit.refresh()}" value="Refresh" icon="ui-icon-refresh"/>
+                        </h:form>
+
+                    </p:tab>
+
                 </p:tabView>
 
             </ui:define>

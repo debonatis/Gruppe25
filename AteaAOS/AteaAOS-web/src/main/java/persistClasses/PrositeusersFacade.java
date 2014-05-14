@@ -5,8 +5,7 @@
  */
 package persistClasses;
 
-import entityModels.Foldergroups;
-import java.util.List;
+import entityModels.Prositeusers;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -16,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author simond
  */
 @Stateless
-public class FolderGroupsFacade extends AbstractFacade<Foldergroups> {
+public class PrositeusersFacade extends AbstractFacade<Prositeusers> {
 
     @PersistenceContext(unitName = "com.Gruppe25_AteaAOS-web_war_1.0-SNAPSHOTPU")
     private EntityManager em;
@@ -26,13 +25,7 @@ public class FolderGroupsFacade extends AbstractFacade<Foldergroups> {
         return em;
     }
 
-    public FolderGroupsFacade() {
-        super(Foldergroups.class);
-    }
-
-    public List<Foldergroups> FindAllfolder(String foldername) {
-        javax.persistence.Query q = getEntityManager().createNamedQuery("Foldergroups.findByFoldername", Foldergroups.class);
-        q.setParameter("foldername", foldername);
-        return q.getResultList();
+    public PrositeusersFacade() {
+        super(Prositeusers.class);
     }
 }

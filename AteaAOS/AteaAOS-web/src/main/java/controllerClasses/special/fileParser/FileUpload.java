@@ -6,12 +6,15 @@
 package controllerClasses.special.fileParser;
 
 import entityModels.Distributiongroups;
+import entityModels.DistributiongroupsPK;
 import entityModels.Groups;
+import entityModels.GroupsPK;
 import entityModels.Groupusers;
 import entityModels.GroupusersPK;
 import entityModels.Userdistribution;
 import entityModels.UserdistributionPK;
 import entityModels.Users;
+import entityModels.UsersPK;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -173,7 +176,7 @@ public class FileUpload implements Serializable {
                 }
                 if (ocStringList.contains("person") && ocStringList.contains("user") && !ocStringList.contains("computer")) {
                     ep++;
-                    Users entity = new Users();
+                    Users entity = new Users(new UsersPK());
                     try {
                         entity.getUsersPK().setUsername((entry.get("sAMAccountName").getString() == null) ? "NOT SET" : entry.get("sAMAccountName").getString());
                     } catch (LdapInvalidAttributeValueException | NullPointerException ex) {
@@ -243,7 +246,7 @@ public class FileUpload implements Serializable {
                     
                     int gr = Integer.parseInt(entry.get("grouptype").get().getString());
                     if (gr > 0) {
-                        Distributiongroups dgro = new Distributiongroups();
+                        Distributiongroups dgro = new Distributiongroups(new DistributiongroupsPK());
                         try {
                             dgro.getDistributiongroupsPK().setDisplayname(entry.get("cn").getString());
                         } catch (LdapInvalidAttributeValueException | NullPointerException ex) {
@@ -288,7 +291,7 @@ public class FileUpload implements Serializable {
                             Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     } else if (gr < 0) {
-                        Groups gro = new Groups();
+                        Groups gro = new Groups(new GroupsPK());
                         try {
                             gro.setDescription(entry.get("description").getString());
                         } catch (LdapInvalidAttributeValueException | NullPointerException ex) {

@@ -9,8 +9,8 @@ package entityModels;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -27,16 +27,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Emailcontacts.findAll", query = "SELECT e FROM Emailcontacts e"),
-    @NamedQuery(name = "Emailcontacts.findByContactname", query = "SELECT e FROM Emailcontacts e WHERE e.contactname = :contactname"),
-    @NamedQuery(name = "Emailcontacts.findByEmailaddress", query = "SELECT e FROM Emailcontacts e WHERE e.emailaddress = :emailaddress")})
+    @NamedQuery(name = "Emailcontacts.findByContactname", query = "SELECT e FROM Emailcontacts e WHERE e.emailcontactsPK.contactname = :contactname"),
+    @NamedQuery(name = "Emailcontacts.findByEmailaddress", query = "SELECT e FROM Emailcontacts e WHERE e.emailaddress = :emailaddress"),
+    @NamedQuery(name = "Emailcontacts.findByProjectid", query = "SELECT e FROM Emailcontacts e WHERE e.emailcontactsPK.projectid = :projectid")})
 public class Emailcontacts implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "CONTACTNAME")
-    private String contactname;
+    @EmbeddedId
+    protected EmailcontactsPK emailcontactsPK;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -46,21 +43,25 @@ public class Emailcontacts implements Serializable {
     public Emailcontacts() {
     }
 
-    public Emailcontacts(String contactname) {
-        this.contactname = contactname;
+    public Emailcontacts(EmailcontactsPK emailcontactsPK) {
+        this.emailcontactsPK = emailcontactsPK;
     }
 
-    public Emailcontacts(String contactname, String emailaddress) {
-        this.contactname = contactname;
+    public Emailcontacts(EmailcontactsPK emailcontactsPK, String emailaddress) {
+        this.emailcontactsPK = emailcontactsPK;
         this.emailaddress = emailaddress;
     }
 
-    public String getContactname() {
-        return contactname;
+    public Emailcontacts(String contactname, String projectid) {
+        this.emailcontactsPK = new EmailcontactsPK(contactname, projectid);
     }
 
-    public void setContactname(String contactname) {
-        this.contactname = contactname;
+    public EmailcontactsPK getEmailcontactsPK() {
+        return emailcontactsPK;
+    }
+
+    public void setEmailcontactsPK(EmailcontactsPK emailcontactsPK) {
+        this.emailcontactsPK = emailcontactsPK;
     }
 
     public String getEmailaddress() {
@@ -74,7 +75,7 @@ public class Emailcontacts implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (contactname != null ? contactname.hashCode() : 0);
+        hash += (emailcontactsPK != null ? emailcontactsPK.hashCode() : 0);
         return hash;
     }
 
@@ -85,7 +86,7 @@ public class Emailcontacts implements Serializable {
             return false;
         }
         Emailcontacts other = (Emailcontacts) object;
-        if ((this.contactname == null && other.contactname != null) || (this.contactname != null && !this.contactname.equals(other.contactname))) {
+        if ((this.emailcontactsPK == null && other.emailcontactsPK != null) || (this.emailcontactsPK != null && !this.emailcontactsPK.equals(other.emailcontactsPK))) {
             return false;
         }
         return true;
@@ -93,7 +94,7 @@ public class Emailcontacts implements Serializable {
 
     @Override
     public String toString() {
-        return "entityModels.Emailcontacts[ contactname=" + contactname + " ]";
+        return "entityModels.Emailcontacts[ emailcontactsPK=" + emailcontactsPK + " ]";
     }
     
 }

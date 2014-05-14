@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" >
+    <h:head>
+    </h:head>
+
+    <h:body>
+        <ui:composition template="template/templateSecure.xhtml">
+            <ui:define name="center">
+
+                <p:tabView id="tabView">
+                    <p:tab id="tab1" title="Create new Email Contact">  
+                        <h:form id="userForm">
+                            <p:growl id="growl" sticky="true" showDetail="true"/>  
+
+
+
+
+                            <p:panel>  
+
+                                <h:messages errorClass="error"/>  
+
+                                <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid">  
+                                    <h:outputText value="Contact Name: *" />  
+                                    <p:inputText required="true" label="contactname"  
+                                                 value="#{emailContactsEdit.contact.emailcontactsPK.contactname}" />  
+
+                                    <h:outputText value="Mail Address: *" />  
+                                    <p:inputText required="true" label="emailaddress"  
+                                                 value="#{emailContactsEdit.contact.emailaddress}" />  
+
+
+
+                                </h:panelGrid>  
+                                <p:commandButton value="Submit" update="growl"   
+                                                 actionListener="#{emailContactsEdit.save}" />
+                            </p:panel>  
+
+
+                        </h:form>
+                    </p:tab>
+                    <p:tab id="table" title="Edit Email Contacts">
+                        <h:form id="editForm">
+                            <p:panel >
+                                <p:growl id="messages" showDetail="true"/> 
+                                <p:dataTable id="roger" value="#{emailContactsEdit.clist}" var="item" cellSeparator="2" paginator="true" rows="10" editable="true">
+
+                                    <p:ajax event="rowEdit" listener="#{emailContactsEdit.onEdit}" update=":tabView:editForm:messages" />  
+                                    <p:ajax event="rowEditCancel" listener="#{emailContactsEdit.onCancel}" update=":tabView:editForm:messages" />
+
+                                    <p:column style="width:6%" headerText="Edit">  
+                                        <p:rowEditor  />  
+                                    </p:column> 
+
+                                    <p:column headerText="Contact Name" style="width:30%" 
+                                              id="usernameColumn" filterBy="contactname" filterMatchMode="contains">
+                                        <h:outputText value="#{item.emailcontactsPK.contactname}" />
+                                    </p:column>  
+
+                                    <p:column headerText="Mail Address" style="width:30%" 
+                                              id="firstnameColumn" filterBy="emailaddress" filterMatchMode="contains">  
+                                        <p:cellEditor>  
+                                            <f:facet name="output">  
+                                                <h:outputText value="#{item.emailaddress}" />  
+                                            </f:facet>  
+                                            <f:facet name="input">  
+                                                <p:inputText value="#{item.emailaddress}" style="width:100%"/>  
+                                            </f:facet>  
+                                        </p:cellEditor>  
+                                    </p:column>
+
+
+
+
+                                    <p:column headerText="Delete" style="width: 6%">
+                                        <f:facet name="header">
+                                            <h:outputText value="" />
+                                        </f:facet>
+                                        <p:commandButton icon="ui-icon-close" title="remove from list" 
+                                                         actionListener="#{emailContactsEdit.deleteItemDom(item)}" update="roger" />
+                                    </p:column>
+
+                                </p:dataTable>
+                                <p:commandButton value="Refresh" action="#{emailContactsEdit.init()}" icon="ui-icon-refresh" update="roger"/>
+                            </p:panel>
+                        </h:form>
+                    </p:tab>
+                </p:tabView>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html> 
