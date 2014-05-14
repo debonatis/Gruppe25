@@ -266,16 +266,18 @@
 
                             <p:panel header="File Options" id="FO">
                                 <h:panelGrid columns="6">
-                                    <h:outputText value="Less Significant RDN: *" />
-                                    <p:inputText required="true" label="dc2"
-                                                 value="#{fileDownload.dc2}" />
+                                    <h:outputText value="Most Significant RDN: *" />
+                                    <p:inputText required="true" label="dc2" value="#{fileDownload.dc2}" />
+
 
                                     <h:outputText value="Middle RDN: *" />
                                     <p:inputText required="true" label="dc1"
-                                                 value="#{fileDownload.dc1}" />
+                                                 value="#{fileDownload.dc1}" /> 
+                                    <h:outputText value="Less Significant RDN: *" />
+                                    <p:inputText required="true" label="dc0"
+                                                 value="#{fileDownload.dc0}" />
 
-                                    <h:outputText value="Most Significant RDN: *" />
-                                    <p:inputText required="true" label="dc0" value="#{fileDownload.dc0}" />
+
                                 </h:panelGrid>
                             </p:panel>
                             <p:panel header="Export Options" id="EO">
