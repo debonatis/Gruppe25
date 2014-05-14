@@ -9,10 +9,13 @@ import controllerClasses.special.model.ProjectUsersModel;
 import controllerClasses.special.model.SharedresourcesUsersModel;
 import controllerClasses.special.model.SiteuserListModel;
 import controllerClasses.special.model.UsersListModel;
+import entityModels.Emailcontacts;
+import entityModels.EmailcontactsPK;
 import entityModels.Logging;
 import entityModels.Projects;
 import entityModels.Prositeusers;
 import entityModels.Sharedresources;
+import entityModels.SharedresourcesPK;
 import entityModels.Sharedresourcesusers;
 import entityModels.SharedresourcesusersPK;
 import entityModels.Siteuser;
@@ -59,11 +62,13 @@ public class UsersToSharedresources implements Serializable {
     private String usernameProp;
     private boolean skip;
     private Users bruker = new Users(new UsersPK());
-    
+
     private List<Users> projectListT = new ArrayList<>();
     private UsersListModel selectList = new UsersListModel();
     private DualListModel<Sharedresources> listPro;
     private DualListModel<Users> listSU;
+
+    private Sharedresources shared = new Sharedresources(new SharedresourcesPK());
 
     public DualListModel<Users> getDusers() {
         return dusers;
@@ -80,6 +85,14 @@ public class UsersToSharedresources implements Serializable {
 
     public void setUsernameProp(String usernameProp) {
         this.usernameProp = usernameProp;
+    }
+
+    public Sharedresources getShared() {
+        return shared;
+    }
+
+    public void setShared(Sharedresources shared) {
+        this.shared = shared;
     }
 
     public List<SharedresourcesUsersModel> getSrUsers() {
@@ -122,7 +135,6 @@ public class UsersToSharedresources implements Serializable {
 //        sharedresources = new DualListModel<>(sharedresourcesEJB.findAllPro(projectID), new ArrayList<Sharedresources>());
 //        username = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
 //    }
-
     public UsersToSharedresources() {
 
     }
@@ -148,6 +160,14 @@ public class UsersToSharedresources implements Serializable {
 
         LoggingEJB.create(new Logging(new Date(System.currentTimeMillis()), "simond", "test", "INFO", "test"));
 
+    }
+
+    public void save(ActionEvent actionEvent) {
+        shared.getSharedresourcesPK().setProjectid((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
+        sharedresourcesEJB.create(shared);
+        FacesMessage msg = new FacesMessage("Successful", "You saved :" + shared.getSharedresourcesPK().getDisplaynameshared());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        shared = new Sharedresources(new SharedresourcesPK());
     }
 
     public void onTransferU(TransferEvent event) {
@@ -197,7 +217,7 @@ public class UsersToSharedresources implements Serializable {
         }
 
     }
-    
+
     @PostConstruct
     public void init() {
 
@@ -219,7 +239,6 @@ public class UsersToSharedresources implements Serializable {
             srUsers.add(new SharedresourcesUsersModel(g, roger));
         }
     }
-    
 
     public void onTransferDU(TransferEvent event) {
         StringBuilder builder = new StringBuilder();
@@ -265,7 +284,7 @@ public class UsersToSharedresources implements Serializable {
         bruker = new Users();
 
     }
-    
+
     public void deleteItemPro(SharedresourcesUsersModel e) {
 
         for (Users u : e.getUserList()) {
@@ -278,11 +297,10 @@ public class UsersToSharedresources implements Serializable {
         srUsers.remove(e);
 
     }
-    
-    
+
     public void deleteItemProUser(SharedresourcesUsersModel g, Users e) {
 
-        sharedresourcesusersEJB.remove(new Sharedresourcesusers(g.getSr().getSharedresourcesPK().getDisplaynameshared(),e.getUsersPK().getUsername(),g.getSr().getSharedresourcesPK().getProjectid()));
+        sharedresourcesusersEJB.remove(new Sharedresourcesusers(g.getSr().getSharedresourcesPK().getDisplaynameshared(), e.getUsersPK().getUsername(), g.getSr().getSharedresourcesPK().getProjectid()));
 
         int i = srUsers.indexOf(g);
         srUsers.get(i).getUserList().remove(e);
