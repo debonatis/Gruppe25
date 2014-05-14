@@ -198,11 +198,11 @@
                                                 <h:outputText value="" />
                                             </f:facet>
                                             <p:commandButton icon="ui-icon-close" title="remove from list"
-                                                             actionListener="#{distAndGroupEdit.deleteItemDIST(gr)}" update="carList" />
+                                                             actionListener="#{superUsers.deleteItemPro(gr)}" update="carList" />
                                         </p:column>
                                         <p:column headerText="Users">
                                             <p:rowExpansion>
-                                                <p:dataTable var="usr" value="#{gr.users}" id="memList2" paginator="true" rows="10">  
+                                                <p:dataTable var="usr" value="#{gr.userList}" id="memList2" paginator="true" rows="10">  
 
                                                     <f:facet name="header">  
                                                         Users 
@@ -213,7 +213,7 @@
                                                     <p:column headerText="User name" style="width:30%">  
 
 
-                                                        <h:outputText value="#{usr.usersPK.username}" />  
+                                                        <h:outputText value="#{usr.username}" />  
 
 
 
@@ -231,7 +231,7 @@
 
                                     </p:dataTable>  
 
-                                    <p:commandButton value="Refresh" action="#{distAndGroupEdit.init()}" icon="ui-icon-refresh" update="carList"/>
+                                    <p:commandButton value="Refresh" action="#{superUsers.init()}" icon="ui-icon-refresh" update="carList"/>
 
                                 </h:form> 
 
