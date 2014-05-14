@@ -1,0 +1,172 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+    </h:head>
+
+    <h:body>
+        <ui:composition template="template/templateSecure.xhtml">
+            <ui:define name="center">
+
+                <p:tabView id="tabView">
+                    <p:tab id="tab1" title="Users to Shared resources">  
+                        <h:form id="selectForm">
+
+                            <p:growl id="growl2" sticky="true" showDetail="true"/>  
+
+                            <p:wizard flowListener="#{usersToSharedresources.onFlowProcessPick}" >
+
+                                <p:tab id="grouppick" title="Select shared resource(s) for editing">  
+
+                                    <p:panel header="Shared resource(s) Selection"> 
+
+                                        <p:growl id="msg2" showDetail="true" escape="false" />  
+                                        <p:pickList id="pojoPickList" value="#{usersToSharedresources.sharedresources}" var="sharedresource" effect="fade"  
+                                                    itemValue="#{sharedresource}" itemLabel="#{sharedresource.sharedresourcesPK.displaynameshared}" converter="#{indexConverterG}"  
+                                                    showSourceControls="true" showTargetControls="true" showCheckbox="true"  
+                                                    showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" >  
+
+                                            <f:facet name="sourceCaption">Available Shared Resources</f:facet>  
+                                            <f:facet name="targetCaption">Selected Shared Resources</f:facet>  
+
+                                            <p:ajax event="transfer" listener="#{usersToSharedresources.onTransferG}" update="msg2" />  
+
+
+
+                                            <p:column style="width:75%;">  
+                                                #{sharedresource.sharedresourcesPK.displaynameshared}  
+                                            </p:column>  
+
+                                        </p:pickList > 
+
+                                    </p:panel>
+                                </p:tab>
+                                <p:tab id="userpick" title="Select Users for adding">  
+
+                                    <p:panel header="User Selection"> 
+                                        <p:growl id="msg3" showDetail="true" escape="false" />  
+                                        <p:pickList id="pojoPickListU" value="#{usersToSharedresources.users}" var="user" effect="bounce"  
+                                                    itemValue="#{user}" itemLabel="#{user.usersPK.username}" converter="#{indexConverterU}"  
+                                                    showSourceControls="true" showTargetControls="true" showCheckbox="true"  
+                                                    showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" >  
+
+                                            <f:facet name="sourceCaption">Available Users</f:facet>  
+                                            <f:facet name="targetCaption">Selected users in predefined group/es</f:facet>  
+
+                                            <p:ajax event="transfer" listener="#{usersToSharedresources.onTransferU}" update="msg3" />  
+
+
+
+                                            <p:column style="width:75%;">  
+                                                #{user.usersPK.username}  
+                                            </p:column>  
+
+                                        </p:pickList>  
+                                    </p:panel>
+                                    <p:commandButton id="pojoSubmit" value="Submit"   style="margin-top:5px" action="#{usersToSharedresources.saveU()}"/> 
+                                </p:tab>
+                            </p:wizard>
+                        </h:form>
+                    </p:tab>
+
+
+                    <p:tab title="Edit Shared Resources">
+                        <h:form id="form">
+                            <p:growl id="messages" showDetail="true"/>  
+
+                            <p:dataTable var="sr" value="#{usersToSharedresources.srUsers}" id="carList" paginator="true" rows="10" editable="true">  
+
+                                <f:facet name="header">  
+                                    Shared Resources 
+                                </f:facet>  
+
+                                <p:ajax event="rowEdit" listener="#{superUsers.onEditPro}" update=":tabView:form:messages" />  
+                                <p:ajax event="rowEditCancel" listener="#{superUsers.onCancelPro}" update=":tabView:form:messages" />  
+
+                                <p:column headerText="Shared resource name" style="width:30%">  
+                                    <f:facet name="output">  
+                                        <h:outputText value="#{sr.sr.sharedresourcesPK.displaynameshared}" />  
+                                    </f:facet>  
+                                </p:column>  
+                                <p:column headerText="E-mail alias" style="width:30%">  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">  
+                                            <h:outputText value="#{sr.sr.emailalias}" />  
+                                        </f:facet>  
+                                        <f:facet name="input">  
+                                            <p:inputText value="#{sr.sr.emailalias}" style="width:100%"/>  
+                                        </f:facet>  
+                                    </p:cellEditor>  
+                                </p:column>  
+
+
+
+                                <p:column headerText="External e-mail" style="width:20%">  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">  
+                                            <h:outputText value="#{sr.sr.externalemail}" />  
+                                        </f:facet>  
+                                        <f:facet name="input">  
+                                            <p:inputText value="#{sr.sr.externalemail}" />
+                                        </f:facet>  
+                                    </p:cellEditor>  
+                                </p:column>  
+                                <p:column style="width:6%">  
+                                    <p:rowEditor />  
+                                </p:column>  
+                                <p:column headerText="Delete">
+                                    <f:facet name="header">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                    <p:commandButton icon="ui-icon-close" title="remove from list"
+                                                     actionListener="#{usersToSharedresources.deleteItemPro(sr)}" update="carList" />
+                                </p:column>
+                                
+                                <p:column headerText="Users">
+                                    <p:rowExpansion>
+                                        <p:dataTable var="usr" value="#{sr.userList}" id="memList2" paginator="true" rows="10">  
+
+                                            <f:facet name="header">  
+                                                Users 
+                                            </f:facet>  
+
+
+
+                                            <p:column headerText="User name" style="width:30%">  
+
+
+                                                <h:outputText value="#{usr.username}" />  
+
+
+
+                                            </p:column> 
+                                            <p:column headerText="Delete">
+
+                                                <p:commandButton icon="ui-icon-close" title="remove from list"
+                                                                 actionListener="#{usersToSharedresources.deleteItemProUser(sr, usr)}" update="memList2" />
+                                            </p:column>
+                                        </p:dataTable>     
+
+                                    </p:rowExpansion>
+
+                                </p:column>
+
+                            </p:dataTable>  
+
+                            <p:commandButton value="Refresh" action="#{superUsers.init()}" icon="ui-icon-refresh" update="carList"/>
+                        </h:form>
+                    </p:tab>
+
+                </p:tabView>
+            </ui:define>
+
+        </ui:composition>
+    </h:body>
+
+
+</html> 
+
+
