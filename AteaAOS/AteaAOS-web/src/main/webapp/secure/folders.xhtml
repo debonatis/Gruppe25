@@ -32,7 +32,7 @@
                                 <f:facet name="header">
                                     Right-Click to See Options
                                 </f:facet>
-                                <p:column style="width:150px">
+                                <p:column style="width:90%">
                                     <f:facet name="header">
                                         Name
                                     </f:facet>
@@ -46,16 +46,28 @@
                                                 Users 
                                             </f:facet>  
 
+                                            <p:ajax event="rowEdit" listener="#{foldersEdit.onEdit}" update=":tabView:form:messages" />  
+                                            <p:ajax event="rowEditCancel" listener="#{foldersEdit.onCancel}" update=":tabView:form:messages" />  
+
+                                            <p:column headerText="Group Name" style="width:10%">  
 
 
-                                            <p:column headerText="Group Name" style="width:30%">  
-
-
-                                                <h:outputText value="#{gr.groupsPK.groupname}" />  
+                                                <h:outputText value="#{gr.foldergroupsPK.groupname}" />  
 
 
 
                                             </p:column> 
+
+                                            <p:column>
+                                                <p:selectBooleanButton id="RW" value="#{foldersEdit.value(gr.rw)}" onLabel="Yes" offLabel="No" /> 
+                                            </p:column>
+
+                                            <p:column>
+                                                <p:selectBooleanButton id="R" value="#{foldersEdit.value(gr.r)}" onLabel="Yes" offLabel="No" /> 
+                                            </p:column>
+                                            <p:column style="width:6%">  
+                                                <p:rowEditor />  
+                                            </p:column>  
                                             <p:column headerText="Delete">
 
                                                 <p:commandButton icon="ui-icon-close" title="remove from list"
@@ -117,65 +129,7 @@
 
 
                     </p:tab>
-                    <p:tab title="Folder Overview">
-                        <h:form>
-                        <p:dataTable var="gr" value="#{foldersEdit.folderGM}" id="Liste" paginator="true" rows="10" editable="true">  
 
-                            <f:facet name="header">  
-                                Security Group/s Securing Folders
-
-                            </f:facet>  
-                            <p:columnGroup type="header">
-                                <p:row>
-                                    <p:column rowspan="2" headerText="Folder" />
-                                    <p:column colspan="2" headerText="Permissons" />
-                                </p:row>
-
-                                <p:row>
-                                    <p:column headerText="RW" />
-                                    <p:column headerText="R" />
-                                </p:row>
-                                <p:subTable var="gr2" value="#{gr.grList}" id="subList">
-                                    <f:facet name="header">
-                                        #{gr.foldername} 
-                                    </f:facet>
-
-                                    <p:column>
-                                        #{gr2.foldergroupsPK.groupname}
-                                    </p:column>
-
-                                    <p:column>
-                                        <p:selectBooleanButton id="RW" value="#{foldersEdit.value(gr2.rw)}" onLabel="Yes" offLabel="No" /> 
-                                    </p:column>
-
-                                    <p:column>
-                                        <p:selectBooleanButton id="R" value="#{foldersEdit.value(gr2.r)}" onLabel="Yes" offLabel="No" /> 
-                                    </p:column>
-                                    <p:column headerText="Delete">
-
-                                        <p:commandButton icon="ui-icon-close" title="remove from list"
-                                                         actionListener="#{foldersEdit.delSecGroup(gr2)}" update="subListe" />
-                                    </p:column>
-
-                                    <p:columnGroup type="footer">
-                                        <p:row>
-                                            <p:column footerText="-" style="text-align:right"/>
-
-                                        </p:row>
-                                    </p:columnGroup>
-                                </p:subTable>
-                            </p:columnGroup>
-
-
-
-
-
-                        </p:dataTable>   
-
-                            <p:commandButton update="Liste" action="#{foldersEdit.refresh()}" value="Refresh" icon="ui-icon-refresh"/>
-                        </h:form>
-
-                    </p:tab>
 
                 </p:tabView>
 

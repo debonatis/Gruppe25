@@ -5,13 +5,10 @@
  */
 package controllerClasses.special;
 
-import com.google.common.base.CharMatcher;
-import controllerClasses.special.model.FolderGroupsModel;
 import entityModels.Foldergroups;
 import entityModels.Folders;
 import entityModels.FoldersPK;
 import entityModels.Groups;
-import entityModels.GroupsPK;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +20,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import org.primefaces.event.RowEditEvent;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
 import persistClasses.FolderGroupsFacade;
@@ -53,7 +51,7 @@ public class FoldersEdit {
     private boolean r = false;
     private HashMap<String, String> nodes = new HashMap<>();
     private String nameText = "";
-    private List<FolderGroupsModel> folderGM = new ArrayList<>();
+    
     private TreeMap<String, TreeNode> treeMap = new TreeMap<>();
 
     public FoldersEdit() {
@@ -72,19 +70,7 @@ public class FoldersEdit {
         }
         List<Foldergroups> k = fgF.findAllPro(projectID);
         List<Folders> l = fF.findAllPro(projectID);
-        folderGM = new ArrayList<>();
-        FolderGroupsModel j = new FolderGroupsModel();
-        for (Folders f : l) {
-
-            for (Foldergroups fg : k) {
-                j = new FolderGroupsModel(f.getFoldersPK().getFoldername(), new ArrayList<Foldergroups>());
-                if (fg.getFoldergroupsPK().getFoldername().equalsIgnoreCase(j.getFoldername())) {
-                    j.getGrList().add(fg);
-                }
-
-            }
-            folderGM.add(j);
-        }
+        
         getFoldersFromDB();
         try {
 
@@ -153,13 +139,7 @@ public class FoldersEdit {
         }
     }
 
-    public List<FolderGroupsModel> getFolderGM() {
-        return folderGM;
-    }
-
-    public void setFolderGM(List<FolderGroupsModel> folderGM) {
-        this.folderGM = folderGM;
-    }
+   
 
     public boolean isRw() {
         return rw;
@@ -286,27 +266,27 @@ public class FoldersEdit {
 
     }
 
-    public List<Groups> getGrList(Object s) {
-        List<Groups> gro = new ArrayList<>();
+    public List<Foldergroups> getGrList(Object s) {
+        List<Foldergroups> gro = new ArrayList<>();
         if (s == null) {
             return gro;
         }
         Folders k = (Folders) s;
         for (Foldergroups go : fgF.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))) {
             if (k.getFoldersPK().getFoldername().equalsIgnoreCase(go.getFoldergroupsPK().getFoldername())) {
-                gro.add(gF.find(new GroupsPK(go.getFoldergroupsPK().getGroupname(), (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))));
+                gro.add(go);
             }
         }
         return gro;
     }
 
-    public void deleteItemFoGR(Object g, Groups e) {
+    public void deleteItemFoGR(Object g, Foldergroups e) {
 
         if (g == null) {
             return;
         }
         Folders k = (Folders) g;
-        fgF.remove(new Foldergroups(k.getFoldersPK().getFoldername(), (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"), e.getGroupsPK().getGroupname()));
+        fgF.remove(new Foldergroups(k.getFoldersPK().getFoldername(), (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"), e.getFoldergroupsPK().getGroupname()));
 
     }
 
@@ -339,5 +319,39 @@ public class FoldersEdit {
         gruSel.clear();
         refresh();
 
+    }
+    public void onEdit(RowEditEvent event) {
+
+        try {
+
+            Foldergroups test = fgF.find(((Foldergroups) event.getObject()).getFoldergroupsPK());
+
+            test.setR(((Foldergroups) event.getObject()).getR());
+            test.setRw(((Foldergroups) event.getObject()).getRw());
+
+            fgF.edit(test);
+
+            FacesMessage msg = new FacesMessage();
+            msg.setSeverity(FacesMessage.SEVERITY_INFO);
+            msg.setSummary("Group edited sucsessfully!");
+            msg.setDetail(" ");
+
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+
+        } catch (Exception e) {
+            FacesMessage msg = new FacesMessage();
+            msg.setSeverity(FacesMessage.SEVERITY_INFO);
+            msg.setSummary("Group not edited!");
+            msg.setDetail("Maybe faulty inputs?");
+
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+
+        }
+    }
+
+    public void onCancel(RowEditEvent event) {
+        FacesMessage msg = new FacesMessage("Editing Cancelled", ((Foldergroups) event.getObject()).getFoldergroupsPK().getGroupname());
+
+        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 }
