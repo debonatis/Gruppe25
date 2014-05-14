@@ -145,7 +145,7 @@
                             </p:dialog> 
 
 
-                            <p:commandButton  value="Refresh"   action="#{foldersEdit.refresh()}" icon="ui-icon-refresh" update="messages, treeSingle"/> 
+                            <p:commandButton  value="Refresh" process="@all"  action="#{foldersEdit.refresh()}" icon="ui-icon-refresh" update="treeSingle"/> 
 
                         </h:form>
 
