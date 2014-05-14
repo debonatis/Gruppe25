@@ -112,8 +112,8 @@
                                     Shared Resources 
                                 </f:facet>  
 
-                                <p:ajax event="rowEdit" listener="#{superUsers.onEditPro}" update=":tabView:form:messages" />  
-                                <p:ajax event="rowEditCancel" listener="#{superUsers.onCancel}" update=":tabView:form:messages" />  
+                                <p:ajax event="rowEdit" listener="#{usersToSharedresources.onEdit}" update=":tabView:form:messages" />  
+                                <p:ajax event="rowEditCancel" listener="#{usersToSharedresources.onCancel}" update=":tabView:form:messages" />  
 
                                 <p:column headerText="Shared resource name" style="width:30%">  
                                     <f:facet name="output">  
