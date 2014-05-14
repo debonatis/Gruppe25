@@ -47,8 +47,8 @@
                                                 Users 
                                             </f:facet>  
 
-                                            <p:ajax event="rowEdit" listener="#{foldersEdit.onEdit}"  />  
-                                            <p:ajax event="rowEditCancel" listener="#{foldersEdit.onCancel}"  />  
+                                            <p:ajax event="rowEdit" listener="#{foldersEdit.onEdit}" update=":tabView:tab1:form10:messages" />  
+                                            <p:ajax event="rowEditCancel" listener="#{foldersEdit.onCancel}" update=":tabView:tab1:form10:messages" />  
 
                                             <p:column headerText="Group Name" style="width:10%">  
 
