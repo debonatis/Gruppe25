@@ -7,6 +7,7 @@
 package persistClasses;
 
 import entityModels.Userdistribution;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,6 +28,14 @@ public class UserdistributionFacade extends AbstractFacade<Userdistribution> {
 
     public UserdistributionFacade() {
         super(Userdistribution.class);
+    }
+    @Override
+     public List<Userdistribution> findAllPro(String projectID) {
+        
+        javax.persistence.Query q = getEntityManager().createNamedQuery(""+Userdistribution.class.getName().substring(13)+".findByProjectidd", Userdistribution.class);
+        q.setParameter("projectidd", projectID);
+       List<Userdistribution> res = q.getResultList();
+        return res;
     }
     
 }

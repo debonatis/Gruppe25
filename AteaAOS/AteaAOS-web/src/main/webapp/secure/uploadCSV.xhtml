@@ -257,45 +257,63 @@
                     </p:tab> 
                     <p:tab id="tab2" title="LDF or CSV Download">
                         <p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false" closable="false" resizable="false">  
-                            <p:graphicImage value="/resources/gif/ajaxloadingbar.gif" />  
+                            <p:graphicImage value="/resources/images/gif/ajaxloadingbar.gif" />  
                         </p:dialog> 
-                        <p:dialog header="Selected Values" modal="true" showEffect="fade" hideEffect="fade" widgetVar="dlg">
-                            <h:panelGrid columns="1" id="display">
-                                <h:outputText value="Value 1: #{formBean.value1}" />
-
-                                <h:outputText value="Value 2: #{formBean.value2}" />
-                            </h:panelGrid>
-                        </p:dialog>
 
                         <h:form id="form2">  
 
-                            <p:commandButton rendered="" id="downloadLink" value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop)"   
-                                             icon="ui-icon-arrowthichk-s">  
-                                <p:fileDownload value="#{fileDownload.file}" />  
-                            </p:commandButton>  
-                            <p:spacer/>
-                            <p:panel header="File Options">
+
+
+                            <p:panel header="File Options" id="FO">
+                                <h:panelGrid columns="6">
+                                    <h:outputText value="Most Significant RDN: *" />
+                                    <p:inputText required="true" label="dc2" value="#{fileDownload.dc2}" />
+
+
+                                    <h:outputText value="Middle RDN: *" />
+                                    <p:inputText required="true" label="dc1"
+                                                 value="#{fileDownload.dc1}" /> 
+                                    <h:outputText value="Less Significant RDN: *" />
+                                    <p:inputText required="true" label="dc0"
+                                                 value="#{fileDownload.dc0}" />
+
+
+                                </h:panelGrid>
+                            </p:panel>
+                            <p:panel header="Export Options" id="EO">
                                 <p:growl id="msg" />
                                 <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
-                                <h:outputText value="Export Only Users?: " />
-                                <p:selectBooleanButton value="#{fileDownload.onlyUsers}" onLabel="Yes" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close">
-                                    <p:ajax update="msg" listener="#{formBean.addMessage}"/>
-                                </p:selectBooleanButton>
-                                <h:outputText value="Export Only Groups?: " />
-                                <p:selectBooleanButton value="#{fileDownload.onlyGroups}" onLabel="Yes" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close">
-                                    <p:ajax update="msg" listener="#{formBean.addMessage}"/>
-                                </p:selectBooleanButton>
-                                <h:outputText value="LDF or CSV?: " />
-                                <p:selectBooleanButton value="#{fileDownload.csv}" onLabel="CSV" offLabel="LDF">
-                                    <p:ajax update="msg" listener="#{formBean.addMessage}"/>
-                                </p:selectBooleanButton>
+                                    <h:outputText value="Export Only Users?: " />
+                                    <p:selectBooleanButton value="#{fileDownload.onlyUsers}" onLabel="Yes" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close">
+                                        <p:ajax update="msg" listener="#{formBean.addMessage}"/>
+                                    </p:selectBooleanButton>
+                                    <h:outputText value="Export Only Groups?: " />
+                                    <p:selectBooleanButton value="#{fileDownload.onlyGroups}" onLabel="Yes" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close">
+                                        <p:ajax update="msg" listener="#{formBean.addMessage}"/>
+                                    </p:selectBooleanButton>
+                                    <h:outputText value="LDF or CSV (CSV supprots only Userexport)?: " />
+                                    <p:selectBooleanButton value="#{fileDownload.csv}" onLabel="CSV" offLabel="LDF">
+                                        <p:ajax update="msg" listener="#{formBean.addMessage}"/>
+                                    </p:selectBooleanButton>
+                                    <h:outputText value="Domainserver with msexchange(Beta!)?: " />
+                                    <p:selectBooleanButton value="#{fileDownload.exchange}" onLabel="Yes" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close">
+                                        
+                                    </p:selectBooleanButton>
 
                                 </h:panelGrid>
 
-                                <p:commandButton value="Submit" update="display" oncomplete="PF('dlg').show()" />
+                                <p:commandButton value="Submit" action="#{fileDownload.setDown(true)}" update="FO,EO"/>
+                                <p:commandButton value="Generate File" action="#{fileDownload.generateFile}" />
+                                <p:panel>
+                                    <p:commandButton  id="downloadLink" value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop)"   
+                                                      icon="ui-icon-arrowthichk-s">  
+                                        <p:fileDownload value="#{fileDownload.file}" />  
+                                    </p:commandButton>  
+                                </p:panel>
 
 
                             </p:panel>
+
                         </h:form>  
 
                         <script type="text/javascript">

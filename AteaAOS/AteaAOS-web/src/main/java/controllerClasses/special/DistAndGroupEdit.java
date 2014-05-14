@@ -154,6 +154,7 @@ public class DistAndGroupEdit {
 
         selectsg.getGroupsPK().setProjectid(((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
         selectsg.setDn("NONE");
+        selectsg.setGroupowner("-");
         gF.create(selectsg);
         selectsg = new Groups(new GroupsPK());
     }
