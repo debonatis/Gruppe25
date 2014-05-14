@@ -9,8 +9,8 @@ package entityModels;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -27,18 +27,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Sharedresources.findAll", query = "SELECT s FROM Sharedresources s"),
-    @NamedQuery(name = "Sharedresources.findByDisplaynameshared", query = "SELECT s FROM Sharedresources s WHERE s.displaynameshared = :displaynameshared"),
+    @NamedQuery(name = "Sharedresources.findByDisplaynameshared", query = "SELECT s FROM Sharedresources s WHERE s.sharedresourcesPK.displaynameshared = :displaynameshared"),
+    @NamedQuery(name = "Sharedresources.findByProjectid", query = "SELECT s FROM Sharedresources s WHERE s.sharedresourcesPK.projectid = :projectid"),
     @NamedQuery(name = "Sharedresources.findByEmailalias", query = "SELECT s FROM Sharedresources s WHERE s.emailalias = :emailalias"),
     @NamedQuery(name = "Sharedresources.findByAccessresources", query = "SELECT s FROM Sharedresources s WHERE s.accessresources = :accessresources"),
     @NamedQuery(name = "Sharedresources.findByExternalemail", query = "SELECT s FROM Sharedresources s WHERE s.externalemail = :externalemail")})
 public class Sharedresources implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "DISPLAYNAMESHARED")
-    private String displaynameshared;
+    @EmbeddedId
+    protected SharedresourcesPK sharedresourcesPK;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -58,23 +55,27 @@ public class Sharedresources implements Serializable {
     public Sharedresources() {
     }
 
-    public Sharedresources(String displaynameshared) {
-        this.displaynameshared = displaynameshared;
+    public Sharedresources(SharedresourcesPK sharedresourcesPK) {
+        this.sharedresourcesPK = sharedresourcesPK;
     }
 
-    public Sharedresources(String displaynameshared, String emailalias, String accessresources, String externalemail) {
-        this.displaynameshared = displaynameshared;
+    public Sharedresources(SharedresourcesPK sharedresourcesPK, String emailalias, String accessresources, String externalemail) {
+        this.sharedresourcesPK = sharedresourcesPK;
         this.emailalias = emailalias;
         this.accessresources = accessresources;
         this.externalemail = externalemail;
     }
 
-    public String getDisplaynameshared() {
-        return displaynameshared;
+    public Sharedresources(String displaynameshared, String projectid) {
+        this.sharedresourcesPK = new SharedresourcesPK(displaynameshared, projectid);
     }
 
-    public void setDisplaynameshared(String displaynameshared) {
-        this.displaynameshared = displaynameshared;
+    public SharedresourcesPK getSharedresourcesPK() {
+        return sharedresourcesPK;
+    }
+
+    public void setSharedresourcesPK(SharedresourcesPK sharedresourcesPK) {
+        this.sharedresourcesPK = sharedresourcesPK;
     }
 
     public String getEmailalias() {
@@ -104,7 +105,7 @@ public class Sharedresources implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (displaynameshared != null ? displaynameshared.hashCode() : 0);
+        hash += (sharedresourcesPK != null ? sharedresourcesPK.hashCode() : 0);
         return hash;
     }
 
@@ -115,7 +116,7 @@ public class Sharedresources implements Serializable {
             return false;
         }
         Sharedresources other = (Sharedresources) object;
-        if ((this.displaynameshared == null && other.displaynameshared != null) || (this.displaynameshared != null && !this.displaynameshared.equals(other.displaynameshared))) {
+        if ((this.sharedresourcesPK == null && other.sharedresourcesPK != null) || (this.sharedresourcesPK != null && !this.sharedresourcesPK.equals(other.sharedresourcesPK))) {
             return false;
         }
         return true;
@@ -123,7 +124,7 @@ public class Sharedresources implements Serializable {
 
     @Override
     public String toString() {
-        return "entityModels.Sharedresources[ displaynameshared=" + displaynameshared + " ]";
+        return "entityModels.Sharedresources[ sharedresourcesPK=" + sharedresourcesPK + " ]";
     }
     
 }
