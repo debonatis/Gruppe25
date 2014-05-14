@@ -7,6 +7,7 @@
 package persistClasses;
 
 import entityModels.Groupusers;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,6 +28,14 @@ public class GroupusersFacade extends AbstractFacade<Groupusers> {
 
     public GroupusersFacade() {
         super(Groupusers.class);
+    }
+    @Override
+    public List<Groupusers> findAllPro(String projectID) {
+        
+        javax.persistence.Query q = getEntityManager().createNamedQuery(""+Groupusers.class.getName().substring(13)+".findByProjectidg", Groupusers.class);
+        q.setParameter("projectidg", projectID);
+       List<Groupusers> res = q.getResultList();
+        return res;
     }
     
 }
