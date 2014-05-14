@@ -228,12 +228,7 @@ public class FileDownload {
                                 entry.addAttribute(new Attribute("sn", usr.getLastname()));
                                 entry.addAttribute(new Attribute("givenName", usr.getFirstname()));
                                 entry.addAttribute(new Attribute("distinguishedName", "cn=" + usr.getFirstname() + " " + usr.getLastname() + ",ou=import,dc=" + dc2 + ",dc=" + dc1 + ",dc=" + dc0 + ""));
-                                for (Groupusers gu : sgMMF.findAllPro(Projectid)) {
-                                    if (gu.getGroupusersPK().getUsername().equalsIgnoreCase(usr.getUsersPK().getUsername())) {
-                                        members.add("cn=" + gu.getGroupusersPK().getUsergroupname() + ",ou=import,dc=" + dc2 + ",dc=" + dc1 + ",dc=" + dc0 + "");
-                                    }
-                                }
-                                entry.addAttribute(new Attribute("memberOf", members));
+                                
                                 entry.addAttribute(new Attribute("sAMAccountName", usr.getUsersPK().getUsername()));
                                 
                                 entry.addAttribute(new Attribute("mail", usr.getEmail()));
@@ -371,12 +366,7 @@ public class FileDownload {
                                 entry.addAttribute(new Attribute("sn", usr.getLastname()));
                                 entry.addAttribute(new Attribute("givenName", usr.getFirstname()));
                                 entry.addAttribute(new Attribute("distinguishedName", "cn=" + usr.getFirstname() + " " + usr.getLastname() + ",ou=import,dc=" + dc2 + ",dc=" + dc1 + ",dc=" + dc0 + ""));
-                                for (Groupusers gu : sgMMF.findAllPro(Projectid)) {
-                                    if (gu.getGroupusersPK().getUsername().equalsIgnoreCase(usr.getUsersPK().getUsername())) {
-                                        members.add("cn=" + gu.getGroupusersPK().getUsergroupname() + ",ou=import,dc=" + dc2 + ",dc=" + dc1 + ",dc=" + dc0 + "");
-                                    }
-                                }
-                                entry.addAttribute(new Attribute("memberOf", members));
+                                
                                 entry.addAttribute(new Attribute("sAMAccountName", usr.getUsersPK().getUsername()));
                                 
                                 entry.addAttribute(new Attribute("mail", usr.getEmail()));
