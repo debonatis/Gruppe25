@@ -12,6 +12,7 @@ import entityModels.SharedresourcesPK;
 import entityModels.Sharedresourcesusers;
 import entityModels.SharedresourcesusersPK;
 import entityModels.Users;
+import entityModels.UsersPK;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -183,7 +184,7 @@ public class UsersToSharedresources implements Serializable {
             roger.clear();
             for (Sharedresourcesusers sru : sharedresourcesusersEJB.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))) {
                 if (sr.getSharedresourcesPK().getDisplaynameshared().equalsIgnoreCase(sru.getSharedresourcesusersPK().getDisplaynameshared())) {
-                    roger.add(usersEJB.find(sru.getSharedresourcesusersPK().getUsername()));
+                    roger.add(usersEJB.find(new UsersPK(sru.getSharedresourcesusersPK().getUsername(),(String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))));
                 }
             }
             srUsers.add(new SharedresourcesUsersModel(sr, roger));
