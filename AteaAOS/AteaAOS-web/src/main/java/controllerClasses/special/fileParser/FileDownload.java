@@ -152,7 +152,7 @@ public class FileDownload {
     public synchronized void generateFile() {
 
         if (csv) {
-            File k = new File("CSVExport.ldf");
+            File k = new File("/secure/FILES/CSVExport.ldf");
             InputStream stream = new InputStream() {
 
                 @Override
@@ -167,8 +167,8 @@ public class FileDownload {
                 Logger.getLogger(FileDownload.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-        } else {
-            File k = new File("LDFExport.ldf");
+        } else if(!csv) {
+            File k = new File("/secure/FILES/LDFExport.ldf");
             InputStream stream = new InputStream() {
 
                 @Override
