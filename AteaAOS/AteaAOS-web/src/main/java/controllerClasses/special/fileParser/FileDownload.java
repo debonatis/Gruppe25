@@ -428,7 +428,11 @@ public class FileDownload {
                                 entry.addAttribute(new Attribute("sAMAccountName", gu.getGroup().getGroupsPK().getGroupname()));
                                 
                                 entry.addAttribute(new Attribute("description", gu.getGroup().getFunctions()));
-                                entry.addAttribute(new Attribute("managedBy", gu.getGroup().getGroupowner()));
+                                if(!gu.getGroup().getGroupowner().equalsIgnoreCase("-")){
+                                Users manusr = new Users(gu.getGroup().getGroupowner(), Projectid);
+                               manusr = uF.find(manusr.getUsersPK());
+                                entry.addAttribute(new Attribute("managedBy","cn=" + manusr.getFirstname() + " " + manusr.getLastname() + ",ou=import,dc=" + dc2 + ",dc=" + dc1 + ",dc=" + dc0 + ""));
+                                }
                                 wr.writeEntry(entry);
                             } catch (LDAPException ex) {
                                 Logger.getLogger(FileDownload.class.getName()).log(Level.SEVERE, null, ex);
