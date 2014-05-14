@@ -204,10 +204,10 @@ public class FileDownload {
                         try {
                             dn = new DN("ou=import,dc=" + dc2 + ",dc=" + dc1 + ",dc=" + dc0 + "");
                             entry = new Entry(dn);
-                            entry.setAttribute(new Attribute("changeType:", "add"));
-                            entry.addAttribute(new Attribute("objectClass:", "top", "organizationalUnit"));
+                            entry.setAttribute(new Attribute("changeType", "add"));
+                            entry.addAttribute(new Attribute("objectClass", "top", "organizationalUnit"));
                             
-                            entry.setAttribute(new Attribute("description:", "Here is your imported resources!"));
+                            entry.setAttribute(new Attribute("description", "Here is your imported resources!"));
                             try {
                                 wr.writeEntry(entry);
                             } catch (IOException ex) {
@@ -222,22 +222,22 @@ public class FileDownload {
                             try {
                                 dn = new DN("cn=" + usr.getFirstname() + " " + usr.getLastname() + ",ou=import,dc=" + dc2 + ",dc=" + dc1 + ",dc=" + dc0 + "");
                                 entry = new Entry(dn);
-                                entry.setAttribute(new Attribute("changeType:", "add"));
-                                entry.addAttribute(new Attribute("objectClass:", "top", "organizationalPerson", "person", "user"));
-                                entry.addAttribute(new Attribute("cn:", "" + usr.getFirstname() + " " + usr.getLastname() + ""));
-                                entry.addAttribute(new Attribute("sn:", usr.getLastname()));
-                                entry.addAttribute(new Attribute("givenName:", usr.getFirstname()));
-                                entry.addAttribute(new Attribute("distinguishedName:", "cn=" + usr.getFirstname() + " " + usr.getLastname() + ",ou=import,dc=" + dc2 + ",dc=" + dc1 + ",dc=" + dc0 + ""));
+                                entry.setAttribute(new Attribute("changeType", "add"));
+                                entry.addAttribute(new Attribute("objectClass", "top", "organizationalPerson", "person", "user"));
+                                entry.addAttribute(new Attribute("cn", "" + usr.getFirstname() + " " + usr.getLastname() + ""));
+                                entry.addAttribute(new Attribute("sn", usr.getLastname()));
+                                entry.addAttribute(new Attribute("givenName", usr.getFirstname()));
+                                entry.addAttribute(new Attribute("distinguishedName", "cn=" + usr.getFirstname() + " " + usr.getLastname() + ",ou=import,dc=" + dc2 + ",dc=" + dc1 + ",dc=" + dc0 + ""));
                                 for (Groupusers gu : sgMMF.findAllPro(Projectid)) {
                                     if (gu.getGroupusersPK().getUsername().equalsIgnoreCase(usr.getUsersPK().getUsername())) {
                                         members.add("cn=" + gu.getGroupusersPK().getUsergroupname() + ",ou=import,dc=" + dc2 + ",dc=" + dc1 + ",dc=" + dc0 + "");
                                     }
                                 }
-                                entry.addAttribute(new Attribute("memberOf:", members));
-                                entry.addAttribute(new Attribute("sAMAccountName:", usr.getUsersPK().getUsername()));
+                                entry.addAttribute(new Attribute("memberOf", members));
+                                entry.addAttribute(new Attribute("sAMAccountName", usr.getUsersPK().getUsername()));
                                 
-                                entry.addAttribute(new Attribute("mail:", usr.getEmail()));
-                                entry.addAttribute(new Attribute("mobile:", Integer.toString(usr.getMobile())));
+                                entry.addAttribute(new Attribute("mail", usr.getEmail()));
+                                entry.addAttribute(new Attribute("mobile", Integer.toString(usr.getMobile())));
                                 wr.writeEntry(entry);
                             } catch (LDAPException ex) {
                                 Logger.getLogger(FileDownload.class.getName()).log(Level.SEVERE, null, ex);
@@ -264,10 +264,10 @@ public class FileDownload {
                         try {
                             dn = new DN("ou=import,dc=" + dc2 + ",dc=" + dc1 + ",dc=" + dc0 + "");
                             entry = new Entry(dn);
-                            entry.setAttribute(new Attribute("changeType:", "add"));
-                            entry.addAttribute(new Attribute("objectClass:", "top", "organizationalUnit"));
+                            entry.setAttribute(new Attribute("changeType", "add"));
+                            entry.addAttribute(new Attribute("objectClass", "top", "organizationalUnit"));
                             
-                            entry.setAttribute(new Attribute("description:", "Here is your imported resources!"));
+                            entry.setAttribute(new Attribute("description", "Here is your imported resources!"));
                             try {
                                 wr.writeEntry(entry);
                             } catch (IOException ex) {
@@ -282,23 +282,23 @@ public class FileDownload {
                             try {
                                 dn = new DN("cn=" + du.getDist().getDistributiongroupsPK().getDisplayname() + ",ou=import,dc=" + dc2 + ",dc=" + dc1 + ",dc=" + dc0 + "");
                                 entry = new Entry(dn);
-                                entry.setAttribute(new Attribute("changeType:", "add"));
-                                entry.addAttribute(new Attribute("objectClass:", "top", "group"));
-                                entry.addAttribute(new Attribute("cn:", du.getDist().getDistributiongroupsPK().getDisplayname()));
-                                entry.addAttribute(new Attribute("name:", du.getDist().getDistributiongroupsPK().getDisplayname()));
-                                entry.addAttribute(new Attribute("groupType:", "2"));
-                                entry.addAttribute(new Attribute("distinguishedName:", "cn=" + du.getDist().getDistributiongroupsPK().getDisplayname() + ",ou=import,dc=" + dc2 + ",dc=" + dc1 + ",dc=" + dc0 + ""));
+                                entry.setAttribute(new Attribute("changeType", "add"));
+                                entry.addAttribute(new Attribute("objectClass", "top", "group"));
+                                entry.addAttribute(new Attribute("cn", du.getDist().getDistributiongroupsPK().getDisplayname()));
+                                entry.addAttribute(new Attribute("name", du.getDist().getDistributiongroupsPK().getDisplayname()));
+                                entry.addAttribute(new Attribute("groupType", "2"));
+                                entry.addAttribute(new Attribute("distinguishedName", "cn=" + du.getDist().getDistributiongroupsPK().getDisplayname() + ",ou=import,dc=" + dc2 + ",dc=" + dc1 + ",dc=" + dc0 + ""));
                                 for (Users usr : du.getUserList()) {
                                     
                                     members.add("cn=" + usr.getFirstname() + " " + usr.getLastname() + ",ou=import,dc=" + dc2 + ",dc=" + dc1 + ",dc=" + dc0 + "");
                                 }
                                 
-                                entry.addAttribute(new Attribute("member:", members));
-                                entry.addAttribute(new Attribute("sAMAccountName:", du.getDist().getDistributiongroupsPK().getDisplayname()));
+                                entry.addAttribute(new Attribute("member", members));
+                                entry.addAttribute(new Attribute("sAMAccountName", du.getDist().getDistributiongroupsPK().getDisplayname()));
                                 
-                                entry.addAttribute(new Attribute("mail:", du.getDist().getEmailalias()));
+                                entry.addAttribute(new Attribute("mail", du.getDist().getEmailalias()));
                                 if (du.getDist().getExternalemail().equalsIgnoreCase("YES")) {
-                                    entry.addAttribute(new Attribute("msExchRequireAuthToSentTo:", "true"));
+                                    entry.addAttribute(new Attribute("msExchRequireAuthToSentTo", "true"));
                                     
                                 }
                                 wr.writeEntry(entry);
@@ -311,22 +311,22 @@ public class FileDownload {
                             try {
                                 dn = new DN("cn=" + gu.getGroup().getGroupsPK().getGroupname() + ",ou=import,dc=" + dc2 + ",dc=" + dc1 + ",dc=" + dc0 + "");
                                 entry = new Entry(dn);
-                                entry.setAttribute(new Attribute("changeType:", "add"));
-                                entry.addAttribute(new Attribute("objectClass:", "top", "group"));
-                                entry.addAttribute(new Attribute("cn:", gu.getGroup().getGroupsPK().getGroupname()));
-                                entry.addAttribute(new Attribute("name:", gu.getGroup().getGroupsPK().getGroupname()));
-                                entry.addAttribute(new Attribute("groupType:", "-2147483646"));
-                                entry.addAttribute(new Attribute("distinguishedName:", "cn=" + gu.getGroup().getGroupsPK().getGroupname() + ",ou=import,dc=" + dc2 + ",dc=" + dc1 + ",dc=" + dc0 + ""));
+                                entry.setAttribute(new Attribute("changeType", "add"));
+                                entry.addAttribute(new Attribute("objectClass", "top", "group"));
+                                entry.addAttribute(new Attribute("cn", gu.getGroup().getGroupsPK().getGroupname()));
+                                entry.addAttribute(new Attribute("name", gu.getGroup().getGroupsPK().getGroupname()));
+                                entry.addAttribute(new Attribute("groupType", "-2147483646"));
+                                entry.addAttribute(new Attribute("distinguishedName", "cn=" + gu.getGroup().getGroupsPK().getGroupname() + ",ou=import,dc=" + dc2 + ",dc=" + dc1 + ",dc=" + dc0 + ""));
                                 for (Users usr : gu.getUserList()) {
                                     
                                     members.add("cn=" + usr.getFirstname() + " " + usr.getLastname() + ",ou=import,dc=" + dc2 + ",dc=" + dc1 + ",dc=" + dc0 + "");
                                 }
                                 
-                                entry.addAttribute(new Attribute("member:", members));
-                                entry.addAttribute(new Attribute("sAMAccountName:", gu.getGroup().getGroupsPK().getGroupname()));
+                                entry.addAttribute(new Attribute("member", members));
+                                entry.addAttribute(new Attribute("sAMAccountName", gu.getGroup().getGroupsPK().getGroupname()));
                                 
-                                entry.addAttribute(new Attribute("description:", gu.getGroup().getFunctions()));
-                                entry.addAttribute(new Attribute("managedBy:", gu.getGroup().getGroupowner()));
+                                entry.addAttribute(new Attribute("description", gu.getGroup().getFunctions()));
+                                entry.addAttribute(new Attribute("managedBy", gu.getGroup().getGroupowner()));
                                 wr.writeEntry(entry);
                             } catch (LDAPException ex) {
                                 Logger.getLogger(FileDownload.class.getName()).log(Level.SEVERE, null, ex);
@@ -351,10 +351,10 @@ public class FileDownload {
                         try {
                             dn = new DN("ou=import,dc=" + dc2 + ",dc=" + dc1 + ",dc=" + dc0 + "");
                             entry = new Entry(dn);
-                            entry.setAttribute(new Attribute("changeType:", "add"));
-                            entry.addAttribute(new Attribute("objectClass:", "top", "organizationalUnit"));
+                            entry.setAttribute(new Attribute("changeType", "add"));
+                            entry.addAttribute(new Attribute("objectClass", "top", "organizationalUnit"));
                             
-                            entry.setAttribute(new Attribute("description:", "Here is your imported resources!"));
+                            entry.setAttribute(new Attribute("description", "Here is your imported resources!"));
                             wr.writeEntry(entry);
                         } catch (LDAPException ex) {
                             Logger.getLogger(FileDownload.class.getName()).log(Level.SEVERE, null, ex);
@@ -365,22 +365,22 @@ public class FileDownload {
                             try {
                                 dn = new DN("cn=" + usr.getFirstname() + " " + usr.getLastname() + ",ou=import,dc=" + dc2 + ",dc=" + dc1 + ",dc=" + dc0 + "");
                                 entry = new Entry(dn);
-                                entry.setAttribute(new Attribute("changeType:", "add"));
-                                entry.addAttribute(new Attribute("objectClass:", "top", "organizationalPerson", "person", "user"));
-                                entry.addAttribute(new Attribute("cn:", "" + usr.getFirstname() + " " + usr.getLastname() + ""));
-                                entry.addAttribute(new Attribute("sn:", usr.getLastname()));
-                                entry.addAttribute(new Attribute("givenName:", usr.getFirstname()));
-                                entry.addAttribute(new Attribute("distinguishedName:", "cn=" + usr.getFirstname() + " " + usr.getLastname() + ",ou=import,dc=" + dc2 + ",dc=" + dc1 + ",dc=" + dc0 + ""));
+                                entry.setAttribute(new Attribute("changeType", "add"));
+                                entry.addAttribute(new Attribute("objectClass", "top", "organizationalPerson", "person", "user"));
+                                entry.addAttribute(new Attribute("cn", "" + usr.getFirstname() + " " + usr.getLastname() + ""));
+                                entry.addAttribute(new Attribute("sn", usr.getLastname()));
+                                entry.addAttribute(new Attribute("givenName", usr.getFirstname()));
+                                entry.addAttribute(new Attribute("distinguishedName", "cn=" + usr.getFirstname() + " " + usr.getLastname() + ",ou=import,dc=" + dc2 + ",dc=" + dc1 + ",dc=" + dc0 + ""));
                                 for (Groupusers gu : sgMMF.findAllPro(Projectid)) {
                                     if (gu.getGroupusersPK().getUsername().equalsIgnoreCase(usr.getUsersPK().getUsername())) {
                                         members.add("cn=" + gu.getGroupusersPK().getUsergroupname() + ",ou=import,dc=" + dc2 + ",dc=" + dc1 + ",dc=" + dc0 + "");
                                     }
                                 }
-                                entry.addAttribute(new Attribute("memberOf:", members));
-                                entry.addAttribute(new Attribute("sAMAccountName:", usr.getUsersPK().getUsername()));
+                                entry.addAttribute(new Attribute("memberOf", members));
+                                entry.addAttribute(new Attribute("sAMAccountName", usr.getUsersPK().getUsername()));
                                 
-                                entry.addAttribute(new Attribute("mail:", usr.getEmail()));
-                                entry.addAttribute(new Attribute("mobile:", Integer.toString(usr.getMobile())));
+                                entry.addAttribute(new Attribute("mail", usr.getEmail()));
+                                entry.addAttribute(new Attribute("mobile", Integer.toString(usr.getMobile())));
                                 wr.writeEntry(entry);
                             } catch (LDAPException ex) {
                                 Logger.getLogger(FileDownload.class.getName()).log(Level.SEVERE, null, ex);
@@ -394,23 +394,23 @@ public class FileDownload {
                             try {
                                 dn = new DN("cn=" + du.getDist().getDistributiongroupsPK().getDisplayname() + ",ou=import,dc=" + dc2 + ",dc=" + dc1 + ",dc=" + dc0 + "");
                                 entry = new Entry(dn);
-                                entry.setAttribute(new Attribute("changeType:", "add"));
-                                entry.addAttribute(new Attribute("objectClass:", "top", "group"));
-                                entry.addAttribute(new Attribute("cn:", du.getDist().getDistributiongroupsPK().getDisplayname()));
-                                entry.addAttribute(new Attribute("name:", du.getDist().getDistributiongroupsPK().getDisplayname()));
-                                entry.addAttribute(new Attribute("groupType:", "2"));
-                                entry.addAttribute(new Attribute("distinguishedName:", "cn=" + du.getDist().getDistributiongroupsPK().getDisplayname() + ",ou=import,dc=" + dc2 + ",dc=" + dc1 + ",dc=" + dc0 + ""));
+                                entry.setAttribute(new Attribute("changeType", "add"));
+                                entry.addAttribute(new Attribute("objectClass", "top", "group"));
+                                entry.addAttribute(new Attribute("cn", du.getDist().getDistributiongroupsPK().getDisplayname()));
+                                entry.addAttribute(new Attribute("name", du.getDist().getDistributiongroupsPK().getDisplayname()));
+                                entry.addAttribute(new Attribute("groupType", "2"));
+                                entry.addAttribute(new Attribute("distinguishedName", "cn=" + du.getDist().getDistributiongroupsPK().getDisplayname() + ",ou=import,dc=" + dc2 + ",dc=" + dc1 + ",dc=" + dc0 + ""));
                                 for (Users usr : du.getUserList()) {
                                     
                                     members.add("cn=" + usr.getFirstname() + " " + usr.getLastname() + ",ou=import,dc=" + dc2 + ",dc=" + dc1 + ",dc=" + dc0 + "");
                                 }
                                 
-                                entry.addAttribute(new Attribute("member:", members));
-                                entry.addAttribute(new Attribute("sAMAccountName:", du.getDist().getDistributiongroupsPK().getDisplayname()));
+                                entry.addAttribute(new Attribute("member", members));
+                                entry.addAttribute(new Attribute("sAMAccountName", du.getDist().getDistributiongroupsPK().getDisplayname()));
                                 
-                                entry.addAttribute(new Attribute("mail:", du.getDist().getEmailalias()));
+                                entry.addAttribute(new Attribute("mail", du.getDist().getEmailalias()));
                                 if (du.getDist().getExternalemail().equalsIgnoreCase("YES")) {
-                                    entry.addAttribute(new Attribute("msExchRequireAuthToSentTo:", "true"));
+                                    entry.addAttribute(new Attribute("msExchRequireAuthToSentTo", "true"));
                                     
                                 }
                                 wr.writeEntry(entry);
@@ -423,22 +423,22 @@ public class FileDownload {
                             try {
                                 dn = new DN("cn=" + gu.getGroup().getGroupsPK().getGroupname() + ",ou=import,dc=" + dc2 + ",dc=" + dc1 + ",dc=" + dc0 + "");
                                 entry = new Entry(dn);
-                                entry.setAttribute(new Attribute("changeType:", "add"));
-                                entry.addAttribute(new Attribute("objectClass:", "top", "group"));
-                                entry.addAttribute(new Attribute("cn:", gu.getGroup().getGroupsPK().getGroupname()));
-                                entry.addAttribute(new Attribute("name:", gu.getGroup().getGroupsPK().getGroupname()));
-                                entry.addAttribute(new Attribute("groupType:", "-2147483646"));
-                                entry.addAttribute(new Attribute("distinguishedName:", "cn=" + gu.getGroup().getGroupsPK().getGroupname() + ",ou=import,dc=" + dc2 + ",dc=" + dc1 + ",dc=" + dc0 + ""));
+                                entry.setAttribute(new Attribute("changeType", "add"));
+                                entry.addAttribute(new Attribute("objectClass", "top", "group"));
+                                entry.addAttribute(new Attribute("cn", gu.getGroup().getGroupsPK().getGroupname()));
+                                entry.addAttribute(new Attribute("name", gu.getGroup().getGroupsPK().getGroupname()));
+                                entry.addAttribute(new Attribute("groupType", "-2147483646"));
+                                entry.addAttribute(new Attribute("distinguishedName", "cn=" + gu.getGroup().getGroupsPK().getGroupname() + ",ou=import,dc=" + dc2 + ",dc=" + dc1 + ",dc=" + dc0 + ""));
                                 for (Users usr : gu.getUserList()) {
                                     
                                     members.add("cn=" + usr.getFirstname() + " " + usr.getLastname() + ",ou=import,dc=" + dc2 + ",dc=" + dc1 + ",dc=" + dc0 + "");
                                 }
                                 
-                                entry.addAttribute(new Attribute("member:", members));
-                                entry.addAttribute(new Attribute("sAMAccountName:", gu.getGroup().getGroupsPK().getGroupname()));
+                                entry.addAttribute(new Attribute("member", members));
+                                entry.addAttribute(new Attribute("sAMAccountName", gu.getGroup().getGroupsPK().getGroupname()));
                                 
-                                entry.addAttribute(new Attribute("description:", gu.getGroup().getFunctions()));
-                                entry.addAttribute(new Attribute("managedBy:", gu.getGroup().getGroupowner()));
+                                entry.addAttribute(new Attribute("description", gu.getGroup().getFunctions()));
+                                entry.addAttribute(new Attribute("managedBy", gu.getGroup().getGroupowner()));
                                 wr.writeEntry(entry);
                             } catch (LDAPException ex) {
                                 Logger.getLogger(FileDownload.class.getName()).log(Level.SEVERE, null, ex);
