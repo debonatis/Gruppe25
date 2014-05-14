@@ -40,14 +40,15 @@
                                 </p:column>
                                 <p:column headerText="Groups">
                                     <p:rowExpansion>
+                                        <p:growl id="messages" showDetail="true"/>  
                                         <p:dataTable var="gr" value="#{foldersEdit.getGrList(node)}" id="memList2" paginator="true" rows="10" editable="true">  
 
                                             <f:facet name="header">  
                                                 Users 
                                             </f:facet>  
 
-                                            <p:ajax event="rowEdit" listener="#{foldersEdit.onEdit}" update=":tabView:form:messages" />  
-                                            <p:ajax event="rowEditCancel" listener="#{foldersEdit.onCancel}" update=":tabView:form:messages" />  
+                                            <p:ajax event="rowEdit" listener="#{foldersEdit.onEdit}"  />  
+                                            <p:ajax event="rowEditCancel" listener="#{foldersEdit.onCancel}"  />  
 
                                             <p:column headerText="Group Name" style="width:10%">  
 
