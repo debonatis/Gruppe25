@@ -25,7 +25,7 @@
 
                                         <p:growl id="msg2" showDetail="true" escape="false" />  
                                         <p:pickList id="pojoPickList" value="#{usersToSharedresources.sharedresources}" var="sharedresource" effect="fade"  
-                                                    itemValue="#{sharedresource}" itemLabel="#{sharedresource.sharedresourcesPK.displaynameshared}" converter="#{indexConverterG}"  
+                                                    itemValue="#{sharedresource}" itemLabel="#{sharedresource.sharedresourcesPK.displaynameshared}" converter="#{indexConverterSR}"  
                                                     showSourceControls="true" showTargetControls="true" showCheckbox="true"  
                                                     showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" >  
 
@@ -155,8 +155,7 @@
                                 </p:column>
 
                             </p:dataTable>  
-
-                            <p:commandButton value="Refresh" action="#{superUsers.init()}" icon="ui-icon-refresh" update="carList"/>
+                            <p:commandButton value="Refresh" action="#{usersToSharedresources.init()}" icon="ui-icon-refresh" update="carList"/>
                         </h:form>
                     </p:tab>
                 </p:tabView>
