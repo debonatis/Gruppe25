@@ -451,7 +451,7 @@ public class FileDownload {
 
     private LDIFWriter getLDFWriter(File k) throws IOException {
 
-        LDIFWriter wr = new LDIFWriter(k);
+        LDIFWriter wr = new LDIFWriter(k.getAbsoluteFile());
         return wr;
 
     }
