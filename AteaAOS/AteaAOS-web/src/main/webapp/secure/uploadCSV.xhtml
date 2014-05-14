@@ -285,7 +285,8 @@
 
                                 </h:panelGrid>
 
-                                <p:commandButton value="Submit" action="#{fileDownload.generateFile}#{fileDownload.setDown(true)}" />
+                                <p:commandButton value="Submit" action="#{fileDownload.setDown(true)}" rendered="#{not fileDownload.okDownload}"/>
+                                <p:commandButton value="Generate File" action="#{fileDownload.generateFile}" />
 
 
 
