@@ -116,9 +116,9 @@
                                 <p:ajax event="rowEditCancel" listener="#{usersToSharedresources.onCancel}" update=":tabView:form:messages" />  
 
                                 <p:column headerText="Shared resource name" style="width:30%">  
-                                    <f:facet name="output">  
+                                    
                                         <h:outputText value="#{sr.sr.sharedresourcesPK.displaynameshared}" />  
-                                    </f:facet>  
+                                     
                                 </p:column>  
                                 <p:column headerText="E-mail alias" style="width:30%">  
                                     <p:cellEditor>  
