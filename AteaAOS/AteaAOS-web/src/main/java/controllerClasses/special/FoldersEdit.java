@@ -5,11 +5,13 @@
  */
 package controllerClasses.special;
 
+import com.google.common.base.CharMatcher;
 import controllerClasses.special.model.FolderGroupsModel;
 import entityModels.Foldergroups;
 import entityModels.Folders;
 import entityModels.FoldersPK;
 import entityModels.Groups;
+import entityModels.GroupsPK;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -281,6 +283,30 @@ public class FoldersEdit {
 
         folder = new Folders(new FoldersPK());
         refresh();
+
+    }
+
+    public List<Groups> getGrList(Object s) {
+        List<Groups> gro = new ArrayList<>();
+        if (s == null) {
+            return gro;
+        }
+        Folders k = (Folders) s;
+        for (Foldergroups go : fgF.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))) {
+            if (k.getFoldersPK().getFoldername().equalsIgnoreCase(go.getFoldergroupsPK().getFoldername())) {
+                gro.add(gF.find(new GroupsPK(go.getFoldergroupsPK().getGroupname(), (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))));
+            }
+        }
+        return gro;
+    }
+
+    public void deleteItemFoGR(Object g, Groups e) {
+
+        if (g == null) {
+            return;
+        }
+        Folders k = (Folders) g;
+        fgF.remove(new Foldergroups(k.getFoldersPK().getFoldername(), (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"), e.getGroupsPK().getGroupname()));
 
     }
 

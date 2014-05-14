@@ -38,6 +38,34 @@
                                     </f:facet>
                                     <h:outputText value="#{foldersEdit.getName(node)}" />
                                 </p:column>
+                                <p:column headerText="Groups">
+                                    <p:rowExpansion>
+                                        <p:dataTable var="gr" value="#{foldersEdit.getGrList(node)}" id="memList2" paginator="true" rows="10">  
+
+                                            <f:facet name="header">  
+                                                Users 
+                                            </f:facet>  
+
+
+
+                                            <p:column headerText="Group Name" style="width:30%">  
+
+
+                                                <h:outputText value="#{gr.groupsPK.groupname}" />  
+
+
+
+                                            </p:column> 
+                                            <p:column headerText="Delete">
+
+                                                <p:commandButton icon="ui-icon-close" title="remove from list"
+                                                                 actionListener="#{foldersEdit.deleteItemFoGR(node, gr)}" update="memList2" />
+                                            </p:column>
+                                        </p:dataTable>     
+
+                                    </p:rowExpansion>
+
+                                </p:column>
 
                             </p:treeTable>  
 
