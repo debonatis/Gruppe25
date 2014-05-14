@@ -278,7 +278,7 @@
                                     <p:selectBooleanButton value="#{fileDownload.onlyGroups}" onLabel="Yes" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close">
                                         <p:ajax update="msg" listener="#{formBean.addMessage}"/>
                                     </p:selectBooleanButton>
-                                    <h:outputText value="LDF or CSV?: " />
+                                    <h:outputText value="LDF or CSV (CSV supprots only Userexport)?: " />
                                     <p:selectBooleanButton value="#{fileDownload.csv}" onLabel="CSV" offLabel="LDF">
                                         <p:ajax update="msg" listener="#{formBean.addMessage}"/>
                                     </p:selectBooleanButton>
