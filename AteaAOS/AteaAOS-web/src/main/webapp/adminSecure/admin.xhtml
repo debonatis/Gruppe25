@@ -23,8 +23,8 @@
 
                                         <p:dataTable id="rogerS" value="#{superUsers.selectList}" var="item" cellSeparator="2" paginator="true" rows="10" editable="true">
 
-                                            <p:ajax event="rowEdit" listener="#{superUsers.onEdit}" update=":storrelse:messages" />  
-                                            <p:ajax event="rowEditCancel" listener="#{superUsers.onCancel}" update=":storrelse:messages" />
+                                            <p:ajax event="rowEdit" listener="#{superUsers.onEdit}" update=":tabView:storrelse:messages" />  
+                                            <p:ajax event="rowEditCancel" listener="#{superUsers.onCancel}" update=":tabView:storrelse:messages" />
 
                                             <p:column style="width:6%" headerText="Edit">  
                                                 <p:rowEditor  />  
@@ -136,7 +136,7 @@
                                 </h:form>
                             </p:tab>
                             <p:tab title="Edit Projects">
-                                <h:form>
+                                <h:form id="form">
                                     <p:growl id="messages" showDetail="true"/>  
 
                                     <p:dataTable var="gr" value="#{superUsers.proUsers}" id="carList" paginator="true" rows="10" editable="true">  
@@ -237,7 +237,7 @@
 
                                 </h:form>
                             </p:tab>
-                        </p:tabview>
+                        </p:tabView>
                     </p:layoutUnit>
 
 
