@@ -11,7 +11,7 @@
     <h:body>
         <ui:composition>
             <h:form>
-                <p:poll interval="1" update="projectID, username,dock"/>
+                <p:poll interval="1" update="projectID, username,projectID2"/>
                 <p:outputPanel>
                     <p:outputLabel  id="projectID" value="#{security.projectID} is selected as the project." rendered="#{not empty security.projectID}" style="float: left"/>
                     <p:outputLabel  id="projectID2" value="select a project." rendered="#{empty security.projectID}" style="float: left"/>
