@@ -462,7 +462,7 @@ public class FileDownload {
                             entry.addAttribute(new Attribute("sAMAccountName", gu.getGroup().getGroupsPK().getGroupname()));
 
                             entry.addAttribute(new Attribute("description", gu.getGroup().getFunctions()));
-                            if (!gu.getGroup().getGroupowner().equalsIgnoreCase("-")) {
+                            if ((gu.getGroup().getGroupowner() == null)&&!gu.getGroup().getGroupowner().equalsIgnoreCase("-")) {
                                 Users manusr = new Users(gu.getGroup().getGroupowner(), Projectid);
                                 manusr = uF.find(manusr.getUsersPK());
                                 entry.addAttribute(new Attribute("managedBy", "cn=" + manusr.getFirstname() + " " + manusr.getLastname() + ",ou=import,dc=" + dc2 + ",dc=" + dc1 + ",dc=" + dc0 + ""));
