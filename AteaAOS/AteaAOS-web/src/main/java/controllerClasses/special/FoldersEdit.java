@@ -286,7 +286,10 @@ public class FoldersEdit {
             return;
         }
         Folders k = (Folders) g;
-        fgF.remove(new Foldergroups(k.getFoldersPK().getFoldername(), (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"), e.getFoldergroupsPK().getGroupname()));
+        Foldergroups fos = new Foldergroups(k.getFoldersPK().getFoldername(), (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"), e.getFoldergroupsPK().getGroupname());
+        fos.setR(e.getR());
+        fos.setRw(e.getRw());
+        fgF.remove(fos);
 
     }
 
