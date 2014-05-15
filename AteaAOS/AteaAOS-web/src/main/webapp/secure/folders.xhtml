@@ -90,7 +90,9 @@
                                             <p:rowEditor />  
                                         </p:column>  
                                         <p:column headerText="Delete" style="width: 3%">
-
+                                            <f:facet name="header">
+                                                <h:outputText value="Delete" />
+                                            </f:facet>
                                             <p:commandButton icon="ui-icon-close" title="remove from list"
                                                              actionListener="#{foldersEdit.deleteItemFoGR(node, gr)}" update="memList2" />
                                         </p:column>
