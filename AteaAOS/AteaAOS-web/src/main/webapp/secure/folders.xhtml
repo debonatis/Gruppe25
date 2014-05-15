@@ -50,13 +50,10 @@
                                         <p:ajax event="rowEdit" listener="#{foldersEdit.onErrr}" update=":tabView:form10:messages" />  
                                         <p:ajax event="rowEditCancel" listener="#{foldersEdit.onCancel}" update=":tabView:form10:messages" />  
 
-                                        <p:column headerText="Group Name" style="width:10%">  
-                                            <p:cellEditor>
-                                                <f:facet name="output">
-                                                <h:outputText value="#{gr.foldergroupsPK.groupname}" /> 
-                                                </f:facet>
-                                                
-                                            </p:cellEditor>
+                                        <p:column headerText="Group Name" style="width:20%">  
+
+                                            <h:outputText value="#{gr.foldergroupsPK.groupname}" /> 
+
 
 
                                         </p:column> 
@@ -67,11 +64,11 @@
                                                     <p:selectBooleanButton id="RW" value="#{foldersEdit.value(gr.rw)}" onLabel="Yes" offLabel="No" /> 
                                                 </f:facet>
                                                 <f:facet name="input">
-                                                    <p:selectOneMenu value="#{gr.rw}">
+                                                    <h:selectOneMenu value="#{gr.rw}">
                                                         <f:selectItem itemLabel="true" itemValue="true" />
                                                         <f:selectItem itemLabel="false" itemValue="false" />
 
-                                                    </p:selectOneMenu>
+                                                    </h:selectOneMenu>
                                                 </f:facet>
                                             </p:cellEditor>
                                         </p:column>
@@ -82,10 +79,10 @@
                                                     <p:selectBooleanButton id="R" value="#{foldersEdit.value(gr.r)}" onLabel="Yes" offLabel="No" /> 
                                                 </f:facet>
                                                 <f:facet name="input">
-                                                    <p:selectOneMenu value="#{gr.r}">
+                                                    <h:selectOneMenu value="#{gr.r}">
                                                         <f:selectItem itemLabel="true" itemValue="true" />
                                                         <f:selectItem itemLabel="false" itemValue="false" />
-                                                    </p:selectOneMenu>
+                                                    </h:selectOneMenu>
                                                 </f:facet>
                                             </p:cellEditor>
                                         </p:column>
