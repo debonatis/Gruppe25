@@ -35,7 +35,7 @@ public class Security implements Serializable {
         } catch (Exception e) {
         }
         if (projectID == null) {
-            projectID = "Project not choosen";
+            projectID = "";
         }
         return projectID;
     }
@@ -51,7 +51,7 @@ public class Security implements Serializable {
         } catch (Exception e) {
         }
         if (projectID == null || projectID.equalsIgnoreCase("")) {
-            projectID = "Not logged in";
+            projectID = "";
         }
         return username;
     }

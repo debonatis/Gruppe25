@@ -19,7 +19,7 @@
                 <p:outputPanel>
                     <p:commandLink  id="username" value="You are logged in as #{security.username}." rendered="#{not empty security.username}" style="float: left"/>
                 </p:outputPanel>
-                <p:dock id="dock" >  
+                <p:dock id="dock"rendered="#{not empty security.projectID}" >  
                     <p:menuitem value="Home" icon="/resources/images/dock/home.png" outcome="home"/>
                     <p:menuitem value="Users" icon="/resources/images/dock/user.png" outcome="users"/>
                     <p:menuitem value="Email Contacts" icon="/resources/images/dock/EmailContacts.png"  outcome="emailcontacts"/>
