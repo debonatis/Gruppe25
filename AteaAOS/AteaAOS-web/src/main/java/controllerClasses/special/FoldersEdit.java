@@ -42,8 +42,9 @@ public class FoldersEdit {
     private FolderGroupsFacade fgF;
     @EJB
     private GroupsFacade gF;
-    private TreeNode selectedNode;
     private Folders folder = new Folders(new FoldersPK("Empty", "Empty"));
+    private TreeNode selectedNode = new DefaultTreeNode(folder, root);
+
     private List<Groups> gruSel = new ArrayList<>();
     private List<Groups> gru = new ArrayList<>();
 
@@ -51,7 +52,7 @@ public class FoldersEdit {
     private boolean r = false;
     private HashMap<String, String> nodes = new HashMap<>();
     private String nameText = "";
-    
+
     private TreeMap<String, TreeNode> treeMap = new TreeMap<>();
 
     public FoldersEdit() {
@@ -70,7 +71,7 @@ public class FoldersEdit {
         }
         List<Foldergroups> k = fgF.findAllPro(projectID);
         List<Folders> l = fF.findAllPro(projectID);
-        
+
         getFoldersFromDB();
         try {
 
@@ -138,8 +139,6 @@ public class FoldersEdit {
             parent.getChildren().add(node);
         }
     }
-
-   
 
     public boolean isRw() {
         return rw;
@@ -323,6 +322,7 @@ public class FoldersEdit {
         refresh();
 
     }
+
     public void onErrr(RowEditEvent event) {
 
         try {
