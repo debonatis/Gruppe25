@@ -323,7 +323,7 @@ public class FoldersEdit {
         refresh();
 
     }
-    public void onEdit(RowEditEvent event) {
+    public void onErrr(RowEditEvent event) {
 
         try {
 
