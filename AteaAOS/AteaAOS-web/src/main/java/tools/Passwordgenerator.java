@@ -10,6 +10,7 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import sun.misc.BASE64Encoder;
 
 /**
  *
@@ -17,21 +18,37 @@ import java.security.NoSuchAlgorithmException;
  */
 public class Passwordgenerator {
 
+    public static BASE64Encoder base64;
+
     public static void main(String[] args) {
-        System.out.println("Base64-->SHA-256"+Base64.encode(encryptPassword("admin")));
-        System.out.println("SHA-256-->Base64"+encryptPassword(Base64.encode("admin")));
+        System.out.println("Den riktige: " + Base64.encode(encryptPassword("admin")));
+        System.out.println("SHA-256-->Base64: " + encryptPassword(Base64.encode("admin")));
+        System.out.println("encryptPasswordBase64: " + encryptPasswordBase64("admin"));
     }
 
     public static String encryptPassword(String planepassword) {
+        try {
+            MessageDigest md = java.security.MessageDigest.getInstance("SHA-256");
+            md.update(planepassword.getBytes("UTF-8"));
+            byte[] passwordDigest = md.digest();
+            String encodedPasswordHash = new sun.misc.BASE64Encoder().encode(passwordDigest);
+
+            return encodedPasswordHash;
+
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
+
+        }
+        return "";
+    }
+
+    public static String encryptPasswordBase64(String planepassword) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
 
             md.update(planepassword.getBytes("UTF-8")); // Change this to "UTF-16" if needed
             byte[] digest = md.digest();
-            BigInteger bigInt = new BigInteger(1, digest);
-            String output = bigInt.toString(16);
 
-            return output;
+            return org.apache.directory.api.util.Base64.encode(digest).toString();
 
         } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
 

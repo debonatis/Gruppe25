@@ -116,14 +116,12 @@ public class SiteuserControl {
 
     private String encryptPassword(String planepassword) {
         try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            MessageDigest md = java.security.MessageDigest.getInstance("SHA-256");
+            md.update(planepassword.getBytes("UTF-8"));
+            byte[] passwordDigest = md.digest();
+            String encodedPasswordHash = new sun.misc.BASE64Encoder().encode(passwordDigest);
 
-            md.update(planepassword.getBytes("UTF-8")); // Change this to "UTF-16" if needed
-            byte[] digest = md.digest();
-            BigInteger bigInt = new BigInteger(1, digest);
-            String output = bigInt.toString(16);
-
-            return output;
+            return encodedPasswordHash;
 
         } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
 
@@ -140,7 +138,7 @@ public class SiteuserControl {
         su.setPassword(encryptPassword(password));
         suF.edit(su);
         try {
-            sendMail(user.getEmail(), "AOS user generation (Do not repley)", url+" Password: "+password+" Username: "+su.getUsername() +"");
+            sendMail(user.getEmail(), "AOS user generation (Do not repley)", url + " Password: " + password + " Username: " + su.getUsername() + "");
         } catch (NamingException | MessagingException ex) {
             Logger.getLogger(SiteuserControl.class.getName()).log(Level.SEVERE, null, ex);
         }
