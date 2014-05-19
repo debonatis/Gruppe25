@@ -12,11 +12,14 @@ import entityModels.Groups;
 import entityModels.GroupsPK;
 import entityModels.Groupusers;
 import entityModels.GroupusersPK;
+import entityModels.Logging;
 import entityModels.Userdistribution;
 import entityModels.UserdistributionPK;
 import entityModels.Users;
 import entityModels.UsersPK;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -27,6 +30,7 @@ import org.primefaces.event.RowEditEvent;
 import persistClasses.DistributiongroupsFacade;
 import persistClasses.GroupsFacade;
 import persistClasses.GroupusersFacade;
+import persistClasses.LoggingFacade;
 import persistClasses.UserdistributionFacade;
 import persistClasses.UsersFacade;
 
@@ -48,6 +52,8 @@ public class DistAndGroupEdit {
     private GroupusersFacade sgMMF;
     @EJB
     private UsersFacade uF;
+    @EJB
+    private LoggingFacade lF;
     private List<DistSecGroupModel> liste = new ArrayList<>();
     private List<Groups> listsg = new ArrayList<>();
     private List<Distributiongroups> listdg = new ArrayList<>();
@@ -72,7 +78,7 @@ public class DistAndGroupEdit {
             roger = new ArrayList<>();
             for (Groupusers gu : sgMMF.findAll()) {
                 if (gu.getGroupusersPK().getUsergroupname().equalsIgnoreCase(g.getGroupsPK().getGroupname())) {
-                    roger.add(new Users(new UsersPK(gu.getGroupusersPK().getUsername(),gu.getGroupusersPK().getProjectidg())));
+                    roger.add(new Users(new UsersPK(gu.getGroupusersPK().getUsername(), gu.getGroupusersPK().getProjectidg())));
 
                 }
             }
@@ -82,7 +88,7 @@ public class DistAndGroupEdit {
             roger = new ArrayList<>();
             for (Userdistribution du : dgMMF.findAll()) {
                 if (du.getUserdistributionPK().getDisplayname().equalsIgnoreCase(d.getDistributiongroupsPK().getDisplayname())) {
-                    roger.add(new Users(new UsersPK(du.getUserdistributionPK().getUsername(),du.getUserdistributionPK().getProjectidu())));
+                    roger.add(new Users(new UsersPK(du.getUserdistributionPK().getUsername(), du.getUserdistributionPK().getProjectidu())));
 
                 }
             }
@@ -156,6 +162,7 @@ public class DistAndGroupEdit {
         selectsg.setDn("NONE");
         selectsg.setGroupowner("-");
         gF.create(selectsg);
+        lF.create(new Logging(new Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", selectsg.getGroupsPK().getGroupname() + " has been created."));
         selectsg = new Groups(new GroupsPK());
     }
 
@@ -175,16 +182,15 @@ public class DistAndGroupEdit {
             Groups gru = gF.find(new GroupsPK(e.getGrname(), (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
             gru.setGroupowner(e.getGowner());
             gF.edit(gru);
-
+            lF.create(new Logging(new Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", gru.getGroupsPK().getGroupname() + " has been edited."));
             init();
             FacesMessage msg = new FacesMessage("Group Edited", ((DistSecGroupModel) event.getObject()).getGrname());
 
             FacesContext.getCurrentInstance().addMessage(null, msg);
-        } else if (e.isDg()){
-            
+        } else if (e.isDg()) {
 
             init();
-            FacesMessage msg = new FacesMessage("Distribution Groups dont have owners", ((DistSecGroupModel) event.getObject()).getGrname());
+            FacesMessage msg = new FacesMessage("Distribution Groups dont have owners in this context", ((DistSecGroupModel) event.getObject()).getGrname());
 
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
@@ -200,21 +206,23 @@ public class DistAndGroupEdit {
     public void deleteItemDIST(DistSecGroupModel e) {
         if (e.isSg()) {
             for (Users u : e.getUsers()) {
-                sgMMF.remove(new Groupusers(new GroupusersPK(u.getUsersPK().getUsername(), e.getGrname(),(String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))));
+                sgMMF.remove(new Groupusers(new GroupusersPK(u.getUsersPK().getUsername(), e.getGrname(), (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))));
 
             }
-            
+
             Groups gru = gF.find(new GroupsPK(e.getGrname(), (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
             gF.remove(gru);
+            lF.create(new Logging(new Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", gru.getGroupsPK().getGroupname() + " has been deleted."));
 
             liste.remove(e);
         } else if (e.isDg()) {
             for (Users u : e.getUsers()) {
-                dgMMF.remove(new Userdistribution(new UserdistributionPK(u.getUsersPK().getUsername(), e.getGrname(),(String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))));
+                dgMMF.remove(new Userdistribution(new UserdistributionPK(u.getUsersPK().getUsername(), e.getGrname(), (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))));
 
             }
             Distributiongroups roger = dgF.find(new DistributiongroupsPK(e.getGrname(), (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
             dgF.remove(roger);
+            lF.create(new Logging(new Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", roger.getDistributiongroupsPK().getDisplayname() + " has been deleted."));
             liste.remove(e);
         }
 
@@ -223,9 +231,11 @@ public class DistAndGroupEdit {
     public void deleteItemDISTUser(DistSecGroupModel g, Users e) {
 
         if (g.isSg()) {
-            sgMMF.remove(new Groupusers(new GroupusersPK(e.getUsersPK().getUsername(), g.getGrname(),(String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))));
+            sgMMF.remove(new Groupusers(new GroupusersPK(e.getUsersPK().getUsername(), g.getGrname(), (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))));
+            lF.create(new Logging(new Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(),getClass().getName(),"INFO", e.getUsersPK().getUsername() + " has been removed from: "+g.getGrname()+ ""));
         } else if (g.isDg()) {
-            dgMMF.remove(new Userdistribution( new UserdistributionPK(e.getUsersPK().getUsername(), g.getGrname(),(String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))));
+            dgMMF.remove(new Userdistribution(new UserdistributionPK(e.getUsersPK().getUsername(), g.getGrname(), (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))));
+            lF.create(new Logging(new Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(),getClass().getName(),"INFO", e.getUsersPK().getUsername() + " has been removed from: "+g.getGrname()+ ""));
         }
 
         int i = liste.indexOf(g);
