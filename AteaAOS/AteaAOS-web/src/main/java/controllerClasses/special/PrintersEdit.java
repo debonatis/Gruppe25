@@ -5,8 +5,10 @@
  */
 package controllerClasses.special;
 
+import entityModels.Logging;
 import entityModels.Printers;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -17,6 +19,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import org.primefaces.event.FlowEvent;
 import org.primefaces.event.RowEditEvent;
+import persistClasses.LoggingFacade;
 import persistClasses.PrintersFacade;
 
 /**
@@ -29,6 +32,8 @@ public class PrintersEdit {
 
     @EJB
     private PrintersFacade pF;
+    @EJB
+    private LoggingFacade lF;
     private Printers printer = new Printers();
     private List<Printers> plist = new ArrayList<>();
 
@@ -60,6 +65,7 @@ public class PrintersEdit {
     public void save(ActionEvent actionEvent) {
         printer.setProjectid((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
         pF.create(printer);
+        lF.create(new Logging(new Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", printer.getPrintername() + " has been created: "));
         FacesMessage msg = new FacesMessage("Successful", "You saved :" + printer.getPrintername());
         FacesContext.getCurrentInstance().addMessage(null, msg);
         printer = new Printers();
@@ -84,7 +90,7 @@ public class PrintersEdit {
             test.setModel(((Printers) event.getObject()).getModel());
             test.setScantomail(((Printers) event.getObject()).getScantomail());
             pF.edit(test);
-
+lF.create(new Logging(new Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", test.getPrintername() + " has been edited"));
             FacesMessage msg = new FacesMessage();
             msg.setSeverity(FacesMessage.SEVERITY_INFO);
             msg.setSummary("User edited sucsessfully!");
@@ -112,6 +118,7 @@ public class PrintersEdit {
     public void deleteItemPri(Printers e) {
 
         pF.remove(e);
+        lF.create(new Logging(new Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO",e.getPrintername() + " has been deleted."));
 
         plist.remove(e);
 

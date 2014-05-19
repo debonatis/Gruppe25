@@ -9,7 +9,9 @@ import entityModels.Foldergroups;
 import entityModels.Folders;
 import entityModels.FoldersPK;
 import entityModels.Groups;
+import entityModels.Logging;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +28,7 @@ import org.primefaces.model.TreeNode;
 import persistClasses.FolderGroupsFacade;
 import persistClasses.FoldersFacade;
 import persistClasses.GroupsFacade;
+import persistClasses.LoggingFacade;
 
 /**
  *
@@ -42,6 +45,8 @@ public class FoldersEdit {
     private FolderGroupsFacade fgF;
     @EJB
     private GroupsFacade gF;
+    @EJB
+    private LoggingFacade lF;
     private Folders folder = new Folders(new FoldersPK("Empty", "Empty"));
     private TreeNode selectedNode = new DefaultTreeNode(folder, root);
 
@@ -207,6 +212,7 @@ public class FoldersEdit {
 
     public void delSecGroup(Foldergroups g) {
         fgF.remove(g);
+        lF.create(new Logging(new Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", g.getFoldergroupsPK().getGroupname() + " has been removed from: " + g.getFoldergroupsPK().getFoldername() + ""));
         FacesMessage msg = new FacesMessage("Group Deleted", g.getFoldergroupsPK().getGroupname());
 
         FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -240,6 +246,7 @@ public class FoldersEdit {
 
         ryddTreNode(selectedNode);
         fF.remove((Folders) selectedNode.getData());
+        lF.create(new Logging(new Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", ((Folders) selectedNode.getData()).getFoldersPK().getFoldername() + " and its subfolders is removed."));
         selectedNode.getChildren().clear();
         selectedNode.getParent().getChildren().remove(selectedNode);
         selectedNode.setParent(null);
@@ -259,7 +266,7 @@ public class FoldersEdit {
         TreeNode a = new DefaultTreeNode(folder, selectedNode);
 
         fF.create(folder);
-
+        lF.create(new Logging(new Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", folder.getFoldersPK().getFoldername() + " has been created."));
         folder = new Folders(new FoldersPK());
         refresh();
 
@@ -289,7 +296,7 @@ public class FoldersEdit {
         fos.setR(e.getR());
         fos.setRw(e.getRw());
         fgF.remove(fos);
-
+        lF.create(new Logging(new Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", fos.getFoldergroupsPK().getGroupname() + " has been removed from: " + fos.getFoldergroupsPK().getFoldername() + ""));
     }
 
     public String getName(Object s) {
@@ -312,6 +319,7 @@ public class FoldersEdit {
                 sett.setRw(Boolean.toString(isRw()));
                 sett.setR(Boolean.toString(isR()));
                 fgF.create(sett);
+                lF.create(new Logging(new Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", sett.getFoldergroupsPK().getGroupname() + " has been added to: " + sett.getFoldergroupsPK().getFoldername() + ""));
             } catch (Exception k) {
 
             }
@@ -333,7 +341,7 @@ public class FoldersEdit {
             test.setRw(((Foldergroups) event.getObject()).getRw());
 
             fgF.edit(test);
-
+            lF.create(new Logging(new Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", test.getFoldergroupsPK().getGroupname() + " has been edited in: " + test.getFoldergroupsPK().getFoldername() + ""));
             FacesMessage msg = new FacesMessage();
             msg.setSeverity(FacesMessage.SEVERITY_INFO);
             msg.setSummary("Group edited sucsessfully!");

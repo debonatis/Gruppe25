@@ -6,6 +6,7 @@
 package controllerClasses.special;
 
 import controllerClasses.special.model.ProjectsListModel;
+import entityModels.Logging;
 import entityModels.Projects;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import javax.faces.context.FacesContext;
 import org.primefaces.event.FlowEvent;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import persistClasses.LoggingFacade;
 import persistClasses.ProjectsFacade;
 
 /**
@@ -33,6 +35,8 @@ public class newProject implements Serializable {
 
     @EJB
     private ProjectsFacade projectsEJB;
+    @EJB
+    private LoggingFacade lF;
     private boolean skip;
     private Projects projects = new Projects();
     private static final Logger logger = Logger.getLogger(Projects.class.getName());
@@ -99,6 +103,8 @@ public class newProject implements Serializable {
         try {
             projects.setProjectid(getUUID().toString());
             projectsEJB.create(projects);
+            lF.create(new Logging(new java.util.Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", projects.getName() + " has been created."));
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("projectID", projects.getProjectid());
             prepareCreate();
 
             FacesMessage msg = new FacesMessage();

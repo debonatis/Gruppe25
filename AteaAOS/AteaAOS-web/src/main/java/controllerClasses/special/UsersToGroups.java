@@ -15,7 +15,6 @@ import entityModels.UserdistributionPK;
 import entityModels.Users;
 import entityModels.UsersPK;
 import java.io.Serializable;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -46,17 +45,18 @@ public class UsersToGroups implements Serializable {
     private GroupsFacade groupsEJB;
     @EJB
     private GroupusersFacade groupsusersEJB;
-    @EJB
-    private LoggingFacade LoggingEJB;
+
     @EJB
     private DistributiongroupsFacade dgF;
     @EJB
     private UserdistributionFacade dMMF;
+    @EJB
+    private LoggingFacade lF;
     private DualListModel<Users> users;
     private DualListModel<Users> dusers;
     private DualListModel<Groups> groups;
     private DualListModel<Distributiongroups> dgroups;
-    private String username;
+
     private String usernameProp;
     private boolean skip;
     private Users bruker = new Users(new UsersPK());
@@ -117,7 +117,7 @@ public class UsersToGroups implements Serializable {
         dusers = new DualListModel<>(usersEJB.findAllPro(projectID), new ArrayList<Users>());
         dgroups = new DualListModel<>(dgF.findAllPro(projectID), new ArrayList<Distributiongroups>());
         groups = new DualListModel<>(groupsEJB.findAllPro(projectID), new ArrayList<Groups>());
-        username = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
+
     }
 
     public UsersToGroups() {
@@ -139,11 +139,10 @@ public class UsersToGroups implements Serializable {
 
         for (Groups g : gr) {
             for (Users u : ur) {
-                groupsusersEJB.create(new Groupusers(new GroupusersPK(u.getUsersPK().getUsername(), g.getGroupsPK().getGroupname(),(String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))));
+                groupsusersEJB.create(new Groupusers(new GroupusersPK(u.getUsersPK().getUsername(), g.getGroupsPK().getGroupname(), (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))));
+                lF.create(new Logging(new java.util.Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", u.getUsersPK().getUsername() + " has been added to: " + g.getGroupsPK().getGroupname() + ""));
             }
         }
-
-        LoggingEJB.create(new Logging(new Date(System.currentTimeMillis()), "simond", "test", "INFO", "test"));
 
     }
 
@@ -152,11 +151,11 @@ public class UsersToGroups implements Serializable {
         List<Users> ur = dusers.getTarget();
         for (Distributiongroups dg : gr) {
             for (Users u : ur) {
-                dMMF.create(new Userdistribution(new UserdistributionPK(u.getUsersPK().getUsername(), dg.getDistributiongroupsPK().getDisplayname(),(String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")),(String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
+                dMMF.create(new Userdistribution(new UserdistributionPK(u.getUsersPK().getUsername(), dg.getDistributiongroupsPK().getDisplayname(), (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")), (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
+                lF.create(new Logging(new java.util.Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", u.getUsersPK().getUsername() + " has been added to: " + dg.getDistributiongroupsPK().getDisplayname() + ""));
             }
         }
 
-        LoggingEJB.create(new Logging(new Date(System.currentTimeMillis()), "simond", "test", "INFO", "test"));
     }
 
     public void onTransferU(TransferEvent event) {
@@ -280,6 +279,7 @@ public class UsersToGroups implements Serializable {
     public void saveW(ActionEvent actionEvent) {
         bruker.getUsersPK().setProjectid(((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
         usersEJB.create(bruker);
+        lF.create(new Logging(new java.util.Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", bruker.getUsersPK().getUsername() + " has been created."));
         FacesMessage msg = new FacesMessage("Successful", "Welcome :" + bruker.getFirstname());
         FacesContext.getCurrentInstance().addMessage(null, msg);
         bruker = new Users();

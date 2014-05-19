@@ -9,8 +9,10 @@ package controllerClasses.special;
 import entityModels.Applicationaccess;
 import entityModels.ApplicationaccessPK;
 import entityModels.Applications;
+import entityModels.Logging;
 import entityModels.Users;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -40,7 +42,7 @@ public class UsersToApplications {
     @EJB
     private ApplicationaccessFacade appAccessEJB;
     @EJB
-    private LoggingFacade LoggingEJB;
+    private LoggingFacade lF;
     private DualListModel<Users> users;
     private DualListModel<Applications> applications;
 
@@ -152,6 +154,7 @@ public class UsersToApplications {
         for (Applications a : getApplications().getTarget()) {
             for (Users u : getUsers().getTarget()) {
                 appAccessEJB.create(new Applicationaccess( new ApplicationaccessPK(u.getUsersPK().getUsername(), a.getApplicationid(),(String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))));
+                 lF.create(new Logging(new Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", u.getUsersPK().getUsername() + " has been added to: " + a.getApplicationname() + ""));
             }
         }
 

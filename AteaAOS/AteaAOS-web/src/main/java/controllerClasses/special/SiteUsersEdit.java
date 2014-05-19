@@ -7,11 +7,13 @@ package controllerClasses.special;
 
 import controllerClasses.special.model.ProjectUsersModel;
 import controllerClasses.special.model.SiteuserListModel;
+import entityModels.Logging;
 import entityModels.Projects;
 import entityModels.Prositeusers;
 import entityModels.Siteuser;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -23,6 +25,7 @@ import org.primefaces.event.FlowEvent;
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.event.TransferEvent;
 import org.primefaces.model.DualListModel;
+import persistClasses.LoggingFacade;
 import persistClasses.ProjectsFacade;
 import persistClasses.PrositeusersFacade;
 import persistClasses.SiteuserFacade;
@@ -42,7 +45,8 @@ public class SiteUsersEdit implements Serializable {
     private ProjectsFacade projectsFacade;
     @EJB
     private PrositeusersFacade prositeusersFacade;
-
+    @EJB
+    private LoggingFacade lF;
     private SiteuserListModel selectList = new SiteuserListModel();
     private Siteuser selected = new Siteuser();
     private List<Siteuser> projectListT = new ArrayList<>();
@@ -126,6 +130,7 @@ public class SiteUsersEdit implements Serializable {
     public void deleteItemUsr(Siteuser e) {
 
         siteuserEJB.remove(e);
+        lF.create(new Logging(new Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", e.getUsername() + " has been deleted."));
         projectListT.remove(e);
 
     }
@@ -140,6 +145,7 @@ public class SiteUsersEdit implements Serializable {
             test.setPassword(((Siteuser) event.getObject()).getPassword());
             test.setFirstname(((Siteuser) event.getObject()).getFirstname());
             siteuserEJB.edit(test);
+            lF.create(new Logging(new Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", test.getUsername() + " has been edited."));
 
             FacesMessage msg = new FacesMessage();
             msg.setSeverity(FacesMessage.SEVERITY_INFO);
@@ -243,10 +249,10 @@ public class SiteUsersEdit implements Serializable {
         for (Projects p : pro) {
             for (Siteuser s : su) {
                 prositeusersFacade.create(new Prositeusers(p.getProjectid(), s.getUsername()));
+                lF.create(new Logging(new Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", s.getUsername() + " has been added to: " + p.getName() + ""));
             }
         }
 
-//        LoggingEJB.create(new Logging(new Date(System.currentTimeMillis()), "simond", "test", "INFO", "test"));
     }
 
     public String onFlowProcess(FlowEvent event) {
@@ -264,6 +270,7 @@ public class SiteUsersEdit implements Serializable {
         pro.setName(e.getPro().getName());
         pro.setProjecttype(e.getPro().getProjecttype());
         projectsFacade.edit(pro);
+        lF.create(new Logging(new Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", pro.getName() + " has been edited."));
 
         init();
         FacesMessage msg = new FacesMessage("Project Edited", ((ProjectUsersModel) event.getObject()).getPro().getName());
@@ -282,11 +289,11 @@ public class SiteUsersEdit implements Serializable {
 
         for (Siteuser u : e.getUserList()) {
             prositeusersFacade.remove(new Prositeusers(e.getPro().getProjectid(), u.getUsername()));
-
+            lF.create(new Logging(new Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", u.getUsername() + " has been removed: " + e.getPro().getName() + ""));
         }
         Projects pro = projectsFacade.find(e.getPro().getProjectid());
         projectsFacade.remove(pro);
-
+        lF.create(new Logging(new Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", e.getPro().getName() + " has been deleted."));
         proUsers.remove(e);
 
     }
@@ -294,7 +301,7 @@ public class SiteUsersEdit implements Serializable {
     public void deleteItemProUser(ProjectUsersModel g, Siteuser e) {
 
         prositeusersFacade.remove(new Prositeusers(g.getPro().getProjectid(), e.getUsername()));
-
+        lF.create(new Logging(new Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", e.getUsername() + " has been removed: " + g.getPro().getName() + ""));
         int i = proUsers.indexOf(g);
         proUsers.get(i).getUserList().remove(e);
 

@@ -9,10 +9,12 @@ import controllerClasses.special.model.ApplicationUsers;
 import controllerClasses.special.model.ApplicationsModel;
 import entityModels.Applicationaccess;
 import entityModels.Applications;
+import entityModels.Logging;
 import entityModels.Users;
 import entityModels.UsersPK;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.logging.Logger;
@@ -26,6 +28,7 @@ import org.primefaces.event.FlowEvent;
 import org.primefaces.event.RowEditEvent;
 import persistClasses.ApplicationaccessFacade;
 import persistClasses.ApplicationsFacade;
+import persistClasses.LoggingFacade;
 
 /**
  *
@@ -39,6 +42,8 @@ public class NewApplication implements Serializable {
     private ApplicationsFacade applicationsEJB;
     @EJB
     private ApplicationaccessFacade aaF;
+    @EJB
+    private LoggingFacade lF;
     private boolean skip;
     private Applications applications = new Applications();
     private static final Logger logger = Logger.getLogger(Applications.class.getName());
@@ -98,7 +103,7 @@ public class NewApplication implements Serializable {
             roger = new ArrayList<>();
             for (Applicationaccess gu : aaF.findAll()) {
                 if (gu.getApplicationaccessPK().getApplicationid().equalsIgnoreCase(g.getApplicationid())) {
-                    roger.add(new Users(new UsersPK(gu.getApplicationaccessPK().getUsername(),gu.getApplicationaccessPK().getProjectidu())));
+                    roger.add(new Users(new UsersPK(gu.getApplicationaccessPK().getUsername(), gu.getApplicationaccessPK().getProjectidu())));
 
                 }
             }
@@ -124,6 +129,7 @@ public class NewApplication implements Serializable {
             applications.setApplicationid(getUUID().toString());
             applications.setProjectid((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
             applicationsEJB.create(applications);
+            lF.create(new Logging(new Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", applications.getApplicationname() + " has been created."));
             prepareCreate();
 
             FacesMessage msg = new FacesMessage();
@@ -161,6 +167,7 @@ public class NewApplication implements Serializable {
         app.setSizefile(e.getApp().getSizefile());
         app.setSubcontractor(e.getApp().getSubcontractor());
         applicationsEJB.edit(app);
+        lF.create(new Logging(new Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", app.getApplicationname() + " has been edited."));
 
         init();
         FacesMessage msg = new FacesMessage("Group Edited", ((ApplicationUsers) event.getObject()).getApp().getApplicationname());
@@ -178,11 +185,12 @@ public class NewApplication implements Serializable {
     public void deleteItemApp(ApplicationUsers e) {
 
         for (Users u : e.getUsers()) {
-            aaF.remove(new Applicationaccess(u.getUsersPK().getUsername(), e.getApp().getApplicationid(),(String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
-
+            aaF.remove(new Applicationaccess(u.getUsersPK().getUsername(), e.getApp().getApplicationid(), (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
+            lF.create(new Logging(new Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", u.getUsersPK().getUsername() + " has been removed from: " + e.getApp().getApplicationname() + ""));
         }
         Applications app = applicationsEJB.find(e.getApp().getApplicationid());
         applicationsEJB.remove(app);
+        lF.create(new Logging(new Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", app.getApplicationname() + " has been deleted"));
 
         appUsers.remove(e);
 
@@ -190,17 +198,17 @@ public class NewApplication implements Serializable {
 
     public void deleteItemAppUser(ApplicationUsers g, Users e) {
 
-        aaF.remove(new Applicationaccess(e.getUsersPK().getUsername(), g.getApp().getApplicationid(),(String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
-
+        aaF.remove(new Applicationaccess(e.getUsersPK().getUsername(), g.getApp().getApplicationid(), (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
+        lF.create(new Logging(new Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", e.getUsersPK().getUsername() + " has been removed from: " + g.getApp().getApplicationname() + ""));
         int i = appUsers.indexOf(g);
         appUsers.get(i).getUsers().remove(e);
 
     }
-    
+
     public String onFlowProcess(FlowEvent event) {
-        
+
         return event.getNewStep();
-        
+
     }
 
 }

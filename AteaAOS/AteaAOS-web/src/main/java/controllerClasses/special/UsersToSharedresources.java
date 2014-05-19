@@ -14,7 +14,6 @@ import entityModels.SharedresourcesusersPK;
 import entityModels.Users;
 import entityModels.UsersPK;
 import java.io.Serializable;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -44,7 +43,7 @@ public class UsersToSharedresources implements Serializable {
     @EJB
     private SharedresourcesusersFacade sharedresourcesusersEJB;
     @EJB
-    private LoggingFacade LoggingEJB;
+    private LoggingFacade lF;
 
     private DualListModel<Users> users;
 
@@ -107,10 +106,11 @@ public class UsersToSharedresources implements Serializable {
         for (Sharedresources g : gr) {
             for (Users u : ur) {
                 sharedresourcesusersEJB.create(new Sharedresourcesusers(new SharedresourcesusersPK(g.getSharedresourcesPK().getDisplaynameshared(), u.getUsersPK().getUsername(), (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"))));
+                lF.create(new Logging(new java.util.Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", u.getUsersPK().getUsername() + " has been added to: " + g.getSharedresourcesPK().getDisplaynameshared() + ""));
             }
         }
 
-        LoggingEJB.create(new Logging(new Date(System.currentTimeMillis()), "simond", "test", "INFO", "test"));
+       
 
     }
 
@@ -118,6 +118,7 @@ public class UsersToSharedresources implements Serializable {
         shared.setAccessresources("NOT IN USE");
         shared.getSharedresourcesPK().setProjectid((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
         sharedresourcesEJB.create(shared);
+        lF.create(new Logging(new java.util.Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", shared.getSharedresourcesPK().getDisplaynameshared() + " has been created "));
         FacesMessage msg = new FacesMessage("Successful", "You saved :" + shared.getSharedresourcesPK().getDisplaynameshared());
         FacesContext.getCurrentInstance().addMessage(null, msg);
         shared = new Sharedresources(new SharedresourcesPK());
@@ -194,10 +195,12 @@ public class UsersToSharedresources implements Serializable {
 
         for (Users u : e.getUserList()) {
             sharedresourcesusersEJB.remove(new Sharedresourcesusers(e.getSr().getSharedresourcesPK().getDisplaynameshared(), u.getUsersPK().getUsername(), e.getSr().getSharedresourcesPK().getProjectid()));
+            lF.create(new Logging(new java.util.Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", u.getUsersPK().getUsername() + " has been deleted from: " + e.getSr().getSharedresourcesPK().getDisplaynameshared() + ""));
 
         }
         Sharedresources pro = sharedresourcesEJB.find(e.getSr().getSharedresourcesPK());
         sharedresourcesEJB.remove(pro);
+        lF.create(new Logging(new java.util.Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", e.getSr().getSharedresourcesPK().getDisplaynameshared() + " has been deleted"));
 
         srUsers.remove(e);
 
@@ -206,7 +209,7 @@ public class UsersToSharedresources implements Serializable {
     public void deleteItemSRUser(SharedresourcesUsersModel g, Users e) {
 
         sharedresourcesusersEJB.remove(new Sharedresourcesusers(g.getSr().getSharedresourcesPK().getDisplaynameshared(), e.getUsersPK().getUsername(), g.getSr().getSharedresourcesPK().getProjectid()));
-
+lF.create(new Logging(new java.util.Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", e.getUsersPK().getUsername() + " has been deleted from: " + g.getSr().getSharedresourcesPK().getDisplaynameshared() + ""));
         int i = srUsers.indexOf(g);
         srUsers.get(i).getUserList().remove(e);
 
@@ -227,6 +230,7 @@ public class UsersToSharedresources implements Serializable {
             test.setExternalemail(((SharedresourcesUsersModel) event.getObject()).getSr().getExternalemail());
 
             sharedresourcesEJB.edit(test);
+            lF.create(new Logging(new java.util.Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", test.getSharedresourcesPK().getDisplaynameshared() + " has been edited."));
 
             FacesMessage msg = new FacesMessage();
             msg.setSeverity(FacesMessage.SEVERITY_INFO);

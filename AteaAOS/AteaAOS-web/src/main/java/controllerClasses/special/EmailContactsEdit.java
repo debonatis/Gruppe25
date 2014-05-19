@@ -7,7 +7,9 @@ package controllerClasses.special;
 
 import entityModels.Emailcontacts;
 import entityModels.EmailcontactsPK;
+import entityModels.Logging;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -19,6 +21,7 @@ import javax.faces.event.ActionEvent;
 import org.primefaces.event.FlowEvent;
 import org.primefaces.event.RowEditEvent;
 import persistClasses.EmailcontactsFacade;
+import persistClasses.LoggingFacade;
 
 /**
  *
@@ -30,6 +33,8 @@ public class EmailContactsEdit {
 
     @EJB
     private EmailcontactsFacade cF;
+    @EJB
+    private LoggingFacade lF;
     private Emailcontacts contact = new Emailcontacts(new EmailcontactsPK());
     private List<Emailcontacts> clist = new ArrayList<>();
 
@@ -61,6 +66,7 @@ public class EmailContactsEdit {
     public void save(ActionEvent actionEvent) {
         contact.getEmailcontactsPK().setProjectid((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
         cF.create(contact);
+        lF.create(new Logging(new Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", contact.getEmailcontactsPK().getContactname() + " has been created."));
         FacesMessage msg = new FacesMessage("Successful", "You saved :" + contact.getEmailcontactsPK().getContactname());
         FacesContext.getCurrentInstance().addMessage(null, msg);
         contact = new Emailcontacts(new EmailcontactsPK());
@@ -81,7 +87,7 @@ public class EmailContactsEdit {
             test.setEmailaddress(((Emailcontacts) event.getObject()).getEmailaddress());
 
             cF.edit(test);
-
+            lF.create(new Logging(new Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", test.getEmailcontactsPK().getContactname() + " has been edited."));
             FacesMessage msg = new FacesMessage();
             msg.setSeverity(FacesMessage.SEVERITY_INFO);
             msg.setSummary("User edited sucsessfully!");
@@ -109,7 +115,7 @@ public class EmailContactsEdit {
     public void deleteItemDom(Emailcontacts e) {
 
         cF.remove(e);
-
+        lF.create(new Logging(new Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", e.getEmailcontactsPK().getContactname() + " has been deleted."));
         clist.remove(e);
 
     }

@@ -6,7 +6,9 @@
 package controllerClasses.special;
 
 import entityModels.Domains;
+import entityModels.Logging;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -18,6 +20,7 @@ import javax.faces.event.ActionEvent;
 import org.primefaces.event.FlowEvent;
 import org.primefaces.event.RowEditEvent;
 import persistClasses.DomainsFacade;
+import persistClasses.LoggingFacade;
 
 /**
  *
@@ -29,6 +32,8 @@ public class DomainEdit {
 
     @EJB
     private DomainsFacade dF;
+    @EJB
+    private LoggingFacade lF;
     private Domains domain = new Domains();
     private List<Domains> dlist = new ArrayList<>();
 
@@ -61,6 +66,7 @@ public class DomainEdit {
     public void save(ActionEvent actionEvent) {
         domain.setProjectid((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
         dF.create(domain);
+        lF.create(new Logging(new Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", domain.getDomainname() + " has been created."));
         FacesMessage msg = new FacesMessage("Successful", "You saved :" + domain.getDomainname());
         FacesContext.getCurrentInstance().addMessage(null, msg);
         domain = new Domains();
@@ -84,6 +90,7 @@ public class DomainEdit {
             test.setRegistrarcontact(((Domains) event.getObject()).getRegistrarcontact());
 
             dF.edit(test);
+            lF.create(new Logging(new Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", test.getDomainname() + " has been edited."));
 
             FacesMessage msg = new FacesMessage();
             msg.setSeverity(FacesMessage.SEVERITY_INFO);
@@ -112,6 +119,7 @@ public class DomainEdit {
     public void deleteItemDom(Domains e) {
 
         dF.remove(e);
+        lF.create(new Logging(new Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", e.getDomainname() + " has been deleted."));
 
         dlist.remove(e);
 

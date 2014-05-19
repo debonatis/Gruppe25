@@ -17,7 +17,6 @@ import entityModels.Userdistribution;
 import entityModels.UserdistributionPK;
 import entityModels.Users;
 import entityModels.UsersPK;
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -141,6 +140,7 @@ public class DistAndGroupEdit {
         selectdg.getDistributiongroupsPK().setProjectid(((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID")));
         selectdg.setDn("NONE");
         dgF.create(selectdg);
+        lF.create(new Logging(new Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", selectdg.getDistributiongroupsPK().getDisplayname() + " has been created."));
         selectdg = new Distributiongroups(new DistributiongroupsPK());
     }
 
