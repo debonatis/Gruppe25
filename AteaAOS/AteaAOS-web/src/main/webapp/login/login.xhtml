@@ -37,19 +37,19 @@
                             <h:message for="j_password" />
                             <h:outputLabel for="j_password" value="Password" />
                             <p:password id="j_password" required="true" value="" feedback="false" />
-                        
 
-                        <p:commandButton type="submit" value="Login" ajax="false"/>
+
+                            <p:commandButton type="submit" value="Login" ajax="false"/>
                         </h:panelGrid>
+
+                        <br/><br/>
+                        <p:button outcome="/index.xhtml" value="Cancel" />
+                        <p:button outcome="/login/forgotPassword.xhtml" value="Forgot password?"/><br/>
+
+                        <p:panel >
+                            <p:button value="Skip" outcome="/secure/adminPage.xhtml"/> 
+                        </p:panel>
                     </form>
-                    <br/><br/>
-                    <p:button outcome="/index.xhtml" value="Cancel" />
-                    <p:button outcome="/login/forgotPassword.xhtml" value="Forgot password?"/><br/>
-
-                    <p:panel >
-                        <p:button value="Skip" outcome="/secure/adminPage.xhtml"/> 
-                    </p:panel>
-
                 </p:layoutUnit>
             </p:layout>
         </h:body>
