@@ -25,10 +25,15 @@ import org.primefaces.event.FlowEvent;
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.event.TransferEvent;
 import org.primefaces.model.DualListModel;
+import persistClasses.DistributiongroupsFacade;
+import persistClasses.GroupsFacade;
+import persistClasses.GroupusersFacade;
 import persistClasses.LoggingFacade;
 import persistClasses.ProjectsFacade;
 import persistClasses.PrositeusersFacade;
 import persistClasses.SiteuserFacade;
+import persistClasses.UserdistributionFacade;
+import persistClasses.UsersFacade;
 
 /**
  *
@@ -47,6 +52,16 @@ public class SiteUsersEdit implements Serializable {
     private PrositeusersFacade prositeusersFacade;
     @EJB
     private LoggingFacade lF;
+    @EJB
+    private DistributiongroupsFacade dgF;
+    @EJB
+    private GroupsFacade gF;
+    @EJB
+    private UserdistributionFacade dgMMF;
+    @EJB
+    private GroupusersFacade sgMMF;
+    @EJB
+    private UsersFacade uF;
     private SiteuserListModel selectList = new SiteuserListModel();
     private Siteuser selected = new Siteuser();
     private List<Siteuser> projectListT = new ArrayList<>();
