@@ -28,18 +28,18 @@
                 </p:layoutUnit>
 
                 <p:layoutUnit position="center">
-                    <form method="post" action="j_security_check">
+                    <h:form>
                         <br/>
                         <h:panelGrid columns="2">
                             <h:message for="j_username" />  
                             <h:outputLabel for="j_username" value="Username" />
-                            <p:inputText id="j_username" required="true" value=""/>  
+                            <p:inputText id="j_user" required="true" value="#{loginHandler.username}"/>  
                             <h:message for="j_password" />
                             <h:outputLabel for="j_password" value="Password" />
-                            <p:password id="j_password" required="true" value="" feedback="false" />
+                            <p:password id="j_pass" required="true" value="#{loginHandler.password}" feedback="false" />
 
 
-                            <p:commandButton type="submit" value="Login" ajax="false"/>
+                            <p:commandButton type="submit" value="Login" action="#{loginHandler.login()}"/>
                         </h:panelGrid>
 
                         <br/><br/>
@@ -49,7 +49,7 @@
                         <p:panel >
                             <p:button value="Skip" outcome="/secure/adminPage.xhtml"/> 
                         </p:panel>
-                    </form>
+                    </h:form>
                 </p:layoutUnit>
             </p:layout>
         </h:body>
