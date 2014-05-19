@@ -92,8 +92,12 @@
         <location>/faces/login/noLogin.xhtml</location>
     </error-page>
     <login-config>
-        <auth-method>DIGEST</auth-method>
+        <auth-method>FORM</auth-method>
         <realm-name>AOSAppSec</realm-name>
+        <form-login-config>
+            <form-login-page>/faces/login/login.xhtml</form-login-page>
+            <form-error-page>/faces/login/noLogin.xhtml</form-error-page>
+        </form-login-config>
     </login-config>
     <security-role>
         <description/>
