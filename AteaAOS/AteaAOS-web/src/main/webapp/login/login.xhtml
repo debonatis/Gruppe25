@@ -31,14 +31,15 @@
                     <form method="post" action="j_security_check">
                         <br/>
                         <h:panelGrid columns="2">
+                            <h:message for="j_username" />  
                             <h:outputLabel for="j_username" value="Username" />
-                            <p:inputText id="j_username" />  
-
+                            <p:inputText id="j_username" required="true" value=""/>  
+                            <h:message for="j_password" />
                             <h:outputLabel for="j_password" value="Password" />
-                            <p:password id="j_password"/>
+                            <p:password id="j_password" required="true" value="" feedback="false" />
 
-                            <h:outputText value="" />
-                            <input type="submit" name="submit" value="Login" />
+
+                            <p:commandButton type="submit" value="Login" ajax="false"/>
 
                             <br/><br/>
                             <p:button outcome="/index.xhtml" value="Cancel" />
