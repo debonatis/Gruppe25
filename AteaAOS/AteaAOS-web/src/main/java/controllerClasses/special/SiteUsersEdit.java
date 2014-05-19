@@ -25,12 +25,21 @@ import org.primefaces.event.FlowEvent;
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.event.TransferEvent;
 import org.primefaces.model.DualListModel;
+import persistClasses.ApplicationaccessFacade;
+import persistClasses.ApplicationsFacade;
 import persistClasses.DistributiongroupsFacade;
+import persistClasses.DomainsFacade;
+import persistClasses.EmailcontactsFacade;
+import persistClasses.FolderGroupsFacade;
+import persistClasses.FoldersFacade;
 import persistClasses.GroupsFacade;
 import persistClasses.GroupusersFacade;
 import persistClasses.LoggingFacade;
+import persistClasses.PrintersFacade;
 import persistClasses.ProjectsFacade;
 import persistClasses.PrositeusersFacade;
+import persistClasses.SharedresourcesFacade;
+import persistClasses.SharedresourcesusersFacade;
 import persistClasses.SiteuserFacade;
 import persistClasses.UserdistributionFacade;
 import persistClasses.UsersFacade;
@@ -62,6 +71,24 @@ public class SiteUsersEdit implements Serializable {
     private GroupusersFacade sgMMF;
     @EJB
     private UsersFacade uF;
+    @EJB
+    private ApplicationaccessFacade aaF;
+    @EJB
+    private ApplicationsFacade aF;
+    @EJB
+    private DomainsFacade dF;
+    @EJB
+    private EmailcontactsFacade ecF;
+    @EJB
+    private FolderGroupsFacade fgF;
+    @EJB
+    private FoldersFacade fF;
+    @EJB
+    private PrintersFacade pF;
+    @EJB
+    private SharedresourcesFacade sF;
+    @EJB
+    private SharedresourcesusersFacade sruF;
     private SiteuserListModel selectList = new SiteuserListModel();
     private Siteuser selected = new Siteuser();
     private List<Siteuser> projectListT = new ArrayList<>();
@@ -306,6 +333,21 @@ public class SiteUsersEdit implements Serializable {
             prositeusersFacade.remove(new Prositeusers(e.getPro().getProjectid(), u.getUsername()));
             lF.create(new Logging(new Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", u.getUsername() + " has been removed: " + e.getPro().getName() + ""));
         }
+        dgMMF.removeAllPro(e.getPro().getProjectid());
+        sgMMF.removeAllPro(e.getPro().getProjectid());
+        dgF.removeAllPro(e.getPro().getProjectid());
+        gF.removeAllPro(e.getPro().getProjectid());
+        uF.removeAllPro(e.getPro().getProjectid());
+        aaF.removeAllPro(e.getPro().getProjectid());
+        aF.removeAllPro(e.getPro().getProjectid());
+        dF.removeAllPro(e.getPro().getProjectid());
+        ecF.removeAllPro(e.getPro().getProjectid());
+        fgF.removeAllPro(e.getPro().getProjectid());
+        fF.removeAllPro(e.getPro().getProjectid());
+        pF.removeAllPro(e.getPro().getProjectid());
+        sruF.removeAllPro(e.getPro().getProjectid());
+        sF.removeAllPro(e.getPro().getProjectid());
+
         Projects pro = projectsFacade.find(e.getPro().getProjectid());
         projectsFacade.remove(pro);
         lF.create(new Logging(new Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", e.getPro().getName() + " has been deleted."));
