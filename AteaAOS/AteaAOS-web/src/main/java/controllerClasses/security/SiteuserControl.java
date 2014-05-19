@@ -132,12 +132,15 @@ public class SiteuserControl {
     }
 
     @RolesAllowed("admin")
-    public void sendInvite() {
+    public void sendInvite(Siteuser su) {
         HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         String url = req.getRequestURL().toString();
         url = url.substring(0, url.length() - req.getRequestURI().length()) + req.getContextPath() + "/";
+        String password = passGenerator();
+        su.setPassword(encryptPassword(password));
+        suF.edit(su);
         try {
-            sendMail(user.getEmail(), "AOS user generation (Do not repley)", url);
+            sendMail(user.getEmail(), "AOS user generation (Do not repley)", url+" Password: "+password+" Username: "+su.getUsername() +"");
         } catch (NamingException | MessagingException ex) {
             Logger.getLogger(SiteuserControl.class.getName()).log(Level.SEVERE, null, ex);
         }
