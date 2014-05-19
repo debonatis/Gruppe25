@@ -12,6 +12,7 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
@@ -100,6 +101,7 @@ public class SiteuserControl {
 
             user.setPostalcode(city.getPostalcode());
             cF.create(city);
+            user.setPassword(passGenerator());
             user.setPassword(encryptPassword(user.getPassword()));
             suF.create(user);
             roleObject = new Roles(user.getUsername(), role);
@@ -148,9 +150,35 @@ public class SiteuserControl {
         message.setText(body);
         javax.mail.Transport.send(message);
     }
+
     public String onFlowProcess(FlowEvent event) {
 
         return event.getNewStep();
     }
 
+    private String passGenerator() {
+        String dCase = "abcdefghijklmnopqrstuvwxyz";
+        String uCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String sChar = "!@#$%^&*";
+        String intChar = "0123456789";
+        Random r = new Random();
+        String pass = "";
+        while (pass.length() != 16) {
+            int rPick = r.nextInt(4);
+            if (rPick == 0) {
+                int spot = r.nextInt(25);
+                pass += dCase.charAt(spot);
+            } else if (rPick == 1) {
+                int spot = r.nextInt(25);
+                pass += uCase.charAt(spot);
+            } else if (rPick == 2) {
+                int spot = r.nextInt(7);
+                pass += sChar.charAt(spot);
+            } else if (rPick == 3) {
+                int spot = r.nextInt(9);
+                pass += intChar.charAt(spot);
+            }
+        }
+        return pass;
+    }
 }

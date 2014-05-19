@@ -47,7 +47,7 @@
                                                 </p:cellEditor>  
                                             </p:column>
                                             <p:column headerText="Last name" style="width:30%" 
-                                                      id="passwordColumn" filterBy="lastname" filterMatchMode="contains">  
+                                                      id="lastnameColumn" filterBy="lastname" filterMatchMode="contains">  
                                                 <p:cellEditor>  
                                                     <f:facet name="output">  
                                                         <h:outputText value="#{item.lastname}" />  
@@ -89,6 +89,8 @@
 
                                                     <h:outputText value="Lastname: *" />
                                                     <p:inputText value="#{siteuserControl.user.lastname}" required="true" label="Lastname"/>
+                                                    <h:outputText value="Username: *" />
+                                                    <p:inputText value="#{siteuserControl.user.username}" required="true" label="Username"/>
 
 
                                                 </h:panelGrid>  
