@@ -107,4 +107,12 @@
         <description/>
         <role-name>superuser</role-name>
     </security-role>
+    <security-role-mapping>  
+        <role-name>admin</role-name>  
+        <group-name>admin</group-name>  
+    </security-role-mapping>  
+    <security-role-mapping>  
+        <role-name>superuser</role-name>  
+        <group-name>superuser</group-name>  
+    </security-role-mapping>  
 </web-app>

@@ -19,6 +19,7 @@ public class Passwordgenerator {
 
     public static void main(String[] args) {
         System.out.println(Base64.encode(encryptPassword("admin")));
+        System.out.println(encryptPassword(Base64.encode("admin")));
     }
 
     public static String encryptPassword(String planepassword) {
