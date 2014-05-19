@@ -8,6 +8,10 @@ package controllerClasses.security;
 import entityModels.City;
 import entityModels.Roles;
 import entityModels.Siteuser;
+import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
@@ -20,6 +24,7 @@ import javax.faces.context.FacesContext;
 import javax.mail.MessagingException;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
+import org.primefaces.event.FlowEvent;
 import persistClasses.CityFacade;
 import persistClasses.RolesFacade;
 import persistClasses.SiteuserFacade;
@@ -47,7 +52,31 @@ public class SiteuserControl {
     private RolesFacade rF;
     @EJB
     private CityFacade cF;
-    private String[] userRoles = {"Admin", "superuser"};
+    private String[] userRoles = {"admin", "superuser"};
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public Roles getRoleObject() {
+        return roleObject;
+    }
+
+    public void setRoleObject(Roles roleObject) {
+        this.roleObject = roleObject;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
 
     public Siteuser getUser() {
         return user;
@@ -71,6 +100,7 @@ public class SiteuserControl {
 
             user.setPostalcode(city.getPostalcode());
             cF.create(city);
+            user.setPassword(encryptPassword(user.getPassword()));
             suF.create(user);
             roleObject = new Roles(user.getUsername(), role);
             rF.create(roleObject);
@@ -80,6 +110,23 @@ public class SiteuserControl {
         } catch (Exception e) {
 
         }
+    }
+
+    private String encryptPassword(String planepassword) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+
+            md.update(planepassword.getBytes("UTF-8")); // Change this to "UTF-16" if needed
+            byte[] digest = md.digest();
+            BigInteger bigInt = new BigInteger(1, digest);
+            String output = bigInt.toString(16);
+
+            return output;
+
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
+
+        }
+        return "";
     }
 
     @RolesAllowed("admin")
@@ -100,6 +147,10 @@ public class SiteuserControl {
         message.setRecipients(javax.mail.Message.RecipientType.TO, javax.mail.internet.InternetAddress.parse(email, false));
         message.setText(body);
         javax.mail.Transport.send(message);
+    }
+    public String onFlowProcess(FlowEvent event) {
+
+        return event.getNewStep();
     }
 
 }
