@@ -8,6 +8,7 @@ package controllerClasses.special;
 import controllerClasses.special.model.ProjectsListModel;
 import entityModels.Logging;
 import entityModels.Projects;
+import entityModels.Prositeusers;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,7 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import persistClasses.LoggingFacade;
 import persistClasses.ProjectsFacade;
+import persistClasses.PrositeusersFacade;
 
 /**
  *
@@ -37,6 +39,8 @@ public class newProject implements Serializable {
     private ProjectsFacade projectsEJB;
     @EJB
     private LoggingFacade lF;
+    @EJB
+    private PrositeusersFacade psuF;
     private boolean skip;
     private Projects projects = new Projects();
     private static final Logger logger = Logger.getLogger(Projects.class.getName());
@@ -81,7 +85,17 @@ public class newProject implements Serializable {
     @PostConstruct
     public void init() {
 
-        projectListT = projectsEJB.findAll();
+        
+        if(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser() == null){
+            projectListT = new ArrayList<>();
+        } else if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("admin")){
+            projectListT = projectsEJB.findAll();
+        } else{
+           
+            for(Prositeusers psu: psuF.findAllUsr(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser())){
+                projectListT.add(projectsEJB.find(psu.getPrositeusersPK().getProjectid()));
+            }
+        }
 
         selectList = new ProjectsListModel(projectListT);
     }

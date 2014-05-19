@@ -124,179 +124,181 @@
                                                 <p:commandButton value="Submit" update="growl"   
                                                                  actionListener="#{siteuserControl.saveSU()}" oncomplete="wiz.loadStep(wiz.cfg.steps[0], true)"/>  
                                             </p:panel>  
-                                            </h:form>
                                         </p:tab>
-                                        <p:tab title=" Site Users to Projects">
-                                            <h:form>
-                                                <p:wizard flowListener="#{superUsers.onFlowProcess}" >
+                                    </p:wizard>
+                                </h:form>
+                            </p:tab>
+                            <p:tab title=" Site Users to Projects">
+                                <h:form>
+                                    <p:wizard flowListener="#{superUsers.onFlowProcess}" >
 
-                                                    <p:tab id="grouppick" title="Select Projects for editing">  
+                                        <p:tab id="grouppick" title="Select Projects for editing">  
 
-                                                        <p:panel header="Group Selection"> 
+                                            <p:panel header="Group Selection"> 
 
-                                                            <p:growl id="msg2" showDetail="true" escape="false" />  
-                                                            <p:pickList id="pojoPickList" value="#{superUsers.listPro}" var="pro" effect="fade"  
-                                                                        itemValue="#{pro}" itemLabel="#{pro.projectid}" converter="#{indexConverterP}"  
-                                                                        showSourceControls="true" showTargetControls="true" showCheckbox="true"  
-                                                                        showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" >  
+                                                <p:growl id="msg2" showDetail="true" escape="false" />  
+                                                <p:pickList id="pojoPickList" value="#{superUsers.listPro}" var="pro" effect="fade"  
+                                                            itemValue="#{pro}" itemLabel="#{pro.projectid}" converter="#{indexConverterP}"  
+                                                            showSourceControls="true" showTargetControls="true" showCheckbox="true"  
+                                                            showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" >  
 
-                                                                <f:facet name="sourceCaption">Available Projects</f:facet>  
-                                                                <f:facet name="targetCaption">Selected Projects</f:facet>  
+                                                    <f:facet name="sourceCaption">Available Projects</f:facet>  
+                                                    <f:facet name="targetCaption">Selected Projects</f:facet>  
 
-                                                                <p:ajax event="transfer" listener="#{superUsers.onTransferP}" update="msg2" />  
-
-
-
-                                                                <p:column style="width:75%;">  
-                                                                    #{pro.name}  
-                                                                </p:column>  
-
-                                                            </p:pickList > 
-
-                                                        </p:panel>
-                                                    </p:tab>
-                                                    <p:tab id="userpick" title="Select Users for adding">  
-
-                                                        <p:panel header="User Selection"> 
-                                                            <p:growl id="msg3" showDetail="true" escape="false" />  
-                                                            <p:pickList id="pojoPickListU" value="#{superUsers.listSU}" var="user" effect="bounce"  
-                                                                        itemValue="#{user}" itemLabel="#{user.username}" converter="#{indexConverterSU}"  
-                                                                        showSourceControls="true" showTargetControls="true" showCheckbox="true"  
-                                                                        showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" >  
-
-                                                                <f:facet name="sourceCaption">Available Users</f:facet>  
-                                                                <f:facet name="targetCaption">Selected users in predefined Project/s</f:facet>  
-
-                                                                <p:ajax event="transfer" listener="#{superUsers.onTransferSU}" update="msg3" />  
+                                                    <p:ajax event="transfer" listener="#{superUsers.onTransferP}" update="msg2" />  
 
 
 
-                                                                <p:column style="width:75%;">  
-                                                                    #{user.username}  
-                                                                </p:column>  
+                                                    <p:column style="width:75%;">  
+                                                        #{pro.name}  
+                                                    </p:column>  
 
-                                                            </p:pickList>  
+                                                </p:pickList > 
 
-
-
-
-                                                        </p:panel>
-                                                        <p:commandButton id="pojoSubmit" value="Submit"   style="margin-top:5px" action="#{superUsers.saveSUP()}"/> 
-                                                    </p:tab>
-
-
-
-                                                </p:wizard>
-                                            </h:form>
+                                            </p:panel>
                                         </p:tab>
-                                        <p:tab title="Edit Projects">
-                                            <h:form id="form">
-                                                <p:growl id="messages" showDetail="true"/>  
+                                        <p:tab id="userpick" title="Select Users for adding">  
 
-                                                <p:dataTable var="gr" value="#{superUsers.proUsers}" id="carList" paginator="true" rows="10" editable="true">  
+                                            <p:panel header="User Selection"> 
+                                                <p:growl id="msg3" showDetail="true" escape="false" />  
+                                                <p:pickList id="pojoPickListU" value="#{superUsers.listSU}" var="user" effect="bounce"  
+                                                            itemValue="#{user}" itemLabel="#{user.username}" converter="#{indexConverterSU}"  
+                                                            showSourceControls="true" showTargetControls="true" showCheckbox="true"  
+                                                            showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" >  
+
+                                                    <f:facet name="sourceCaption">Available Users</f:facet>  
+                                                    <f:facet name="targetCaption">Selected users in predefined Project/s</f:facet>  
+
+                                                    <p:ajax event="transfer" listener="#{superUsers.onTransferSU}" update="msg3" />  
+
+
+
+                                                    <p:column style="width:75%;">  
+                                                        #{user.username}  
+                                                    </p:column>  
+
+                                                </p:pickList>  
+
+
+
+
+                                            </p:panel>
+                                            <p:commandButton id="pojoSubmit" value="Submit"   style="margin-top:5px" action="#{superUsers.saveSUP()}"/> 
+                                        </p:tab>
+
+
+
+                                    </p:wizard>
+                                </h:form>
+                            </p:tab>
+                            <p:tab title="Edit Projects">
+                                <h:form id="form">
+                                    <p:growl id="messages" showDetail="true"/>  
+
+                                    <p:dataTable var="gr" value="#{superUsers.proUsers}" id="carList" paginator="true" rows="10" editable="true">  
+
+                                        <f:facet name="header">  
+                                            Projects 
+                                        </f:facet>  
+
+                                        <p:ajax event="rowEdit" listener="#{superUsers.onEditPro}" update=":tabView:form:messages" />  
+                                        <p:ajax event="rowEditCancel" listener="#{superUsers.onCancelPro}" update=":tabView:form:messages" />  
+
+                                        <p:column headerText="Project name" style="width:30%">  
+                                            <p:cellEditor>  
+                                                <f:facet name="output">  
+                                                    <h:outputText value="#{gr.pro.name}" />  
+                                                </f:facet>  
+                                                <f:facet name="input">  
+                                                    <p:inputText value="#{gr.pro.name}" style="width:100%"/>  
+                                                </f:facet>  
+                                            </p:cellEditor>  
+                                        </p:column>  
+                                        <p:column headerText="Description" style="width:30%">  
+                                            <p:cellEditor>  
+                                                <f:facet name="output">  
+                                                    <h:outputText value="#{gr.pro.description}" />  
+                                                </f:facet>  
+                                                <f:facet name="input">  
+                                                    <p:inputText value="#{gr.pro.description}" style="width:100%"/>  
+                                                </f:facet>  
+                                            </p:cellEditor>  
+                                        </p:column>  
+
+
+
+                                        <p:column headerText="Group Owner" style="width:20%">  
+                                            <p:cellEditor>  
+                                                <f:facet name="output">  
+                                                    <h:outputText value="#{gr.pro.projecttype}" />  
+                                                </f:facet>  
+                                                <f:facet name="input">  
+
+                                                    <h:selectOneMenu value="#{gr.pro.projecttype}"  >
+
+                                                        <f:selectItem itemLabel="Select One" itemValue="" />  
+                                                        <f:selectItems value="#{superUsers.projectTypes}" var="usr"/>  
+
+
+
+
+                                                    </h:selectOneMenu>  
+                                                </f:facet>  
+                                            </p:cellEditor>  
+                                        </p:column>  
+                                        <p:column style="width:6%">  
+                                            <p:rowEditor />  
+                                        </p:column>  
+                                        <p:column headerText="Delete">
+                                            <f:facet name="header">
+                                                <h:outputText value="" />
+                                            </f:facet>
+                                            <p:commandButton icon="ui-icon-close" title="remove from list"
+                                                             actionListener="#{superUsers.deleteItemPro(gr)}" update="carList" />
+                                        </p:column>
+                                        <p:column headerText="Users">
+                                            <p:rowExpansion>
+                                                <p:dataTable var="usr" value="#{gr.userList}" id="memList2" paginator="true" rows="10">  
 
                                                     <f:facet name="header">  
-                                                        Projects 
+                                                        Users 
                                                     </f:facet>  
 
-                                                    <p:ajax event="rowEdit" listener="#{superUsers.onEditPro}" update=":tabView:form:messages" />  
-                                                    <p:ajax event="rowEditCancel" listener="#{superUsers.onCancelPro}" update=":tabView:form:messages" />  
 
-                                                    <p:column headerText="Project name" style="width:30%">  
-                                                        <p:cellEditor>  
-                                                            <f:facet name="output">  
-                                                                <h:outputText value="#{gr.pro.name}" />  
-                                                            </f:facet>  
-                                                            <f:facet name="input">  
-                                                                <p:inputText value="#{gr.pro.name}" style="width:100%"/>  
-                                                            </f:facet>  
-                                                        </p:cellEditor>  
-                                                    </p:column>  
-                                                    <p:column headerText="Description" style="width:30%">  
-                                                        <p:cellEditor>  
-                                                            <f:facet name="output">  
-                                                                <h:outputText value="#{gr.pro.description}" />  
-                                                            </f:facet>  
-                                                            <f:facet name="input">  
-                                                                <p:inputText value="#{gr.pro.description}" style="width:100%"/>  
-                                                            </f:facet>  
-                                                        </p:cellEditor>  
-                                                    </p:column>  
+
+                                                    <p:column headerText="User name" style="width:30%">  
+
+
+                                                        <h:outputText value="#{usr.username}" />  
 
 
 
-                                                    <p:column headerText="Group Owner" style="width:20%">  
-                                                        <p:cellEditor>  
-                                                            <f:facet name="output">  
-                                                                <h:outputText value="#{gr.pro.projecttype}" />  
-                                                            </f:facet>  
-                                                            <f:facet name="input">  
-
-                                                                <h:selectOneMenu value="#{gr.pro.projecttype}"  >
-
-                                                                    <f:selectItem itemLabel="Select One" itemValue="" />  
-                                                                    <f:selectItems value="#{superUsers.projectTypes}" var="usr"/>  
-
-
-
-
-                                                                </h:selectOneMenu>  
-                                                            </f:facet>  
-                                                        </p:cellEditor>  
-                                                    </p:column>  
-                                                    <p:column style="width:6%">  
-                                                        <p:rowEditor />  
-                                                    </p:column>  
+                                                    </p:column> 
                                                     <p:column headerText="Delete">
-                                                        <f:facet name="header">
-                                                            <h:outputText value="" />
-                                                        </f:facet>
+
                                                         <p:commandButton icon="ui-icon-close" title="remove from list"
-                                                                         actionListener="#{superUsers.deleteItemPro(gr)}" update="carList" />
+                                                                         actionListener="#{superUsers.deleteItemProUser(gr, usr)}" update="memList2" />
                                                     </p:column>
-                                                    <p:column headerText="Users">
-                                                        <p:rowExpansion>
-                                                            <p:dataTable var="usr" value="#{gr.userList}" id="memList2" paginator="true" rows="10">  
+                                                </p:dataTable>     
 
-                                                                <f:facet name="header">  
-                                                                    Users 
-                                                                </f:facet>  
+                                            </p:rowExpansion>
 
+                                        </p:column>
 
+                                    </p:dataTable>  
 
-                                                                <p:column headerText="User name" style="width:30%">  
-
-
-                                                                    <h:outputText value="#{usr.username}" />  
+                                    <p:commandButton value="Refresh" action="#{superUsers.init()}" icon="ui-icon-refresh" update="carList"/>
 
 
 
-                                                                </p:column> 
-                                                                <p:column headerText="Delete">
-
-                                                                    <p:commandButton icon="ui-icon-close" title="remove from list"
-                                                                                     actionListener="#{superUsers.deleteItemProUser(gr, usr)}" update="memList2" />
-                                                                </p:column>
-                                                            </p:dataTable>     
-
-                                                        </p:rowExpansion>
-
-                                                    </p:column>
-
-                                                </p:dataTable>  
-
-                                                <p:commandButton value="Refresh" action="#{superUsers.init()}" icon="ui-icon-refresh" update="carList"/>
+                                </h:form>
+                            </p:tab>
+                        </p:tabView>
+                    </p:layoutUnit>
 
 
-
-                                            </h:form>
-                                        </p:tab>
-                                        </p:tabView>
-                                        </p:layoutUnit>
-
-
-                                        </p:layout>
-                                        </ui:define>
-                                        </ui:composition>
-                                        </h:body>
-                                        </html>
+                </p:layout>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
