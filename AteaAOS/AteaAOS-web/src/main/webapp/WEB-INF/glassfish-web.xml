@@ -4,10 +4,12 @@
   <context-root>/AteaAOS</context-root>
   <security-role-mapping>
     <role-name>superuser</role-name>
+    <principal-name>superuser</principal-name>
     <group-name>superuser</group-name>
   </security-role-mapping>
   <security-role-mapping>
     <role-name>admin</role-name>
+    <principal-name>admin</principal-name>
     <group-name>admin</group-name>
   </security-role-mapping>
   <class-loader delegate="true"/>
