@@ -38,28 +38,31 @@ public class loginHandler {
     public void setPassword(String password) {
         this.password = password;
     }
-    public String login () {
-    FacesContext context = FacesContext.getCurrentInstance();
-    HttpServletRequest request = (HttpServletRequest) 
-        context.getExternalContext().getRequest();
-    try {
-      request.login(this.username, this.password);
-    } catch (ServletException e) {
-   
-      context.addMessage(null, new FacesMessage("Login failed."));
-      return "error";
+
+    public String login() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        try {
+            request.login(this.username, this.password);
+        } catch (ServletException e) {
+            FacesMessage msg = new FacesMessage();
+            msg.setSeverity(FacesMessage.SEVERITY_INFO);
+            msg.setSummary("Login failed."+e.getMessage()+"");
+
+           
+            return "error";
+        }
+        return "/secure/adminPage.xhtml";
     }
-    return "/secure/adminPage.xhtml";
-  }
-     public void logout() {
-    FacesContext context = FacesContext.getCurrentInstance();
-    HttpServletRequest request = (HttpServletRequest) 
-        context.getExternalContext().getRequest();
-    try {
-      request.logout();
-    } catch (ServletException e) {
-    
-      context.addMessage(null, new FacesMessage("Logout failed."));
+
+    public void logout() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        try {
+            request.logout();
+        } catch (ServletException e) {
+
+            context.addMessage(null, new FacesMessage("Logout failed."));
+        }
     }
-  }
 }
