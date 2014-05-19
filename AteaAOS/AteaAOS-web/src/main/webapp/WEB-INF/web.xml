@@ -97,6 +97,10 @@
             <form-error-page>/faces/login/noLogin.xhtml</form-error-page>
         </form-login-config>
     </login-config>
+    <error-page>
+        <error-code>403</error-code>
+        <location>/faces/login/noLogin.xhtml</location>
+    </error-page>
     
 
 </web-app>
