@@ -17,7 +17,7 @@
                     <p:outputLabel  id="projectID2" value="select a project." rendered="#{empty security.projectID}" style="float: left"/>
                 </p:outputPanel>
                 <p:outputPanel>
-                    <p:commandLink  id="username" value="You are logged in as #{security.username}." rendered="#{not empty security.username}" style="float: left"/>
+                    <p:commandLink  id="username" value="You are logged in as #{security.username}." action="#{loginHandler.logout()}" rendered="#{not empty security.username}" style="float: left"/>
                 </p:outputPanel>
                 <p:dock id="dock"  >  
                     <p:menuitem value="Home" icon="/resources/images/dock/home.png" outcome="home"/>
