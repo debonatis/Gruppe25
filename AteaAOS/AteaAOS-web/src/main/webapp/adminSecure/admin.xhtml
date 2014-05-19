@@ -33,19 +33,7 @@
                                             <p:column headerText="Username" style="width:30%" 
                                                       id="usernameColumn" filterBy="username" filterMatchMode="contains">
                                                 <h:outputText value="#{item.username}" />
-                                            </p:column>  
-
-                                            <p:column headerText="Password" style="width:30%" 
-                                                      id="passwordColumn" filterBy="password" filterMatchMode="contains">  
-                                                <p:cellEditor>  
-                                                    <f:facet name="output">  
-                                                        <h:outputText value="#{item.password}" />  
-                                                    </f:facet>  
-                                                    <f:facet name="input">  
-                                                        <p:inputText value="#{item.password}" style="width:100%"/>  
-                                                    </f:facet>  
-                                                </p:cellEditor>  
-                                            </p:column>
+                                            </p:column>                                              
 
                                             <p:column headerText="First name" style="width:30%"
                                                       id="firstnameColumn" filterBy="firstname" filterMatchMode="contains">  
@@ -55,6 +43,17 @@
                                                     </f:facet>  
                                                     <f:facet name="input">  
                                                         <p:inputText value="#{item.firstname}" style="width:100%"/>  
+                                                    </f:facet>  
+                                                </p:cellEditor>  
+                                            </p:column>
+                                            <p:column headerText="Last name" style="width:30%" 
+                                                      id="passwordColumn" filterBy="lastname" filterMatchMode="contains">  
+                                                <p:cellEditor>  
+                                                    <f:facet name="output">  
+                                                        <h:outputText value="#{item.lastname}" />  
+                                                    </f:facet>  
+                                                    <f:facet name="input">  
+                                                        <p:inputText value="#{item.lastname}" style="width:100%"/>  
                                                     </f:facet>  
                                                 </p:cellEditor>  
                                             </p:column>

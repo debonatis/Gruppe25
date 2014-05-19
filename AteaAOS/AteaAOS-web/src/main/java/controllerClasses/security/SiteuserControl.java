@@ -8,6 +8,8 @@ package controllerClasses.security;
 import entityModels.City;
 import entityModels.Roles;
 import entityModels.Siteuser;
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -21,6 +23,7 @@ import persistClasses.SiteuserFacade;
  */
 @ManagedBean
 @ViewScoped
+@DeclareRoles({"admin"})
 public class SiteuserControl {
 
     private Siteuser user;
@@ -52,6 +55,7 @@ public class SiteuserControl {
         this.userRoles = userRoles;
     }
 
+    @RolesAllowed("admin")
     public void saveSU() {
         try {
 
