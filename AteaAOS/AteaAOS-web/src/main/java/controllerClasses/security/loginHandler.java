@@ -55,7 +55,7 @@ public class loginHandler {
         return "/secure/adminPage.xhtml";
     }
 
-    public void logout() {
+    public String logout() {
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         try {
@@ -64,5 +64,6 @@ public class loginHandler {
 
             context.addMessage(null, new FacesMessage("Logout failed."));
         }
+        return "index.xhtml?faces-redirect=true";
     }
 }
