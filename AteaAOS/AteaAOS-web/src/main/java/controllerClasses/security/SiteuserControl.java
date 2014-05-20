@@ -51,7 +51,7 @@ public class SiteuserControl {
     @EJB
     private CityFacade cF;
     private String[] userRoles = {"admin", "superuser"};
-    private String text;
+    private String text = "";
  
     public String getText() {
         return text;
@@ -115,9 +115,7 @@ public class SiteuserControl {
             suF.create(user);
             roleObject = new Roles(user.getUsername(), role);
             rF.create(roleObject);
-            user = new Siteuser();
-            roleObject = new Roles();
-            city = new City();
+            
         } catch (Exception e) {
             
         }
