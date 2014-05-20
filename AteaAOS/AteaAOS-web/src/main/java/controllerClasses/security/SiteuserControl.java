@@ -39,13 +39,10 @@ import persistClasses.SiteuserFacade;
 @DeclareRoles({"admin"})
 public class SiteuserControl {
 
-    @Resource(name = "mail/AOSMail")
-    private javax.mail.Session mailAOSMail;
-
-    private Siteuser user;
-    private Roles roleObject;
+    private Siteuser user = new Siteuser();
+    private Roles roleObject = new Roles();
     private String role = "";
-    private City city;
+    private City city = new City();
 
     @EJB
     private SiteuserFacade suF;
@@ -127,29 +124,6 @@ public class SiteuserControl {
 
         }
         return "";
-    }
-
-    @RolesAllowed("admin")
-    public void sendInvite(Siteuser su) {
-        HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        String url = req.getRequestURL().toString();
-        url = url.substring(0, url.length() - req.getRequestURI().length()) + req.getContextPath() + "/";
-        String password = passGenerator();
-        su.setPassword(encryptPassword(password));
-        suF.edit(su);
-        try {
-            sendMail(user.getEmail(), "AOS user generation (Do not repley)", url + " Password: " + password + " Username: " + su.getUsername() + "");
-        } catch (NamingException | MessagingException ex) {
-            Logger.getLogger(SiteuserControl.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    private void sendMail(String email, String subject, String body) throws NamingException, javax.mail.MessagingException {
-        javax.mail.internet.MimeMessage message = new javax.mail.internet.MimeMessage(mailAOSMail);
-        message.setSubject(subject);
-        message.setRecipients(javax.mail.Message.RecipientType.TO, javax.mail.internet.InternetAddress.parse(email, false));
-        message.setText(body);
-        javax.mail.Transport.send(message);
     }
 
     public String onFlowProcess(FlowEvent event) {

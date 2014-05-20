@@ -12,17 +12,7 @@
         <principal-name>admin</principal-name>
         <group-name>admin</group-name>
     </security-role-mapping>
-    <mail-resource description="AOS noreplyMail" from="aosnorepley@bamvpn.net" host="ut.mailadmin.no" jndi-name="mail/AOSMail" user="aosnorepley@bamvpn.net">
-        <property name="mail-smtp-socketFactory-fallback" value="false"/>
-        <property name="mail-smtp-starttls-enable" value="true"/>
-        <property name="mail-smtp-socketFactory-class" value="javax.net.ssl.SSLSocketFactory"/>
-        <property name="mail-smtp-socketFactory-port" value="465"/>
-        <property name="mail-smtp-port" value="465"/>
-        <property name="mail-smtp-auth" value="true"/>
-        <property name="mail-smtp-password" value="aos-aos12345"/>
-        <property name="mail-smtp-user" value="aosnorepley@bamvpn.net"/>
-        <property name="mail-smtp-host" value="ut.mailadmin.no"/>
-    </mail-resource>
+   
     
     
     
