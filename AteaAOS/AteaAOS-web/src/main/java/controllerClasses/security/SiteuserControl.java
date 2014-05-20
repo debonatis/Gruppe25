@@ -12,11 +12,18 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.Resource;
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.mail.MessagingException;
+import javax.naming.NamingException;
+import javax.servlet.http.HttpServletRequest;
 import org.primefaces.event.FlowEvent;
 import persistClasses.CityFacade;
 import persistClasses.RolesFacade;
@@ -35,7 +42,8 @@ public class SiteuserControl {
     private Roles roleObject = new Roles();
     private String role = "";
     private City city = new City();
-    
+    @Resource(name = "mail/AOSMail")
+    private javax.mail.Session mailAOSMail;
     @EJB
     private SiteuserFacade suF;
     @EJB
@@ -43,6 +51,15 @@ public class SiteuserControl {
     @EJB
     private CityFacade cF;
     private String[] userRoles = {"admin", "superuser"};
+    private String text;
+ 
+    public String getText() {
+        return text;
+    }
+ 
+    public void setText(String text) {
+        this.text = text;
+    }
     
     public String getRole() {
         return role;
@@ -150,5 +167,34 @@ public class SiteuserControl {
             }
         }
         return pass;
+    }
+    public void callEditor(){
+        HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        String url = req.getRequestURL().toString();
+        url = url.substring(0, url.length() - req.getRequestURI().length()) + req.getContextPath() + "/";
+        String password = passGenerator();
+        Siteuser su = this.user;
+        su.setPassword(encryptPassword(password));
+        suF.edit(su);
+        String line = url + " Password: " + password + " Username: " + su.getUsername() + "";
+        this.text = line;
+        
+    }
+    
+     public void sendInvite() {
+        
+        
+        try {
+            sendMail(user.getEmail(), "AOS user generation (Do not repley)", this.text);
+        } catch (NamingException | MessagingException ex) {
+            Logger.getLogger(SiteuserControl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+     private void sendMail(String email, String subject, String body) throws NamingException, javax.mail.MessagingException {
+        javax.mail.internet.MimeMessage message = new javax.mail.internet.MimeMessage(mailAOSMail);
+        message.setSubject(subject);
+        message.setRecipients(javax.mail.Message.RecipientType.TO, javax.mail.internet.InternetAddress.parse(email, false));
+        message.setText(body);
+        javax.mail.Transport.send(message);
     }
 }

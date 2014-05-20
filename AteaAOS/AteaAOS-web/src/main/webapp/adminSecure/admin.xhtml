@@ -57,7 +57,18 @@
                                                     </f:facet>  
                                                 </p:cellEditor>  
                                             </p:column>
-                                            
+                                            <p:column headerText="Email" style="width:30%" 
+                                                      id="lastnameColumn" filterBy="lastname" filterMatchMode="contains">  
+                                                <p:cellEditor>  
+                                                    <f:facet name="output">  
+                                                        <h:outputText value="#{item.email}" />  
+                                                    </f:facet>  
+                                                    <f:facet name="input">  
+                                                        <p:inputText value="#{item.email}" style="width:100%"/>  
+                                                    </f:facet>  
+                                                </p:cellEditor>  
+                                            </p:column>
+
 
                                             <p:column headerText="Delete">
                                                 <f:facet name="header">
@@ -105,7 +116,7 @@
                                             </p:panel>  
                                         </p:tab>  
                                         <p:tab id="workspec" title="Address and Role">  
-                                            <p:panel header="Address Details">  
+                                            <p:panel header="Address and Contact Details">  
 
                                                 <h:messages/>  
 
@@ -116,8 +127,12 @@
                                                     <h:outputText value="Postal Code: " />
                                                     <p:inputText value="#{siteuserControl.city.postalcode}" />
 
-                                                    <h:outputText value="City: " />
+                                                    <h:outputText value="City: *" />
                                                     <p:inputText value="#{siteuserControl.city.city}" />
+                                                    <h:outputText value="Email: *" />
+                                                    <p:inputText value="#{siteuserControl.user.email}" />
+                                                    <h:outputText value="Mobile: " />
+                                                    <p:inputText value="#{siteuserControl.user.mobile}" />
 
                                                 </h:panelGrid>  
                                                 <p:panel header="Pick role">
@@ -129,8 +144,20 @@
                                                     </p:selectOneMenu>
                                                 </p:panel>
 
+
+                                                <p:dialog header="Content" widgetVar="dlg2" showEffect="fade" hideEffect="fade">
+                                                    <h:outputText id="display" value="#{siteuserControl.text}" escape="false" />
+                                                    <p:editor id="editor" widgetVar="editorWidget" value="#{siteuserControl.text}" width="600" />
+
+                                                    <h:panelGrid columns="2" style="margin-top: 10px">
+                                                        <p:commandButton value="Send" update="display" action="#{siteuserControl.sendInvite()}" icon="ui-icon-disk" />
+
+                                                        <p:commandButton value="Clear" type="button" onclick="editorWidget.clear();" icon="ui-icon-close" />
+                                                    </h:panelGrid>
+                                                </p:dialog>
+
                                                 <p:commandButton value="Submit" update="growl"   
-                                                                 actionListener="#{siteuserControl.saveSU()}" oncomplete="wiz.loadStep(wiz.cfg.steps[0], true)"/>  
+                                                                 action="#{siteuserControl.saveSU()}" actionListener="#{siteuserControl.callEditor()}" oncomplete="dlg2.show()"/>  
                                             </p:panel>  
                                         </p:tab>
                                     </p:wizard>
