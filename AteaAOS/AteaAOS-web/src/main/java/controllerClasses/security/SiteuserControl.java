@@ -38,12 +38,12 @@ import persistClasses.SiteuserFacade;
 @ViewScoped
 @DeclareRoles({"admin"})
 public class SiteuserControl {
-
+    
     private Siteuser user = new Siteuser();
     private Roles roleObject = new Roles();
     private String role = "";
     private City city = new City();
-
+    
     @EJB
     private SiteuserFacade suF;
     @EJB
@@ -51,51 +51,54 @@ public class SiteuserControl {
     @EJB
     private CityFacade cF;
     private String[] userRoles = {"admin", "superuser"};
-
+    
     public String getRole() {
         return role;
     }
-
+    
     public void setRole(String role) {
         this.role = role;
     }
-
+    
     public Roles getRoleObject() {
         return roleObject;
     }
-
+    
     public void setRoleObject(Roles roleObject) {
         this.roleObject = roleObject;
     }
-
+    
     public City getCity() {
         return city;
     }
-
+    
     public void setCity(City city) {
         this.city = city;
     }
-
+    
     public Siteuser getUser() {
         return user;
     }
-
+    
     public void setUser(Siteuser user) {
         this.user = user;
     }
-
+    
     public String[] getUserRoles() {
         return userRoles;
     }
-
+    
     public void setUserRoles(String[] userRoles) {
         this.userRoles = userRoles;
     }
-
+    
     @RolesAllowed("admin")
     public void saveSU() {
-        try {
-
+        try {            
+            char firstInitial = user.getFirstname().charAt(0);            
+            String shortened2 = user.getLastname().length() > 7 ? user.getLastname().substring(0, 7) : user.getLastname();            
+            String userName = (firstInitial + shortened2);    
+            user.setUsername(userName.toLowerCase());
             user.setPostalcode(city.getPostalcode());
             cF.create(city);
             user.setPassword(passGenerator());
@@ -107,30 +110,30 @@ public class SiteuserControl {
             roleObject = new Roles();
             city = new City();
         } catch (Exception e) {
-
+            
         }
     }
-
+    
     private String encryptPassword(String planepassword) {
         try {
             MessageDigest md = java.security.MessageDigest.getInstance("SHA-256");
             md.update(planepassword.getBytes("UTF-8"));
             byte[] passwordDigest = md.digest();
             String encodedPasswordHash = new sun.misc.BASE64Encoder().encode(passwordDigest);
-
+            
             return encodedPasswordHash;
-
+            
         } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
-
+            
         }
         return "";
     }
-
+    
     public String onFlowProcess(FlowEvent event) {
-
+        
         return event.getNewStep();
     }
-
+    
     private String passGenerator() {
         String dCase = "abcdefghijklmnopqrstuvwxyz";
         String uCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
