@@ -64,6 +64,6 @@ public class loginHandler {
 
             context.addMessage(null, new FacesMessage("Logout failed."));
         }
-        return "index?faces-redirect=true";
+        return "/faces/index?faces-redirect=true";
     }
 }
