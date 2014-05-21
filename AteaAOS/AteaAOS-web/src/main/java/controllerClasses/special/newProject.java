@@ -119,9 +119,11 @@ public class newProject implements Serializable {
     public void save() {
         try {
             projects.setProjectid(getUUID().toString());
-            projectsEJB.create(projects);
-            lF.create(new Logging(new java.util.Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", projects.getName() + " has been created."));
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("projectID", projects.getProjectid());
+            projectsEJB.create(projects);
+            psuF.create(new Prositeusers(projects.getProjectid(), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser()));
+            lF.create(new Logging(new java.util.Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", projects.getName() + " has been created."));
+            
             prepareCreate();
 
             FacesMessage msg = new FacesMessage();
