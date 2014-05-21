@@ -57,7 +57,7 @@ public class newProject implements Serializable {
     public void setSelected(Projects selected) {
 
         this.selected = selected;
-       
+
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("projectID", selected.getProjectid());
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("projectName", selected.getName());
     }
@@ -85,19 +85,22 @@ public class newProject implements Serializable {
     @PostConstruct
     public void init() {
 
-        
-        if(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser() == null){
+        if (FacesContext.getCurrentInstance().getExternalContext().getRemoteUser() == null) {
             projectListT = new ArrayList<>();
-        } else if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("admin")){
+            selectList = new ProjectsListModel(projectListT);
+
+        } else if (FacesContext.getCurrentInstance().getExternalContext().isUserInRole("admin")) {
             projectListT = projectsEJB.findAll();
-        } else{
-           
-            for(Prositeusers psu: psuF.findAllUsr(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser())){
+            selectList = new ProjectsListModel(projectListT);
+
+        } else if(!FacesContext.getCurrentInstance().getExternalContext().isUserInRole("admin")){
+
+            for (Prositeusers psu : psuF.findAllUsr(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser())) {
                 projectListT.add(projectsEJB.find(psu.getPrositeusersPK().getProjectid()));
             }
+            selectList = new ProjectsListModel(projectListT);
         }
 
-        selectList = new ProjectsListModel(projectListT);
     }
 
     private UUID getUUID() {
