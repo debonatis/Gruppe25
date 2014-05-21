@@ -11,16 +11,13 @@
     <h:body>
         <ui:composition>
             <h:form>
-                <p:poll interval="1" update="projectID, username, projectID2"/>
+                <p:poll interval="1" update="projectID, projectID2"/>
                 <p:outputPanel>
                     <p:outputLabel  id="projectID" value="#{security.projectID} is selected as the project." rendered="#{not empty security.projectID}" style="float: left"/>
                     <p:outputLabel  id="projectID2" value="select a project." rendered="#{empty security.projectID}" style="float: left"/>
                 </p:outputPanel>
                 <p:spacer/>
-                <p:outputPanel>
-                    <p:commandLink id="username" value="You are logged in as #{security.username}. Logout" action="#{loginHandler.logout()}" rendered="#{not empty security.username}" style="float: left" />
-                    <p:commandLink  id="usernameEdit" value="Edit your Account." action="profile" rendered="#{not empty security.username}" style="float: left"/>
-                </p:outputPanel>
+                
 
 
 
@@ -40,6 +37,14 @@
                     <p:menuitem value="Administration" icon="/resources/images/dock/admin.png"  outcome="admin"/>
                 </p:dock>
 
+            </h:form>
+            <h:form>      
+                <p:poll interval="1" update="meny"/>
+                <p:splitButton id="meny" value="You are logged in as #{security.username}."  icon="ui-icon-check" rendered="#{not empty security.username}">
+                    <p:menuitem value="Logout" actionListener="#{loginHandler.logout()}"  icon="ui-icon-arrowreturnthick-1-e" />                    
+                    <p:separator />
+                    <p:menuitem value="Edit Account" outcome="profile" icon="ui-icon-extlink" />
+                </p:splitButton>
             </h:form>
         </ui:composition>
     </h:body> 
