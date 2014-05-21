@@ -25,6 +25,8 @@ import javax.mail.MessagingException;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.mina.proxy.utils.StringUtilities;
 import org.primefaces.event.FlowEvent;
 import persistClasses.CityFacade;
 import persistClasses.RolesFacade;
@@ -190,11 +192,11 @@ public class SiteuserControl {
         }
     }
      private void sendMail(String email, String subject, String body) throws NamingException, javax.mail.MessagingException {
-         body = StringEscapeUtils.escapeHtml(body);
+         
         javax.mail.internet.MimeMessage message = new javax.mail.internet.MimeMessage(mailAOSMail);
         message.setSubject(subject);
         message.setRecipients(javax.mail.Message.RecipientType.TO, javax.mail.internet.InternetAddress.parse(email, false));
-        message.setText(body);
+        message.setContent(body,"text/html");
         javax.mail.Transport.send(message);
     }
 }
