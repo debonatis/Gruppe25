@@ -202,7 +202,7 @@ public class SiteUsersEdit implements Serializable {
         su.setPassword(encryptPassword(password));
         siteuserEJB.edit(su);
         try {
-            sendMail(su.getEmail(), "AOS user generation (Do not repley)", url + " Password: " + password + " Username: " + su.getUsername() + "");
+            sendMail(su.getEmail(), "AOS user generation (Do not reply)", url + " Password: " + password + " Username: " + su.getUsername() + "");
         } catch (NamingException | MessagingException ex) {
             Logger.getLogger(SiteuserControl.class.getName()).log(Level.SEVERE, null, ex);
         }

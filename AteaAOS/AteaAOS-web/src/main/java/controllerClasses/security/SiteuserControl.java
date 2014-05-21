@@ -175,7 +175,7 @@ public class SiteuserControl {
         su.setPassword(encryptPassword(password));
         suF.edit(su);
         String line = url + " Password: " + password + " Username: " + su.getUsername() + "";
-        this.text = line;
+        setText(line);
         
     }
     
@@ -183,7 +183,7 @@ public class SiteuserControl {
         
         
         try {
-            sendMail(user.getEmail(), "AOS user generation (Do not repley)", this.text);
+            sendMail(user.getEmail(), "AOS user generation (Do not reply)", getText());
         } catch (NamingException | MessagingException ex) {
             Logger.getLogger(SiteuserControl.class.getName()).log(Level.SEVERE, null, ex);
         }
