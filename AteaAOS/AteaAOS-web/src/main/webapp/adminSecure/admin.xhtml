@@ -149,7 +149,7 @@
                                                     <p:editor id="editor" widgetVar="editorWidget" value="#{siteuserControl.text}" width="600"/>
 
                                                     <h:panelGrid columns="2" style="margin-top: 10px">
-                                                        <p:commandButton value="Send" update="display" action="#{siteuserControl.sendInvite()}" icon="ui-icon-disk" />
+                                                        <p:commandButton value="Send" update="editor" action="#{siteuserControl.sendInvite()}" icon="ui-icon-disk" />
 
                                                         <p:commandButton value="Clear" type="button" onclick="editorWidget.clear();" icon="ui-icon-close" />
                                                     </h:panelGrid>
