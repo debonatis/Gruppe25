@@ -60,6 +60,7 @@ public class loginHandler {
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         try {
             request.logout();
+           request.getSession().invalidate();
         } catch (ServletException e) {
 
             context.addMessage(null, new FacesMessage("Logout failed."));
