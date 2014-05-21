@@ -38,7 +38,7 @@
             <h:form>      
                 
                 <p:splitButton id="meny" value="You are logged in as #{security.username}."  icon="ui-icon-check" rendered="#{not empty security.username}" style="float: right">
-                    <p:menuitem value="Logout" actionListener="#{loginHandler.logout()}"  icon="ui-icon-arrowreturnthick-1-e" />                    
+                    <p:menuitem value="Logout" action="#{loginHandler.logout()}"  icon="ui-icon-arrowreturnthick-1-e" />                    
                     <p:separator />
                     <p:menuitem value="Edit Account" outcome="profile" icon="ui-icon-extlink" />
                 </p:splitButton>
