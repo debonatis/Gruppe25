@@ -169,7 +169,7 @@ public class SiteuserControl {
     public void callEditor(){
         HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         String url = req.getRequestURL().toString();
-        url = url.substring(0, url.length() - req.getRequestURI().length()) + req.getContextPath() + "/";
+        url = url.substring(0, url.length() - req.getRequestURI().length()) + req.getContextPath() + "/index.xhtml";
         String password = passGenerator();
         Siteuser su = this.user;
         su.setPassword(encryptPassword(password));

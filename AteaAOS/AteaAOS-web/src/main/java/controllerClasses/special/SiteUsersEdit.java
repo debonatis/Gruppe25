@@ -197,7 +197,7 @@ public class SiteUsersEdit implements Serializable {
     public void sendInvite(Siteuser su) {
         HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         String url = req.getRequestURL().toString();
-        url = url.substring(0, url.length() - req.getRequestURI().length()) + req.getContextPath() + "/";
+        url = url.substring(0, url.length() - req.getRequestURI().length()) + req.getContextPath() + "/index.xhtml";
         String password = passGenerator();
         su.setPassword(encryptPassword(password));
         siteuserEJB.edit(su);
