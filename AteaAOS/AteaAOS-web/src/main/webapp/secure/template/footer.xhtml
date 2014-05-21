@@ -36,7 +36,7 @@
 
             </h:form>
             <h:form>      
-                <p:poll interval="1" update="meny"/>
+                
                 <p:splitButton id="meny" value="You are logged in as #{security.username}."  icon="ui-icon-check" rendered="#{not empty security.username}" style="float: right">
                     <p:menuitem value="Logout" actionListener="#{loginHandler.logout()}"  icon="ui-icon-arrowreturnthick-1-e" />                    
                     <p:separator />
