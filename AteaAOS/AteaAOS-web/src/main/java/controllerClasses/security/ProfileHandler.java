@@ -79,7 +79,7 @@ public class ProfileHandler {
         if(!getPassword().equalsIgnoreCase("")){
             user.setPassword(encryptPassword(password));
         }
-        cF.create(new City(user.getPostalcode(), city));
+        cF.edit(new City(user.getPostalcode(), city));
         suF.edit(user);
         FacesMessage msg = new FacesMessage();
         msg.setSeverity(FacesMessage.SEVERITY_INFO);

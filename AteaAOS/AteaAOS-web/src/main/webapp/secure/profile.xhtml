@@ -21,7 +21,12 @@
         <h:body>
 
             <p:layout fullPage="true">
-                <p:layoutUnit id="layout-upper" position="north" size="700" resizable="false" closable="true" collapsible="true">
+                <p:layoutUnit position="north" size="100">
+                    <ui:insert name="opp" >
+                        <ui:include src="/secure/template/header.xhtml"/>
+                    </ui:insert> 
+                </p:layoutUnit>
+                <p:layoutUnit id="layout-upper" position="center" size="700" resizable="false" closable="true" collapsible="true">
 
                     <p:tabView id="tabView">
                         <p:tab id="tab1" title="Edit Profile">  
@@ -65,10 +70,15 @@
                                     </h:panelGrid>
 
                                     <p:commandButton id="saveButton" update="matchGrid" value="Save" action="#{profileHandler.saveSU()}"/>
-                                    <p:commandButton id="delButton" update="matchGrid" value="Delete user" action="#{profileHandler.delSU()}"/>
+                                    <p:commandButton id="delButton" update="matchGrid" value="Delete user" action="#{profileHandler.delSU()}" onclick="if (!confirm('Are you sure?')) {
+                                                return false;
+                                            }"/>
                                 </p:panel>
 
-                                <p:commandButton id="back" update="matchGrid" value="Delete user" action="back"/>
+
+                            </h:form>
+                            <h:form>
+                                <p:commandButton id="back"  icon=" ui-icon-circle-triangle-w" value="Back" action="back" />
                             </h:form>
                         </p:tab>
 
@@ -76,14 +86,10 @@
 
 
                 </p:layoutUnit>
-                
 
 
-                <p:layoutUnit position="center">
 
-                    
 
-                </p:layoutUnit>
 
 
 
