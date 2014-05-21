@@ -15,9 +15,33 @@
                     <p:tab id="tab1" title="Edit Profile">  
                         <h:form id="userForm">
                             <p:growl id="growl" sticky="true" showDetail="true"/>  
+                            <p:panel header="Personal Details">
+                                <p:messages />
+                                <h:panelGrid columns="2" columnClasses="label, value">
+                                    <h:outputText value="Username: " />
+                                    <h:outputText value="#{profileHandler.user.username}" />
+                                    <h:outputText value="Firstname: *" />
+                                    <p:inputText value="#{profileHandler.user.firstname}" required="true" label="Firstname"/>
 
+                                    <h:outputText value="Lastname: *" />
+                                    <p:inputText value="#{profileHandler.user.lastname}" required="true" label="Lastname"/>
 
-                            <p:panel header="Change Password">
+                                   
+
+                                    <h:outputText value="Address: " />
+                                    <p:inputText value="#{profileHandler.user.adress}" />
+
+                                    <h:outputText value="Postal Code: " />
+                                    <p:inputText value="#{profileHandler.user.postalcode}" />
+
+                                    <h:outputText value="City: " />
+                                    <p:inputText value="#{profileHandler.city}" />
+                                    <h:outputText value="Mobile: " />
+                                    <p:inputText value="#{profileHandler.user.mobile}" />
+                                </h:panelGrid>
+                            </p:panel>
+
+                            <p:panel header="Password">
                                 <p:messages id="messages" showDetail="true" autoUpdate="true"/>
 
                                 <h:panelGrid columns="2" id="matchGrid">                   
@@ -28,7 +52,8 @@
                                     <p:password id="pwd2" value="#{passwordBean.password5}" label="Password 2" required="true"/>
                                 </h:panelGrid>
 
-                                <p:commandButton id="saveButton" update="matchGrid" value="Save" />
+                                <p:commandButton id="saveButton" update="matchGrid" value="Save" action="#{profileHandler.saveSU()}"/>
+                                <p:commandButton id="delButton" update="matchGrid" value="Delete user" action="#{profileHandler.delSU()}"/>
                             </p:panel>
 
 
