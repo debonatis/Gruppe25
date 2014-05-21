@@ -20,6 +20,7 @@
                 <p:outputPanel>
                     <p:commandLink  id="username" value="You are logged in as #{security.username}." action="#{loginHandler.logout()}" rendered="#{not empty security.username}" style="float: left"/>
                 </p:outputPanel>
+                <p:spacer/>
                 <p:outputPanel>
                     <p:commandLink  id="usernameEdit" value="Edit your Account." action="profile" rendered="#{not empty security.username}" style="float: left"/>
                 </p:outputPanel>
