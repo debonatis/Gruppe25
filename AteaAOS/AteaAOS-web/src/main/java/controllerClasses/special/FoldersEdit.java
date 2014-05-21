@@ -68,40 +68,42 @@ public class FoldersEdit {
     public void lagTre() {
         String projectID = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID");
         if (projectID == null) {
-            return;
-        }
-        root = new DefaultTreeNode(new Folders(new FoldersPK("Root", projectID)), null);
-        root.setExpanded(true);
-        if (fF.find(new FoldersPK("Root", projectID)) == null) {
-            fF.create(new Folders("Root", projectID));
+            root = new DefaultTreeNode(new Folders(new FoldersPK("Root", "null")), null);
+            root.setExpanded(true);
+        } else {
+            root = new DefaultTreeNode(new Folders(new FoldersPK("Root", projectID)), null);
+            root.setExpanded(true);
+            if (fF.find(new FoldersPK("Root", projectID)) == null) {
+                fF.create(new Folders("Root", projectID));
 
-        }
-        List<Foldergroups> k = fgF.findAllPro(projectID);
-        List<Folders> l = fF.findAllPro(projectID);
+            }
+            List<Foldergroups> k = fgF.findAllPro(projectID);
+            List<Folders> l = fF.findAllPro(projectID);
 
-        getFoldersFromDB();
-        try {
+            getFoldersFromDB();
+            try {
 
-            gru = gF.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
-        } catch (Exception e) {
+                gru = gF.findAllPro((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
+            } catch (Exception e) {
 
-        }
-
-        treeMap = new TreeMap<>();
-        if (!nodes.isEmpty()) {
-            for (String subordinateNodeName : nodes.keySet()) {
-                if (subordinateNodeName != null) {
-                    TreeNode treeNode = new DefaultTreeNode(new Folders(new FoldersPK(subordinateNodeName, projectID)), root);
-                    treeNode.setExpanded(true);
-                    treeMap.put(subordinateNodeName, treeNode);
-                }
             }
 
-            for (Map.Entry<String, String> entry : nodes.entrySet()) {
-                String subordinateNodeName = entry.getKey();
-                String superiorNodeName = entry.getValue();
-                if (superiorNodeName != null) {
-                    setParentFolder(treeMap.get(subordinateNodeName), treeMap.get(superiorNodeName));
+            treeMap = new TreeMap<>();
+            if (!nodes.isEmpty()) {
+                for (String subordinateNodeName : nodes.keySet()) {
+                    if (subordinateNodeName != null) {
+                        TreeNode treeNode = new DefaultTreeNode(new Folders(new FoldersPK(subordinateNodeName, projectID)), root);
+                        treeNode.setExpanded(true);
+                        treeMap.put(subordinateNodeName, treeNode);
+                    }
+                }
+
+                for (Map.Entry<String, String> entry : nodes.entrySet()) {
+                    String subordinateNodeName = entry.getKey();
+                    String superiorNodeName = entry.getValue();
+                    if (superiorNodeName != null) {
+                        setParentFolder(treeMap.get(subordinateNodeName), treeMap.get(superiorNodeName));
+                    }
                 }
             }
         }
