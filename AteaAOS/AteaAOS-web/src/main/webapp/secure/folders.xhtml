@@ -91,7 +91,7 @@
 
                             <p:dialog header="Group Info" widgetVar="fgDialog"  resizable="true" appendTo="@(body)">
                                 <p:outputPanel id="fgDetail" style="text-align:center;">
-                                    <p:panelGrid  columns="2" rendered="#{not empty foldersEdit.selectedFoldergroups}" columnClasses="label,value">
+                                    
 
                                         <h:outputText value="R:" />
                                         <h:selectOneMenu value="#{foldersEdit.selectedFoldergroups.r}">
@@ -102,8 +102,8 @@
                                             <f:selectItems value="#{foldersEdit.list}" var="man" itemLabel="#{man}" itemValue="#{man}" />
 
                                         </h:selectOneMenu>
-                                    </p:panelGrid>
-                                    <p:commandButton action="#{foldersEdit.onEdit()}" id="submitButton3" value="Submit" update=":tabView:form10:treeSingle" oncomplete="PF('fgDetail').hide();"/> 
+                                    
+                                    <p:commandButton action="#{foldersEdit.onEdit()}" id="submitButton3" value="Submit"  oncomplete="fgDetail.hide()"/> 
                                 </p:outputPanel>
                             </p:dialog>
                             <p:dialog header="Enter Foldername" widgetVar="dlg" resizable="true">  
@@ -114,7 +114,7 @@
                                     <p:inputText id="folderName" value="#{foldersEdit.folder.foldersPK.foldername}" />  
                                 </h:panelGrid>  
 
-                                <p:commandButton action="#{foldersEdit.addNode()}" id="submitButton" value="Submit" update=":tabView:form10:treeSingle" oncomplete="PF('dlg').hide();"/>  
+                                <p:commandButton action="#{foldersEdit.addNode()}" id="submitButton" value="Submit"  oncomplete="dlg.hide()"/>  
 
 
                             </p:dialog> 
@@ -141,7 +141,7 @@
 
                                 </h:panelGrid>  
 
-                                <p:commandButton action="#{foldersEdit.addGroups()}" id="submitButton2" value="Submit" update=":tabView:form10:treeSingle" oncomplete="PF('dlg2').hide();"/>  
+                                <p:commandButton action="#{foldersEdit.addGroups()}" id="submitButton2" value="Submit"  oncomplete="dlg2.hide()"/>  
 
 
                             </p:dialog> 
