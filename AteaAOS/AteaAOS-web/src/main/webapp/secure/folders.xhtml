@@ -47,7 +47,7 @@
                                             Groups
                                         </f:facet>  
 
-                                        <p:ajax event="rowEdit" listener="#{foldersEdit.onEdit}" update=":tabView:form10:messages,:tabView:form10:treeSingle:memList2" async="true"  />  
+                                        <p:ajax event="rowEdit" listener="#{foldersEdit.onEdit}"  async="true"  />  
                                         <p:ajax event="rowEditCancel" listener="#{foldersEdit.onCancel}" update=":tabView:form10:messages,:tabView:form10:treeSingle:memList2" />  
 
                                         <p:column headerText="Group Name" style="width:20%">  
@@ -56,6 +56,7 @@
                                                     <h:outputText value="#{gr.foldergroupsPK.groupname}" /> 
                                                 </f:facet>
                                                 <f:facet name="input">
+                                                    -
                                                 </f:facet>
                                             </p:cellEditor>
                                         </p:column> 
