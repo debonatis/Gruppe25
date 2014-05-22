@@ -23,7 +23,7 @@
                                 <p:menuitem value="Add folder" update="treeSingle" onclick="dlg.show()" icon="ui-icon-plus"/>
                                 <p:menuitem value="Add Groups" update="treeSingle" onclick="dlg2.show()"  icon="ui-icon-plus"/>
                             </p:contextMenu>  
-                            <p:messages autoUpdate="true"/>
+
 
                             <p:treeTable id="treeSingle" value="#{foldersEdit.root}" var="node"  
                                          selectionMode="single"  
@@ -46,8 +46,8 @@
                                             <f:facet name="header">  
                                                 Groups
                                             </f:facet>  
-
-                                            <p:ajax event="rowEdit" listener="#{foldersEdit.onEdit}"  update=":tabView:form10:messages,:tabView:form10:treeSingle:memList2"  />  
+                                            <p:growl for="rowEE" />
+                                            <p:ajax id="rowEE" event="rowEdit" listener="#{foldersEdit.onEdit}"  update=":tabView:form10:messages,:tabView:form10:treeSingle:memList2"  />  
                                             <p:ajax event="rowEditCancel" listener="#{foldersEdit.onCancel}" update=":tabView:form10:messages,:tabView:form10:treeSingle:memList2" />  
 
                                             <p:column headerText="Group Name" style="width:20%">  
