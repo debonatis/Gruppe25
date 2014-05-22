@@ -68,7 +68,7 @@ public class LoggingModel extends LazyDataModel<Logging>{
                     try {
                         String filterProperty = it.next();
                         Object filterValue = filters.get(filterProperty);
-                        String fieldValue = String.valueOf(log.getClass().getField(filterProperty).get(log));
+                        String fieldValue = String.valueOf(log.getClass().getDeclaredField(filterProperty).get(log));
  
                         if(filterValue == null || fieldValue.startsWith(filterValue.toString())) {
                             match = true;
