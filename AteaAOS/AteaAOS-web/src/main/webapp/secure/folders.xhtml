@@ -47,8 +47,8 @@
                                             Groups
                                         </f:facet>  
 
-                                        <p:ajax event="rowEdit" listener="#{foldersEdit.onErrr}" update=":tabView:form10:messages" />  
-                                        <p:ajax event="rowEditCancel" listener="#{foldersEdit.onCancel}" update=":tabView:form10:messages" />  
+                                        <p:ajax event="rowEdit" listener="#{foldersEdit.onEdit}" update=":tabView:form10:messages,:tabView:form10:treeSingle" />  
+                                        <p:ajax event="rowEditCancel" listener="#{foldersEdit.onCancel}" update=":tabView:form10:messages,:tabView:form10:treeSingle" />  
 
                                         <p:column headerText="Group Name" style="width:20%">  
 

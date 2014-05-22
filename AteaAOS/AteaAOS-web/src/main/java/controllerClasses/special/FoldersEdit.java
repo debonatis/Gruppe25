@@ -335,7 +335,7 @@ public class FoldersEdit {
 
     }
 
-    public void onErrr(RowEditEvent event) {
+    public void onEdit(RowEditEvent event) {
 
         try {
 
