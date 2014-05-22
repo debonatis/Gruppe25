@@ -40,7 +40,7 @@
                                 </p:column>
                                 <p:column headerText="Groups">
 
-
+                                    <p:rowExpansion id="re">
                                     <p:dataTable var="gr" value="#{foldersEdit.getGrList(node)}" id="memList2" paginator="true" rows="10" editable="true" >  
 
                                         <f:facet name="header">  
@@ -101,7 +101,7 @@
                                         </p:column>
                                     </p:dataTable>     
 
-
+                                    </p:rowExpansion>
 
                                 </p:column>
 
