@@ -23,7 +23,7 @@
                                 <p:menuitem value="Add folder" update="treeSingle" onclick="dlg.show()" icon="ui-icon-plus"/>
                                 <p:menuitem value="Add Groups" update="treeSingle" onclick="dlg2.show()"  icon="ui-icon-plus"/>
                             </p:contextMenu>  
-
+                            <p:messages autoUpdate="true"/>
 
                             <p:treeTable id="treeSingle" value="#{foldersEdit.root}" var="node"  
                                          selectionMode="single"  
@@ -41,65 +41,65 @@
                                 <p:column headerText="Groups">
 
                                     <p:rowExpansion id="re">
-                                    <p:dataTable var="gr" value="#{foldersEdit.getGrList(node)}" id="memList2" paginator="true" rows="10" editable="true" >  
+                                        <p:dataTable var="gr" value="#{foldersEdit.getGrList(node)}" id="memList2" paginator="true" rows="10" editable="true" >  
 
-                                        <f:facet name="header">  
-                                            Groups
-                                        </f:facet>  
+                                            <f:facet name="header">  
+                                                Groups
+                                            </f:facet>  
 
-                                        <p:ajax event="rowEdit" listener="#{foldersEdit.onEdit}"  async="true"  />  
-                                        <p:ajax event="rowEditCancel" listener="#{foldersEdit.onCancel}" update=":tabView:form10:messages,:tabView:form10:treeSingle:memList2" />  
+                                            <p:ajax event="rowEdit" listener="#{foldersEdit.onEdit}"  update=":tabView:form10:messages,:tabView:form10:treeSingle:memList2"  />  
+                                            <p:ajax event="rowEditCancel" listener="#{foldersEdit.onCancel}" update=":tabView:form10:messages,:tabView:form10:treeSingle:memList2" />  
 
-                                        <p:column headerText="Group Name" style="width:20%">  
-                                            <p:cellEditor>
-                                                <f:facet name="output"> 
-                                                    <h:outputText value="#{gr.foldergroupsPK.groupname}" /> 
-                                                </f:facet>
-                                                <f:facet name="input">
-                                                    -
-                                                </f:facet>
-                                            </p:cellEditor>
-                                        </p:column> 
+                                            <p:column headerText="Group Name" style="width:20%">  
+                                                <p:cellEditor>
+                                                    <f:facet name="output"> 
+                                                        <h:outputText value="#{gr.foldergroupsPK.groupname}" /> 
+                                                    </f:facet>
+                                                    <f:facet name="input">
+                                                        -
+                                                    </f:facet>
+                                                </p:cellEditor>
+                                            </p:column> 
 
-                                        <p:column headerText="RW">
-                                            <p:cellEditor>
-                                                <f:facet name="output"> 
-                                                    <p:selectBooleanButton id="RW" value="#{foldersEdit.value(gr.rw)}" onLabel="Yes" offLabel="No" immediate="true"/> 
-                                                </f:facet>
-                                                <f:facet name="input">
-                                                    <p:selectOneMenu value="#{gr.rw}">
-                                                        <f:selectItem itemLabel="true" itemValue="true" />
-                                                        <f:selectItem itemLabel="false" itemValue="false" />
+                                            <p:column headerText="RW">
+                                                <p:cellEditor>
+                                                    <f:facet name="output"> 
+                                                        <p:selectBooleanButton id="RW" value="#{foldersEdit.value(gr.rw)}" onLabel="Yes" offLabel="No" immediate="true"/> 
+                                                    </f:facet>
+                                                    <f:facet name="input">
+                                                        <h:selectOneMenu value="#{gr.rw}">
+                                                            <f:selectItem itemLabel="true" itemValue="true" />
+                                                            <f:selectItem itemLabel="false" itemValue="false" />
 
-                                                    </p:selectOneMenu>
-                                                </f:facet>
-                                            </p:cellEditor>
-                                        </p:column>
+                                                        </h:selectOneMenu>
+                                                    </f:facet>
+                                                </p:cellEditor>
+                                            </p:column>
 
-                                        <p:column headerText="R">
-                                            <p:cellEditor>
-                                                <f:facet name="output"> 
-                                                    <p:selectBooleanButton id="R" value="#{foldersEdit.value(gr.r)}" onLabel="Yes" offLabel="No" immediate="true"/> 
+                                            <p:column headerText="R">
+                                                <p:cellEditor>
+                                                    <f:facet name="output"> 
+                                                        <p:selectBooleanButton id="R" value="#{foldersEdit.value(gr.r)}" onLabel="Yes" offLabel="No" immediate="true"/> 
+                                                    </f:facet>
+                                                    <f:facet name="input">
+                                                        <h:selectOneMenu value="#{gr.r}">
+                                                            <f:selectItem itemLabel="true" itemValue="true" />
+                                                            <f:selectItem itemLabel="false" itemValue="false" />
+                                                        </h:selectOneMenu>
+                                                    </f:facet>
+                                                </p:cellEditor>
+                                            </p:column>
+                                            <p:column style="width:3%">  
+                                                <p:rowEditor />  
+                                            </p:column>  
+                                            <p:column headerText="Delete" style="width: 3%">
+                                                <f:facet name="header">
+                                                    <h:outputText value="Delete" />
                                                 </f:facet>
-                                                <f:facet name="input">
-                                                    <p:selectOneMenu value="#{gr.r}">
-                                                        <f:selectItem itemLabel="true" itemValue="true" />
-                                                        <f:selectItem itemLabel="false" itemValue="false" />
-                                                    </p:selectOneMenu>
-                                                </f:facet>
-                                            </p:cellEditor>
-                                        </p:column>
-                                        <p:column style="width:3%">  
-                                            <p:rowEditor />  
-                                        </p:column>  
-                                        <p:column headerText="Delete" style="width: 3%">
-                                            <f:facet name="header">
-                                                <h:outputText value="Delete" />
-                                            </f:facet>
-                                            <p:commandButton icon="ui-icon-close" title="remove from list"
-                                                             actionListener="#{foldersEdit.deleteItemFoGR(node, gr)}" update="memList2" />
-                                        </p:column>
-                                    </p:dataTable>     
+                                                <p:commandButton icon="ui-icon-close" title="remove from list"
+                                                                 actionListener="#{foldersEdit.deleteItemFoGR(node, gr)}" update="memList2" />
+                                            </p:column>
+                                        </p:dataTable>     
 
                                     </p:rowExpansion>
 
