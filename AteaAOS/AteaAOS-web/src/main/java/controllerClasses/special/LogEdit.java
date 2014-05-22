@@ -7,12 +7,14 @@ package controllerClasses.special;
 
 import controllerClasses.special.model.LoggingModel;
 import entityModels.Logging;
+import java.io.Serializable;
+import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
 import org.primefaces.event.SelectEvent;
 import persistClasses.LoggingFacade;
 
@@ -21,8 +23,8 @@ import persistClasses.LoggingFacade;
  * @author simond
  */
 @ManagedBean
-@SessionScoped
-public class LogEdit {
+@ViewAccessScoped
+public class LogEdit implements Serializable{
 
     private LoggingModel loggList;
 
@@ -31,6 +33,7 @@ public class LogEdit {
     
     @EJB
     private LoggingFacade lF;
+  
 
     @PostConstruct
     public void init() {
@@ -62,6 +65,7 @@ public class LogEdit {
     }
     public void delLogList(){
         lF.removeAll();
+        lF.edit(new Logging(new Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "Warning", " The log has been erased."));
         init();
     }
 }
