@@ -350,6 +350,9 @@
                                          <p:column headerText="Message" sortBy="#{log.message}" filterBy="#{log.message}">
                                             <h:outputText value="#{log.message}" />
                                         </p:column>
+                                        <f:facet name="footer">
+                                            <p:commandButton value="Delete Log List" action="#{logEdit.delLogList()}"/>
+                                        </f:facet>
                                     </p:dataTable>
 
                                     <p:dialog header="Log Detail" widgetVar="logDialog" modal="true"  resizable="true" appendTo="@(body)">
