@@ -20,7 +20,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.model.DefaultTreeNode;
@@ -35,7 +35,7 @@ import persistClasses.LoggingFacade;
  * @author simond
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class FoldersEdit {
 
     private TreeNode root;
