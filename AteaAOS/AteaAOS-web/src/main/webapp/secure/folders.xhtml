@@ -40,72 +40,72 @@
                                 </p:column>
                                 <p:column headerText="Groups">
 
-                                    <p:rowExpansion id="re">
-                                        <p:dataTable var="gr" value="#{foldersEdit.getGrList(node)}" id="memList2" paginator="true" rows="10"  >  
 
-                                            <f:facet name="header">  
-                                                Groups
-                                            </f:facet>  
+                                    <p:dataTable var="gr" value="#{foldersEdit.getGrList(node)}" id="memList2" paginator="true" rows="10"  >  
 
-
-                                            <p:column headerText="Group Name" style="width:20%">  
-
-                                                <h:outputText value="#{gr.foldergroupsPK.groupname}" /> 
-
-                                            </p:column> 
-
-                                            <p:column headerText="RW">
-
-                                                <h:outputText value="#{gr.rw}" /> 
-
-                                            </p:column>
-
-                                            <p:column headerText="R">
-
-                                                <h:outputText value="#{gr.r}" /> 
-
-                                            </p:column>
-                                            <p:column style="width: 3%" headerText="Edit">
-                                                <f:facet name="header">
-                                                    <h:outputText value="Edit" />
-                                                </f:facet>
-                                                <p:commandButton update=":tabView:form10:fgDetail" oncomplete="fgDialog.show()"
-                                                                 icon="ui-icon-search" title="Edit" actionListener="#{foldersEdit.setFg(gr)}" />
+                                        <f:facet name="header">  
+                                            Groups
+                                        </f:facet>  
 
 
-                                            </p:column>
-                                            <p:column headerText="Delete" style="width: 3%">
-                                                <f:facet name="header">
-                                                    <h:outputText value="Delete" />
-                                                </f:facet>
-                                                <p:commandButton icon="ui-icon-close" title="remove from list"
-                                                                 actionListener="#{foldersEdit.deleteItemFoGR(node, gr)}" update="memList2" />
-                                            </p:column>
-                                        </p:dataTable>     
+                                        <p:column headerText="Group Name" style="width:20%">  
 
-                                    </p:rowExpansion>
+                                            <h:outputText value="#{gr.foldergroupsPK.groupname}" /> 
+
+                                        </p:column> 
+
+                                        <p:column headerText="RW">
+
+                                            <h:outputText value="#{gr.rw}" /> 
+
+                                        </p:column>
+
+                                        <p:column headerText="R">
+
+                                            <h:outputText value="#{gr.r}" /> 
+
+                                        </p:column>
+                                        <p:column style="width: 3%" headerText="Edit">
+                                            <f:facet name="header">
+                                                <h:outputText value="Edit" />
+                                            </f:facet>
+                                            <p:commandButton update=":tabView:form10:fgDetail" oncomplete="fgDialog.show()"
+                                                             icon="ui-icon-search" title="Edit" actionListener="#{foldersEdit.setFg(gr)}" />
+
+
+                                        </p:column>
+                                        <p:column headerText="Delete" style="width: 3%">
+                                            <f:facet name="header">
+                                                <h:outputText value="Delete" />
+                                            </f:facet>
+                                            <p:commandButton icon="ui-icon-close" title="remove from list"
+                                                             actionListener="#{foldersEdit.deleteItemFoGR(node, gr)}" update="memList2" />
+                                        </p:column>
+                                    </p:dataTable>     
+
+
 
                                 </p:column>
 
                             </p:treeTable>  
 
-                            <p:dialog header="Group Info" widgetVar="fgDialog"  resizable="true" appendTo="@(body)" >
-                                <p:outputPanel id="fgDetail" style="text-align:center;">
+                            <p:dialog header="Group Info" widgetVar="fgDialog"  resizable="true" >
+                                <p:outputPanel id="fgDetail" >
 
+                                    <h:panelGrid columns="2" style="margin-bottom:10px"> 
+                                        <h:outputText value="R:" />
+                                        <h:selectOneMenu value="#{foldersEdit.selectedFoldergroups.r}">
+                                            <f:selectItems value="#{foldersEdit.list}" var="man" itemLabel="#{man}" itemValue="#{man}" />
 
-                                    <h:outputText value="R:" />
-                                    <h:selectOneMenu value="#{foldersEdit.selectedFoldergroups.r}">
-                                        <f:selectItems value="#{foldersEdit.list}" var="man" itemLabel="#{man}" itemValue="#{man}" />
+                                        </h:selectOneMenu>
+                                        <br/>
 
-                                    </h:selectOneMenu>
-                                    <br/>
+                                        <h:outputText value="RW:" />
+                                        <h:selectOneMenu value="#{foldersEdit.selectedFoldergroups.rw}">
+                                            <f:selectItems value="#{foldersEdit.list}" var="man" itemLabel="#{man}" itemValue="#{man}" />
 
-                                    <h:outputText value="RW:" />
-                                    <h:selectOneMenu value="#{foldersEdit.selectedFoldergroups.rw}">
-                                        <f:selectItems value="#{foldersEdit.list}" var="man" itemLabel="#{man}" itemValue="#{man}" />
-
-                                    </h:selectOneMenu>
-
+                                        </h:selectOneMenu>
+                                    </h:panelGrid>  
                                     <p:commandButton update=":tabView:form10:treeSingle"  action="#{foldersEdit.onEdit()}" id="submitButton3" value="Submit"  oncomplete="PF('fgDetail').show();"/> 
                                 </p:outputPanel>
                             </p:dialog>
@@ -150,7 +150,7 @@
                             </p:dialog> 
 
 
-                            <p:commandButton  value="Refresh" process="@all"  action="#{foldersEdit.refresh()}" icon="ui-icon-refresh" update="treeSingle"/> 
+                            <p:commandButton  value="Refresh" process="@all"  action="#{foldersEdit.refresh()}" icon="ui-icon-refresh" update=":tabView:form10:treeSingle"/> 
 
                         </h:form>
 
