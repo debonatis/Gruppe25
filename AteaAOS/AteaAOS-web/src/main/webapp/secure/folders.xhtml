@@ -89,7 +89,7 @@
 
                             </p:treeTable>  
 
-                            <p:dialog header="Group Info" widgetVar="fgDialog"  resizable="true" appendTo="@(body)" dynamic="true">
+                            <p:dialog header="Group Info" widgetVar="fgDialog"  resizable="true" appendTo="@(body)" >
                                 <p:outputPanel id="fgDetail" style="text-align:center;">
 
 
@@ -106,10 +106,10 @@
 
                                     </h:selectOneMenu>
 
-                                    <p:commandButton action="#{foldersEdit.onEdit()}" id="submitButton3" value="Submit"  oncomplete="PF('fgDetail').show();"/> 
+                                    <p:commandButton update=":tabView:form10:treeSingle"  action="#{foldersEdit.onEdit()}" id="submitButton3" value="Submit"  oncomplete="PF('fgDetail').show();"/> 
                                 </p:outputPanel>
                             </p:dialog>
-                            <p:dialog header="Enter Foldername" widgetVar="dlg" resizable="true" dynamic="true">  
+                            <p:dialog header="Enter Foldername" widgetVar="dlg" resizable="true" >  
 
 
                                 <h:panelGrid columns="2" style="margin-bottom:10px">  
@@ -117,11 +117,11 @@
                                     <p:inputText id="folderName" value="#{foldersEdit.folder.foldersPK.foldername}" />  
                                 </h:panelGrid>  
 
-                                <p:commandButton action="#{foldersEdit.addNode()}" id="submitButton" value="Submit"  oncomplete="PF('dlg').show();"/>  
+                                <p:commandButton update=":tabView:form10:treeSingle"  action="#{foldersEdit.addNode()}" id="submitButton" value="Submit"  oncomplete="PF('dlg').show();"/>  
 
 
                             </p:dialog> 
-                            <p:dialog header="Pick Groups" widgetVar="dlg2" resizable="true" dynamic="true">  
+                            <p:dialog header="Pick Groups" widgetVar="dlg2" resizable="true" >  
 
 
                                 <h:panelGrid columns="2" style="margin-bottom:10px">  
@@ -144,7 +144,7 @@
 
                                 </h:panelGrid>  
 
-                                <p:commandButton action="#{foldersEdit.addGroups()}" id="submitButton2" value="Submit"  oncomplete="PF('dlg2').show();"/>  
+                                <p:commandButton update=":tabView:form10:treeSingle"  action="#{foldersEdit.addGroups()}" id="submitButton2" value="Submit"  oncomplete="PF('dlg2').show();"/>  
 
 
                             </p:dialog> 
