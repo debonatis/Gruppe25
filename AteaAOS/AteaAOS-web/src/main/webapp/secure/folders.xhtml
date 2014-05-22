@@ -64,14 +64,14 @@
                                         <p:column headerText="RW">
                                             <p:cellEditor>
                                                 <f:facet name="output"> 
-                                                    <p:selectBooleanButton id="RW" value="#{foldersEdit.value(gr.rw)}" onLabel="Yes" offLabel="No" /> 
+                                                    <p:selectBooleanButton id="RW" value="#{foldersEdit.value(gr.rw)}" onLabel="Yes" offLabel="No" immediate="true"/> 
                                                 </f:facet>
                                                 <f:facet name="input">
-                                                    <h:selectOneMenu value="#{gr.rw}">
+                                                    <p:selectOneMenu value="#{gr.rw}">
                                                         <f:selectItem itemLabel="true" itemValue="true" />
                                                         <f:selectItem itemLabel="false" itemValue="false" />
 
-                                                    </h:selectOneMenu>
+                                                    </p:selectOneMenu>
                                                 </f:facet>
                                             </p:cellEditor>
                                         </p:column>
@@ -79,13 +79,13 @@
                                         <p:column headerText="R">
                                             <p:cellEditor>
                                                 <f:facet name="output"> 
-                                                    <p:selectBooleanButton id="R" value="#{foldersEdit.value(gr.r)}" onLabel="Yes" offLabel="No" /> 
+                                                    <p:selectBooleanButton id="R" value="#{foldersEdit.value(gr.r)}" onLabel="Yes" offLabel="No" immediate="true"/> 
                                                 </f:facet>
                                                 <f:facet name="input">
-                                                    <h:selectOneMenu value="#{gr.r}">
+                                                    <p:selectOneMenu value="#{gr.r}">
                                                         <f:selectItem itemLabel="true" itemValue="true" />
                                                         <f:selectItem itemLabel="false" itemValue="false" />
-                                                    </h:selectOneMenu>
+                                                    </p:selectOneMenu>
                                                 </f:facet>
                                             </p:cellEditor>
                                         </p:column>
