@@ -108,7 +108,7 @@
 
                                                     <h:outputText value="Lastname: *" />
                                                     <p:inputText value="#{siteuserControl.user.lastname}" required="true" label="Lastname"/>
-                                                    
+
 
 
                                                 </h:panelGrid>  
@@ -145,7 +145,7 @@
 
 
                                                 <p:dialog header="Content" widgetVar="dlg2" showEffect="fade" hideEffect="fade">
-                                                    
+
                                                     <p:editor id="editor" widgetVar="editorWidget" value="#{siteuserControl.text}" width="600" />
 
                                                     <h:panelGrid columns="2" style="margin-top: 10px">
@@ -326,6 +326,60 @@
 
 
                                 </h:form>
+                            </p:tab>
+                            <p:tab>
+                                <h:form id="form2">
+                                    <p:dataTable var="log" value="#{logEdit.loggList}" paginator="true" rows="10"
+                                                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                                 rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{logEdit.selectedLog}" id="logTable" lazy="true">
+                                        <p:ajax event="rowSelect" listener="#{logEdit.onRowSelect}" update=":form2:logDetail" oncomplete="logDialog.show()" />
+                                        <p:column headerText="Date" sortBy="#{log.dated}" filterBy="#{log.dated}">
+                                            <h:outputText value="#{log.dated}" >
+                                                <f:convertDateTime dateStyle="full" type="date" />
+                                            </h:outputText>
+                                        </p:column>
+                                        <p:column headerText="User" sortBy="#{log.userId}" filterBy="#{log.userId}">
+                                            <h:outputText value="#{log.userId}" />
+                                        </p:column>
+                                        <p:column headerText="Logger" sortBy="#{log.logger}" filterBy="#{log.logger}">
+                                            <h:outputText value="#{log.logger}" />
+                                        </p:column>
+                                        <p:column headerText="Severity" sortBy="#{log.severity}" filterBy="#{log.severity}">
+                                            <h:outputText value="#{log.severity}" />
+                                        </p:column>
+                                         <p:column headerText="Message" sortBy="#{log.message}" filterBy="#{log.message}">
+                                            <h:outputText value="#{log.message}" />
+                                        </p:column>
+                                    </p:dataTable>
+
+                                    <p:dialog header="Car Detail" widgetVar="logDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                                        <p:outputPanel id="logDetail" style="text-align:center;">
+                                            <p:panelGrid  columns="2" rendered="#{not empty dtLazyView.selectedCar}" columnClasses="label,value">
+                                               
+
+                                                <h:outputText value="Date:" />
+                                                <h:outputText value="#{logEdit.selectedLog.dated}" >
+                                                    <f:convertDateTime dateStyle="full" type="date" />
+                                                </h:outputText>
+
+                                                <h:outputText value="User" />
+                                                <h:outputText value="#{logEdit.selectedLog.userId}" />
+
+                                                <h:outputText value="Logger:" />
+                                                <h:outputText value="#{logEdit.selectedLog.logger}"/>
+
+                                                <h:outputText value="Severity:" />
+                                                <h:outputText value="#{logEdit.selectedLog.severity}"/>
+                                                
+                                                <h:outputText value="Message:" />
+                                                <h:outputText value="#{logEdit.selectedLog.message}"/>
+                                                   
+                                                
+                                            </p:panelGrid>
+                                        </p:outputPanel>
+                                    </p:dialog>
+                                </h:form>
+
                             </p:tab>
                         </p:tabView>
                     </p:layoutUnit>
