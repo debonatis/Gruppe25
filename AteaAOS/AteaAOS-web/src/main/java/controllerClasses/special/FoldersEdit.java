@@ -21,6 +21,7 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
@@ -34,7 +35,7 @@ import persistClasses.LoggingFacade;
  * @author simond
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class FoldersEdit {
 
     private TreeNode root;
@@ -358,6 +359,7 @@ public class FoldersEdit {
             fgF.edit(getSelectedFoldergroups());
             lF.create(new Logging(new Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", selectedFoldergroups.getFoldergroupsPK().getGroupname() + " has been edited in: " + selectedFoldergroups.getFoldergroupsPK().getFoldername() + ""));
             selectedFoldergroups = null;
+            refresh();
             FacesMessage msg = new FacesMessage();
             msg.setSeverity(FacesMessage.SEVERITY_INFO);
             msg.setSummary("Group edited sucsessfully!");
