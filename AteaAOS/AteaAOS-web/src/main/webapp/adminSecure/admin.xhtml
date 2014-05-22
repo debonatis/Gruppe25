@@ -331,8 +331,8 @@
                                 <h:form id="form2">
                                     <p:dataTable var="log" value="#{logEdit.loggList}" paginator="true" rows="10"
                                                  paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-                                                 rowsPerPageTemplate="10,50,100" selectionMode="single" selection="#{logEdit.selectedLog}" id="logTable" lazy="true">
-                                        <p:ajax event="rowSelect" listener="#{logEdit.onRowSelect}" update=":tabView:form2:logDetail" oncomplete="logDialog.show()" />
+                                                 rowsPerPageTemplate="10,50,100"  id="logTable" lazy="true">
+                                        
                                         <p:column headerText="Date" sortBy="#{log.dated}" filterBy="#{log.dated}">
                                             <h:outputText value="#{log.dated}" >
                                                 <f:convertDateTime dateStyle="full" type="date" pattern="EEE, d MMM yyyy HH:mm:ss Z" />
@@ -347,7 +347,7 @@
                                         <p:column headerText="Severity" sortBy="#{log.severity}" filterBy="#{log.severity}">
                                             <h:outputText value="#{log.severity}" />
                                         </p:column>
-                                         <p:column headerText="Message" sortBy="#{log.message}" filterBy="#{log.message}">
+                                        <p:column headerText="Message" sortBy="#{log.message}" filterBy="#{log.message}">
                                             <h:outputText value="#{log.message}" />
                                         </p:column>
                                         <f:facet name="footer">
@@ -355,32 +355,7 @@
                                         </f:facet>
                                     </p:dataTable>
 
-                                    <p:dialog header="Log Detail" widgetVar="logDialog" modal="true"  resizable="true" appendTo="@(body)">
-                                        <p:outputPanel id="logDetail" style="text-align:center;">
-                                            <p:panelGrid  columns="2"  columnClasses="label,value">
-                                               
 
-                                                <h:outputText value="Date:" />
-                                                <h:outputText value="#{logEdit.selectedLog.dated}" >
-                                                    <f:convertDateTime dateStyle="full" type="date" pattern="EEE, d MMM yyyy HH:mm:ss Z"/>
-                                                </h:outputText>
-
-                                                <h:outputText value="User" />
-                                                <h:outputText value="#{logEdit.selectedLog.userId}" />
-
-                                                <h:outputText value="Logger:" />
-                                                <h:outputText value="#{logEdit.selectedLog.logger}"/>
-
-                                                <h:outputText value="Severity:" />
-                                                <h:outputText value="#{logEdit.selectedLog.severity}"/>
-                                                
-                                                <h:outputText value="Message:" />
-                                                <h:outputText value="#{logEdit.selectedLog.message}"/>
-                                                   
-                                                
-                                            </p:panelGrid>
-                                        </p:outputPanel>
-                                    </p:dialog>
                                 </h:form>
 
                             </p:tab>
