@@ -47,8 +47,9 @@ public class LogEdit {
         return selectedLog;
     }
 
-    public void setSelectedLog(Logging selectedLog) {
-        this.selectedLog = selectedLog;
+    public void setSelectedLog(Object selectedLog) {
+       Logging log = ((Logging) selectedLog);
+        this.selectedLog = log;
     }
 
     public void setlF(LoggingFacade lF) {
