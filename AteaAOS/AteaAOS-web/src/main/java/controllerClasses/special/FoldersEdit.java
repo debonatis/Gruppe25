@@ -226,6 +226,9 @@ public class FoldersEdit {
     public void setSelectedFoldergroups(Foldergroups selectedFoldergroups) {
         this.selectedFoldergroups = selectedFoldergroups;
     }
+    public void setFg(Foldergroups sel){
+        selectedFoldergroups=sel;
+    }
 
     public void delSecGroup(Foldergroups g) {
         fgF.remove(g);

@@ -69,9 +69,10 @@
                                                 <f:facet name="header">
                                                     <h:outputText value="Edit" />
                                                 </f:facet>
-                                                <p:commandButton update=":tabView:form10:fgDetail" oncomplete="fgDialog.show()" icon="ui-icon-search" title="Edit">
-                                                    <f:setPropertyActionListener value="#{gr}" target="#{foldersEdit.selectedFoldergroups}" />
-                                                </p:commandButton>
+                                                <p:commandButton update=":tabView:form10:fgDetail" oncomplete="fgDialog.show()"
+                                                                 icon="ui-icon-search" title="Edit" actionListener="#{foldersEdit.setFg(gr)}" />
+                                                   
+                                                
                                             </p:column>
                                             <p:column headerText="Delete" style="width: 3%">
                                                 <f:facet name="header">
