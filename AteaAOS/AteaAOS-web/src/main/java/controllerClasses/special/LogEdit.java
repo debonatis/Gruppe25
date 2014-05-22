@@ -26,7 +26,7 @@ public class LogEdit {
 
     private LoggingModel loggList;
 
-    private Logging selectedLog;
+    private Logging selectedLog = new Logging();
 
     
     @EJB
