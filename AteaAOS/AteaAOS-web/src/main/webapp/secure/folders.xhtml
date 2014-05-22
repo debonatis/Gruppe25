@@ -92,7 +92,7 @@
                             <p:dialog header="Group Info" widgetVar="fgDialog"  resizable="true" >
                                 <p:outputPanel id="fgDetail" >
 
-                                    <h:panelGrid columns="2" style="margin-bottom:10px"> 
+                                    <h:panelGrid columns="2" style="margin-bottom:10px" rendered="#{not empty foldersEdit.selectedFoldergroups.r}"> 
                                         <h:outputText value="R:" />
                                         <h:selectOneMenu value="#{foldersEdit.selectedFoldergroups.r}">
                                             <f:selectItems value="#{foldersEdit.list}" var="man" itemLabel="#{man}" itemValue="#{man}" />
@@ -150,7 +150,7 @@
                             </p:dialog> 
 
 
-                            <p:commandButton  value="Refresh" process="@all"  action="#{foldersEdit.refresh()}" icon="ui-icon-refresh" update=":tabView:form10:treeSingle"/> 
+                            <p:commandButton  value="Refresh"  action="#{foldersEdit.refresh()}" icon="ui-icon-refresh" update=":tabView:form10:treeSingle"/> 
 
                         </h:form>
 
