@@ -60,4 +60,8 @@ public class LogEdit {
         FacesMessage msg = new FacesMessage("Log Selected", "");
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
+    public void delLogList(){
+        lF.removeAll();
+        init();
+    }
 }
