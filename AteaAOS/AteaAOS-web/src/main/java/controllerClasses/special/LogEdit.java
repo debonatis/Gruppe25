@@ -6,11 +6,12 @@
 package controllerClasses.special;
 
 import controllerClasses.special.model.LoggingModel;
+import entityModels.Logging;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.SelectEvent;
 import persistClasses.LoggingFacade;
@@ -20,12 +21,12 @@ import persistClasses.LoggingFacade;
  * @author simond
  */
 @ManagedBean
-@ViewScoped
+@RequestScoped
 public class LogEdit {
 
     private LoggingModel loggList;
 
-    private Object selectedLog;
+    private Logging selectedLog;
 
     
     @EJB
@@ -41,11 +42,11 @@ public class LogEdit {
         return loggList;
     }
 
-    public Object getSelectedLog() {
+    public Logging getSelectedLog() {
         return selectedLog;
     }
 
-    public void setSelectedLog(Object selectedLog) {
+    public void setSelectedLog(Logging selectedLog) {
         this.selectedLog = selectedLog;
     }
 
