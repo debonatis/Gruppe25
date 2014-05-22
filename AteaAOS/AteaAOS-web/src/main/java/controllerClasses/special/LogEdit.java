@@ -47,7 +47,7 @@ public class LogEdit {
         return selectedLog;
     }
 
-    public void setSelectedLog(Object selectedLog) {
+    public void setSelectedLog(Logging selectedLog) {
        Logging log = ((Logging) selectedLog);
         this.selectedLog = log;
     }
