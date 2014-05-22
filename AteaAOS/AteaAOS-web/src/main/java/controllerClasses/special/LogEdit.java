@@ -12,8 +12,8 @@ import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
-import javax.inject.Named;
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
 import org.primefaces.event.SelectEvent;
 import persistClasses.LoggingFacade;
@@ -22,7 +22,7 @@ import persistClasses.LoggingFacade;
  *
  * @author simond
  */
-@Named
+@ManagedBean
 @ViewAccessScoped
 public class LogEdit implements Serializable{
 
