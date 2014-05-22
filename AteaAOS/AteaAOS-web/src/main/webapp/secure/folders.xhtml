@@ -71,8 +71,8 @@
                                                 </f:facet>
                                                 <p:commandButton update=":tabView:form10:fgDetail" oncomplete="fgDialog.show()"
                                                                  icon="ui-icon-search" title="Edit" actionListener="#{foldersEdit.setFg(gr)}" />
-                                                   
-                                                
+
+
                                             </p:column>
                                             <p:column headerText="Delete" style="width: 3%">
                                                 <f:facet name="header">
@@ -91,18 +91,21 @@
 
                             <p:dialog header="Group Info" widgetVar="fgDialog"  resizable="true" appendTo="@(body)">
                                 <p:outputPanel id="fgDetail" style="text-align:center;">
-                                    
 
-                                        <h:outputText value="R:" />
-                                        <h:selectOneMenu value="#{foldersEdit.selectedFoldergroups.r}">
-                                            <f:selectItems value="#{foldersEdit.list}" var="man" itemLabel="#{man}" itemValue="#{man}" />
-                                            <h:outputText value="RW:" />
-                                        </h:selectOneMenu>
-                                        <h:selectOneMenu value="#{foldersEdit.selectedFoldergroups.rw}">
-                                            <f:selectItems value="#{foldersEdit.list}" var="man" itemLabel="#{man}" itemValue="#{man}" />
 
-                                        </h:selectOneMenu>
-                                    
+                                    <h:outputText value="R:" />
+                                    <h:selectOneMenu value="#{foldersEdit.selectedFoldergroups.r}">
+                                        <f:selectItems value="#{foldersEdit.list}" var="man" itemLabel="#{man}" itemValue="#{man}" />
+
+                                    </h:selectOneMenu>
+                                    <br/>
+
+                                    <h:outputText value="RW:" />
+                                    <h:selectOneMenu value="#{foldersEdit.selectedFoldergroups.rw}">
+                                        <f:selectItems value="#{foldersEdit.list}" var="man" itemLabel="#{man}" itemValue="#{man}" />
+
+                                    </h:selectOneMenu>
+
                                     <p:commandButton action="#{foldersEdit.onEdit()}" id="submitButton3" value="Submit"  oncomplete="fgDetail.hide()"/> 
                                 </p:outputPanel>
                             </p:dialog>
