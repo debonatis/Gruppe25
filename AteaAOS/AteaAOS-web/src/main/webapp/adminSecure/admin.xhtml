@@ -352,7 +352,7 @@
                                         </p:column>
                                     </p:dataTable>
 
-                                    <p:dialog header="Log Detail" widgetVar="logDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                                    <p:dialog header="Log Detail" widgetVar="logDialog" modal="true"  resizable="true" appendToBody="true">
                                         <p:outputPanel id="logDetail" style="text-align:center;">
                                             <p:panelGrid  columns="2" rendered="#{not empty logEdit.selectedLog}" columnClasses="label,value">
                                                
