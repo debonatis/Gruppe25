@@ -59,7 +59,8 @@ public class FoldersEdit {
     private String nameText = "";
 
     private TreeMap<String, TreeNode> treeMap = new TreeMap<>();
-    private String[] list = {"true","false"};
+    private Foldergroups selectedFoldergroups;
+    private String[] list = {"true", "false"};
 
     public FoldersEdit() {
 
@@ -166,6 +167,14 @@ public class FoldersEdit {
         this.r = r;
     }
 
+    public String[] getList() {
+        return list;
+    }
+
+    public void setList(String[] list) {
+        this.list = list;
+    }
+
     public List<Groups> getGruSel() {
         return gruSel;
     }
@@ -211,15 +220,13 @@ public class FoldersEdit {
         this.selectedNode = selectedNode;
     }
 
-    public String[] getList() {
-        return list;
+    public Foldergroups getSelectedFoldergroups() {
+        return selectedFoldergroups;
     }
 
-    public void setList(String[] list) {
-        this.list = list;
+    public void setSelectedFoldergroups(Foldergroups selectedFoldergroups) {
+        this.selectedFoldergroups = selectedFoldergroups;
     }
-
-    
 
     public void delSecGroup(Foldergroups g) {
         fgF.remove(g);
@@ -342,17 +349,13 @@ public class FoldersEdit {
 
     }
 
-    public void onEdit(RowEditEvent event) {
+    public void onEdit() {
 
         try {
 
-            Foldergroups test = fgF.find(((Foldergroups) event.getObject()).getFoldergroupsPK());
-
-            test.setR(((Foldergroups) event.getObject()).getR());
-            test.setRw(((Foldergroups) event.getObject()).getRw());
-
-            fgF.edit(test);
-            lF.create(new Logging(new Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", test.getFoldergroupsPK().getGroupname() + " has been edited in: " + test.getFoldergroupsPK().getFoldername() + ""));
+            fgF.edit(getSelectedFoldergroups());
+            lF.create(new Logging(new Date(System.currentTimeMillis()), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), getClass().getName(), "INFO", selectedFoldergroups.getFoldergroupsPK().getGroupname() + " has been edited in: " + selectedFoldergroups.getFoldergroupsPK().getFoldername() + ""));
+            selectedFoldergroups = null;
             FacesMessage msg = new FacesMessage();
             msg.setSeverity(FacesMessage.SEVERITY_INFO);
             msg.setSummary("Group edited sucsessfully!");
@@ -371,9 +374,4 @@ public class FoldersEdit {
         }
     }
 
-    public void onCancel(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Editing Cancelled", ((Foldergroups) event.getObject()).getFoldergroupsPK().getGroupname());
-
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-    }
 }
