@@ -17,7 +17,7 @@
 
                             <p:growl id="messages" showDetail="true" />  
 
-                            <p:contextMenu for="treeSingle">  
+                            <p:contextMenu for="treeSingle" >  
 
                                 <p:menuitem value="Delete" update="treeSingle" actionListener="#{foldersEdit.deleteNode()}" icon="ui-icon-close"/>
                                 <p:menuitem value="Add folder" update="treeSingle" onclick="dlg.show()" icon="ui-icon-plus"/>
@@ -41,7 +41,7 @@
                                 <p:column headerText="Groups">
 
 
-                                    <p:dataTable var="gr" value="#{foldersEdit.getGrList(node)}" id="memList2" paginator="true" rows="10" editable="true">  
+                                    <p:dataTable var="gr" value="#{foldersEdit.getGrList(node)}" id="memList2" paginator="true" rows="10" editable="true" transient="true">  
 
                                         <f:facet name="header">  
                                             Groups
