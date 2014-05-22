@@ -6,8 +6,6 @@
 package controllerClasses.special;
 
 import controllerClasses.special.model.LoggingModel;
-import entityModels.Logging;
-import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -27,7 +25,7 @@ public class LogEdit {
 
     private LoggingModel loggList;
 
-    private Logging selectedLog = new Logging();
+    private Object selectedLog;
 
     
     @EJB
@@ -36,21 +34,22 @@ public class LogEdit {
     @PostConstruct
     public void init() {
         loggList = new LoggingModel(lF.findAll());
-        selectedLog = new Logging(new Date(2006, 2, 12), "dsd", "dsd", "dsd", "ds");
+       
     }
 
     public LoggingModel getLoggList() {
         return loggList;
     }
 
-    public Logging getSelectedLog() {
+    public Object getSelectedLog() {
         return selectedLog;
     }
 
-    public void setSelectedLog(Logging selectedLog) {
-       Logging log = ((Logging) selectedLog);
-        this.selectedLog = log;
+    public void setSelectedLog(Object selectedLog) {
+        this.selectedLog = selectedLog;
     }
+
+    
 
     public void setlF(LoggingFacade lF) {
         this.lF = lF;
