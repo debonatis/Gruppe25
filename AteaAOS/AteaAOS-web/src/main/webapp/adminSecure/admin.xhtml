@@ -327,12 +327,12 @@
 
                                 </h:form>
                             </p:tab>
-                            <p:tab>
+                            <p:tab title="See Log">
                                 <h:form id="form2">
                                     <p:dataTable var="log" value="#{logEdit.loggList}" paginator="true" rows="10"
                                                  paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
                                                  rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{logEdit.selectedLog}" id="logTable" lazy="true">
-                                        <p:ajax event="rowSelect" listener="#{logEdit.onRowSelect}" update=":form2:logDetail" oncomplete="logDialog.show()" />
+                                        <p:ajax event="rowSelect" listener="#{logEdit.onRowSelect}" update=":tabView:form2:logDetail" oncomplete="logDialog.show()" />
                                         <p:column headerText="Date" sortBy="#{log.dated}" filterBy="#{log.dated}">
                                             <h:outputText value="#{log.dated}" >
                                                 <f:convertDateTime dateStyle="full" type="date" />
@@ -352,7 +352,7 @@
                                         </p:column>
                                     </p:dataTable>
 
-                                    <p:dialog header="Car Detail" widgetVar="logDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                                    <p:dialog header="Log Detail" widgetVar="logDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
                                         <p:outputPanel id="logDetail" style="text-align:center;">
                                             <p:panelGrid  columns="2" rendered="#{not empty dtLazyView.selectedCar}" columnClasses="label,value">
                                                
