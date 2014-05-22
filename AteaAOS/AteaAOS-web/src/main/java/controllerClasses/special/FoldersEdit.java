@@ -59,6 +59,7 @@ public class FoldersEdit {
     private String nameText = "";
 
     private TreeMap<String, TreeNode> treeMap = new TreeMap<>();
+    private String[] list = {"true","false"};
 
     public FoldersEdit() {
 
@@ -210,9 +211,15 @@ public class FoldersEdit {
         this.selectedNode = selectedNode;
     }
 
-    public Boolean value(String k) {
-        return Boolean.valueOf(k);
+    public String[] getList() {
+        return list;
     }
+
+    public void setList(String[] list) {
+        this.list = list;
+    }
+
+    
 
     public void delSecGroup(Foldergroups g) {
         fgF.remove(g);
