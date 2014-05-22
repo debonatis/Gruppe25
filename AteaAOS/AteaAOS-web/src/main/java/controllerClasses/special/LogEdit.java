@@ -54,7 +54,7 @@ public class LogEdit {
     }
 
     public void onRowSelect(SelectEvent event) {
-        FacesMessage msg = new FacesMessage("Log Selected", ((Logging) event.getObject()).getMessage());
+        FacesMessage msg = new FacesMessage("Log Selected", "");
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 }
