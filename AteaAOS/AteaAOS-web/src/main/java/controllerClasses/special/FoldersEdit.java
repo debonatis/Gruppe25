@@ -79,6 +79,7 @@ public class FoldersEdit {
                 fF.create(new Folders("Root", projectID));
 
             }
+            selectedNode = root;
             List<Foldergroups> k = fgF.findAllPro(projectID);
             List<Folders> l = fF.findAllPro(projectID);
 
@@ -115,6 +116,7 @@ public class FoldersEdit {
         String proString = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID");
         root = new DefaultTreeNode(new Folders(new FoldersPK("Root", proString)), null);
         root.setExpanded(true);
+        selectedNode=root;
         treeMap = new TreeMap<>();
         nodes = new HashMap<>();
         getFoldersFromDB();
