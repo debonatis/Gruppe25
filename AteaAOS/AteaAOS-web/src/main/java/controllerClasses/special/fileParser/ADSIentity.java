@@ -7,6 +7,7 @@ package controllerClasses.special.fileParser;
 
 import controllerClasses.special.UsersToGroups;
 import entityModels.Distributiongroups;
+import entityModels.Emailcontacts;
 import entityModels.Groups;
 import entityModels.Userdistribution;
 import entityModels.Users;
@@ -24,8 +25,17 @@ public class ADSIentity {
     private List<Users> usr = new ArrayList<>();
     private List<UsersToGroups> usrgr = new ArrayList<>();
     private List<Userdistribution> usrdgr = new ArrayList<>();
+    private List<Emailcontacts> ec = new ArrayList<>();
 
     public ADSIentity() {
+    }
+
+    public List<Emailcontacts> getEc() {
+        return ec;
+    }
+
+    public void setEc(List<Emailcontacts> ec) {
+        this.ec = ec;
     }
 
     public List<Distributiongroups> getDgr() {

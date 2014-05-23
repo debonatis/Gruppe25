@@ -7,6 +7,8 @@ package controllerClasses.special.fileParser;
 
 import entityModels.Distributiongroups;
 import entityModels.DistributiongroupsPK;
+import entityModels.Emailcontacts;
+import entityModels.EmailcontactsPK;
 import entityModels.Groups;
 import entityModels.GroupsPK;
 import entityModels.Groupusers;
@@ -44,6 +46,7 @@ import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 import persistClasses.DistributiongroupsFacade;
+import persistClasses.EmailcontactsFacade;
 import persistClasses.GroupsFacade;
 import persistClasses.GroupusersFacade;
 import persistClasses.UserdistributionFacade;
@@ -68,6 +71,8 @@ public class FileUpload implements Serializable {
     private UserdistributionFacade udF;
     @EJB
     private GroupusersFacade guF;
+    @EJB
+    private EmailcontactsFacade ecF;
     private UploadedFile file;
     private boolean checkSave = false;
     private File fil;
@@ -174,7 +179,24 @@ public class FileUpload implements Serializable {
                 for (Value<?> s : oc) {
                     ocStringList.add(s.getString());
                 }
-                if (ocStringList.contains("person") && ocStringList.contains("user") && !ocStringList.contains("computer") &&!ocStringList.contains("contact")) {
+                if(ocStringList.contains("person") && !ocStringList.contains("user") && !ocStringList.contains("computer") &&ocStringList.contains("contact")){
+                    Emailcontacts entity = new Emailcontacts(new EmailcontactsPK());
+                    try {
+                        entity.getEmailcontactsPK().setContactname((entry.get("cn").getString() == null) ? "NOT SET" : entry.get("cn").getString());
+                    } catch (LdapInvalidAttributeValueException ex) {
+                        Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
+                        entity.getEmailcontactsPK().setContactname("NOT SET");
+                    }
+                    try {
+                        entity.setEmailaddress((entry.get("mail").getString() == null) ? "NOT SET" : entry.get("mail").getString());
+                    } catch (LdapInvalidAttributeValueException ex) {
+                        Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, ex);
+                        entity.setEmailaddress("NOT SET");
+                    }
+                    entity.getEmailcontactsPK().setProjectid((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("projectID"));
+                    list.getEc().add(entity);
+                    
+                }else if (ocStringList.contains("person") && ocStringList.contains("user") && !ocStringList.contains("computer") &&!ocStringList.contains("contact")) {
                     ep++;
                     Users entity = new Users(new UsersPK());
                     try {
@@ -369,6 +391,15 @@ public class FileUpload implements Serializable {
                 FacesMessage msg = new FacesMessage("Unsuccesful", (usr.getUsersPK().getUsername()) + " is probably already made.");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
+            
+        }
+        for(Emailcontacts ec :list.getEc()){
+            try {
+                ecF.create(ec);
+            } catch (Exception e) {
+                FacesMessage msg = new FacesMessage("Unsuccesful", ec.getEmailcontactsPK().getContactname() + " is probably already made.");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+            }
         }
         checkSave = true;
         
@@ -451,6 +482,7 @@ public class FileUpload implements Serializable {
         list.getDgr().clear();
         list.getGr().clear();
         list.getUsr().clear();
+        list.getEc().clear();
         fil.delete();
     }
     
